@@ -5,15 +5,20 @@ import { TranslateService } from '@ngx-translate/core';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { environment } from 'environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
     selector   : 'fuse-toolbar',
     templateUrl: './toolbar.component.html',
-    styleUrls  : ['./toolbar.component.scss']
+    styleUrls  : ['./toolbar.component.scss'],
+    providers: []
 })
 
 export class FuseToolbarComponent
 {
+    profile: any = {};
+    profileDetailURL = `${window.location.origin}/#/profile`;
+
     userStatusOptions: any[];
     languages: any;
     selectedLanguage: any;
@@ -25,6 +30,7 @@ export class FuseToolbarComponent
         private router: Router,
         private fuseConfig: FuseConfigService,
         private sidebarService: FuseSidebarService,
+        private jwtHelper: JwtHelperService,
         private translate: TranslateService
     )
     {
@@ -88,6 +94,12 @@ export class FuseToolbarComponent
             this.noNav = settings.layout.navigation === 'none';
         });
 
+    }
+
+    // tslint:disable-next-line:use-life-cycle-interface
+    ngOnInit() {
+        this.profile = this.jwtHelper.decodeToken(localStorage.getItem(environment.token));
+        console.log(this.profile);
     }
 
     toggleSidebarOpened(key)

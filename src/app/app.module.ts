@@ -17,6 +17,12 @@ import { FuseFakeDbService } from './fuse-fake-db/fuse-fake-db.service';
 import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
 import { ToastyModule } from 'ng2-toasty';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'environments/environment';
+
+export function tokenGetter() {
+    return localStorage.getItem(environment.token);
+  }
 
 const appRoutes: Routes = [
     {
@@ -71,7 +77,14 @@ const appRoutes: Routes = [
 
         AppStoreModule,
         FuseMainModule,
-        ToastyModule.forRoot()
+        ToastyModule.forRoot(),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                whitelistedDomains: environment.whitelistedDomains,
+                // skipWhenExpired: true
+            }
+        })
     ],
     bootstrap   : [
         AppComponent
