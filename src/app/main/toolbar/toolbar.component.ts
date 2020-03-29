@@ -99,7 +99,6 @@ export class FuseToolbarComponent
     // tslint:disable-next-line:use-life-cycle-interface
     ngOnInit() {
         this.profile = this.jwtHelper.decodeToken(localStorage.getItem(environment.token));
-        console.log(this.profile);
     }
 
     toggleSidebarOpened(key)
