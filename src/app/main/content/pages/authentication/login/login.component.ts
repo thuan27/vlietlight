@@ -12,14 +12,13 @@ import { ToastyService, ToastyConfig } from 'ng2-toasty';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-    selector   : 'fuse-login',
+    selector: 'fuse-login',
     templateUrl: './login.component.html',
-    styleUrls  : ['./login.component.scss'],
-    animations : fuseAnimations,
+    styleUrls: ['./login.component.scss'],
+    animations: fuseAnimations,
     providers: [APIConfig, ToastyService]
 })
-export class FuseLoginComponent implements OnInit
-{
+export class FuseLoginComponent implements OnInit {
     loginForm: FormGroup;
     loginFormErrors: any;
     private loginURL: string;
@@ -36,19 +35,18 @@ export class FuseLoginComponent implements OnInit
         private http: HttpClient,
         private toastyService: ToastyService,
         private toastyConfig: ToastyConfig
-    )
-    {
+    ) {
         this.toastyConfig.position = 'top-right';
         this.fuseConfig.setConfig({
             layout: {
                 navigation: 'none',
-                toolbar   : 'none',
-                footer    : 'none'
+                toolbar: 'none',
+                footer: 'none'
             }
         });
 
         this.loginFormErrors = {
-            username   : {},
+            username: {},
             password: {}
         };
 
@@ -56,22 +54,21 @@ export class FuseLoginComponent implements OnInit
 
         const token = localStorage.getItem(environment.token);
         if (token !== null) {
-            this.http.get(this.api.API_User_Token,  { headers: this._Func.AuthHeader() })
-            .subscribe((data) => {
-                this.router.navigate(['apps/dashboards/analytics']);
-            },
-            err => {
-                this.loginForm = this.formBuilder.group({
-                    username: ['', Validators.compose([Validators.required])],
-                    password: ['', [Validators.required]]
-                });
-            }
-            );
+            this.http.get(this.api.API_User_Token, { headers: this._Func.AuthHeader() })
+                .subscribe((data) => {
+                    this.router.navigate(['apps/dashboards/analytics']);
+                },
+                    err => {
+                        this.loginForm = this.formBuilder.group({
+                            username: ['', Validators.compose([Validators.required])],
+                            password: ['', [Validators.required]]
+                        });
+                    }
+                );
         }
     }
 
-    ngOnInit()
-    {
+    ngOnInit() {
         // localStorage.clear();
         this.buildFrom();
 
@@ -95,32 +92,31 @@ export class FuseLoginComponent implements OnInit
         });
     }
 
-    onSubmit()
-    {
+    onSubmit() {
         this.http.post(this.loginURL, this.loginForm.value)
-        .subscribe(
-            (res) => {
-                if (res['code'] === 405) {
-                    this.toastyService.warning('No Token Found.');
-                    // this.messages = {
-                    //     status: 'danger',
-                    //     txt: res.message +
-                    //         '. Please click <a id="resetPass" href="#/reset-password?token=' +
-                    //         res.token + '">here</a> to reset password.'
-                    // };
-                } else {
-                    if (res['data'].token) {
-                        localStorage.setItem(environment.token, res['data'].token);
-                        this.router.navigate(['apps/dashboards/analytics']);
+            .subscribe(
+                (res) => {
+                    if (res['code'] === 405) {
+                        this.toastyService.warning('No Token Found.');
+                        // this.messages = {
+                        //     status: 'danger',
+                        //     txt: res.message +
+                        //         '. Please click <a id="resetPass" href="#/reset-password?token=' +
+                        //         res.token + '">here</a> to reset password.'
+                        // };
                     } else {
-                        this.toastyService.error('No Token Found.');
+                        if (res['data'].token) {
+                            localStorage.setItem(environment.token, res['data'].token);
+                            this.router.navigate(['apps/dashboards/analytics']);
+                        } else {
+                            this.toastyService.error('No Token Found.');
+                        }
                     }
+                },
+                (err) => {
+                    this.toastyService.warning(err.error.message);
                 }
-            },
-            (err) => {
-                this.toastyService.warning(err.error.message);
-            }
-        );
+            );
         // for ( const field in this.loginFormErrors )
         // {
         //     if ( !this.loginFormErrors.hasOwnProperty(field) )
@@ -139,10 +135,10 @@ export class FuseLoginComponent implements OnInit
         //         this.loginFormErrors[field] = control.errors;
         //     }
         // }
-        
+
     }
 
-    private checkVersionChange(isReloadPage: boolean = false ) {
+    private checkVersionChange(isReloadPage: boolean = false) {
         const versionURL = `${window.location.origin}${window.location.pathname}/assets/version.txt?t=${Date.now()}`;
         const curAppVersion = localStorage.getItem(this.versionName);
         const xhr = new XMLHttpRequest();
