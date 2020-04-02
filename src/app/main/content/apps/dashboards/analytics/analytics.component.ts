@@ -25,6 +25,11 @@ export class FuseAnalyticsDashboardComponent
 
         // Register the custom chart.js plugin
         this.registerCustomChartJSPlugin();
+        this.analyticsDashboardService.getList().subscribe(
+            data => {
+                console.log(data);
+            }
+        );
     }
 
     /**

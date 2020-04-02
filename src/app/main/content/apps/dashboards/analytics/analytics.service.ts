@@ -46,4 +46,8 @@ export class AnalyticsDashboardService implements Resolve<any>
                 }, reject);
         });
     }
+
+    getList() {
+        return this.http.get('http://35.240.239.183/demoapi/awbs');
+    }
 }

@@ -34,6 +34,12 @@ export class FuseToolbarComponent
         private translate: TranslateService
     )
     {
+        if (localStorage.getItem(environment.token)) {
+            this.profile = this.jwtHelper.decodeToken(localStorage.getItem(environment.token));
+        }
+        else {
+            this.profile['fullname'] = '';
+        }
         this.userStatusOptions = [
             {
                 'title': 'Online',
@@ -94,11 +100,6 @@ export class FuseToolbarComponent
             this.noNav = settings.layout.navigation === 'none';
         });
 
-    }
-
-    // tslint:disable-next-line:use-life-cycle-interface
-    ngOnInit() {
-        this.profile = this.jwtHelper.decodeToken(localStorage.getItem(environment.token));
     }
 
     toggleSidebarOpened(key)

@@ -21,6 +21,7 @@ import { Functions } from '@fuse/core/function';
 export class FuseLoginComponent implements OnInit {
     loginForm: FormGroup;
     loginFormErrors: any;
+    checkRemember = false;
     private loginURL: string;
     private callCheckVersion: any;
     private intervalCheckVersion = 2000;
@@ -86,13 +87,39 @@ export class FuseLoginComponent implements OnInit {
     }
 
     private buildFrom() {
-        this.loginForm = this.formBuilder.group({
-            username: ['', [Validators.required]],
-            password: ['', [Validators.required]]
-        });
+        if (localStorage.getItem(environment.username)) {
+            this.loginForm = this.formBuilder.group({
+                username: [localStorage.getItem(environment.username), [Validators.required]],
+                password: [localStorage.getItem(environment.password), [Validators.required]]
+            });
+            this.checkRemember = true;
+        }
+        else {
+            this.loginForm = this.formBuilder.group({
+                username: ['', [Validators.required]],
+                password: ['', [Validators.required]]
+            });
+            this.checkRemember = false;
+        }
+
     }
 
+    // tslint:disable-next-line:member-ordering
+    loginURL1;
     onSubmit() {
+        this.loginURL1 = 'http://35.240.239.183/demoapi/users/login';
+        // this.loginURL1 = 'https://apigw-live3.seldatdirect.com/qc';
+        // const authHeader = new HttpHeaders({
+        //     'Access-Control-Allow-Origin': '*',
+        //     'Access-Control-Allow-Credentials': 'false',
+        //     'Access-Control-Allow-Methods' : 'GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH',
+        //     // tslint:disable-next-line:max-line-length
+        //     'Access-Control-Allow-Headers' : 'Authorization,status,date,content-type,server,access-control-allow-origin,access-control-allow-headers,access-control-allow-methods,x-kong-upstream-latency,x-kong-proxy-latency,via,cache-control',
+        //     // tslint:disable-next-line:max-line-length
+        //     'Access-Control-Expose-Headers': 'status, date, content-type, server, access-control-allow-origin, access-control-allow-headers, access-control-allow-methods, x-kong-upstream-latency, x-kong-proxy-latency, via, cache-control',
+        // });
+
+        // const headers = new HttpHeaders().append('Access-Control-Allow-Origin', '*');
         this.http.post(this.loginURL, this.loginForm.value)
             .subscribe(
                 (res) => {
@@ -106,6 +133,10 @@ export class FuseLoginComponent implements OnInit {
                         // };
                     } else {
                         if (res['data'].token) {
+                            if (this.checkRemember) {
+                                localStorage.setItem(environment.username, this.loginForm.value['username']);
+                                localStorage.setItem(environment.password, this.loginForm.value['password']);
+                            }
                             localStorage.setItem(environment.token, res['data'].token);
                             this.router.navigate(['apps/dashboards/analytics']);
                         } else {
@@ -142,23 +173,24 @@ export class FuseLoginComponent implements OnInit {
         const versionURL = `${window.location.origin}${window.location.pathname}/assets/version.txt?t=${Date.now()}`;
         const curAppVersion = localStorage.getItem(this.versionName);
         const xhr = new XMLHttpRequest();
-        const that = this;
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 const newAppVersion = xhr.responseText.toString().trim();
 
-                console.log(newAppVersion);
                 if (isReloadPage) {
                     localStorage.setItem(this.versionName, newAppVersion);
                     return;
                 }
 
                 if (!curAppVersion || newAppVersion !== curAppVersion) {
-                    // that.
                 }
             }
             xhr.open('GET', versionURL);
             xhr.send();
         };
+    }
+
+    changeCheckbox(e) {
+        this.checkRemember = e.checked;
     }
 }
