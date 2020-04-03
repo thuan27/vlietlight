@@ -19,7 +19,8 @@ export const locale = {
             'FILE_MANAGER': 'File Manager',
             'CONTACTS'    : 'Contacts',
             'TODO'        : 'To-Do',
-            'SCRUMBOARD'  : 'Scrumboard'
+            'SCRUMBOARD'  : 'Scrumboard',
+            'LIST'        : 'List'
         }
     }
 };

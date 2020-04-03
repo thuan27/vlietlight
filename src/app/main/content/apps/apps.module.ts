@@ -53,6 +53,10 @@ const routes = [
     {
         path        : 'scrumboard',
         loadChildren: './scrumboard/scrumboard.module#FuseScrumboardModule'
+    },
+    {
+        path        : 'list',
+        loadChildren: './list/list.module#FuseListModule'
     }
 ];
 

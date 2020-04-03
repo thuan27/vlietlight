@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../../../../environments/environment';
+import { Functions } from '@fuse/core/function';
 
 @Injectable()
 export class AnalyticsDashboardService implements Resolve<any>
@@ -10,7 +12,8 @@ export class AnalyticsDashboardService implements Resolve<any>
     widgets: any[];
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private _Func: Functions
     )
     {
     }
@@ -45,9 +48,5 @@ export class AnalyticsDashboardService implements Resolve<any>
                     resolve(response);
                 }, reject);
         });
-    }
-
-    getList() {
-        return this.http.get('http://35.240.239.183/demoapi/awbs');
     }
 }

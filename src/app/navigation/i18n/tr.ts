@@ -19,7 +19,8 @@ export const locale = {
             'FILE_MANAGER': 'Dosya Yöneticisi',
             'CONTACTS'    : 'Kişiler',
             'TODO'        : 'Yapılacaklar',
-            'SCRUMBOARD'  : 'Proje'
+            'SCRUMBOARD'  : 'Proje',
+            'LIST'        : 'List'
         }
     }
 };

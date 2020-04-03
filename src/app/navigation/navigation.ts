@@ -28,6 +28,27 @@ export const navigation = [
                 ]
             },
             {
+                'id'       : 'list',
+                'title'    : 'List',
+                'translate': 'NAV.LIST',
+                'type'     : 'collapse',
+                'icon'     : 'border_all',
+                'children' : [
+                    {
+                        'id'   : 'listFrist',
+                        'title': 'ListFrist',
+                        'type' : 'item',
+                        'url'  : '/apps/list/frist'
+                    },
+                    {
+                        'id'   : 'listSecond',
+                        'title': 'ListSecond',
+                        'type' : 'item',
+                        'url'  : '/apps/dashboards/project'
+                    }
+                ]
+            },
+            {
                 'id'       : 'calendar',
                 'title'    : 'Calendar',
                 'translate': 'NAV.CALENDAR',

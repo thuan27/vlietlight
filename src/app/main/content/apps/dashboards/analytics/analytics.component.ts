@@ -8,7 +8,7 @@ import { fuseAnimations } from '@fuse/animations';
     templateUrl  : './analytics.component.html',
     styleUrls    : ['./analytics.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations   : fuseAnimations,
 })
 export class FuseAnalyticsDashboardComponent
 {
@@ -25,11 +25,6 @@ export class FuseAnalyticsDashboardComponent
 
         // Register the custom chart.js plugin
         this.registerCustomChartJSPlugin();
-        this.analyticsDashboardService.getList().subscribe(
-            data => {
-                console.log(data);
-            }
-        );
     }
 
     /**
