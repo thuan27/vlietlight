@@ -6,9 +6,9 @@
             <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="secondary-text s-16">home</mat-icon>
                 <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">List Frist</span>
+                <span class="secondary-text">User List</span>
             </div>
-            <div class="h2 mt-16">List Data</div>
+            <div class="h2 mt-16">User List</div>
         </div>
 
         <a mat-raised-button class="reference-button mat-white-bg mt-16 mt-sm-0" href="https://github.com/swimlane/ngx-datatable" target="_blank">
@@ -19,9 +19,10 @@
     <!-- / HEADER -->
 
     <!-- CONTENT -->
-    <div class="content p-24">
+    <div class="p-24">
 
-        <ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable" [selectionType]="'checkbox'" [limit]="10">
+        <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable" [selectionType]="'checkbox'"
+            [limit]="10">
 
             <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
                 <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
@@ -33,21 +34,13 @@
                 </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Code" prop="awb_code"></ngx-datatable-column>
+            <ngx-datatable-column [width]="200" name="User Name" prop="username"></ngx-datatable-column>
 
-            <ngx-datatable-column name="From Phone" prop="from_phone"></ngx-datatable-column>
+            <ngx-datatable-column [width]="300" name="Email" prop="email"></ngx-datatable-column>
 
-            <ngx-datatable-column name="From Email" prop="from_email"></ngx-datatable-column>
+            <ngx-datatable-column [width]="200" name="Created Date" prop="created_at"></ngx-datatable-column>
 
-            <ngx-datatable-column name="From Address" prop="from_address"></ngx-datatable-column>
-
-            <ngx-datatable-column name="Created Date" prop="created_at"></ngx-datatable-column>
-
-            <ngx-datatable-column name="Updated Date" prop="updated_at"></ngx-datatable-column>
-
-            <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
-
-            <ngx-datatable-column name="Description" prop="description  "></ngx-datatable-column>
+            <ngx-datatable-column [width]="200" name="Updated Date" prop="updated_at"></ngx-datatable-column>
 
         </ngx-datatable>
 

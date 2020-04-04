@@ -1,16 +1,16 @@
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, MatCheckboxModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatSelectModule, MatDatepickerModule } from '@angular/material';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { listRoutes } from './list.routers';
-import { ListFristService } from './list-frist/list-frist.service';
-import { ListDataComponent } from './list-frist/list-frist.component';
+import { RouterModule } from '@angular/router';
+import { listRoutes } from './inbound.routers';
+import { AWBComponent } from './awb/awb.component';
+import { AWBService } from './awb/awb.service';
 
 @NgModule({
     declarations: [
-        ListDataComponent
+        AWBComponent,
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -19,11 +19,14 @@ import { ListDataComponent } from './list-frist/list-frist.component';
         MatIconModule,
         NgxDatatableModule,
         FuseSharedModule,
-        GoogleMapsModule
+        GoogleMapsModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule
     ],
     providers   : [
-        ListFristService
+        AWBService
     ]
 })
-export class FuseListModule {
+export class FuseInboundModule {
 }

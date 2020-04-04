@@ -1,0 +1,76 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">AWB List</span>
+            </div>
+            <div class="h2 mt-16">AWB List</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="p-24">
+
+        <form [formGroup]="searchForm" autocomplete="off">
+            <mat-form-field>
+                <input ngControl="awb_code" matInput placeholder="Code">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Status">
+                    <mat-option *ngFor="let item of status" [value]="item.value">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="dpCreated" placeholder="Created Date" disabled>
+                <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
+                <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="dpUpdated" placeholder="Updated Date" disabled>
+                <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
+                <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <button mat-raised-button color="accent">Search</button>
+            <button mat-raised-button>Reset</button>
+        </form>
+
+        <ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable" [selectionType]="'checkbox'" [limit]="10">
+
+            <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
+                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                    <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
+                </ng-template>
+
+                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                    <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [width]="100" name="Code" prop="awb_code"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="80" name="From Phone" prop="from_phone"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="300" name="From Email" prop="from_email"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="300" name="From Address" prop="from_address"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="Created Date" prop="created_at"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="Updated Date" prop="updated_at"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Description" prop="description  "></ngx-datatable-column>
+
+        </ngx-datatable>
+
+    </div>
+
+</div>

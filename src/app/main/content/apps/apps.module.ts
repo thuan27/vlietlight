@@ -55,9 +55,13 @@ const routes = [
         loadChildren: './scrumboard/scrumboard.module#FuseScrumboardModule'
     },
     {
-        path        : 'list',
-        loadChildren: './list/list.module#FuseListModule'
-    }
+        path        : 'master-data',
+        loadChildren: './master-data/master-data.module#FuseMasterDataModule'
+    },
+    {
+        path        : 'inbound',
+        loadChildren: './inbound/inbound.module#FuseInboundModule'
+    },
 ];
 
 @NgModule({

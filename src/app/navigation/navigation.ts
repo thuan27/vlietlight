@@ -28,23 +28,32 @@ export const navigation = [
                 ]
             },
             {
-                'id'       : 'list',
-                'title'    : 'List',
-                'translate': 'NAV.LIST',
+                'id'       : 'master-data',
+                'title'    : 'Master Data',
+                'translate': 'NAV.MASTERDATA',
                 'type'     : 'collapse',
                 'icon'     : 'border_all',
                 'children' : [
                     {
-                        'id'   : 'listFrist',
-                        'title': 'ListFrist',
+                        'id'   : 'UsersList',
+                        'title': 'Users List',
                         'type' : 'item',
-                        'url'  : '/apps/list/frist'
-                    },
+                        'url'  : '/apps/master-data/users'
+                    }
+                ]
+            },
+            {
+                'id'       : 'inbound',
+                'title'    : 'Inbound',
+                'translate': 'NAV.INBOUND',
+                'type'     : 'collapse',
+                'icon'     : 'label_outline',
+                'children' : [
                     {
-                        'id'   : 'listSecond',
-                        'title': 'ListSecond',
+                        'id'   : 'AWBList',
+                        'title': 'AWB List',
                         'type' : 'item',
-                        'url'  : '/apps/dashboards/project'
+                        'url'  : '/apps/inbound/awb'
                     }
                 ]
             },

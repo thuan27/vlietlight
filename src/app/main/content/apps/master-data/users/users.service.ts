@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 
 @Injectable()
-export class ListFristService
+export class UsersService
 {
     constructor(
         private http: HttpClient,
@@ -15,6 +15,6 @@ export class ListFristService
     }
 
     getList() {
-        return this.http.get(environment.API.apiBase + '/awbs', { headers: this._Func.AuthHeader() });
+        return this.http.get(environment.API.apiBase + '/users/index', { headers: this._Func.AuthHeader() });
     }
 }

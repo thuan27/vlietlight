@@ -20,7 +20,8 @@ export const locale = {
             'CONTACTS'    : 'Contacts',
             'TODO'        : 'To-Do',
             'SCRUMBOARD'  : 'Scrumboard',
-            'LIST'        : 'List'
+            'MASTERDATA'  : 'Master Data',
+            'INBOUND'     : 'Inbound'
         }
     }
 };
