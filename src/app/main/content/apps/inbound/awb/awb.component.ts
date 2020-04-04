@@ -45,7 +45,10 @@ export class AWBComponent implements OnInit {
 
     private buildForm() {
         this.searchForm = this.formBuilder.group({
-            awb_code: ['']
+            awb_code: [''],
+            awb_sts: [''],
+            created_at: [''],
+            updated_at: ['']
         });
     }
 
@@ -54,5 +57,9 @@ export class AWBComponent implements OnInit {
             this.rows = data;
             this.loadingIndicator = false;
         });
+    }
+
+    search() {
+        console.log(this.searchForm.value);
     }
 }
