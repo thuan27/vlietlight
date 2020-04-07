@@ -10,6 +10,21 @@
             </div>
             <div class="h2 mt-16">AWB List</div>
         </div>
+        <div class="reference-button mat-white-bg">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="create()">
+                    <mat-icon>add_circle_outline</mat-icon>
+                    <span>Create</span>
+                </button>
+                <!-- <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span>Disable alerts</span>
+                </button> -->
+            </mat-menu>
+        </div>
     </div>
     <!-- / HEADER -->
 
@@ -28,12 +43,15 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field>
-                <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date" disabled>
+                <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date">
                 <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
                 <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
+                <mat-error *ngIf="searchForm.controls.created_at.errors?.date">
+                    La date d'envoi n'est pas <strong>valide</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput formControlName="updated_at" [matDatepicker]="dpUpdated" placeholder="Updated Date" disabled>
+                <input matInput formControlName="updated_at" [matDatepicker]="dpUpdated" placeholder="Updated Date">
                 <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
                 <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -43,13 +61,13 @@
 
         <ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable" [selectionType]="'checkbox'" [limit]="10">
 
-            <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
-                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+            <ngx-datatable-column [width]="80" [canAutoResize]="false" [sortable]="false">
+                <!-- <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
                     <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
-                </ng-template>
+                </ng-template> -->
 
-                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
-                    <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let- let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                    <mat-checkbox [checked]="isSelected" (click)="onCheck(isSelected, row)" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
                 </ng-template>
             </ngx-datatable-column>
 

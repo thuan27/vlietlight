@@ -53,7 +53,8 @@ export const navigation = [
                         'id'   : 'AWBList',
                         'title': 'AWB List',
                         'type' : 'item',
-                        'url'  : '/apps/inbound/awb'
+                        'url'  : '/apps/inbound/awb',
+                        'exactMatch': true
                     }
                 ]
             },

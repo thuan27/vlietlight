@@ -15,6 +15,7 @@ import { FuseMainComponent } from './main.component';
 import { FuseDirectivesModule } from '@fuse/directives/directives';
 import { ToastyModule } from 'ng2-toasty';
 import { Functions } from '@fuse/core/function';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { Functions } from '@fuse/core/function';
         ToastyModule
     ],
     providers: [
-        Functions
+        Functions,
+        DatePipe
     ]
 })
 export class FuseMainModule

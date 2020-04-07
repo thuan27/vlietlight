@@ -55,17 +55,18 @@ export class FuseLoginComponent implements OnInit {
 
         const token = localStorage.getItem(environment.token);
         if (token !== null) {
-            this.http.get(this.api.API_User_Token, { headers: this._Func.AuthHeader() })
-                .subscribe((data) => {
-                    this.router.navigate(['apps/dashboards/analytics']);
-                },
-                    err => {
-                        this.loginForm = this.formBuilder.group({
-                            username: ['', Validators.compose([Validators.required])],
-                            password: ['', [Validators.required]]
-                        });
-                    }
-                );
+            // this.http.get(this.api.API_User_Token, { headers: this._Func.AuthHeader() })
+            //     .subscribe((data) => {
+            //         this.router.navigate(['apps/dashboards/analytics']);
+            //     },
+            //         err => {
+            //             this.loginForm = this.formBuilder.group({
+            //                 username: ['', Validators.compose([Validators.required])],
+            //                 password: ['', [Validators.required]]
+            //             });
+            //         }
+            //     );
+            this.router.navigate(['apps/dashboards/analytics']);
         }
     }
 
