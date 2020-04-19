@@ -39,6 +39,12 @@ export const navigation = [
                         'title': 'Users List',
                         'type' : 'item',
                         'url'  : '/apps/master-data/users'
+                    },
+                    {
+                        'id'   : 'CustomersList',
+                        'title': 'Customers List',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/customers'
                     }
                 ]
             },

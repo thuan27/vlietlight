@@ -19,10 +19,6 @@
                     <mat-icon>add_circle_outline</mat-icon>
                     <span>Create</span>
                 </button>
-                <!-- <button mat-menu-item>
-                    <mat-icon>notifications_off</mat-icon>
-                    <span>Disable alerts</span>
-                </button> -->
             </mat-menu>
         </div>
     </div>
@@ -31,7 +27,7 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <form [formGroup]="searchForm" (submit)="search()" autocomplete="off">
+        <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
             <mat-form-field>
                 <input formControlName="awb_code" matInput placeholder="Code">
             </mat-form-field>
@@ -59,7 +55,8 @@
             <button mat-raised-button>Reset</button>
         </form>
 
-        <ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable" [selectionType]="'checkbox'" [limit]="10">
+        <ngx-datatable id="example" (tableContextmenu)="onTableContextMenu($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable"
+            [selectionType]="'checkbox'" [limit]="10">
 
             <ngx-datatable-column [width]="80" [canAutoResize]="false" [sortable]="false">
                 <!-- <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
@@ -88,6 +85,8 @@
             <ngx-datatable-column name="Description" prop="description  "></ngx-datatable-column>
 
         </ngx-datatable>
+        <fuse-context-menu [element]="element" [content]="content" [isShow]="contextmenu" [x]="contextmenuX" [y]="contextmenuY">
+        </fuse-context-menu>
 
     </div>
 

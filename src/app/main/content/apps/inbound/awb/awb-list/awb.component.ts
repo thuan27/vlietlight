@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { AWBService } from './awb.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
@@ -13,6 +13,11 @@ import { Functions } from '@fuse/core/function';
     providers: [AWBService]
 })
 export class AWBComponent implements OnInit {
+    contextmenuX: any;
+    contextmenuY: any;
+    contextmenu = false;
+    content;
+    element;
     rows: any;
     loadingIndicator = true;
     reorderable = true;
@@ -34,6 +39,8 @@ export class AWBComponent implements OnInit {
             name: 'Completed'
         }
     ];
+    xMenuContext: number;
+    yMenuContext: number;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -83,5 +90,28 @@ export class AWBComponent implements OnInit {
 
     create() {
         this.router.navigate(['apps/inbound/awb/create']);
+    }
+
+    onTableContextMenu(event) { 
+        // console.log(event);
+        // console.log(event.event.target);
+        console.log(this.xMenuContext, this.yMenuContext);
+        this.element = event['event']['srcElement']['outerHTML'];
+        // this.content = event['event']['content'];
+        this.contextmenuX = event['event']['pageX'];
+        this.contextmenuY = event['event']['pageY'];
+        this.content = event.event.target;
+        // this.contextmenuX = event.event.target['offsetLeft'] + event.event.target['offsetWidth'];
+        // this.contextmenuY = event.event.target['offsetTop'] + event.event.target['offsetHeight'];
+        this.contextmenu = true;
+        event['event'].preventDefault();
+        event['event'].stopPropagation();
+    }
+
+    @HostListener('document:click', ['$event'])
+    clickedOutside($event) {
+      if ($event.target.className !== 'dropdown-item context-menu') {
+        this.contextmenu = false;
+      }
     }
 }

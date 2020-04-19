@@ -1,16 +1,22 @@
-import { UsersService } from './users/users.service';
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { CustomerListService } from './customer/customer-list/customer-list.service';
+import { UserListService } from './user/user-list/user-list.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, MatCheckboxModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatDatepickerModule, MatSelectModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './master-data.routers';
-import { UsersComponent } from './users/users.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { CreateUserComponent } from './user/create-user/create-user.component';
+import { CreateUserService } from './user/create-user/create-user.service';
 
 @NgModule({
     declarations: [
-        UsersComponent
+        UserListComponent,
+        CreateUserComponent,
+        CustomerListComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -19,10 +25,15 @@ import { UsersComponent } from './users/users.component';
         MatIconModule,
         NgxDatatableModule,
         FuseSharedModule,
-        GoogleMapsModule
+        GoogleMapsModule,
+        MatMenuModule,
+        MatSelectModule,
+        MatDatepickerModule
     ],
     providers   : [
-        UsersService
+        UserListService,
+        CreateUserService,
+        CustomerListService
     ]
 })
 export class FuseMasterDataModule {

@@ -9,11 +9,13 @@ import { listRoutes } from './inbound.routers';
 import { AWBComponent } from './awb/awb-list/awb.component';
 import { AWBService } from './awb/awb-list/awb.service';
 import { AWBDetailComponent } from './awb/awb-detail/awb-detail.component';
+import { ContextMenuComponent } from '../../components/context-menu/context-menu.component';
 
 @NgModule({
     declarations: [
         AWBComponent,
-        AWBDetailComponent
+        AWBDetailComponent,
+        ContextMenuComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),

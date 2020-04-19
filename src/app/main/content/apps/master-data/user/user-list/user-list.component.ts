@@ -1,15 +1,16 @@
-import { UsersService } from './users.service';
+import { UserListService } from './user-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Functions } from '@fuse/core/function';
+import { Router } from '@angular/router';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector   : 'users',
-    templateUrl: './users.component.html',
-    styleUrls  : ['./users.component.scss'],
-    providers: [UsersService]
+    selector   : 'user-list',
+    templateUrl: './user-list.component.html',
+    styleUrls  : ['./user-list.component.scss'],
+    providers: [UserListService]
 })
-export class UsersComponent implements OnInit
+export class UserListComponent implements OnInit
 {
     rows: any;
     loadingIndicator = true;
@@ -18,8 +19,9 @@ export class UsersComponent implements OnInit
     pagination: any;
 
     constructor(
-        private usersService: UsersService,
-        private func: Functions
+        private userListService: UserListService,
+        private func: Functions,
+        private router: Router
         )
     {
     }
@@ -30,7 +32,7 @@ export class UsersComponent implements OnInit
     }
 
     getList(pageNum: number = 1) {
-        this.usersService.getList().subscribe(data => {
+        this.userListService.getList().subscribe(data => {
             console.log(data);
             this.rows = data['data'];
             this.loadingIndicator = false;
@@ -44,5 +46,9 @@ export class UsersComponent implements OnInit
         console.log(e);
         this.perPage = e['offset'];
 
+    }
+
+    create() {
+        this.router.navigate(['apps/master-data/users/create']);
     }
 }
