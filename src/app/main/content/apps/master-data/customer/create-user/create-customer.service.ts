@@ -5,7 +5,7 @@ import { Functions } from '@fuse/core/function';
 // import { environment } from '../../../../../../../environments/environment';
 
 @Injectable()
-export class CreateUserService
+export class CreateCustomerService
 {
     constructor(
         private http: HttpClient,
@@ -14,7 +14,7 @@ export class CreateUserService
     {
     }
 
-    createAWB(param) {
+    createCustomer(param) {
         return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param, { headers: this._Func.AuthHeader() });
     }
 }

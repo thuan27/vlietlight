@@ -1,4 +1,4 @@
-import { CustomerListService } from './customer-list.service';
+import { CountryListService } from './country-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Functions } from '../../../../../../../@fuse/core/function';
@@ -6,12 +6,12 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector   : 'customer-list',
-    templateUrl: './customer-list.component.html',
-    styleUrls  : ['./customer-list.component.scss'],
-    providers: [CustomerListService]
+    selector   : 'country-list',
+    templateUrl: './country-list.component.html',
+    styleUrls  : ['./country-list.component.scss'],
+    providers: [CountryListService]
 })
-export class CustomerListComponent implements OnInit
+export class CountryListComponent implements OnInit
 {
     rows: any;
     loadingIndicator = true;
@@ -20,7 +20,7 @@ export class CustomerListComponent implements OnInit
     pagination: any;
 
     constructor(
-        private customerListService: CustomerListService,
+        private countryListService: CountryListService,
         private func: Functions,
         private router: Router
         )
@@ -33,15 +33,7 @@ export class CustomerListComponent implements OnInit
     }
 
     getList(pageNum: number = 1) {
-        this.customerListService.getList().subscribe((data: any[]) => {
-            for (let i = 0; i < data.length; i++) {
-                if (data[i]['status'] === 10) {
-                    data[i]['status'] = 'Active';
-                }
-                else {
-                    data[i]['status'] = 'Inactive';
-                }
-            }
+        this.countryListService.getList().subscribe((data: any[]) => {
             this.rows = data;
             this.loadingIndicator = false;
             // this.pagination = data['meta'];
@@ -56,6 +48,6 @@ export class CustomerListComponent implements OnInit
     }
 
     create() {
-        this.router.navigate(['apps/master-data/customers/create']);
+        // this.router.navigate(['apps/master-data/customers/create']);
     }
 }

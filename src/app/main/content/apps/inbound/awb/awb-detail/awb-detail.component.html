@@ -154,7 +154,7 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Item Type</th>
+                        <th width="150">Item Type</th>
                         <th>Weight</th>
                         <th>Length</th>
                         <th>Width</th>
@@ -165,7 +165,7 @@
                 </thead>
                 <tbody formArrayName="items">
                     <tr *ngFor="let item of AWBForm.get('items').controls; let i = index" [formGroupName]="i">
-                        <td>
+                        <td class="border-table">
                             <mat-select formControlName="item_id">
                                 <mat-option *ngFor="let item of status" [value]="item.value">
                                     {{ item.name }}
@@ -175,34 +175,34 @@
                                 Item is required
                             </mat-error>
                         </td>
-                        <td>
+                        <td class="border-table">
                             <input formControlName="weight" matInput (keypress)="checkInputNumber($event,true)" (blur)="CalculateTotalWeight()">
                             <mat-error *ngIf="AWBForm.controls.items.controls[i].controls.weight.hasError('required') && AWBForm.controls.items.controls[i].controls.weight.touched">
                                 Weight is required
                             </mat-error>
                         </td>
-                        <td>
+                        <td class="border-table">
                             <input formControlName="length" matInput (keypress)="checkInputNumber($event,true)" (blur)="CalculateTheVoulume(i)">
                             <mat-error *ngIf="AWBForm.controls.items.controls[i].controls.length.hasError('required') && AWBForm.controls.items.controls[i].controls.length.touched">
                                 Length is required
                             </mat-error>
                         </td>
-                        <td>
+                        <td class="border-table">
                             <input formControlName="width" matInput (keypress)="checkInputNumber($event,true)" (blur)="CalculateTheVoulume(i)">
                             <mat-error *ngIf="AWBForm.controls.items.controls[i].controls.width.hasError('required') && AWBForm.controls.items.controls[i].controls.width.touched">
                                 Width is required
                             </mat-error>
                         </td>
-                        <td>
+                        <td class="border-table">
                             <input formControlName="height" matInput (keypress)="checkInputNumber($event,true)" (blur)="CalculateTheVoulume(i)">
                             <mat-error *ngIf="AWBForm.controls.items.controls[i].controls.height.hasError('required') && AWBForm.controls.items.controls[i].controls.height.touched">
                                 Height is required
                             </mat-error>
                         </td>
-                        <td>
+                        <td class="border-table">
                             <input formControlName="volume" matInput readonly>
                         </td>
-                        <td>
+                        <td class="border-table">
                             <button mat-raised-button (click)="deleteMoreItem(i)">
                                 <mat-icon>delete</mat-icon>
                               </button>

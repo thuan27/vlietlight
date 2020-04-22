@@ -1,11 +1,11 @@
-import { Functions } from './../../../../../../../@fuse/core/function';
+import { Functions } from '../../../../../../../@fuse/core/function';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../../../../../environments/environment';
 
 @Injectable()
-export class CustomerListService
+export class CountryListService
 {
     constructor(
         private http: HttpClient,
@@ -15,6 +15,6 @@ export class CustomerListService
     }
 
     getList() {
-        return this.http.get(environment.API.apiBase + '/customers/index', { headers: this._Func.AuthHeader() });
+        return this.http.get(environment.API.apiBase + '/country/index', { headers: this._Func.AuthHeader() });
     }
 }

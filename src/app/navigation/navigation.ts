@@ -45,7 +45,13 @@ export const navigation = [
                         'title': 'Customers List',
                         'type' : 'item',
                         'url'  : '/apps/master-data/customers'
-                    }
+                    },
+                    {
+                        'id'   : 'CountrysList',
+                        'title': 'Countrys List',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/countrys'
+                    },
                 ]
             },
             {
