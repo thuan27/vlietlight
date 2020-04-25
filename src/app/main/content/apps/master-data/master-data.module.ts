@@ -11,10 +11,10 @@ import { listRoutes } from './master-data.routers';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { CreateUserService } from './user/create-user/create-user.service';
-import { CreateCustomeromponent } from './customer/create-user/create-customer.component';
-import { CreateCustomerService } from './customer/create-user/create-customer.service';
-import { CountryListComponent } from './customer copy/country-list/country-list.component';
-import { CountryListService } from './customer copy/country-list/country-list.service';
+import { CreateCustomeromponent } from './customer/create-customer/create-customer.component';
+import { CreateCustomerService } from './customer/create-customer/create-customer.service';
+import { CountryListComponent } from './country/country-list/country-list.component';
+import { CountryListService } from './country/country-list/country-list.service';
 
 @NgModule({
     declarations: [

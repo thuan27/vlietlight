@@ -1,6 +1,6 @@
 table {
-    border-spacing: 1;
-    border-collapse: collapse;
+    border:1px solid #b3e5fc;
+    border-spacing: 0;
     background: white;
     border-radius: 6px;
     overflow: hidden;
@@ -10,7 +10,7 @@ table {
     position: relative;
     thead tr {
         height: 60px;
-        background: rgb(63, 187, 245);
+        background: rgb(75, 189, 241);
         font-size: 16px;
         th {
             text-align: center !important;
@@ -27,4 +27,37 @@ table {
 
 .width-control {
     width: 49%;
+    padding-left: 10px;
 }
+
+.form {
+    box-shadow: 5px 5px 15px grey;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.box-shadow-form {
+    box-shadow: 2px 2px 7px rgb(212, 211, 211);
+    padding: 10px;
+    border-radius: 2px;
+}
+.margin-top-10 {
+    margin-top: 10px !important;
+}
+
+.icon-delete {
+    cursor: pointer;
+    color: #80deea !important;
+}
+
+.icon-delete:hover {
+    color: #3fbbf5 !important;
+}
+
+.button-in-table {
+    // background: transparent !important;
+    color: #80deea !important;
+}
+
+
+
