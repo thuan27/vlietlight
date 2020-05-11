@@ -18,8 +18,8 @@ export class AWBDetailForCusComponent implements OnInit {
   deiveryNotification = true;
   selected: false;
   items: FormArray;
+  items_license: FormArray;
   AWBForm: FormGroup;
-  ChildAWBFrom: FormGroup;
   referenceNumber = [
     {
       value: 0,
@@ -116,6 +116,51 @@ export class AWBDetailForCusComponent implements OnInit {
     },
   ];
 
+  typeOfInVoice = [
+    {
+      value: 0,
+      name: 'Commercial Invoice'
+    },
+    {
+      value: 1,
+      name: 'Proforma Invoice'
+    },
+    {
+      value: 2,
+      name: 'Declaration of value'
+    }
+  ];
+
+  businessTerm = [
+    {
+      value: 0,
+      name: 'DAP - Delivered At Place'
+    },
+    {
+      value: 1,
+      name: 'DAP - Delivered At Place'
+    },
+    {
+      value: 2,
+      name: 'DAP - Delivered At Place'
+    }
+  ];
+
+  Unit = [
+    {
+      value: 0,
+      name: 'N/A'
+    },
+    {
+      value: 1,
+      name: 'cm'
+    },
+    {
+      value: 2,
+      name: 'cm2'
+    }
+  ];
+
   constructor(
     private _AWBDetailForCusService: AWBDetailForCusService,
     private formBuilder: FormBuilder,
@@ -174,31 +219,41 @@ export class AWBDetailForCusComponent implements OnInit {
       type_of_export: [0],
       place_of_taxable: [0],
       allow_to_pay: '',
-
-
-      from_address: ['', [Validators.required]],
-      from_postcode: ['', [Validators.required]],
-      from_phone: [null, [Validators.required]],
-      from_fax: ['', [Validators.required]],
-      from_email: ['', [Validators.required]],
-      from_contact_name: ['', [Validators.required]],
-      from_company_name: ['', [Validators.required]],
-      to_country_id: [0, [Validators.required]],
-      to_contact_name: ['', [Validators.required]],
-      to_company_name: ['', [Validators.required]],
-      to_address: ['', [Validators.required]],
-      to_postcode: ['', [Validators.required]],
-      to_phone: [null, [Validators.required]],
-      to_email: ['', [Validators.required]],
-      received_at: [null, [Validators.required]],
-      ship_date: [null, [Validators.required]],
-      price: [null, [Validators.required]],
-      pick_up_address: ['', [Validators.required]],
-      pick_up_date: [null, [Validators.required]],
-      
       weight: 0,
       volume: 0,
-      items: this.formBuilder.array([this.buildChildGroup()])
+      from_address: '',
+      items: this.formBuilder.array([this.buildChildGroup()]),
+
+      type_of_invoice: '',
+      date_detail: [new Date().toISOString()],
+      num_of_invoice: '',
+      reference_num: '',
+      num_of_payer: '',
+      type_of_export_express: '',
+      payment_term: '',
+      code_currency: '',
+      business_term: [0],
+      employee_identification_num: '',
+      total_net_weight_license: null,
+      total_tax_license: null,
+      total_package_license: null,
+      total_weight_license: null,
+      items_license: this.formBuilder.array([this.buildChildGroupLiciense()]),
+    });
+  }
+
+  buildChildGroupLiciense() {
+    return this.formBuilder.group({
+      number_unknown: '',
+      des_of_material: ['', [Validators.required]],
+      amount: null,
+      unit: [0],
+      commercial_code: '',
+      unit_of_value: ['', [Validators.required]],
+      total_of_value: null,
+      net_weight: null,
+      total_net_weight: null,
+      country: [0],
     });
   }
 
@@ -293,5 +348,9 @@ export class AWBDetailForCusComponent implements OnInit {
   addMoreItem() {
     this.items = this.AWBForm.get('items') as FormArray;
     this.items.push(this.buildChildGroup());
+  }
+
+  addMaterial() {
+
   }
 }
