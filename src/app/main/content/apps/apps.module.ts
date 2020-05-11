@@ -62,6 +62,10 @@ const routes = [
         path        : 'inbound',
         loadChildren: './inbound/inbound.module#FuseInboundModule'
     },
+    {
+        path        : 'utility',
+        loadChildren: './utility/utility.module#FuseUtilityModule'
+    },
 ];
 
 @NgModule({

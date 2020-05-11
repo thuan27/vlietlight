@@ -21,7 +21,8 @@ export const locale = {
             'TODO'        : 'Yapılacaklar',
             'SCRUMBOARD'  : 'Proje',
             'MASTERDATA'  : 'Master Data',
-            'INBOUND'     : 'Inbound'
+            'INBOUND'     : 'Inbound',
+            'UTILITY'     : 'Utility',
         }
     }
 };

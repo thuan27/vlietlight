@@ -1,0 +1,512 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Create AWB Customer</span>
+      </div>
+      <div class="h2 mt-16">Create AWB Customer</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+
+    <form [formGroup]="AWBForm" autocomplete="off" class="form">
+      <div class="row">
+        <div class="half" style="padding-right: 5px;">
+          <div class="background-title mat-cyan-200-bg">
+            <h2 class="title">Số tài khoản thanh toán cước và chi tiết bảo hiểm</h2>
+          </div>
+          <div class="box-shadow-form margin-top-10">
+            <label class="title-control">Tính cước vào</label>
+            <div fxLayout="row">
+              <mat-radio-group fxFlex="100" class="padding-left-10" style="display: block !important; margin-top:20px"
+                formControlName="charging_in" fxLayout="column">
+                <mat-radio-group>
+                  <mat-radio-button class="example-margin" value="0">Người gửi
+                  </mat-radio-button>
+                  <mat-radio-button class="example-margin margin-left-20" value="1">Người nhận
+                  </mat-radio-button>
+                  <mat-radio-button class="example-margin margin-left-20" value="2">Bên thứ 3
+                  </mat-radio-button>
+                  <mat-checkbox class="margin-left-20" [checked]="selected" (change)="isCash()">Tiền
+                    mặt
+                  </mat-checkbox>
+                </mat-radio-group>
+              </mat-radio-group>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100" class="width-control-full">
+                <input formControlName="from_address" matInput placeholder="Số tài khoản thanh toán cước (*)">
+                <mat-error *ngIf="AWBForm.controls.from_address.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="border"></div>
+            <div fxLayout="row">
+              <label class="title-control">Bảo hiểm hàng hóa</label>
+              <mat-checkbox class="margin-left-20" [checked]="selected" (change)="isSelectYesShipping()">Có
+              </mat-checkbox>
+            </div>
+
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="insured_value" matInput placeholder="Giá trị bảo hiểm">
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="local_currency" matInput placeholder="Nội tệ">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="background-title mat-cyan-200-bg margin-top-10">
+            <h2 class="title">Từ (Người gửi)</h2>
+          </div>
+          <div class="box-shadow-form margin-top-10">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="sender_account" matInput placeholder="Số tài khoản người gửi (*)">
+                <mat-error *ngIf="AWBForm.controls.sender_account.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="name" matInput placeholder="Họ và tên (*)">
+                <mat-error *ngIf="AWBForm.controls.name.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="border"></div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <mat-select formControlName="reference_number_of_the_sender" placeholder="Số tham khảo của người gởi">
+                  <mat-option *ngFor="let item of referenceNumber" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="border"></div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="shipping_company_name" matInput placeholder="Tên công ty gửi hàng (*)">
+                <mat-error *ngIf="AWBForm.controls.shipping_company_name.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+              <mat-checkbox fxFlex="50" style="margin-top: 23px;" class="margin-left-20" [checked]="selected"
+                (change)="isSelectYes()">Địa chỉ cư
+                trú
+              </mat-checkbox>
+            </div>
+            <div class="border"></div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <mat-select formControlName="country_shipping" placeholder="Quốc gia (*)">
+                  <mat-option *ngFor="let item of country" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="city_shipping" matInput placeholder="Thành phố (*)">
+                <mat-error *ngIf="AWBForm.controls.city_shipping.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <input formControlName="address_shipping" matInput placeholder="Địa chỉ (*)">
+                <mat-error *ngIf="AWBForm.controls.address_shipping.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="zip_code_shipping" matInput placeholder="Mã bưu điện">
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="neighbourhood_shipping" matInput placeholder="Vùng phụ cận">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field style="width: 70px; margin-left: 10px">
+                <mat-select formControlName="code_phone_number_shipping" placeholder="">
+                  <mat-option *ngFor="let item of codePhoneNumber" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="phone_number_shipping" matInput placeholder="Số điện thoại">
+              </mat-form-field>
+            </div>
+            <div class="border"></div>
+            <div fxLayout="row">
+              <div fxFlex="50">
+                <label class="title-control">Federal Tax ID</label>
+              </div>
+              <div fxFlex="50">
+                <label class="title-control">IE/RG</label>
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex="50">
+                <mat-radio-group class="padding-left-10" style="display: block !important; margin-top:20px"
+                  formControlName="federal_tax_id_shipping" fxLayout="column">
+                  <mat-radio-group>
+                    <mat-radio-button *ngFor="let item of federalTaxId" class="example-margin custom-radio"
+                      [value]="item.value">{{ item.name }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </mat-radio-group>
+              </div>
+              <div fxFlex="50"></div>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="unknow_1_shipping" readonly matInput placeholder="">
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="unknow_2_shipping" readonly matInput placeholder="">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="background-title mat-cyan-200-bg margin-top-10">
+            <h2 class="title">Đến (người nhận)</h2>
+          </div>
+          <div class="box-shadow-form margin-top-10">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="receiving_company_name" matInput placeholder="Tên công ty nhận hàng (*)">
+                <mat-error *ngIf="AWBForm.controls.receiving_company_name.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+              <mat-checkbox fxFlex="50" style="margin-top: 23px;" class="margin-left-20" [checked]="selected"
+                (change)="isSelectYesReceiving()">Địa chỉ cư
+                trú
+              </mat-checkbox>
+            </div>
+            <div class="border"></div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <mat-select formControlName="country_receiving" placeholder="Quốc gia (*)">
+                  <mat-option *ngFor="let item of country" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="city_receiving" matInput placeholder="Thành phố (*)">
+                <mat-error *ngIf="AWBForm.controls.city_receiving.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <input formControlName="address_receiving" matInput placeholder="Địa chỉ (*)">
+                <mat-error *ngIf="AWBForm.controls.address_receiving.hasError('required')">
+                  Bắt buộc
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="zip_code_receiving" matInput placeholder="Mã bưu điện">
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="neighbourhood_receiving" matInput placeholder="Vùng phụ cận">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field style="width: 70px; margin-left: 10px">
+                <mat-select formControlName="code_phone_number_receiving" placeholder="">
+                  <mat-option *ngFor="let item of codePhoneNumber" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="phone_number_receiving" matInput placeholder="Số điện thoại">
+              </mat-form-field>
+            </div>
+            <div class="border"></div>
+            <div fxLayout="row">
+              <div fxFlex="50">
+                <label class="title-control">Federal Tax ID</label>
+              </div>
+              <div fxFlex="50">
+                <label class="title-control">IE/RG</label>
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex="50">
+                <mat-radio-group class="padding-left-10" style="display: block !important; margin-top:20px"
+                  formControlName="federal_tax_id_receiving" fxLayout="column">
+                  <mat-radio-group>
+                    <mat-radio-button *ngFor="let item of federalTaxId" class="example-margin custom-radio"
+                      [value]="item.value">{{ item.name }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </mat-radio-group>
+              </div>
+              <div fxFlex="50"></div>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input formControlName="unknow_1_receiving" readonly matInput placeholder="">
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input formControlName="unknow_2_receiving" readonly matInput placeholder="">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="half" style="padding-left: 5px;">
+          <div class="background-title mat-cyan-200-bg">
+            <h2 class="title">Sản phẩm & dịch vụ</h2>
+          </div>
+          <div class="box-shadow-form margin-top-10">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <mat-select formControlName="type_of_shipment" placeholder="Loại lô hàng">
+                  <mat-option *ngFor="let item of typeOfShipment" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <mat-select formControlName="product" placeholder="Sản phẩm">
+                  <mat-option *ngFor="let item of product" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-checkbox fxFlex="100" style="margin-top: 23px;" class="margin-left-20" [checked]="selected"
+                (change)="isDeiveryNotification($event)">Thông báo giao hàng
+              </mat-checkbox>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100" class="margin-left-10">
+                <input formControlName="delivery_notifitcation" [readonly]="deiveryNotification" matInput
+                  placeholder="">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-checkbox fxFlex="100" style="margin-top: 23px;" class="margin-left-20" [checked]="selected"
+                (change)="isDeiveryByEmail($event)">Tóm tắt gửi hàng qua email
+              </mat-checkbox>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100" class="margin-left-10">
+                <input formControlName="delivery_by_email" [readonly]="deiveryByEmail" matInput placeholder="">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="background-title mat-cyan-200-bg margin-top-10">
+            <h2 class="title">Chi tiết hàng hóa</h2>
+          </div>
+          <div class="box-shadow-form margin-top-10">
+            <table class="table table-striped table-bordered mat-cyan-50-bg">
+              <thead>
+                <tr>
+                  <th>Kiện (*)</th>
+                  <th>Trọng lượng/ KGS (*)</th>
+                  <th>Chiều dài (CM)</th>
+                  <th>Chiều rộng (CM)</th>
+                  <th>Chiều cao (CM)</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody formArrayName="items">
+                <tr *ngFor="let item of AWBForm.get('items').controls; let i = index" [formGroupName]="i">
+                  <td class="border-table">
+                    <input formControlName="package" matInput (keypress)="checkInputNumber($event,true)"
+                      (blur)="totalPackage()">
+                    <mat-error
+                      *ngIf="AWBForm.controls.items.controls[i].controls.package.hasError('required') && AWBForm.controls.items.controls[i].controls.touched">
+                      Bắt buộc
+                    </mat-error>
+                  </td>
+                  <td class="border-table">
+                    <input formControlName="weight" matInput (keypress)="checkInputNumber($event,true)"
+                      (blur)="totalWeight()">
+                    <mat-error
+                      *ngIf="AWBForm.controls.items.controls[i].controls.weight.hasError('required') && AWBForm.controls.items.controls[i].controls.weight.touched">
+                      Bắt buộc
+                    </mat-error>
+                  </td>
+                  <td class="border-table">
+                    <input formControlName="length" matInput (keypress)="checkInputNumber($event,true)">
+                  </td>
+                  <td class="border-table">
+                    <input formControlName="width" matInput (keypress)="checkInputNumber($event,true)">
+                  </td>
+                  <td class="border-table">
+                    <input formControlName="height" matInput (keypress)="checkInputNumber($event,true)">
+                  </td>
+                  <td class="border-table">
+                    <button mat-raised-button (click)="deleteMoreItem(i)">
+                      <mat-icon class="button-in-table">delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 10px;">
+                    <button mat-raised-button (click)="addMoreItem($event)">
+                      <mat-icon class="button-in-table">add_circle</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <label>Tổng số kiện</label>
+                <input readonly formControlName="total_package" matInput>
+              </mat-form-field>
+            </div>
+            <div fxLayout="100">
+              <mat-form-field fxFlex="100">
+                <label>Tổng trọng lượng</label>
+                <input readonly formControlName="total_weight" matInput>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="background-title mat-cyan-200-bg margin-top-10">
+            <h2 class="title">Mô tả hàng hóa</h2>
+          </div>
+          <div class="box-shadow-form margin-top-10">
+            <textarea rows="5" formControlName="description" matInput
+              placeholder="Vui lòng mô tả nội dung và số lượng (*)"></textarea>
+          </div>
+          <div class="background-title mat-cyan-200-bg margin-top-10">
+            <h2 class="title">Chỉ dành cho hàng không phải là tài liệu (Yêu cầu thủ tục hải quan)</h2>
+          </div>
+          <div class="box-shadow-form margin-top-10">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input placeholder="Số VAT/GST của người gửi" formControlName="num_VAT_of_sender" matInput>
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input placeholder="Số VAT/GST của người nhận" formControlName="num_VAT_of_receipent" matInput>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <input placeholder="Số VAT/GST của người gửi" formControlName="num_VAT_of_sender" matInput>
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input placeholder="Số VAT/GST của người nhận" formControlName="num_VAT_of_receipent" matInput>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="70">
+                <input placeholder="Trị giá lô hàng khai báo hải quan" formControlName="value_of_shipment" matInput>
+              </mat-form-field>
+              <mat-form-field fxFlex="30" class="margin-left-10">
+                <mat-select formControlName="type_of_money" placeholder="Sản phẩm">
+                  <mat-option *ngFor="let item of typeOfCurrency" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <input placeholder="Mã số hàng hóa" formControlName="item_number" matInput>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="50">
+                <mat-select readonly formControlName="FTR_except" placeholder="(FTR) Miễn trừ">
+                  <mat-option *ngFor="let item of FTRExcept" [value]="item.value">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field fxFlex="50" class="margin-left-10">
+                <input placeholder="ITN" formControlName="ITN" matInput>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <label>Loại hình xuất khẩu</label>
+            </div>
+            <div fxLayout="row">
+              <mat-radio-group fxFlex="100" class="padding-left-10" style="display: block !important; margin-top:20px"
+                formControlName="type_of_export" fxLayout="column">
+                <mat-radio-group>
+                  <mat-radio-button class="example-margin" value="0">Cố định
+                  </mat-radio-button>
+                  <mat-radio-button class="example-margin margin-left-20" value="1">Tạm xuất
+                  </mat-radio-button>
+                  <mat-radio-button class="example-margin margin-left-20" value="2">Sửa/ Tái nhập
+                  </mat-radio-button>
+                </mat-radio-group>
+              </mat-radio-group>
+            </div>
+            <div fxLayout="row">
+              <label>Nơi chịu thuế nhập khẩu/ thuế tổng quan</label>
+            </div>
+            <div fxLayout="row">
+              <mat-radio-group fxFlex="100" class="padding-left-10" style="display: block !important; margin-top:20px"
+                formControlName="place_of_taxable" fxLayout="column">
+                <mat-radio-group>
+                  <mat-radio-button class="example-margin" value="0">Người nhận
+                  </mat-radio-button>
+                  <mat-radio-button class="example-margin margin-left-20" value="1">Người gửi
+                  </mat-radio-button>
+                  <mat-radio-button class="example-margin margin-left-20" value="2">Khác
+                  </mat-radio-button>
+                </mat-radio-group>
+              </mat-radio-group>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="100">
+                <input placeholder="Số tài khoản đã được cho phép trả thuế nhập khẩu" formControlName="allow_to_pay"
+                  matInput>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="background-title mat-cyan-200-bg margin-top-10">
+              <h2 class="title">Thỏa thuận của người gửi hàng</h2>
+            </div>
+            <div class="box-shadow-form margin-top-10">
+                <div fxLayout="row">
+              <label>Trừ phi có những điều đồng ý khác được viết ra. Tôi/ chúng tôi đồng ý với các điều khoản và điều kiện vận chuyển
+                của VietExpress trên tất cả các mục của hợp đồng giữa tôi/ chúng tôi và VietExpress
+                và (1) các điều khoản và điều kiện như thến này.
+              </label>
+              </div>
+              <div fxLayout="row">
+              <label>(Xem <a link="">Điều khoản và Điều kiện</a> )</label>
+              </div>
+              <div fxLayout="row">
+                  <mat-checkbox>Tôi đồng ý
+                    </mat-checkbox>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <button class="button-submit" mat-raised-button color="accent" (submit)="onSubmit()">Create</button>
+    </form>
+  </div>
+
+</div>

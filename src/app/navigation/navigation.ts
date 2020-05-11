@@ -67,6 +67,29 @@ export const navigation = [
                         'type' : 'item',
                         'url'  : '/apps/inbound/awb',
                         'exactMatch': true
+                    },
+                    {
+                        'id'   : 'AWBListForCus',
+                        'title': 'AWB Customer',
+                        'type' : 'item',
+                        'url'  : '/apps/inbound/awb/create-for-cus',
+                        'exactMatch': true
+                    }
+                ]
+            },
+            {
+                'id'       : 'utility',
+                'title'    : 'Utility',
+                'translate': 'NAV.UTILITY',
+                'type'     : 'collapse',
+                'icon'     : 'lightbulb_outline',
+                'children' : [
+                    {
+                        'id'   : 'quicksearch',
+                        'title': 'Quick Search',
+                        'type' : 'item',
+                        'url'  : '/apps/utility/quick-search',
+                        'exactMatch': true
                     }
                 ]
             },

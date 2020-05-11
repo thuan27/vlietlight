@@ -21,7 +21,8 @@ export const locale = {
             'TODO'        : 'To-Do',
             'SCRUMBOARD'  : 'Scrumboard',
             'MASTERDATA'  : 'Master Data',
-            'INBOUND'     : 'Inbound'
+            'INBOUND'     : 'Inbound',
+            'UTILITY'     : 'Utility',
         }
     }
 };

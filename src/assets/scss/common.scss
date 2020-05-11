@@ -25,11 +25,6 @@ table {
     }
 }
 
-.width-control {
-    width: 49%;
-    padding-left: 10px;
-}
-
 .form {
     box-shadow: 5px 5px 15px grey;
     padding: 10px;
@@ -41,8 +36,24 @@ table {
     padding: 10px;
     border-radius: 2px;
 }
+
 .margin-top-10 {
     margin-top: 10px !important;
+}
+
+.margin-left-20 {
+    margin-left: 20px !important;
+}
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.custom-radio {
+    margin-left: 20px;
+    &:first-child {
+        margin-left: 0;
+    }
 }
 
 .icon-delete {
@@ -59,5 +70,12 @@ table {
     color: #80deea !important;
 }
 
+.padding-left-10 {
+    padding-left: 10px;
+}
 
-
+.title-control {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
