@@ -16,7 +16,7 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-
+    <h2 style="color:#03a9f4">Biểu mẫu hàng hóa</h2>
     <form [formGroup]="AWBForm" autocomplete="off" class="form">
       <div class="row">
         <div class="half" style="padding-right: 5px;">
@@ -408,6 +408,7 @@
                 <input placeholder="Số VAT/GST của người nhận" formControlName="num_VAT_of_receipent" matInput>
               </mat-form-field>
             </div>
+            <div class="border"></div>
             <div fxLayout="row">
               <mat-form-field fxFlex="50">
                 <input placeholder="Số VAT/GST của người gửi" formControlName="num_VAT_of_sender" matInput>
@@ -416,6 +417,7 @@
                 <input placeholder="Số VAT/GST của người nhận" formControlName="num_VAT_of_receipent" matInput>
               </mat-form-field>
             </div>
+            <div class="border"></div>
             <div fxLayout="row">
               <mat-form-field fxFlex="70">
                 <input placeholder="Trị giá lô hàng khai báo hải quan" formControlName="value_of_shipment" matInput>
@@ -433,6 +435,7 @@
                 <input placeholder="Mã số hàng hóa" formControlName="item_number" matInput>
               </mat-form-field>
             </div>
+            <div class="border"></div>
             <div fxLayout="row">
               <mat-form-field fxFlex="50">
                 <mat-select readonly formControlName="FTR_except" placeholder="(FTR) Miễn trừ">
@@ -445,6 +448,7 @@
                 <input placeholder="ITN" formControlName="ITN" matInput>
               </mat-form-field>
             </div>
+            <div class="border"></div>
             <div fxLayout="row">
               <label>Loại hình xuất khẩu</label>
             </div>
@@ -461,6 +465,7 @@
                 </mat-radio-group>
               </mat-radio-group>
             </div>
+            <div class="border margin-top-10"></div>
             <div fxLayout="row">
               <label>Nơi chịu thuế nhập khẩu/ thuế tổng quan</label>
             </div>
