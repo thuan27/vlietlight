@@ -161,6 +161,32 @@ export class AWBDetailForCusComponent implements OnInit {
     }
   ];
 
+  hours = [
+    {
+      value: 0,
+      name: '00'
+    },
+    {
+      value: 1,
+      name: '01'
+    },
+    {
+      value: 2,
+      name: '02'
+    },
+  ];
+
+  listPlace = [
+    {
+      value: 0,
+      name: 'Công ty'
+    },
+    {
+      value: 1,
+      name: 'Nhà riêng'
+    }
+  ];
+
   constructor(
     private _AWBDetailForCusService: AWBDetailForCusService,
     private formBuilder: FormBuilder,
@@ -222,6 +248,7 @@ export class AWBDetailForCusComponent implements OnInit {
       weight: 0,
       volume: 0,
       from_address: '',
+      province: '',
       items: this.formBuilder.array([this.buildChildGroup()]),
 
       type_of_invoice: '',
@@ -238,7 +265,34 @@ export class AWBDetailForCusComponent implements OnInit {
       total_tax_license: null,
       total_package_license: null,
       total_weight_license: null,
+      province_shipping: '',
+      shipper2: '',
+      receiver2: '',
+      third_human: '',
       items_license: this.formBuilder.array([this.buildChildGroupLiciense()]),
+
+      billing_acount_num: '',
+      name_receiving: '',
+      shipping_company_name_receiving: '',
+      country_shipping3: [0, [Validators.required]],
+      city_shipping3: ['', [Validators.required]],
+      address_shipping3: ['', [Validators.required]],
+      zip_code_shipping3: '',
+      neighbourhood_shipping3: '',
+      province_shipping3: '',
+      code_phone_number_shipping3: '',
+      phone_number_shipping3: '',
+      extension_phone_number: '',
+      date_receiving: [new Date().toISOString()],
+      total_weight3: '',
+      total_package3: '',
+      hours3: [0],
+      minutes3: [0],
+      hours_end3: [0],
+      minutes_end3: [0],
+      place: [0],
+      place_receiving: '',
+      guide_special: ''
     });
   }
 
@@ -282,7 +336,7 @@ export class AWBDetailForCusComponent implements OnInit {
 
   isCash() {}
   isSelectYesShipping() {}
-  isSelectYesReceiving() {}
+  isSelectYesReceiving3() {}
   isDeiveryNotification(event) {
     if (event.checked) {
       this.deiveryNotification = false;

@@ -123,6 +123,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+              <div class="border"></div>
               <div fxLayout="row">
                 <mat-form-field fxFlex="100">
                   <input formControlName="address_shipping" matInput placeholder="Địa chỉ (*)">
@@ -131,6 +132,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+              <div class="border"></div>
               <div fxLayout="row">
                 <mat-form-field fxFlex="50">
                   <input formControlName="zip_code_shipping" matInput placeholder="Mã bưu điện">
@@ -139,6 +141,12 @@
                   <input formControlName="neighbourhood_shipping" matInput placeholder="Vùng phụ cận">
                 </mat-form-field>
               </div>
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="100">
+                    <input formControlName="province_shipping" matInput placeholder="Tiểu bang/ Tỉnh">
+                  </mat-form-field>
+                </div>
+                <div class="border"></div>
               <div fxLayout="row">
                 <mat-form-field style="width: 70px; margin-left: 10px">
                   <mat-select formControlName="code_phone_number_shipping" placeholder="">
@@ -215,6 +223,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+              <div class="border"></div>
               <div fxLayout="row">
                 <mat-form-field fxFlex="100">
                   <input formControlName="address_receiving" matInput placeholder="Địa chỉ (*)">
@@ -223,6 +232,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+              <div class="border"></div>
               <div fxLayout="row">
                 <mat-form-field fxFlex="50">
                   <input formControlName="zip_code_receiving" matInput placeholder="Mã bưu điện">
@@ -231,6 +241,12 @@
                   <input formControlName="neighbourhood_receiving" matInput placeholder="Vùng phụ cận">
                 </mat-form-field>
               </div>
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="100">
+                    <input formControlName="province" matInput placeholder="Tiểu bang/ Tỉnh">
+                  </mat-form-field>
+                </div>
+                <div class="border"></div>
               <div fxLayout="row">
                 <mat-form-field style="width: 70px; margin-left: 10px">
                   <mat-select formControlName="code_phone_number_receiving" placeholder="">
@@ -526,12 +542,10 @@
               <h2 class="title">Người gửi</h2>
             </div>
             <div class="box-shadow-form margin-top-10">
-              <div fxLayout="row">
-                <div fxLayout="row">
-                  <div fxFlex="100" style="height: 250px">
-                  </div>
-                </div>
-              </div>
+                  <div fxLayout="row">
+                      <textarea fxFlex="100" rows="12" formControlName="shipper2" matInput
+                      ></textarea>
+                    </div>
             </div>
             <div class="background-title mat-cyan-200-bg margin-top-10">
               <h2 class="title">Người nhận</h2>
@@ -539,8 +553,10 @@
             <div class="box-shadow-form margin-top-10">
               <div fxLayout="row">
                 <div fxLayout="row">
-                  <div fxFlex="100" style="height: 250px">
-                  </div>
+                    <div fxLayout="row">
+                        <textarea fxFlex="100" rows="12" formControlName="receiver2" matInput
+                        ></textarea>
+                      </div>
                 </div>
               </div>
             </div>
@@ -550,8 +566,10 @@
             <div class="box-shadow-form margin-top-10">
               <div fxLayout="row">
                 <div fxLayout="row">
-                  <div fxFlex="100" style="height: 250px">
-                  </div>
+                    <div fxLayout="row">
+                        <textarea fxFlex="100" rows="12" formControlName="third_human" matInput
+                        ></textarea>
+                      </div>
                 </div>
               </div>
             </div>
@@ -628,7 +646,7 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="background-title mat-cyan-200-bg">
+            <div class="background-title mat-cyan-200-bg margin-top-10">
               <h2 class="title">Bình luận</h2>
             </div>
             <div class="box-shadow-form margin-top-10">
@@ -733,8 +751,199 @@
 
       <!-- Page 3 -->
 
+      <div class="form" style="margin-top: 30px">
+        <h2 style="color:#03a9f4">Biểu mẫu nhận hàng</h2>
+        <div class="row margin-top-10">
+          <div class="half" style="padding-right: 5px;">
+            <div class="background-title mat-cyan-200-bg">
+              <h2 class="title">Người gửi</h2>
+            </div>
+            <div class="box-shadow-form margin-top-10">
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <input placeholder="Số tài khoản thanh toán cước (*)" readonly formControlName="billing_acount_num" matInput>
+                      </mat-form-field>
+                      <mat-error *ngIf="AWBForm.controls.billing_acount_num.hasError('required')">
+                          Bắt buộc
+                        </mat-error>
+                      </div>
+                      <div class="border"></div>
+                      <div fxLayout="row">
+                          <mat-form-field fxFlex="100">
+                              <input placeholder="Họ và tên (*)" readonly formControlName="name_receiving" matInput>
+                            </mat-form-field>
+                            <mat-error *ngIf="AWBForm.controls.name_receiving.hasError('required')">
+                                Bắt buộc
+                              </mat-error>
+                            </div>
+                            <div class="border"></div>
+              <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                  <input formControlName="shipping_company_name_receiving" matInput placeholder="Tên công ty gửi hàng (*)">
+                  <mat-error *ngIf="AWBForm.controls.shipping_company_name_receiving.hasError('required')">
+                    Bắt buộc
+                  </mat-error>
+                </mat-form-field>
+                <mat-checkbox fxFlex="50" style="margin-top: 23px;" class="margin-left-20" [checked]="selected"
+                  (change)="isSelectYesReceiving3()">Địa chỉ cư
+                  trú
+                </mat-checkbox>
+              </div>
+              <div class="border"></div>
+              <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                  <mat-select formControlName="country_shipping3" placeholder="Quốc gia (*)">
+                    <mat-option *ngFor="let item of country" [value]="item.value">
+                      {{ item.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="50" class="margin-left-10">
+                  <input formControlName="city_shipping3" matInput placeholder="Thành phố (*)">
+                  <mat-error *ngIf="AWBForm.controls.city_shipping3.hasError('required')">
+                    Bắt buộc
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="border"></div>
+              <div fxLayout="row">
+                <mat-form-field fxFlex="100">
+                  <input formControlName="address_shipping3" matInput placeholder="Địa chỉ (*)">
+                  <mat-error *ngIf="AWBForm.controls.address_shipping3.hasError('required')">
+                    Bắt buộc
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="border"></div>
+              <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                  <input formControlName="zip_code_shipping3" matInput placeholder="Mã bưu điện">
+                </mat-form-field>
+                <mat-form-field fxFlex="50" class="margin-left-10">
+                  <input formControlName="neighbourhood_shipping3" matInput placeholder="Vùng phụ cận">
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="100">
+                    <input formControlName="province_shipping3" matInput placeholder="Tiểu bang/ Tỉnh">
+                  </mat-form-field>
+                </div>
+                <div class="border"></div>
+              <div fxLayout="row">
+                <mat-form-field style="width: 70px; margin-left: 10px">
+                  <mat-select formControlName="code_phone_number_shipping3" placeholder="">
+                    <mat-option *ngFor="let item of codePhoneNumber" [value]="item.value">
+                      {{ item.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <input formControlName="phone_number_shipping3" matInput placeholder="Số điện thoại">
+                </mat-form-field>
+              </div>
+              <div class="border"></div>
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="100">
+                    <input formControlName="extension_phone_number" matInput placeholder="Số máy nhánh">
+                  </mat-form-field>
+                </div>
+              </div>
+              </div>
+              <div class="half" style="padding-right: 5px;">
+                  <div class="background-title mat-cyan-200-bg">
+                    <h2 class="title">Chi tiết nhận hàng</h2>
+                  </div>
+                  <div class="box-shadow-form margin-top-10">
+                      <div fxLayout="row">
+                          <mat-form-field fxFlex="100">
+                            <input formControlName="date_receiving" matInput [matDatepicker]="picker1" placeholder="Ngày nhận hàng (*)">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="80">
+                              <input formControlName="total_weight3" matInput placeholder="Tổng trọng lượng (*)">
+                            </mat-form-field>
+                                <label fxFlex="20" class="title-control">KGS</label>
+                          </div>
+                          <div fxLayout="row">
+                              <mat-form-field fxFlex="100">
+                                <input formControlName="total_package3" matInput placeholder="Tổng số kiện (*)">
+                              </mat-form-field>
+                            </div>
+                            <label class="title-control">Thời điểm sẵn sàng (*)</label>
+                            <div fxLayout="row">
+                                <mat-form-field fxFlex="50">
+                                    <mat-select formControlName="hours3">
+                                      <mat-option *ngFor="let item of hours" [value]="item.value">
+                                        {{ item.name }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="50" class="margin-left-10">
+                                      <mat-select formControlName="minutes3">
+                                        <mat-option *ngFor="let item of hours" [value]="item.value">
+                                          {{ item.name }}
+                                        </mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                            </div>
+                            <label class="title-control">Thời điểm kết thúc (*)</label>
+                            <div fxLayout="row">
+                                <mat-form-field fxFlex="50">
+                                    <mat-select formControlName="hours_end3">
+                                      <mat-option *ngFor="let item of hours" [value]="item.value">
+                                        {{ item.name }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="50" class="margin-left-10">
+                                      <mat-select formControlName="minutes_end3">
+                                        <mat-option *ngFor="let item of hours" [value]="item.value">
+                                          {{ item.name }}
+                                        </mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                            </div>
+                    </div>
+                    <div class="background-title mat-cyan-200-bg">
+                        <h2 class="title">Chi tiết nhận hàng</h2>
+                      </div>
+                      <div class="box-shadow-form margin-top-10">
+                          <label class="title-control">Địa điểm (*)</label>
+                          <div fxLayout="row">
+                              <div fxFlex="100">
+                                <mat-radio-group class="padding-left-10" style="display: block !important; margin-top:20px"
+                                  formControlName="place" fxLayout="column">
+                                  <mat-radio-group>
+                                    <mat-radio-button *ngFor="let item of listPlace" class="example-margin custom-radio"
+                                      [value]="item.value">{{ item.name }}
+                                    </mat-radio-button>
+                                  </mat-radio-group>
+                                </mat-radio-group>
+                              </div>
+                        </div>
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="100">
+                              <input formControlName="place_receiving" matInput placeholder="Vị trí nhận hàng (*)">
+                            </mat-form-field>
+                          </div>
+                    </div>
+                    <div class="background-title mat-cyan-200-bg">
+                        <h2 class="title">Chi tiết nhận hàng</h2>
+                      </div>
+                      <div class="box-shadow-form margin-top-10">
+                          <div fxLayout="row">
+                              <textarea rows="4" formControlName="guide_special" matInput
+                              placeholder="Hướng dẫn đặc biệt"></textarea>
+                            </div>
+                        </div> 
+              </div>
+              </div>
 
   </div>
+      </div>
   <button class="button-submit" mat-raised-button color="accent" (submit)="onSubmit()">Create</button>
   </form>
 </div>
