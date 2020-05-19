@@ -23,7 +23,7 @@ export const listRoutes: Routes = [
         component: CreateCustomeromponent
     },
     {
-        path: 'countrys',
+        path: 'countries',
         component: CountryListComponent
     }
 ];

@@ -47,10 +47,10 @@ export const navigation = [
                         'url'  : '/apps/master-data/customers'
                     },
                     {
-                        'id'   : 'CountrysList',
-                        'title': 'Countrys List',
+                        'id'   : 'CountriesList',
+                        'title': 'Countries List',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/countrys'
+                        'url'  : '/apps/master-data/countries'
                     },
                 ]
             },
@@ -89,6 +89,13 @@ export const navigation = [
                         'title': 'Quick Search',
                         'type' : 'item',
                         'url'  : '/apps/utility/quick-search',
+                        'exactMatch': true
+                    },
+                    {
+                        'id'   : 'calculateMoney',
+                        'title': 'Calculate Money',
+                        'type' : 'item',
+                        'url'  : '/apps/utility/calculate-money',
                         'exactMatch': true
                     }
                 ]

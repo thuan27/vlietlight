@@ -1,0 +1,91 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Calculate Money</span>
+            </div>
+            <div class="h2 mt-16">Calculate Money</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="p-24">
+
+        <form [formGroup]="CalculateForm" autocomplete="off" class="form">
+            <div class="background-title mat-cyan-200-bg margin-top-10">
+                <h2 class="title">Calculate</h2>
+            </div>
+            <div class="box-shadow-form margin-top-10">
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <mat-select formControlName="service_id" placeholder="Service (1) [A]">
+                            <mat-option *ngFor="let item of group1" [value]="item.value">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <mat-select formControlName="service_id_example" placeholder="Service Weight Range">
+                            <mat-option *ngFor="let item of group2" [value]="item.value">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <input formControlName="reweight" matInput placeholder="Weight (2) [B]">
+                        <mat-error *ngIf="CalculateForm.controls.reweight.hasError('required')">
+                            Weight is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <mat-select formControlName="zone_example" placeholder="">
+                            <mat-option *ngFor="let item of group3" [value]="item.value">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <input formControlName="zone" matInput placeholder="Zone (3) [C]">
+                        <mat-error *ngIf="CalculateForm.controls.zone.hasError('required')">
+                            Weight is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <mat-select formControlName="type" placeholder="Type (4) [D]">
+                            <mat-option *ngFor="let item of group4" [value]="item.value">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100">
+                        <mat-select formControlName="rangeId" placeholder="Range Weight(5)">
+                            <mat-option *ngFor="let item of group5" [value]="item.value">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button class="button-submit" mat-raised-button color="accent" (submit)="onSubmit()">Calculate [1-5]</button>
+            <button class="button-submit" mat-raised-button color="accent" (submit)="onSubmit()">Calculate [A-B]</button>
+        </form>
+    </div>
+</div>
