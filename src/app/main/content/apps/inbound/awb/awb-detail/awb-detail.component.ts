@@ -94,7 +94,16 @@ export class AWBDetailComponent implements OnInit {
 
   addMoreItem() {
     this.items = this.AWBForm.get('items') as FormArray;
-    this.items.push(this.buildChildGroup());
+    const lengthItems = this.items.length;
+    const form = this.formBuilder.group({
+      item_id: [this.items.controls[lengthItems - 1].value.item_id, [Validators.required]],
+      weight: [this.items.controls[lengthItems - 1].value.weight, [Validators.required]],
+      length: [this.items.controls[lengthItems - 1].value.length, [Validators.required]],
+      width: [this.items.controls[lengthItems - 1].value.width, [Validators.required]],
+      height: [this.items.controls[lengthItems - 1].value.height, [Validators.required]],
+      volume: [this.items.controls[lengthItems - 1].value.volume, [Validators.required]],
+    });
+    this.items.push(form);
   }
 
   checkInputNumber($event, int) {
