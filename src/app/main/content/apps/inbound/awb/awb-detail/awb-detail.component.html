@@ -175,7 +175,7 @@
                         </tr>
                     </thead>
                     <tbody formArrayName="items">
-                        <tr *ngFor="let item of AWBForm.get('items').controls; let i = index" [formGroupName]="i">
+                        <tr *ngFor="let item of AWBForm.get('items')['controls']; let i = index" [formGroupName]="i">
                             <td class="border-table">
                                 <mat-select formControlName="item_id">
                                     <mat-option *ngFor="let item of status" [value]="item.value">
