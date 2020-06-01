@@ -352,7 +352,7 @@
                   </tr>
                 </thead>
                 <tbody formArrayName="items">
-                  <tr *ngFor="let item of AWBForm.get('items').controls; let i = index" [formGroupName]="i">
+                  <tr *ngFor="let item of AWBForm.get('items')['controls']; let i = index" [formGroupName]="i">
                     <td class="border-table">
                       <input formControlName="package" matInput (keypress)="checkInputNumber($event,true)"
                         (blur)="totalPackage()">
@@ -679,7 +679,7 @@
               </tr>
             </thead>
             <tbody formArrayName="items_license">
-              <tr *ngFor="let item of AWBForm.get('items_license').controls; let x = index" [formGroupName]="x">
+              <tr *ngFor="let item of AWBForm.get('items_license')['controls']; let x = index" [formGroupName]="x">
                 <td class="border-table">
                   <input formControlName="number_unknown" matInput (keypress)="checkInputNumber($event,true)">
                 </td>

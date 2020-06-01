@@ -123,7 +123,7 @@ export class FuseToolbarComponent
     }
 
     logout() {
-        localStorage.removeItem(environment.token);
+        localStorage.clear();
         this.router.navigateByUrl('pages/auth/login');
     }
 }

@@ -335,7 +335,9 @@ export class AWBDetailForCusComponent implements OnInit {
   }
 
   isCash() {}
+  isSelectYes() {}
   isSelectYesShipping() {}
+  isSelectYesReceiving() {}
   isSelectYesReceiving3() {}
   isDeiveryNotification(event) {
     if (event.checked) {
@@ -399,7 +401,7 @@ export class AWBDetailForCusComponent implements OnInit {
     }
   }
 
-  addMoreItem() {
+  addMoreItem(event) {
     this.items = this.AWBForm.get('items') as FormArray;
     this.items.push(this.buildChildGroup());
   }

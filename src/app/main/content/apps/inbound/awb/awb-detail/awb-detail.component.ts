@@ -92,7 +92,7 @@ export class AWBDetailComponent implements OnInit {
     });
   }
 
-  addMoreItem() {
+  addMoreItem(event) {
     this.items = this.AWBForm.get('items') as FormArray;
     const lengthItems = this.items.length;
     const form = this.formBuilder.group({
