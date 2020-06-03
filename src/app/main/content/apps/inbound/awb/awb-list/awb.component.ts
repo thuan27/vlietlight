@@ -66,7 +66,8 @@ export class AWBComponent implements OnInit {
     }
 
     getList() {
-        this._AWBService.getList().subscribe(data => {
+        const params = `?limit=20`;
+        this._AWBService.getList(params).subscribe(data => {
             this.rows = data;
             this.loadingIndicator = false;
         });

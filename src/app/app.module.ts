@@ -51,7 +51,7 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'pages/auth/login'
+        redirectTo: 'pages/landing'
     }
 ];
 

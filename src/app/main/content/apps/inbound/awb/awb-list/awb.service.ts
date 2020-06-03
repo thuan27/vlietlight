@@ -14,7 +14,7 @@ export class AWBService
     {
     }
 
-    getList() {
-        return this.http.get(environment.API.apiBase + '/awbs', { headers: this._Func.AuthHeader() });
+    getList(params) {
+        return this.http.get(environment.API.apiBase + '/awbs/v1/search' + params, { headers: this._Func.AuthHeader() });
     }
 }

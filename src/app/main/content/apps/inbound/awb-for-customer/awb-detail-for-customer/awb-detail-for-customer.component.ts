@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
+import { FuseConfigService } from '@fuse/services/config.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -192,7 +193,16 @@ export class AWBDetailForCusComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
-  ) { }
+    private fuseConfig: FuseConfigService,
+  ) { 
+    this.fuseConfig.setConfig({
+      layout: {
+          navigation: 'none',
+          toolbar: 'none',
+          footer: 'none'
+      }
+  });
+  }
 
   ngOnInit() {
     this.buildForm();

@@ -22,11 +22,14 @@ import { SearchModule } from './search/search.module';
 import { FaqModule } from './faq/faq.module';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
 import { ToastyModule } from 'ng2-toasty';
+import { LandingModule } from './landing/landing.module';
+import { LoginCustomerModule } from './authentication/login-customer/login-customer.module';
 
 @NgModule({
     imports: [
         // Auth
         LoginModule,
+        LoginCustomerModule,
         Login2Module,
         RegisterModule,
         Register2Module,
@@ -62,6 +65,9 @@ import { ToastyModule } from 'ng2-toasty';
 
         // Faq
         FaqModule,
+
+        // Landing
+        LandingModule,
 
         // Knowledge base
         KnowledgeBaseModule,
