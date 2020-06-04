@@ -14,14 +14,14 @@ export class Functions {
     }
 
     AuthHeaderNoTK() {
-        const authHeader = new HttpHeaders();
-        authHeader.append('Content-Type', 'application/x-www-form-urlencoded');
+        const authHeader = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
         return authHeader;
     }
 
     AuthHeader() {
+        // const authHeader = new HttpHeaders().set('Authorization', 'Bearer ' + this.getToken());
         const authHeader = new HttpHeaders({
-            'Authorization': 'Bearer ' + this.getToken()
+            'Authorization': 'Bearer ' + this.getToken(),
         });
         return authHeader;
     }

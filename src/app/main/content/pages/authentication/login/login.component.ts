@@ -19,6 +19,7 @@ import { Functions } from '@fuse/core/function';
     providers: [APIConfig, ToastyService]
 })
 export class FuseLoginComponent implements OnInit {
+    private AuthHeaderNoTK = this._Func.AuthHeaderNoTK();
     loginForm: FormGroup;
     loginFormErrors: any;
     checkRemember = false;
@@ -104,9 +105,43 @@ export class FuseLoginComponent implements OnInit {
 
     }
 
+    onSubmit(data: any) {
+        if (this.loginForm.valid){
+          const creds = 'username=' + data['username'] + '&password=' + encodeURIComponent(data['password']);
+          this.http.post(this.loginURL, creds, {
+              headers: this.AuthHeaderNoTK
+            })
+            .subscribe(
+                (res) => {
+                    if (res['code'] === 405) {
+                        this.toastyService.warning('No Token Found.');
+                    } else {
+                        if (res['data'].token) {
+                            if (this.checkRemember) {
+                                localStorage.setItem(environment.username, this.loginForm.value['username']);
+                                localStorage.setItem(environment.password, this.loginForm.value['password']);
+                            }
+                            localStorage.setItem(environment.token, res['data'].token);
+                            this.router.navigate(['apps/dashboards/analytics']);
+                        } else {
+                            this.toastyService.error('No Token Found.');
+                        }
+                    }
+                },
+                (err) => {
+                    this.toastyService.warning(err.error.message);
+                }
+            );
+        }
+
+    }
+
     // tslint:disable-next-line:member-ordering
-    onSubmit() {
-        this.http.post(this.loginURL, this.loginForm.value)
+    onSubmit1() {
+        const authHeader = new HttpHeaders({
+            'Content-Type': 'pplication/json; charset=UTF-8',
+        });
+        this.http.post(this.loginURL, this.loginForm.value, {headers: authHeader})
             .subscribe(
                 (res) => {
                     if (res['code'] === 405) {

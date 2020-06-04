@@ -13,7 +13,7 @@
             <div class="title">LOGIN ADMIN</div>
 
 
-            <form name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+            <form name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit(loginForm.value)">
 
                 <mat-form-field>
                     <input matInput placeholder="User Name" formControlName="username" autocomplete="off">
