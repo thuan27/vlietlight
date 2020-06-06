@@ -13,6 +13,10 @@ export class APIConfig {
   public API_AUTHEN = environment.API.apiAuthen;
   /* API SUB-URLs */
   public LOGIN = this.API_BASE + '/master-service/v1/login';
+  public CREATE_AWB = this.API_BASE + '/awbs/v1/awb';
+  public LIST_AWB = this.API_BASE + '/awbs/v1/search';
+  public COUNTRY_LIST = this.API_BASE + '/master-data/v1/country';
+  public CREATE_COUNTRY = this.API_BASE + '/master-data/v1/country/store';
   public RESET_PASS = this.API_MASTER + '/reset-password';
   public FORGOT_PASS = this.API_MASTER + '/forgot-password';
   public RESET_PASS_TOKEN = this.API_MASTER + '/check-reset-password-token';

@@ -16,13 +16,12 @@ export class CountryListComponent implements OnInit
     rows: any;
     loadingIndicator = true;
     reorderable = true;
-    perPage = 20;
     pagination: any;
+    countryList;
 
     constructor(
-        private countryListService: CountryListService,
-        private func: Functions,
-        private router: Router
+        private router: Router,
+        private countryListService: CountryListService
         )
     {
     }
@@ -32,9 +31,16 @@ export class CountryListComponent implements OnInit
         this.getList();
     }
 
-    getList(pageNum: number = 1) {
-        this.countryListService.getList().subscribe((data: any[]) => {
-            this.rows = data;
+    getList(page = 0) {
+        const params = '?page=' + page;
+        this.countryList = this.countryListService.getList(params);
+        
+        this.countryList.subscribe((dataList: any[]) => {
+            console.log(dataList);
+            dataList['data'].forEach((data) => {
+                        data['country_code_link'] = `<a href="apps/master-data/countries/create/${data['country_code']}">${data['country_code']}</a>`;
+                });
+            this.rows = dataList['data'];
             this.loadingIndicator = false;
             // this.pagination = data['meta'];
             // this.pagination['numLinks'] = 3;
@@ -43,11 +49,14 @@ export class CountryListComponent implements OnInit
     }
 
     pageCallback(e) {
-        this.perPage = e['offset'];
-
+        this.getList(e['offset']);
     }
 
     create() {
-        // this.router.navigate(['apps/master-data/customers/create']);
+        this.router.navigate(['apps/master-data/countries/create']);
+    }
+
+    update() {
+        this.router.navigate(['apps/master-data/countries/create']);
     }
 }

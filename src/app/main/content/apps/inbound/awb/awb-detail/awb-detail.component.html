@@ -17,7 +17,7 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <form [formGroup]="AWBForm" autocomplete="off" class="form">
+        <form [formGroup]="AWBForm" autocomplete="off" class="form" (submit)="onSubmit()">
             <div class="background-title mat-cyan-200-bg">
                 <h2 class="title">From</h2>
             </div>
@@ -110,6 +110,12 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="width-control">
+                        <input formControlName="to_fax" matInput placeholder="To Phone">
+                        <mat-error *ngIf="AWBForm.controls.to_fax.hasError('required')">
+                            To Fax is required
+                        </mat-error>
+                    </mat-form-field>
+                <mat-form-field class="width-control">
                     <input formControlName="to_email" matInput placeholder="To Email">
                     <mat-error *ngIf="AWBForm.controls.to_email.hasError('required')">
                         To Email is required
@@ -174,8 +180,8 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody formArrayName="items">
-                        <tr *ngFor="let item of AWBForm.get('items')['controls']; let i = index" [formGroupName]="i">
+                    <tbody formArrayName="details">
+                        <tr *ngFor="let item of AWBForm.get('details')['controls']; let i = index" [formGroupName]="i">
                             <td class="border-table">
                                 <mat-select formControlName="item_id">
                                     <mat-option *ngFor="let item of status" [value]="item.value">
@@ -183,7 +189,7 @@
                                     </mat-option>
                                 </mat-select>
                                 <mat-error
-                                    *ngIf="AWBForm.controls.items.controls[i].controls.item_id.hasError('required') && AWBForm.controls.items.controls[i].controls.item_id.touched">
+                                    *ngIf="AWBForm.controls.details.controls[i].controls.item_id.hasError('required') && AWBForm.controls.details.controls[i].controls.item_id.touched">
                                     Item is required
                                 </mat-error>
                             </td>
@@ -191,7 +197,7 @@
                                 <input formControlName="weight" matInput (keypress)="checkInputNumber($event,true)"
                                     (blur)="CalculateTotalWeight()">
                                 <mat-error
-                                    *ngIf="AWBForm.controls.items.controls[i].controls.weight.hasError('required') && AWBForm.controls.items.controls[i].controls.weight.touched">
+                                    *ngIf="AWBForm.controls.details.controls[i].controls.weight.hasError('required') && AWBForm.controls.details.controls[i].controls.weight.touched">
                                     Weight is required
                                 </mat-error>
                             </td>
@@ -199,7 +205,7 @@
                                 <input formControlName="length" matInput (keypress)="checkInputNumber($event,true)"
                                     (blur)="CalculateTheVoulume(i)">
                                 <mat-error
-                                    *ngIf="AWBForm.controls.items.controls[i].controls.length.hasError('required') && AWBForm.controls.items.controls[i].controls.length.touched">
+                                    *ngIf="AWBForm.controls.details.controls[i].controls.length.hasError('required') && AWBForm.controls.details.controls[i].controls.length.touched">
                                     Length is required
                                 </mat-error>
                             </td>
@@ -207,7 +213,7 @@
                                 <input formControlName="width" matInput (keypress)="checkInputNumber($event,true)"
                                     (blur)="CalculateTheVoulume(i)">
                                 <mat-error
-                                    *ngIf="AWBForm.controls.items.controls[i].controls.width.hasError('required') && AWBForm.controls.items.controls[i].controls.width.touched">
+                                    *ngIf="AWBForm.controls.details.controls[i].controls.width.hasError('required') && AWBForm.controls.details.controls[i].controls.width.touched">
                                     Width is required
                                 </mat-error>
                             </td>
@@ -215,7 +221,7 @@
                                 <input formControlName="height" matInput (keypress)="checkInputNumber($event,true)"
                                     (blur)="CalculateTheVoulume(i)">
                                 <mat-error
-                                    *ngIf="AWBForm.controls.items.controls[i].controls.height.hasError('required') && AWBForm.controls.items.controls[i].controls.height.touched">
+                                    *ngIf="AWBForm.controls.details.controls[i].controls.height.hasError('required') && AWBForm.controls.details.controls[i].controls.height.touched">
                                     Height is required
                                 </mat-error>
                             </td>
@@ -247,7 +253,7 @@
                     <input readonly formControlName="volume" matInput (keypress)="checkInputNumber($event,true)">
                 </mat-form-field>
             </div>
-            <button class="button-submit" mat-raised-button color="accent" (submit)="onSubmit()">Create</button>
+            <button class="button-submit" mat-raised-button color="accent" type="submit">Create</button>
         </form>
     </div>
 

@@ -3,18 +3,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../../../../../environments/environment';
+import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
 export class CountryListService
 {
     constructor(
         private http: HttpClient,
-        private _Func: Functions
+        private _Func: Functions,
+        private apiConfig: APIConfig
     )
     {
     }
 
-    getList() {
-        return this.http.get(environment.API.apiBase + '/country/index', { headers: this._Func.AuthHeader() });
+    getList(params) {
+        return this.http.get(this.apiConfig.COUNTRY_LIST + params, { headers: this._Func.AuthHeader() });
     }
 }

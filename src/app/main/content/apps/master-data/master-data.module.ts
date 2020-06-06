@@ -1,3 +1,4 @@
+import { CreateCountryService } from './country/create-country/create-country.service';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { CustomerListService } from './customer/customer-list/customer-list.service';
 import { UserListService } from './user/user-list/user-list.service';
@@ -15,6 +16,7 @@ import { CreateCustomeromponent } from './customer/create-customer/create-custom
 import { CreateCustomerService } from './customer/create-customer/create-customer.service';
 import { CountryListComponent } from './country/country-list/country-list.component';
 import { CountryListService } from './country/country-list/country-list.service';
+import { CreateCountryComponent } from './country/create-country/create-country.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,8 @@ import { CountryListService } from './country/country-list/country-list.service'
         CreateUserComponent,
         CustomerListComponent,
         CreateCustomeromponent,
-        CountryListComponent
+        CountryListComponent,
+        CreateCountryComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -42,7 +45,8 @@ import { CountryListService } from './country/country-list/country-list.service'
         CreateUserService,
         CustomerListService,
         CreateCustomerService,
-        CountryListService
+        CountryListService,
+        CreateCountryService
     ]
 })
 export class FuseMasterDataModule {

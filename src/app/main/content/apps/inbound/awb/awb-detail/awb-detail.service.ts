@@ -1,20 +1,21 @@
 import { Functions } from '../../../../../../../@fuse/core/function';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { environment } from '../../../../../../../environments/environment';
+import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
 export class AWBDetailService
 {
     constructor(
         private http: HttpClient,
-        private _Func: Functions
+        private _Func: Functions,
+        private apiConfig: APIConfig
     )
     {
     }
 
     createAWB(param) {
-        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param, { headers: this._Func.AuthHeader() });
+        return this.http.post(this.apiConfig.CREATE_AWB, param, { headers: this._Func.AuthHeader() });
     }
 }

@@ -55,8 +55,8 @@
             <button mat-raised-button>Reset</button>
         </form>
 
-        <ngx-datatable id="example" (tableContextmenu)="onTableContextMenu($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable"
-            [selectionType]="'checkbox'" [limit]="10">
+        <ngx-datatable (page)="pageCallback($event)" id="example" (tableContextmenu)="onTableContextMenu($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable"
+            [selectionType]="'checkbox'" [limit]="20">
 
             <ngx-datatable-column [width]="80" [canAutoResize]="false" [sortable]="false">
                 <!-- <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">

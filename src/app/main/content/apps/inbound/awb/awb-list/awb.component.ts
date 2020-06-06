@@ -65,12 +65,16 @@ export class AWBComponent implements OnInit {
         });
     }
 
-    getList() {
-        const params = `?limit=20`;
+    getList(page = 0) {
+        const params = `?limit=20` + `&page=` + page;
         this._AWBService.getList(params).subscribe(data => {
             this.rows = data['data'];
             this.loadingIndicator = false;
         });
+    }
+
+    pageCallback(e) {
+        this.getList(e['offset']);
     }
 
     search() {
