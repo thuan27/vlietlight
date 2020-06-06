@@ -18,12 +18,16 @@ export class CountryListComponent implements OnInit
     reorderable = true;
     pagination: any;
     countryList;
+    total;
+    current_page;
+    selected: any[] = [];
 
     constructor(
         private router: Router,
         private countryListService: CountryListService
         )
     {
+        this.total = 0;
     }
 
     ngOnInit()
@@ -31,16 +35,19 @@ export class CountryListComponent implements OnInit
         this.getList();
     }
 
-    getList(page = 0) {
+    getList(page = 1) {
         const params = '?page=' + page;
         this.countryList = this.countryListService.getList(params);
         
         this.countryList.subscribe((dataList: any[]) => {
-            console.log(dataList);
             dataList['data'].forEach((data) => {
-                        data['country_code_link'] = `<a href="apps/master-data/countries/create/${data['country_code']}">${data['country_code']}</a>`;
-                });
+                data['country_id_link'] = `<a href="apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
+            });
             this.rows = dataList['data'];
+            console.log(dataList['data']);
+            this.total = dataList['meta']['pagination']['total'];
+            // tslint:disable-next-line:radix
+            this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
             this.loadingIndicator = false;
             // this.pagination = data['meta'];
             // this.pagination['numLinks'] = 3;
@@ -48,8 +55,14 @@ export class CountryListComponent implements OnInit
         });
     }
 
+    onSelect(event) {
+        console.log('select', event);
+        console.log('this.selected', this.selected);
+    }
+
     pageCallback(e) {
-        this.getList(e['offset']);
+        // tslint:disable-next-line:radix
+        this.getList(parseInt(e['offset']) + 1);
     }
 
     create() {

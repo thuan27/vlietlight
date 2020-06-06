@@ -37,7 +37,11 @@ export const listRoutes: Routes = [
         component: CreateCountryComponent
     },
     {
-        path: 'countries/create/:id',
+        path: 'countries/:id',
+        component: CreateCountryComponent
+    },
+    {
+        path: 'countries/:id/update',
         component: CreateCountryComponent
     }
 ];

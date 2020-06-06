@@ -19,7 +19,6 @@ export class CreateCountryService
     }
 
     getCountryDetail(params) {
-        return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/1', { headers: this._Func.AuthHeader() });
-        // return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
     }
 }
