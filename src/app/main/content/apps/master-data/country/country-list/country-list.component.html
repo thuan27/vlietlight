@@ -1,7 +1,9 @@
-<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+<ng2-toasty></ng2-toasty>
 
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
     <!-- HEADER -->
-    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
         <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
             <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="secondary-text s-16">home</mat-icon>
@@ -21,9 +23,13 @@
                     <span>Create</span>
                 </button>
                 <button mat-menu-item (click)="update()">
-                        <mat-icon>add_location</mat-icon>
-                        <span>Update</span>
-                    </button>
+                    <mat-icon>system_update_alt</mat-icon>
+                    <span>Update</span>
+                </button>
+                <button mat-menu-item (click)="delete()">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Delete</span>
+                </button>
             </mat-menu>
         </div>
     </div>
@@ -32,24 +38,20 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <ngx-datatable (page)="pageCallback($event)" 
-        class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" 
-        [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" 
-        [rowHeight]="'auto'" [reorderable]="reorderable" 
-        [selectionType]="'checkbox'"
-        [count]="total"
-        [selected]="selected"
-        (select)="onSelect($event)"
-        [externalPaging]="true"
-        [offset]="current_page"
-        [limit]="15">
+        <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
+            [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
+            [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
+            [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
+            [limit]="15">
 
             <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
-                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+                    let-selectFn="selectFn">
                     <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
                 </ng-template>
 
-                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+                    let-onCheckboxChangeFn="onCheckboxChangeFn">
                     <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
                 </ng-template>
             </ngx-datatable-column>
@@ -60,7 +62,6 @@
 
             <ngx-datatable-column [width]="200" name="Country Name" prop="country_name"></ngx-datatable-column>
         </ngx-datatable>
-
 
     </div>
 

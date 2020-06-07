@@ -17,6 +17,7 @@ import { CreateCustomerService } from './customer/create-customer/create-custome
 import { CountryListComponent } from './country/country-list/country-list.component';
 import { CountryListService } from './country/country-list/country-list.service';
 import { CreateCountryComponent } from './country/create-country/create-country.component';
+import { ToastyModule } from 'ng2-toasty';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { CreateCountryComponent } from './country/create-country/create-country.
         MatMenuModule,
         MatSelectModule,
         MatDatepickerModule,
-        MatInputModule
+        MatInputModule,
+        ToastyModule.forRoot()
     ],
     providers   : [
         UserListService,

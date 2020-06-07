@@ -1,3 +1,5 @@
+<ng2-toasty></ng2-toasty>
+
 <div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
 
     <!-- HEADER -->
@@ -7,9 +9,9 @@
             <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="secondary-text s-16">home</mat-icon>
                 <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Create Country</span>
+                <span class="secondary-text">{{ title }}</span>
             </div>
-            <div class="h2 mt-16">Create Country</div>
+            <div class="h2 mt-16">{{ title }}</div>
         </div>
     </div>
     <!-- / HEADER -->
@@ -24,7 +26,7 @@
             <div class="box-shadow-form margin-top-10">
                 <div fxLayout="row">
                     <mat-form-field fxFlex="50">
-                        <input [readonly]="readonlyForm" formControlName="code" matInput placeholder="Country Code">
+                        <input [readonly]="disabledForm" formControlName="code" matInput placeholder="Country Code">
                         <mat-error *ngIf="CountryForm.controls.code.hasError('required')">
                             Country Code is required
                         </mat-error>
@@ -37,7 +39,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button class="button-submit" mat-raised-button color="accent" type="submit">Create</button>
+            <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent" type="submit">{{ buttonType }}</button>
         </form>
     </div>
 </div>

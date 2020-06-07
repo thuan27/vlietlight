@@ -41,7 +41,7 @@ export const listRoutes: Routes = [
         component: CreateCountryComponent
     },
     {
-        path: 'countries/:id/update',
+        path: 'countries/:id/:update',
         component: CreateCountryComponent
     }
 ];

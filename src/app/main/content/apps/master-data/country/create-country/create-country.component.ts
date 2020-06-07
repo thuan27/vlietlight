@@ -5,13 +5,14 @@ import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastyConfig, ToastyService } from 'ng2-toasty';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'create-country',
   templateUrl: './create-country.component.html',
   styleUrls: ['./create-country.component.scss'],
-  providers: [ValidationService]
+  providers: [ValidationService, ToastyService]
 })
 // tslint:disable-next-line:component-class-suffix
 export class CreateCountryComponent implements OnInit {
@@ -22,25 +23,49 @@ export class CreateCountryComponent implements OnInit {
   countryDetail;
   private routeSub: Subscription;
   disabledForm;
+  title;
+  buttonType;
+  action;
 
   constructor(
     private _createCountryService: CreateCountryService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
-    private activeRoute: ActivatedRoute
-  ) { }
+    private activeRoute: ActivatedRoute,
+    private toastyService: ToastyService,
+    private toastyConfig: ToastyConfig
+  ) {
+    this.toastyConfig.position = 'top-right';
+   }
 
   ngOnInit() {
+    this.title = 'Create Country';
+    this.buttonType = 'Create';
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        this.idCountry = params['id'];
-        this.buildForm();
-        this.detail(params['id']);
-        this.disabledForm = true;
+        if (params['update']  === 'update') {
+          this.action = 'update';
+          this.idCountry = params['id'];
+          this.buildForm();
+          this.detail(params['id']);
+          this.disabledForm = false;
+          this.buttonType = 'Update';
+          this.title = 'Update Country';
+        } else {
+          this.idCountry = params['id'];
+          this.action = 'detail';
+          this.buildForm();
+          this.detail(params['id']);
+          this.disabledForm = true;
+          this.title = 'Country Detail';
+        }
       }
       else {
+        this.action = 'create';
         this.buildForm();
+        this.title = 'Create Country';
+        this.buttonType = 'Create';
         this.disabledForm = false;
       }
     });
@@ -62,9 +87,28 @@ export class CreateCountryComponent implements OnInit {
 
   onSubmit() {
     if (this.CountryForm.valid) {
-      this._createCountryService.createCountry(this.CountryForm.value).subscribe((data) => {
-        this.router.navigate(['apps/master-data/countries']);
-      });
+      if (this.action === 'create') {
+        this._createCountryService.createCountry(this.CountryForm.value).subscribe((data) => {
+          this.toastyService.success(data['message']);
+          setTimeout(
+            () => {
+              this.router.navigate(['apps/master-data/countries']);
+            },
+            700
+          );
+        });
+      } else if (this.action === 'update') {
+        this._createCountryService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+          this.toastyService.success(data['message']);
+          setTimeout(
+            () => {
+              this.router.navigate(['apps/master-data/countries']);
+            },
+            700
+          );
+        });
+      }
+
     }
   }
 

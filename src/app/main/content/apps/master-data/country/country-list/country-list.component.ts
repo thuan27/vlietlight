@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Functions } from '../../../../../../../@fuse/core/function';
 import { forEach } from '@angular/router/src/utils/collection';
+import { ToastyService, ToastyConfig } from 'ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector   : 'country-list',
     templateUrl: './country-list.component.html',
     styleUrls  : ['./country-list.component.scss'],
-    providers: [CountryListService]
+    providers: [CountryListService, ToastyService]
 })
 export class CountryListComponent implements OnInit
 {
@@ -24,9 +25,12 @@ export class CountryListComponent implements OnInit
 
     constructor(
         private router: Router,
-        private countryListService: CountryListService
+        private countryListService: CountryListService,
+        private toastyService: ToastyService,
+        private toastyConfig: ToastyConfig
         )
     {
+        this.toastyConfig.position = 'top-right';
         this.total = 0;
     }
 
@@ -56,7 +60,6 @@ export class CountryListComponent implements OnInit
     }
 
     onSelect(event) {
-        console.log('select', event);
         console.log('this.selected', this.selected);
     }
 
@@ -70,6 +73,30 @@ export class CountryListComponent implements OnInit
     }
 
     update() {
-        this.router.navigate(['apps/master-data/countries/create']);
+        if (this.selected.length < 1) {
+            this.toastyService.error('please select at least one item');
+        } else if (this.selected.length > 1) {
+            this.toastyService.error('please select one item');
+        } else {
+            this.router.navigateByUrl(`apps/master-data/countries/${this.selected[0]['country_id']}/update`);
+        }
+    }
+
+    delete() {
+        if (this.selected.length < 1) {
+            this.toastyService.error('please select at least one item');
+        } else if (this.selected.length > 1) {
+            this.toastyService.error('please select one item');
+        } else {
+        this.countryListService.deleteCountry(this.selected[0]['country_id']).subscribe((data) => {
+                this.toastyService.success(data['message']);
+                setTimeout(
+                    () => {
+                        this.getList();
+                    },
+                    700
+                  );
+            });
+        }
     }
 }

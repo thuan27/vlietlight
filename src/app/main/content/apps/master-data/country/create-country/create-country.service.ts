@@ -15,10 +15,14 @@ export class CreateCountryService
     }
 
     createCountry(param) {
-        return this.http.post(this.apiConfig.CREATE_COUNTRY, param, { headers: this._Func.AuthHeader() });
+        return this.http.post(this.apiConfig.COUNTRY_LIST + '/store', param, { headers: this._Func.AuthHeader() });
     }
 
     getCountryDetail(params) {
         return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+    }
+
+    updateCountry(id, param) {
+        return this.http.put(this.apiConfig.COUNTRY_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
     }
 }
