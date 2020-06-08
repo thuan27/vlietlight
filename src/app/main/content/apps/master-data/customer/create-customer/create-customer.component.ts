@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,16 +18,51 @@ export class CreateCustomeromponent implements OnInit {
 
   items: FormArray;
   CustomerForm: FormGroup;
+  title;
+  buttonType;
+  private routeSub: Subscription;
+  action;
+  idCountry;
+  disabledForm;
 
   constructor(
     private _createCustomerService: CreateCustomerService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
+    private activeRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.buildForm();
+    this.title = 'Create Country';
+    this.buttonType = 'Create';
+    this.routeSub = this.activeRoute.params.subscribe(params => {
+      if (params['id'] !== undefined) {
+        if (params['update']  === 'update') {
+          this.action = 'update';
+          this.idCountry = params['id'];
+          this.buildForm();
+          this.detail(params['id']);
+          this.disabledForm = false;
+          this.buttonType = 'Update';
+          this.title = 'Update Country';
+        } else {
+          this.idCountry = params['id'];
+          this.action = 'detail';
+          this.buildForm();
+          this.detail(params['id']);
+          this.disabledForm = true;
+          this.title = 'Country Detail';
+        }
+      }
+      else {
+        this.action = 'create';
+        this.buildForm();
+        this.title = 'Create Country';
+        this.buttonType = 'Create';
+        this.disabledForm = false;
+      }
+    });
   }
 
   private buildForm() {
@@ -40,6 +76,14 @@ export class CreateCustomeromponent implements OnInit {
       province: ['', [Validators.required]],
       customer_email: ['', [Validators.required, Validators.email]],
       customer_phone: ['', [Validators.required]]
+    });
+  }
+
+  detail(id) {
+    this._createCustomerService.getCusDetail(id).subscribe((data) => {
+      // this.countryDetail = data['country'];
+      // this.detailForm(data['country']);
+      console.log(data);
     });
   }
 

@@ -21,6 +21,10 @@ export const listRoutes: Routes = [
         component: CustomerListComponent
     },
     {
+        path    : 'customers/:id',
+        component: CreateCustomeromponent
+    },
+    {
         path: 'customers/create',
         component: CreateCustomeromponent
     },

@@ -14,6 +14,7 @@ export class APIConfig {
   /* API SUB-URLs */
   public LOGIN = this.API_BASE + '/master-service/v1/login';
   public LOGIN_CUS = this.API_BASE + '/authentication/customer/login';
+  public CUSTOMER = this.API_BASE  + '/authentication/customer';
   public CREATE_AWB = this.API_BASE + '/awbs/v1/awb';
   public GET_STATUS = this.API_BASE + '/awbs/v1/awb-statuses';
   public LIST_AWB = this.API_BASE + '/awbs/v1/search';

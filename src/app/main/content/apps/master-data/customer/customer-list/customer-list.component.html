@@ -28,8 +28,11 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable" [selectionType]="'checkbox'"
-            [limit]="10">
+        <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [scrollbarV]="true" [scrollbarH]="true"
+            [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
+            [rowHeight]="50" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
+            [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
+            [limit]="15">
 
             <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
                 <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
@@ -41,7 +44,7 @@
                 </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column [width]="200" name="Customer ID" prop="customer_id"></ngx-datatable-column>
+            <ngx-datatable-column [width]="200" name="Customer ID" prop="customer_id_link"></ngx-datatable-column>
 
             <ngx-datatable-column [width]="300" name="Account Number" prop="account_number"></ngx-datatable-column>
 
