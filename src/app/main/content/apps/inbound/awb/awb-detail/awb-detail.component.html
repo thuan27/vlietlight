@@ -22,152 +22,174 @@
                 <h2 class="title">From</h2>
             </div>
             <div class="box-shadow-form margin-top-10">
-                <mat-form-field class="width-control">
-                    <input formControlName="from_address" matInput placeholder="From Address">
-                    <mat-error *ngIf="AWBForm.controls.from_address.hasError('required')">
-                        From Address is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="from_postcode" matInput placeholder="From PostCode">
-                    <mat-error *ngIf="AWBForm.controls.from_postcode.hasError('required')">
-                        From PostCode is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="from_phone" matInput placeholder="From Phone">
-                    <mat-error *ngIf="AWBForm.controls.from_phone.hasError('required')">
-                        From Phone is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="from_fax" matInput placeholder="From Fax">
-                    <mat-error *ngIf="AWBForm.controls.from_fax.hasError('required')">
-                        From Fax is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="from_email" matInput placeholder="From Email">
-                    <mat-error *ngIf="AWBForm.controls.from_email.hasError('required')">
-                        From Email is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="from_contact_name" matInput placeholder="From Contact Name">
-                    <mat-error *ngIf="AWBForm.controls.from_contact_name.hasError('required')">
-                        From Contact Name is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="from_company_name" matInput placeholder="From Company Name">
-                    <mat-error *ngIf="AWBForm.controls.from_company_name.hasError('required')">
-                        From Company Name is required
-                    </mat-error>
-                </mat-form-field>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="25">
+                        <mat-select formControlName="from_country_id" placeholder="From Country">
+                            <mat-option *ngFor="let item of country" [value]="item.country_id">
+                                {{ item.country_name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="from_address" matInput placeholder="From Address">
+                        <mat-error *ngIf="AWBForm.controls.from_address.hasError('required')">
+                            From Address is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="from_postcode" matInput placeholder="From PostCode">
+                        <mat-error *ngIf="AWBForm.controls.from_postcode.hasError('required')">
+                            From PostCode is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="from_phone" matInput placeholder="From Phone">
+                        <mat-error *ngIf="AWBForm.controls.from_phone.hasError('required')">
+                            From Phone is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="25">
+                        <input formControlName="from_fax" matInput placeholder="From Fax">
+                        <mat-error *ngIf="AWBForm.controls.from_fax.hasError('required')">
+                            From Fax is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="from_email" matInput placeholder="From Email">
+                        <mat-error *ngIf="AWBForm.controls.from_email.hasError('required')">
+                            From Email is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="from_contact_name" matInput placeholder="From Contact Name">
+                        <mat-error *ngIf="AWBForm.controls.from_contact_name.hasError('required')">
+                            From Contact Name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="from_company_name" matInput placeholder="From Company Name">
+                        <mat-error *ngIf="AWBForm.controls.from_company_name.hasError('required')">
+                            From Company Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
             <div class="background-title mat-cyan-200-bg margin-top-10">
                 <h2 class="title">To</h2>
             </div>
             <div class="box-shadow-form margin-top-10">
-                <mat-form-field class="width-control">
-                    <mat-select formControlName="to_country_id" placeholder="To Country">
-                        <mat-option *ngFor="let item of status" [value]="item.value">
-                            {{ item.name }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="AWBForm.controls.to_country_id.hasError('required')">
-                        To Country is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="to_contact_name" matInput placeholder="To Contact Name">
-                    <mat-error *ngIf="AWBForm.controls.to_contact_name.hasError('required')">
-                        To Contact Name is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="to_company_name" matInput placeholder="To Company Name">
-                    <mat-error *ngIf="AWBForm.controls.to_company_name.hasError('required')">
-                        To Company Name is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="to_address" matInput placeholder="To Address">
-                    <mat-error *ngIf="AWBForm.controls.to_address.hasError('required')">
-                        To Address is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="to_postcode" matInput placeholder="To PostCode">
-                    <mat-error *ngIf="AWBForm.controls.to_postcode.hasError('required')">
-                        To PostCode is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="to_phone" matInput placeholder="To Phone">
-                    <mat-error *ngIf="AWBForm.controls.to_phone.hasError('required')">
-                        To Phone is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="25">
+                        <mat-select formControlName="to_country_id" placeholder="To Country">
+                            <mat-option *ngFor="let item of country" [value]="item.country_id">
+                                {{ item.country_name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="AWBForm.controls.to_country_id.hasError('required')">
+                            To Country is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="to_contact_name" matInput placeholder="To Contact Name">
+                        <mat-error *ngIf="AWBForm.controls.to_contact_name.hasError('required')">
+                            To Contact Name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="to_company_name" matInput placeholder="To Company Name">
+                        <mat-error *ngIf="AWBForm.controls.to_company_name.hasError('required')">
+                            To Company Name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="to_address" matInput placeholder="To Address">
+                        <mat-error *ngIf="AWBForm.controls.to_address.hasError('required')">
+                            To Address is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="25">
+                        <input formControlName="to_postcode" matInput placeholder="To PostCode">
+                        <mat-error *ngIf="AWBForm.controls.to_postcode.hasError('required')">
+                            To PostCode is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="to_phone" matInput placeholder="To Phone">
+                        <mat-error *ngIf="AWBForm.controls.to_phone.hasError('required')">
+                            To Phone is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
                         <input formControlName="to_fax" matInput placeholder="To Phone">
                         <mat-error *ngIf="AWBForm.controls.to_fax.hasError('required')">
                             To Fax is required
                         </mat-error>
                     </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="to_email" matInput placeholder="To Email">
-                    <mat-error *ngIf="AWBForm.controls.to_email.hasError('required')">
-                        To Email is required
-                    </mat-error>
-                </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input formControlName="to_email" matInput placeholder="To Email">
+                        <mat-error *ngIf="AWBForm.controls.to_email.hasError('required')">
+                            To Email is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
             <div class="background-title mat-cyan-200-bg margin-top-10">
                 <h2 class="title">Information</h2>
             </div>
             <div class="box-shadow-form margin-top-10">
-                <mat-form-field class="width-control">
-                    <input matInput formControlName="received_at" [matDatepicker]="receivedAt"
-                        placeholder="Received At">
-                    <mat-datepicker-toggle matSuffix [for]="receivedAt"></mat-datepicker-toggle>
-                    <mat-datepicker #receivedAt disabled="false"></mat-datepicker>
-                    <mat-error *ngIf="AWBForm.controls.received_at.hasError('required')">
-                        Received At is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input matInput formControlName="ship_date" [matDatepicker]="shipDate" placeholder="Ship Date">
-                    <mat-datepicker-toggle matSuffix [for]="shipDate"></mat-datepicker-toggle>
-                    <mat-datepicker #shipDate disabled="false"></mat-datepicker>
-                    <mat-error *ngIf="AWBForm.controls.ship_date.hasError('required')">
-                        Ship Date is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="price" matInput placeholder="Price"
-                        (keypress)="checkInputNumber($event,true)">
-                    <mat-error *ngIf="AWBForm.controls.price.hasError('required')">
-                        Price is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="pick_up_address" matInput placeholder="Pick Up Address">
-                    <mat-error *ngIf="AWBForm.controls.pick_up_address.hasError('required')">
-                        Pick Up Address is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input matInput formControlName="pick_up_date" [matDatepicker]="pickUpDate"
-                        placeholder="Pick Up Date">
-                    <mat-datepicker-toggle matSuffix [for]="pickUpDate"></mat-datepicker-toggle>
-                    <mat-datepicker #pickUpDate disabled="false"></mat-datepicker>
-                    <mat-error *ngIf="AWBForm.controls.pick_up_date.hasError('required')">
-                        Pick Up Date is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <input formControlName="description" matInput placeholder="Description">
-                </mat-form-field>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="33">
+                        <input (dateChange)="addEvent($event)" matInput formControlName="received_at"
+                            [matDatepicker]="receivedAt" placeholder="Received At">
+                        <mat-datepicker-toggle matSuffix [for]="receivedAt"></mat-datepicker-toggle>
+                        <mat-datepicker #receivedAt disabled="false"></mat-datepicker>
+                        <mat-error *ngIf="AWBForm.controls.received_at.hasError('required')">
+                            Received At is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="33" class="margin-left-10">
+                        <input matInput formControlName="ship_date" [matDatepicker]="shipDate" placeholder="Ship Date">
+                        <mat-datepicker-toggle matSuffix [for]="shipDate"></mat-datepicker-toggle>
+                        <mat-datepicker #shipDate disabled="false"></mat-datepicker>
+                        <mat-error *ngIf="AWBForm.controls.ship_date.hasError('required')">
+                            Ship Date is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="33" class="margin-left-10">
+                        <input formControlName="price" matInput placeholder="Price"
+                            (keypress)="checkInputNumber($event,true)">
+                        <mat-error *ngIf="AWBForm.controls.price.hasError('required')">
+                            Price is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="33">
+                        <input formControlName="pick_up_address" matInput placeholder="Pick Up Address">
+                        <mat-error *ngIf="AWBForm.controls.pick_up_address.hasError('required')">
+                            Pick Up Address is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="33" class="margin-left-10">
+                        <input matInput formControlName="pick_up_date" [matDatepicker]="pickUpDate"
+                            placeholder="Pick Up Date">
+                        <mat-datepicker-toggle matSuffix [for]="pickUpDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickUpDate disabled="false"></mat-datepicker>
+                        <mat-error *ngIf="AWBForm.controls.pick_up_date.hasError('required')">
+                            Pick Up Date is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="33" class="margin-left-10">
+                        <input formControlName="description" matInput placeholder="Description">
+                    </mat-form-field>
+                </div>
+
                 <table class="table table-striped table-bordered mat-cyan-50-bg">
                     <thead>
                         <tr>
@@ -184,7 +206,7 @@
                         <tr *ngFor="let item of AWBForm.get('details')['controls']; let i = index" [formGroupName]="i">
                             <td class="border-table">
                                 <mat-select formControlName="item_id">
-                                    <mat-option *ngFor="let item of status" [value]="item.value">
+                                    <mat-option *ngFor="let item of itemType" [value]="item.value">
                                         {{ item.name }}
                                     </mat-option>
                                 </mat-select>
@@ -244,14 +266,16 @@
                         </tr>
                     </tbody>
                 </table>
-                <mat-form-field class="width-control">
-                    <label>Total Weight</label>
-                    <input readonly formControlName="weight" matInput (keypress)="checkInputNumber($event,true)">
-                </mat-form-field>
-                <mat-form-field class="width-control">
-                    <label>Total Volome</label>
-                    <input readonly formControlName="volume" matInput (keypress)="checkInputNumber($event,true)">
-                </mat-form-field>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="50">
+                        <label>Total Weight</label>
+                        <input readonly formControlName="weight" matInput (keypress)="checkInputNumber($event,true)">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50">
+                        <label>Total Volome</label>
+                        <input readonly formControlName="volume" matInput (keypress)="checkInputNumber($event,true)">
+                    </mat-form-field>
+                </div>
             </div>
             <button class="button-submit" mat-raised-button color="accent" type="submit">Create</button>
         </form>

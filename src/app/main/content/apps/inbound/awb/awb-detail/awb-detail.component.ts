@@ -1,6 +1,5 @@
 import { AWBDetailService } from './awb-detail.service';
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
@@ -10,25 +9,28 @@ import { Router } from '@angular/router';
   selector: 'awb-detail',
   templateUrl: './awb-detail.component.html',
   styleUrls: ['./awb-detail.component.scss'],
-  providers: [ValidationService]
+  providers: [
+    ValidationService
+  ]
 })
 export class AWBDetailComponent implements OnInit {
 
   details: FormArray;
   AWBForm: FormGroup;
   ChildAWBFrom: FormGroup;
-  status = [
+  country;
+  itemType = [
     {
       value: 0,
-      name: 'Picking'
+      name: 'DOC'
     },
     {
       value: 1,
-      name: 'Ready to pick'
+      name: 'PACK'
     },
     {
       value: 2,
-      name: 'Completed'
+      name: 'ENVELOP'
     }
   ];
 
@@ -41,17 +43,19 @@ export class AWBDetailComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.getCountry();
   }
 
   private buildForm() {
     this.AWBForm = this.formBuilder.group({
-      from_address: ['', [Validators.required]],
-      from_postcode: ['', [Validators.required]],
-      from_phone: [null, [Validators.required]],
-      from_fax: ['', [Validators.required]],
-      from_email: ['', [Validators.required]],
-      from_contact_name: ['', [Validators.required]],
-      from_company_name: ['', [Validators.required]],
+      from_country_id: [3, [Validators.required]],
+      from_address: ['132 132', [Validators.required]],
+      from_postcode: ['ABC', [Validators.required]],
+      from_phone: ['090909', [Validators.required]],
+      from_fax: ['ABAB', [Validators.required]],
+      from_email: ['lequangthuan@gmail.com', [Validators.required]],
+      from_contact_name: ['THON', [Validators.required]],
+      from_company_name: ['THON', [Validators.required]],
       to_country_id: [0, [Validators.required]],
       to_contact_name: ['', [Validators.required]],
       to_company_name: ['', [Validators.required]],
@@ -69,6 +73,8 @@ export class AWBDetailComponent implements OnInit {
       description: '',
       weight: 0,
       volume: 0,
+      user_id: 1,
+      pick_up_time: '10:30',
       details: this.formBuilder.array([this.buildChildGroup()])
     });
   }
@@ -89,13 +95,15 @@ export class AWBDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.AWBForm.valid) {
-
-    // }
-    this._AWBDetailService.createAWB(this.AWBForm.value).subscribe((data) => {
-      console.log(data);
-      this.router.navigate(['apps/inbound/awb']);
-    });
+    if (this.AWBForm.valid) {
+      this.AWBForm.value.received_at = this.AWBForm.value.received_at.format('YYYY/MM/DD');
+      this.AWBForm.value.ship_date = this.AWBForm.value.ship_date.format('YYYY/MM/DD');
+      this.AWBForm.value.pick_up_date = this.AWBForm.value.pick_up_date.format('YYYY/MM/DD');
+      this._AWBDetailService.createAWB(this.AWBForm.value).subscribe((data) => {
+        console.log(data);
+        this.router.navigate(['apps/inbound/awb']);
+      });
+    }
   }
 
   addMoreItem(event) {
@@ -108,6 +116,10 @@ export class AWBDetailComponent implements OnInit {
       width: [this.details.controls[lengthItems - 1].value.width, [Validators.required]],
       height: [this.details.controls[lengthItems - 1].value.height, [Validators.required]],
       volume: [this.details.controls[lengthItems - 1].value.volume, [Validators.required]],
+      pack_num: [this.details.controls[lengthItems - 1].value.pack_num, [Validators.required]],
+      max_weight: [this.details.controls[lengthItems - 1].value.max_weight, [Validators.required]],
+      quantity: [this.details.controls[lengthItems - 1].value.quantity, [Validators.required]],
+      awb_dtl_weight_up: [this.details.controls[lengthItems - 1].value.awb_dtl_weight_up, [Validators.required]],
     });
     this.details.push(form);
   }
@@ -165,6 +177,12 @@ export class AWBDetailComponent implements OnInit {
       }
       this.AWBForm.controls['volume'].setValue(sumVolume);
     }
+  }
+
+  getCountry() {
+    this._AWBDetailService.getCountry().subscribe((data) => {
+      this.country = data['data'];
+    });
   }
 
 }

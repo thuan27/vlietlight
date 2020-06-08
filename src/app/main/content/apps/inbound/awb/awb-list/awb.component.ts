@@ -4,13 +4,14 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
+import { ToastyService, ToastyConfig } from 'ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'awb',
     templateUrl: './awb.component.html',
     styleUrls: ['./awb.component.scss'],
-    providers: [AWBService]
+    providers: [AWBService, ToastyService]
 })
 export class AWBComponent implements OnInit {
     contextmenuX: any;
@@ -22,23 +23,12 @@ export class AWBComponent implements OnInit {
     loadingIndicator = true;
     reorderable = true;
     searchForm: FormGroup;
-    examples: any;
+    total;
+    current_page;
+    selected: any[] = [];
     private listSelectedItem = [];
 
-    status = [
-        {
-            value    : 0,
-            name: 'Picking'
-        },
-        {
-            value    : 1,
-            name: 'Ready to pick'
-        },
-        {
-            value    : 2,
-            name: 'Completed'
-        }
-    ];
+    status;
     xMenuContext: number;
     yMenuContext: number;
 
@@ -47,29 +37,43 @@ export class AWBComponent implements OnInit {
         private _AWBService: AWBService,
         private datePipe: DatePipe,
         private func: Functions,
-        private router: Router
+        private router: Router,
+        private toastyService: ToastyService,
+        private toastyConfig: ToastyConfig
     ) {
+        this.toastyConfig.position = 'top-right';
+        this.total = 0;
     }
 
     ngOnInit() {
         this.buildForm();
         this.getList();
+        this.getStatus();
     }
 
     private buildForm() {
         this.searchForm = this.formBuilder.group({
             awb_code: '',
-            awb_sts: '',
+            awb_sts: 'New',
             created_at: null,
             updated_at: null
         });
     }
 
     getList(page = 0) {
-        const params = `?limit=20` + `&page=` + page;
-        this._AWBService.getList(params).subscribe(data => {
+        const params = `?limit=15` + `&page=` + page;
+        this._AWBService.getList(params).subscribe((data) => {
             this.rows = data['data'];
+            this.total = data['meta']['pagination']['total'];
+            // tslint:disable-next-line:radix
+            this.current_page = parseInt(data['meta']['pagination']['current_page']) - 1;
             this.loadingIndicator = false;
+        });
+    }
+
+    getStatus() {
+        this._AWBService.getStatus().subscribe((data) => {
+            this.status = data['data'];
         });
     }
 

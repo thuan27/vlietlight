@@ -21,6 +21,7 @@ import { AWBDetailComponent } from './awb/awb-detail/awb-detail.component';
 import { ContextMenuComponent } from '../../components/context-menu/context-menu.component';
 import { AWBDetailForCusService } from './awb-for-customer/awb-detail-for-customer/awb-detail-for-customer.service';
 import { AWBDetailForCusComponent } from './awb-for-customer/awb-detail-for-customer/awb-detail-for-customer.component';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import { AWBDetailForCusComponent } from './awb-for-customer/awb-detail-for-cust
         MatSelectModule,
         MatInputModule,
         MatDatepickerModule,
+        MatMomentDateModule,
         MatMenuModule,
         MatRadioModule,
         MatTableModule

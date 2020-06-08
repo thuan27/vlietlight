@@ -18,4 +18,8 @@ export class AWBDetailService
     createAWB(param) {
         return this.http.post(this.apiConfig.CREATE_AWB, param, { headers: this._Func.AuthHeader() });
     }
+
+    getCountry() {
+        return this.http.get(this.apiConfig.GET_COUNTRY, { headers: this._Func.AuthHeader() });
+    }
 }

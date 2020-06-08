@@ -34,7 +34,7 @@
             <mat-form-field>
                 <mat-select formControlName="awb_sts" placeholder="Status">
                     <mat-option *ngFor="let item of status" [value]="item.value">
-                        {{ item.name }}
+                        {{ item.value }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -55,8 +55,11 @@
             <button mat-raised-button>Reset</button>
         </form>
 
-        <ngx-datatable (page)="pageCallback($event)" id="example" (tableContextmenu)="onTableContextMenu($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable"
-            [selectionType]="'checkbox'" [limit]="20">
+        <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
+        [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
+        [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
+        [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
+        [limit]="15">
 
             <ngx-datatable-column [width]="80" [canAutoResize]="false" [sortable]="false">
                 <!-- <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">

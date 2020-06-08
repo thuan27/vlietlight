@@ -18,4 +18,8 @@ export class AWBService
     getList(params) {
         return this.http.get(this.apiConfig.LIST_AWB + params, { headers: this._Func.AuthHeader() });
     }
+
+    getStatus() {
+        return this.http.get(this.apiConfig.GET_STATUS, { headers: this._Func.AuthHeader()});
+    }
 }
