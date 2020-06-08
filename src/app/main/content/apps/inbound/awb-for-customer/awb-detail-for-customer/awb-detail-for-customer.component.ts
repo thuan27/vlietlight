@@ -198,8 +198,8 @@ export class AWBDetailForCusComponent implements OnInit {
     this.fuseConfig.setConfig({
       layout: {
           navigation: 'none',
-          toolbar: 'none',
-          footer: 'none'
+          toolbar: 'above',
+          footer: 'below'
       }
   });
   }

@@ -47,11 +47,11 @@ export class FuseLoginCustomerComponent implements OnInit {
         });
 
         this.loginFormErrors = {
-            username: {},
+            loginname: {},
             password: {}
         };
 
-        this.loginURL = this.api.LOGIN;
+        this.loginURL = this.api.LOGIN_CUS;
 
         const token = localStorage.getItem(environment.token);
         if (token !== null) {
@@ -96,7 +96,7 @@ export class FuseLoginCustomerComponent implements OnInit {
         }
         else {
             this.loginForm = this.formBuilder.group({
-                username: ['', [Validators.required]],
+                loginname: ['', [Validators.required]],
                 password: ['', [Validators.required]]
             });
             this.checkRemember = false;

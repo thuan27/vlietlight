@@ -124,6 +124,6 @@ export class FuseToolbarComponent
 
     logout() {
         localStorage.clear();
-        this.router.navigateByUrl('pages/auth/login');
+        this.router.navigateByUrl('');
     }
 }

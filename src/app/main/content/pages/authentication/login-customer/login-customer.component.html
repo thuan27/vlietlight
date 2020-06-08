@@ -16,8 +16,8 @@
             <form name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
 
                 <mat-form-field>
-                    <input matInput placeholder="User Name" formControlName="username" autocomplete="off">
-                    <mat-error *ngIf="loginForm.controls.username.hasError('required')">
+                    <input matInput placeholder="User Name" formControlName="loginname" autocomplete="off">
+                    <mat-error *ngIf="loginForm.controls.loginname.hasError('required')">
                         User Name is required
                     </mat-error>
                     <!-- <mat-error *ngIf="!loginFormErrors.username.required">
