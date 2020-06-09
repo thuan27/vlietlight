@@ -1,6 +1,7 @@
 import { CustomerListService } from './customer-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -18,11 +19,13 @@ export class CustomerListComponent implements OnInit
     pagination: any;
     total;
     current_page;
+    searchForm: FormGroup;
     selected: any[] = [];
 
     constructor(
         private customerListService: CustomerListService,
-        private router: Router
+        private router: Router,
+        private formBuilder: FormBuilder
         )
     {
         this.total = 0;
@@ -31,10 +34,21 @@ export class CustomerListComponent implements OnInit
     ngOnInit()
     {
         this.getList();
+        this.buildForm();
+    }
+
+    private buildForm() {
+        this.searchForm = this.formBuilder.group({
+            login_name: '',
+            customer_name: '',
+            email: '',
+            phone: ''
+        });
     }
 
     getList(pageNum: number = 1) {
-        this.customerListService.getList().subscribe((data: any[]) => {
+        const params = `?limit=15` + `&page=` + pageNum;
+        this.customerListService.getList(params).subscribe((data: any[]) => {
             data['data'].forEach((customer) => {
                 customer['customer_id_link'] = `<a href="apps/master-data/customers/${customer['customer_id']}">${customer['customer_id']}</a>`;
             });
@@ -50,7 +64,7 @@ export class CustomerListComponent implements OnInit
             this.total = data['meta']['totalCount'];
             // tslint:disable-next-line:radix
             this.current_page = parseInt(data['meta']['currentPage']) - 1;
-            this.loadingIndicator = false;
+            // this.loadingIndicator = false;
             // this.pagination = data['meta'];
             // this.pagination['numLinks'] = 3;
             // this.pagination['tmpPageCount'] = this.func.Pagination(this.pagination);

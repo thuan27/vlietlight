@@ -60,7 +60,7 @@ export class AWBComponent implements OnInit {
         });
     }
 
-    getList(page = 0) {
+    getList(page = 1) {
         const params = `?limit=15` + `&page=` + page;
         this._AWBService.getList(params).subscribe((data) => {
             this.rows = data['data'];
@@ -78,7 +78,7 @@ export class AWBComponent implements OnInit {
     }
 
     pageCallback(e) {
-        this.getList(e['offset']);
+        this.getList(e['offset'] + 1);
     }
 
     search() {

@@ -17,6 +17,7 @@ export class CreateUserComponent implements OnInit {
   items: FormArray;
   UserForm: FormGroup;
   ChildAWBFrom: FormGroup;
+  titleGroup;
   status = [
     {
       value: 0,
@@ -61,6 +62,7 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.titleGroup = 'Registration';
   }
 
   private buildForm() {

@@ -26,6 +26,7 @@ export class CreateCountryComponent implements OnInit {
   title;
   buttonType;
   action;
+  titleGroup;
 
   constructor(
     private _createCountryService: CreateCountryService,
@@ -41,6 +42,7 @@ export class CreateCountryComponent implements OnInit {
 
   ngOnInit() {
     this.title = 'Create Country';
+    this.titleGroup = 'Registration';
     this.buttonType = 'Create';
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
@@ -52,6 +54,7 @@ export class CreateCountryComponent implements OnInit {
           this.disabledForm = false;
           this.buttonType = 'Update';
           this.title = 'Update Country';
+          this.titleGroup = 'Update';
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
@@ -59,10 +62,12 @@ export class CreateCountryComponent implements OnInit {
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'Country Detail';
+          this.titleGroup = 'Detail';
         }
       }
       else {
         this.action = 'create';
+        this.titleGroup = 'Registration';
         this.buildForm();
         this.title = 'Create Country';
         this.buttonType = 'Create';

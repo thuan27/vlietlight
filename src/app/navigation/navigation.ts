@@ -36,19 +36,19 @@ export const navigation = [
                 'children' : [
                     {
                         'id'   : 'UsersList',
-                        'title': 'Users List',
+                        'title': 'Users',
                         'type' : 'item',
                         'url'  : '/apps/master-data/users'
                     },
                     {
                         'id'   : 'CustomersList',
-                        'title': 'Customers List',
+                        'title': 'Customers',
                         'type' : 'item',
                         'url'  : '/apps/master-data/customers'
                     },
                     {
                         'id'   : 'CountriesList',
-                        'title': 'Countries List',
+                        'title': 'Countries',
                         'type' : 'item',
                         'url'  : '/apps/master-data/countries'
                     },
@@ -63,7 +63,7 @@ export const navigation = [
                 'children' : [
                     {
                         'id'   : 'AWBList',
-                        'title': 'AWB List',
+                        'title': 'AWB',
                         'type' : 'item',
                         'url'  : '/apps/inbound/awb',
                         'exactMatch': true

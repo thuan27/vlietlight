@@ -16,7 +16,7 @@ export class CustomerListService
     {
     }
 
-    getList() {
-        return this.http.get(this.apiConfig.CUSTOMER + '/index', { headers: this._Func.AuthHeader() });
+    getList(params) {
+        return this.http.get(this.apiConfig.CUSTOMER + '/index' + params, { headers: this._Func.AuthHeader() });
     }
 }
