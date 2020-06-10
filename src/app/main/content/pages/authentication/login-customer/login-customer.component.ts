@@ -66,7 +66,7 @@ export class FuseLoginCustomerComponent implements OnInit {
             //             });
             //         }
             //     );
-            this.router.navigate(['apps/dashboards/analytics']);
+            this.router.navigate(['apps/inbound/awb/create-for-cus']);
         }
     }
 

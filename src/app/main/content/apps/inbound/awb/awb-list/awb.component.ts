@@ -123,4 +123,6 @@ export class AWBComponent implements OnInit {
         this.contextmenu = false;
       }
     }
+
+    onSelect(e) {}
 }

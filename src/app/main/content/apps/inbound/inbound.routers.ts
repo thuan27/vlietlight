@@ -2,6 +2,7 @@ import { AWBDetailForCusComponent } from './awb-for-customer/awb-detail-for-cust
 import { Routes } from '@angular/router';
 import { AWBComponent } from './awb/awb-list/awb.component';
 import { AWBDetailComponent } from './awb/awb-detail/awb-detail.component';
+import { AWBDetailForCusComponentV1 } from './awb-for-customer-v1/awb-for-customer-v1.component';
 
 export const listRoutes: Routes = [
     {
@@ -13,9 +14,13 @@ export const listRoutes: Routes = [
         component: AWBDetailComponent
     },
     {
-        path: 'awb/create-for-cus',
+        path: 'awb/create-for-cus1',
         component: AWBDetailForCusComponent
-    }
+    },
+    {
+        path: 'awb/create-for-cus',
+        component: AWBDetailForCusComponentV1
+    },
 ];
 
 

@@ -22,12 +22,15 @@ import { ContextMenuComponent } from '../../components/context-menu/context-menu
 import { AWBDetailForCusService } from './awb-for-customer/awb-detail-for-customer/awb-detail-for-customer.service';
 import { AWBDetailForCusComponent } from './awb-for-customer/awb-detail-for-customer/awb-detail-for-customer.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { AWBDetailForCusComponentV1 } from './awb-for-customer-v1/awb-for-customer-v1.component';
+import { AWBDetailForCusServiceV1 } from './awb-for-customer-v1/awb-for-customer-v1.service';
 
 @NgModule({
     declarations: [
         AWBComponent,
         AWBDetailComponent,
         ContextMenuComponent,
+        AWBDetailForCusComponentV1,
         AWBDetailForCusComponent
     ],
     imports: [
@@ -49,6 +52,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     providers: [
         AWBService,
         AWBDetailService,
+        AWBDetailForCusServiceV1,
         AWBDetailForCusService
     ]
 })

@@ -1,4 +1,4 @@
-import { AWBDetailService } from './awb-detail.service';
+import { AWBDetailForCusServiceV1 } from './awb-for-customer-v1.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
@@ -6,14 +6,15 @@ import { Router } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'awb-detail',
-  templateUrl: './awb-detail.component.html',
-  styleUrls: ['./awb-detail.component.scss'],
+  selector: 'awb-for-customer-v1',
+  templateUrl: './awb-for-customer-v1.component.html',
+  styleUrls: ['./awb-for-customer-v1.component.scss'],
   providers: [
     ValidationService
   ]
 })
-export class AWBDetailComponent implements OnInit {
+// tslint:disable-next-line:component-class-suffix
+export class AWBDetailForCusComponentV1 implements OnInit {
 
   details: FormArray;
   AWBForm: FormGroup;
@@ -35,7 +36,7 @@ export class AWBDetailComponent implements OnInit {
   ];
 
   constructor(
-    private _AWBDetailService: AWBDetailService,
+    private _AWBDetailForCusService: AWBDetailForCusServiceV1,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -99,7 +100,7 @@ export class AWBDetailComponent implements OnInit {
       this.AWBForm.value.received_at = this.AWBForm.value.received_at.format('YYYY/MM/DD');
       this.AWBForm.value.ship_date = this.AWBForm.value.ship_date.format('YYYY/MM/DD');
       this.AWBForm.value.pick_up_date = this.AWBForm.value.pick_up_date.format('YYYY/MM/DD');
-      this._AWBDetailService.createAWB(this.AWBForm.value).subscribe((data) => {
+      this._AWBDetailForCusService.createAWB(this.AWBForm.value).subscribe((data) => {
         console.log(data);
         this.router.navigate(['apps/inbound/awb']);
       });
@@ -180,7 +181,7 @@ export class AWBDetailComponent implements OnInit {
   }
 
   getCountry() {
-    this._AWBDetailService.getCountry().subscribe((data) => {
+    this._AWBDetailForCusService.getCountry().subscribe((data) => {
       this.country = data['data'];
     });
   }

@@ -25,8 +25,8 @@ import { ToastyModule } from 'ng2-toasty';
         CreateUserComponent,
         CustomerListComponent,
         CreateCustomeromponent,
-        CountryListComponent,
-        CreateCountryComponent
+        // CountryListComponent,
+        // CreateCountryComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -47,7 +47,7 @@ import { ToastyModule } from 'ng2-toasty';
         CreateUserService,
         CustomerListService,
         CreateCustomerService,
-        CountryListService,
+        // CountryListService,
         CreateCountryService
     ]
 })

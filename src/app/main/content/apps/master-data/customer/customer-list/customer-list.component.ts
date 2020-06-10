@@ -80,5 +80,6 @@ export class CustomerListComponent implements OnInit
         this.router.navigate(['apps/master-data/customers/create']);
     }
 
-    onSelect() {}
+    onSelect(e) {}
+    search() {}
 }
