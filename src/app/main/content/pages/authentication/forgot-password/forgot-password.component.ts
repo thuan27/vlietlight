@@ -6,7 +6,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { HttpClient } from '@angular/common/http';
 import { APIConfig } from '../config';
 import { Router } from '@angular/router';
-import { ToastyService, ToastyConfig } from 'ng2-toasty';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     selector   : 'fuse-forgot-password',

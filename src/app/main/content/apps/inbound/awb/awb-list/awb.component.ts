@@ -4,7 +4,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
-import { ToastyService, ToastyConfig } from 'ng2-toasty';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector

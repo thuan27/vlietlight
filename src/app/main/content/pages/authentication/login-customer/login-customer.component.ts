@@ -8,7 +8,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
 import { APIConfig } from '../config';
 import { environment } from 'environments/environment';
-import { ToastyService, ToastyConfig } from 'ng2-toasty';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { Functions } from '@fuse/core/function';
 
 @Component({

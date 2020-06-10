@@ -13,7 +13,7 @@ import { FuseToolbarModule } from 'app/main/toolbar/toolbar.module';
 
 import { FuseMainComponent } from './main.component';
 import { FuseDirectivesModule } from '@fuse/directives/directives';
-import { ToastyModule } from 'ng2-toasty';
+import { ToastyModule } from '@fuse/directives/ng2-toasty';
 import { Functions } from '@fuse/core/function';
 import { DatePipe } from '@angular/common';
 

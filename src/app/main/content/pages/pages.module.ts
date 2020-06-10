@@ -21,7 +21,8 @@ import { ProfileModule } from './profile/profile.module';
 import { SearchModule } from './search/search.module';
 import { FaqModule } from './faq/faq.module';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
-import { ToastyModule } from 'ng2-toasty';
+// import { ToastyModule } from './../../../../../@fuse/directives/ng2-toasty';
+import { ToastyModule } from '@fuse/directives/ng2-toasty';
 import { LandingModule } from './landing/landing.module';
 import { LoginCustomerModule } from './authentication/login-customer/login-customer.module';
 

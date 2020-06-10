@@ -4,7 +4,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Subscription } from 'rxjs/Subscription';
 
 import { FuseConfigService } from '@fuse/services/config.service';
-import { ToastyConfig } from 'ng2-toasty';
+import { ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     selector     : 'fuse-main',

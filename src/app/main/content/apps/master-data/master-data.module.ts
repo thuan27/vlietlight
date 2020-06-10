@@ -17,8 +17,9 @@ import { CreateCustomerService } from './customer/create-customer/create-custome
 import { CountryListComponent } from './country/country-list/country-list.component';
 import { CountryListService } from './country/country-list/country-list.service';
 import { CreateCountryComponent } from './country/create-country/create-country.component';
-import { ToastyModule } from 'ng2-toasty';
+import { ToastyModule } from '@fuse/directives/ng2-toasty';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -26,10 +27,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         CreateUserComponent,
         CustomerListComponent,
         CreateCustomeromponent,
-        // CountryListComponent,
-        // CreateCountryComponent
+        CountryListComponent,
+        CreateCountryComponent
     ],
     imports: [
+        CommonModule,
         RouterModule.forChild(listRoutes),
         MatButtonModule,
         MatCheckboxModule,

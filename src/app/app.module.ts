@@ -16,7 +16,8 @@ import { AppComponent } from './app.component';
 import { FuseFakeDbService } from './fuse-fake-db/fuse-fake-db.service';
 import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
-import { ToastyModule } from 'ng2-toasty';
+import { ToastyModule } from '@fuse/directives/ng2-toasty';
+
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'environments/environment';
 

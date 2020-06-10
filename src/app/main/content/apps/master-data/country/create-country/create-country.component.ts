@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastyConfig, ToastyService } from 'ng2-toasty';
+import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 
 @Component({
   // tslint:disable-next-line:component-selector
