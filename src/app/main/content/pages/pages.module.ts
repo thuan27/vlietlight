@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { LoginModule } from './authentication/login/login.module';
 import { Login2Module } from './authentication/login-2/login-2.module';
@@ -73,7 +73,8 @@ import { LoginCustomerModule } from './authentication/login-customer/login-custo
         KnowledgeBaseModule,
 
         ToastyModule.forRoot()
-    ]
+    ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FusePagesModule
 {

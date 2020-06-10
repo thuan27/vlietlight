@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { CountryRoutingModule, countryRouter } from './country.routers';
 import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatDatepickerModule, MatSelectModule, MatInputModule } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
         MatSelectModule,
         MatDatepickerModule,
         MatInputModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers   : [
         CountryListService,

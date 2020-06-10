@@ -6,7 +6,7 @@ import { GoogleMapsModule } from '../../components-third-party/google-maps/googl
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatDatepickerModule, MatSelectModule, MatInputModule } from '@angular/material';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './master-data.routers';
 import { UserListComponent } from './user/user-list/user-list.component';
@@ -18,6 +18,7 @@ import { CountryListComponent } from './country/country-list/country-list.compon
 import { CountryListService } from './country/country-list/country-list.service';
 import { CreateCountryComponent } from './country/create-country/create-country.component';
 import { ToastyModule } from 'ng2-toasty';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,9 @@ import { ToastyModule } from 'ng2-toasty';
         MatSelectModule,
         MatDatepickerModule,
         MatInputModule,
-        ToastyModule.forRoot()
+        ToastyModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers   : [
         UserListService,
@@ -49,7 +52,8 @@ import { ToastyModule } from 'ng2-toasty';
         CreateCustomerService,
         // CountryListService,
         CreateCountryService
-    ]
+    ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FuseMasterDataModule {
 }
