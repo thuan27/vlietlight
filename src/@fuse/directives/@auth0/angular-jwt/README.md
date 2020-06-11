@@ -29,7 +29,7 @@ injectable features, you can simply create an instance of the utility and use it
 directly:
 
 ```ts
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@fuse/directives/@auth0/angular-jwt';
 
 const helper = new JwtHelperService();
 
@@ -45,7 +45,7 @@ Import the `JwtModule` module and add it to your imports list. Call the `forRoot
 Be sure to import the `HttpClientModule` as well.
 
 ```ts
-import { JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@fuse/directives/@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 
 export function tokenGetter() {
@@ -222,7 +222,7 @@ Import the `JWT_OPTIONS` `InjectionToken` so that you can instruct it to use you
 Create a factory function and specify the options as you normally would if you were using `JwtModule.forRoot` directly. If you need to use a service in the function, list it as a parameter in the function and pass it in the `deps` array when you provide the function.
 
 ```ts
-import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { JwtModule, JWT_OPTIONS } from '@fuse/directives/@auth0/angular-jwt';
 import { TokenService } from './app.tokenservice';
 
 // ...
@@ -259,7 +259,7 @@ NOTE: If a `jwtOptionsFactory` is defined, then `config` is ignored. _Both confi
 The custom factory function approach described above can be used to get a token asynchronously with Ionic's `Storage`.
 
 ```ts
-import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { JwtModule, JWT_OPTIONS } from '@fuse/directives/@auth0/angular-jwt';
 import { Storage } from '@ionic/storage';
 
 export function jwtOptionsFactory(storage) {
