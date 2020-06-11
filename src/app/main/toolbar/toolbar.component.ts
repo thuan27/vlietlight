@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { environment } from 'environments/environment';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@fuse/directives/@auth0/angular-jwt';
 
 @Component({
     selector   : 'fuse-toolbar',

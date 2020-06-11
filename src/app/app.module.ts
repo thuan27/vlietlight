@@ -18,7 +18,7 @@ import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
 import { ToastyModule } from '@fuse/directives/ng2-toasty';
 
-import { JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@fuse/directives/@auth0/angular-jwt';
 import { environment } from 'environments/environment';
 
 export function tokenGetter() {
