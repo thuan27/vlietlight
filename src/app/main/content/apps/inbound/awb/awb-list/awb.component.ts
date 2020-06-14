@@ -102,19 +102,19 @@ export class AWBComponent implements OnInit {
     }
 
     onTableContextMenu(event) { 
-        // console.log(event);
-        // console.log(event.event.target);
-        console.log(this.xMenuContext, this.yMenuContext);
-        this.element = event['event']['srcElement']['outerHTML'];
-        // this.content = event['event']['content'];
-        this.contextmenuX = event['event']['pageX'];
-        this.contextmenuY = event['event']['pageY'];
-        this.content = event.event.target;
-        // this.contextmenuX = event.event.target['offsetLeft'] + event.event.target['offsetWidth'];
-        // this.contextmenuY = event.event.target['offsetTop'] + event.event.target['offsetHeight'];
-        this.contextmenu = true;
-        event['event'].preventDefault();
-        event['event'].stopPropagation();
+    //     // console.log(event);
+    //     // console.log(event.event.target);
+    //     console.log(this.xMenuContext, this.yMenuContext);
+    //     this.element = event['event']['srcElement']['outerHTML'];
+    //     // this.content = event['event']['content'];
+    //     this.contextmenuX = event['event']['pageX'];
+    //     this.contextmenuY = event['event']['pageY'];
+    //     this.content = event.event.target;
+    //     // this.contextmenuX = event.event.target['offsetLeft'] + event.event.target['offsetWidth'];
+    //     // this.contextmenuY = event.event.target['offsetTop'] + event.event.target['offsetHeight'];
+    //     this.contextmenu = true;
+    //     event['event'].preventDefault();
+    //     event['event'].stopPropagation();
     }
 
     @HostListener('document:click', ['$event'])

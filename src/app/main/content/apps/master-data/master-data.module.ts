@@ -1,3 +1,4 @@
+import { CreateCountryZoneComponent } from './country-zone/create-country-zone/create-country-zone.component';
 import { CreateCountryService } from './country/create-country/create-country.service';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { CustomerListService } from './customer/customer-list/customer-list.service';
@@ -20,6 +21,9 @@ import { CreateCountryComponent } from './country/create-country/create-country.
 import { ToastyModule } from '@fuse/directives/ng2-toasty';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CountryZoneListComponent } from './country-zone/country-zone-list/country-zone-list.component';
+import { CreateCountryZoneService } from './country-zone/create-country-zone/create-country-zone.service';
+import { CountryZoneListService } from './country-zone/country-zone-list/country-zone-list.service';
 
 @NgModule({
     declarations: [
@@ -28,7 +32,9 @@ import { CommonModule } from '@angular/common';
         CustomerListComponent,
         CreateCustomeromponent,
         CountryListComponent,
-        CreateCountryComponent
+        CreateCountryComponent,
+        CountryZoneListComponent,
+        CreateCountryZoneComponent
     ],
     imports: [
         CommonModule,
@@ -52,8 +58,10 @@ import { CommonModule } from '@angular/common';
         CreateUserService,
         CustomerListService,
         CreateCustomerService,
-        // CountryListService,
-        CreateCountryService
+        CountryListService,
+        CreateCountryService,
+        CountryZoneListService,
+        CreateCountryZoneService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

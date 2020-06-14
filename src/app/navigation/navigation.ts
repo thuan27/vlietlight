@@ -52,6 +52,12 @@ export const navigation = [
                         'type' : 'item',
                         'url'  : '/apps/master-data/countries'
                     },
+                    {
+                        'id'   : 'CountriesZoneList',
+                        'title': 'Countries Zone',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/countries-zone'
+                    },
                 ]
             },
             {

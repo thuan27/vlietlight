@@ -5,6 +5,8 @@ import { CreateUserComponent } from './user/create-user/create-user.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { CreateCustomeromponent } from './customer/create-customer/create-customer.component';
 import { CountryListComponent } from './country/country-list/country-list.component';
+import { CreateCountryZoneComponent } from './country-zone/create-country-zone/create-country-zone.component';
+import { CountryZoneListComponent } from './country-zone/country-zone-list/country-zone-list.component';
 
 export const listRoutes: Routes = [
     {
@@ -42,6 +44,22 @@ export const listRoutes: Routes = [
     {
         path: 'countries/:id/:update',
         component: CreateCountryComponent
+    },
+    {
+        path: 'countries-zone',
+        component: CountryZoneListComponent
+    },
+    {
+        path: 'countries-zone/create',
+        component: CreateCountryZoneComponent
+    },
+    {
+        path: 'countries-zone/:id',
+        component: CreateCountryZoneComponent
+    },
+    {
+        path: 'countries-zone/:id/:update',
+        component: CreateCountryZoneComponent
     }
 ];
 
