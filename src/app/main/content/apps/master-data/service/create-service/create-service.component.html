@@ -1,0 +1,50 @@
+<ng2-toasty></ng2-toasty>
+
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">{{ title }}</span>
+      </div>
+      <div class="h2 mt-16">{{ title }}</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+
+    <form [formGroup]="CountryForm" autocomplete="off" class="form" (submit)="onSubmit()">
+      <div class="background-title mat-cyan-200-bg margin-top-10">
+        <h2 class="title">{{ titleGroup }}</h2>
+      </div>
+      <div class="box-shadow-form margin-top-10">
+        <div fxLayout="row">
+          <mat-form-field fxFlex="33">
+            <input [readonly]="disabledForm" formControlName="service_name" matInput placeholder="Service Name">
+            <mat-error *ngIf="CountryForm.controls.service_name.hasError('required')">
+              Zone is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="33" class="margin-left-10">
+            <input [readonly]="disabledForm" formControlName="service_name2" matInput placeholder="Service Name 2">
+          </mat-form-field>
+          <mat-form-field fxFlex="33" class="margin-left-10">
+            <mat-select [disabled]="disabledForm" formControlName="status" placeholder="Status">
+              <mat-option *ngFor="let item of status" [value]="item.value">
+                {{ item.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent"
+        type="submit">{{ buttonType }}</button>
+    </form>
+  </div>
+</div>

@@ -7,6 +7,8 @@ import { CreateCustomeromponent } from './customer/create-customer/create-custom
 import { CountryListComponent } from './country/country-list/country-list.component';
 import { CreateCountryZoneComponent } from './country-zone/create-country-zone/create-country-zone.component';
 import { CountryZoneListComponent } from './country-zone/country-zone-list/country-zone-list.component';
+import { ServiceListComponent } from './service/service-list/service-list.component';
+import { CreateServiceComponent } from './service/create-service/create-service.component';
 
 export const listRoutes: Routes = [
     {
@@ -60,6 +62,22 @@ export const listRoutes: Routes = [
     {
         path: 'countries-zone/:id/:update',
         component: CreateCountryZoneComponent
+    },
+    {
+        path: 'service',
+        component: ServiceListComponent
+    },
+    {
+        path: 'service/create',
+        component: CreateServiceComponent
+    },
+    {
+        path: 'service/:id',
+        component: CreateServiceComponent
+    },
+    {
+        path: 'service/:id/:update',
+        component: CreateServiceComponent
     }
 ];
 

@@ -58,6 +58,12 @@ export const navigation = [
                         'type' : 'item',
                         'url'  : '/apps/master-data/countries-zone'
                     },
+                    {
+                      'id'   : 'ServiceList',
+                      'title': 'Service',
+                      'type' : 'item',
+                      'url'  : '/apps/master-data/service'
+                    }
                 ]
             },
             {

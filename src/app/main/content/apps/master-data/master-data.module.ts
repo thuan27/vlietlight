@@ -24,6 +24,10 @@ import { CommonModule } from '@angular/common';
 import { CountryZoneListComponent } from './country-zone/country-zone-list/country-zone-list.component';
 import { CreateCountryZoneService } from './country-zone/create-country-zone/create-country-zone.service';
 import { CountryZoneListService } from './country-zone/country-zone-list/country-zone-list.service';
+import { ServiceListComponent } from './service/service-list/service-list.component';
+import { ServiceListService } from './service/service-list/service-list.service';
+import { CreateServiceComponent } from './service/create-service/create-service.component';
+import { CreateServiceService } from './service/create-service/create-service.service';
 
 @NgModule({
     declarations: [
@@ -34,7 +38,9 @@ import { CountryZoneListService } from './country-zone/country-zone-list/country
         CountryListComponent,
         CreateCountryComponent,
         CountryZoneListComponent,
-        CreateCountryZoneComponent
+        CreateCountryZoneComponent,
+        ServiceListComponent,
+        CreateServiceComponent
     ],
     imports: [
         CommonModule,
@@ -61,7 +67,9 @@ import { CountryZoneListService } from './country-zone/country-zone-list/country
         CountryListService,
         CreateCountryService,
         CountryZoneListService,
-        CreateCountryZoneService
+        CreateCountryZoneService,
+        ServiceListService,
+        CreateServiceService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

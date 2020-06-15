@@ -8,9 +8,9 @@
             <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="secondary-text s-16">home</mat-icon>
                 <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Order List</span>
+                <span class="secondary-text">Service List</span>
             </div>
-            <div class="h2 mt-16">Order List</div>
+            <div class="h2 mt-16">Service List</div>
         </div>
 
         <div class="reference-button mat-white-bg">
@@ -56,11 +56,11 @@
                 </ng-template>
             </ngx-datatable-column>
 
-            <!-- <ngx-datatable-column [width]="200" name="Country ID" prop="country_id"></ngx-datatable-column> -->
+            <ngx-datatable-column [width]="200" name="Service Name" prop="service_name_link"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="200" name="Country Code" prop="country_id_link"></ngx-datatable-column>
+            <ngx-datatable-column [width]="200" name="Service Name 2" prop="service_name2"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="200" name="Country Name" prop="country_name"></ngx-datatable-column>
+            <ngx-datatable-column [width]="200" name="Status" prop="status"></ngx-datatable-column>
         </ngx-datatable>
 
     </div>

@@ -1,16 +1,16 @@
-import { CountryZoneListService } from './country-zone-list.service';
+import { ServiceListService } from './service-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector   : 'country-zone-list',
-    templateUrl: './country-zone-list.component.html',
-    styleUrls  : ['./country-zone-list.component.scss'],
-    providers: [CountryZoneListService, ToastyService]
+    selector   : 'service-list',
+    templateUrl: './service-list.component.html',
+    styleUrls  : ['./service-list.component.scss'],
+    providers: [ServiceListService, ToastyService]
 })
-export class CountryZoneListComponent implements OnInit
+export class ServiceListComponent implements OnInit
 {
     rows: any;
     loadingIndicator = true;
@@ -23,7 +23,7 @@ export class CountryZoneListComponent implements OnInit
 
     constructor(
         private router: Router,
-        private countryZoneListService: CountryZoneListService,
+        private serviceListService: ServiceListService,
         private toastyService: ToastyService,
         private toastyConfig: ToastyConfig
         )
@@ -39,11 +39,11 @@ export class CountryZoneListComponent implements OnInit
 
     getList(page = 1) {
         const params = '?page=' + page;
-        this.countryList = this.countryZoneListService.getList(params);
+        this.countryList = this.serviceListService.getList(params);
 
         this.countryList.subscribe((dataList: any[]) => {
             dataList['data'].forEach((data) => {
-                data['service_name_link'] = `<a href="apps/master-data/countries-zone/${data['country_id']}">${data['service_name']}</a>`;
+                data['service_name_link'] = `<a href="apps/master-data/service/${data['service_id']}">${data['service_name']}</a>`;
             });
             this.rows = dataList['data'];
             this.total = dataList['meta']['pagination']['total'];
@@ -63,7 +63,7 @@ export class CountryZoneListComponent implements OnInit
     }
 
     create() {
-        this.router.navigate(['apps/master-data/countries-zone/create']);
+        this.router.navigate(['apps/master-data/service/create']);
     }
 
     update() {
@@ -72,7 +72,7 @@ export class CountryZoneListComponent implements OnInit
         } else if (this.selected.length > 1) {
             this.toastyService.error('please select one item');
         } else {
-            this.router.navigateByUrl(`apps/master-data/countries-zone/${this.selected[0]['id']}/update`);
+            this.router.navigateByUrl(`apps/master-data/service/${this.selected[0]['id']}/update`);
         }
     }
 
@@ -82,7 +82,7 @@ export class CountryZoneListComponent implements OnInit
         } else if (this.selected.length > 1) {
             this.toastyService.error('please select one item');
         } else {
-        this.countryZoneListService.deleteCountry(this.selected[0]['id']).subscribe((data) => {
+        this.serviceListService.delete(this.selected[0]['id']).subscribe((data) => {
                 this.toastyService.success(data['message']);
                 setTimeout(
                     () => {
