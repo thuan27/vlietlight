@@ -64,6 +64,10 @@ const routes = [
         loadChildren: './inbound/inbound.module#FuseInboundModule'
     },
     {
+        path        : 'outbound',
+        loadChildren: './outbound/outbound.module#FuseOutboundModule'
+    },
+    {
         path        : 'utility',
         loadChildren: './utility/utility.module#FuseUtilityModule'
     },

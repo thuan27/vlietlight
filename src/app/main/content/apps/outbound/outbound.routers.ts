@@ -12,10 +12,6 @@ export const listRoutes: Routes = [
         component: CreateOrderComponent
     },
     {
-        path: 'order/create-for-cus1',
-        component: CreateOrderComponent
-    },
-    {
         path: 'order/create-for-cus',
         component: CreateOrderComponent
     },

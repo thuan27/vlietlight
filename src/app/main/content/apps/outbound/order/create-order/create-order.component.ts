@@ -9,9 +9,9 @@ import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'create-country',
-  templateUrl: './create-country.component.html',
-  styleUrls: ['./create-country.component.scss'],
+  selector: 'create-order',
+  templateUrl: './create-order.component.html',
+  styleUrls: ['./create-order.component.scss'],
   providers: [ValidationService, ToastyService]
 })
 // tslint:disable-next-line:component-class-suffix

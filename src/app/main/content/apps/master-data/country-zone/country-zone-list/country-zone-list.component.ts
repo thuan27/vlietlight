@@ -40,10 +40,10 @@ export class CountryZoneListComponent implements OnInit
     getList(page = 1) {
         const params = '?page=' + page;
         this.countryList = this.countryZoneListService.getList(params);
-        
+
         this.countryList.subscribe((dataList: any[]) => {
             dataList['data'].forEach((data) => {
-                data['country_id_link'] = `<a href="apps/master-data/countries-zone/${data['country_id']}">${data['country_id']}</a>`;
+                data['service_name_link'] = `<a href="apps/master-data/countries-zone/${data['country_id']}">${data['service_name']}</a>`;
             });
             this.rows = dataList['data'];
             this.total = dataList['meta']['pagination']['total'];
@@ -67,12 +67,13 @@ export class CountryZoneListComponent implements OnInit
     }
 
     update() {
+      console.log(this.selected)
         if (this.selected.length < 1) {
             this.toastyService.error('please select at least one item');
         } else if (this.selected.length > 1) {
             this.toastyService.error('please select one item');
         } else {
-            this.router.navigateByUrl(`apps/master-data/countries-zone/${this.selected[0]['country_id']}/update`);
+            this.router.navigateByUrl(`apps/master-data/countries-zone/${this.selected[0]['id']}/update`);
         }
     }
 
@@ -82,7 +83,7 @@ export class CountryZoneListComponent implements OnInit
         } else if (this.selected.length > 1) {
             this.toastyService.error('please select one item');
         } else {
-        this.countryZoneListService.deleteCountry(this.selected[0]['country_id']).subscribe((data) => {
+        this.countryZoneListService.deleteCountry(this.selected[0]['id']).subscribe((data) => {
                 this.toastyService.success(data['message']);
                 setTimeout(
                     () => {

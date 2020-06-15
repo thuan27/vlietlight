@@ -27,6 +27,8 @@ export class CreateCountryZoneComponent implements OnInit {
   buttonType;
   action;
   titleGroup;
+  country;
+  service;
 
   constructor(
     private _createCountryZoneService: CreateCountryZoneService,
@@ -55,6 +57,8 @@ export class CreateCountryZoneComponent implements OnInit {
           this.buttonType = 'Update';
           this.title = 'Update Country Zone';
           this.titleGroup = 'Update';
+          this.serviceList();
+          this.countryList();
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
@@ -63,6 +67,8 @@ export class CreateCountryZoneComponent implements OnInit {
           this.disabledForm = true;
           this.title = 'Country Zone Detail';
           this.titleGroup = 'Detail';
+          this.serviceList();
+          this.countryList();
         }
       }
       else {
@@ -72,45 +78,57 @@ export class CreateCountryZoneComponent implements OnInit {
         this.title = 'Create Country Zone';
         this.buttonType = 'Create';
         this.disabledForm = false;
+        this.countryList();
+        this.serviceList();
       }
     });
   }
 
   private buildForm() {
     this.CountryForm = this.formBuilder.group({
-      code: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+      service_id: [1, [Validators.required]],
+      country_id: [1, [Validators.required]],
+      zone: ['', [Validators.required]],
+      state_code: ['', [Validators.required]],
+      state_name: ['', [Validators.required]],
     });
   }
 
   private detailForm(data) {
     this.CountryForm = this.formBuilder.group({
-      code: [data['country_code'], [Validators.required]],
-      name: [data['country_name'], [Validators.required]]
+      service_id: [data['service_id'], [Validators.required]],
+      country_id: [data['country_id'], [Validators.required]],
+      zone: [data['zone'], [Validators.required]],
+      state_code: [data['state_code'], [Validators.required]],
+      state_name: [data['state_name'], [Validators.required]],
     });
   }
 
   onSubmit() {
     if (this.CountryForm.valid) {
       if (this.action === 'create') {
-        this._createCountryZoneService.createCountry(this.CountryForm.value).subscribe((data) => {
+        this._createCountryZoneService.createCountryList(this.CountryForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['apps/master-data/countries-zone']);
             },
             700
           );
+        }, err => {
+          this.toastyService.error(err['error']['errors']['message']);
         });
       } else if (this.action === 'update') {
         this._createCountryZoneService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['apps/master-data/countries-zone']);
             },
             700
           );
+        }, err => {
+          this.toastyService.error(err['error']['errors']['message']);
         });
       }
 
@@ -119,8 +137,8 @@ export class CreateCountryZoneComponent implements OnInit {
 
   detail(id) {
     this._createCountryZoneService.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['country'];
-      this.detailForm(data['country']);
+      this.countryDetail = data['country_zone'];
+      this.detailForm(data['country_zone']);
     });
   }
 
@@ -128,5 +146,16 @@ export class CreateCountryZoneComponent implements OnInit {
     this._Valid.isNumber($event, int);
   }
 
+  countryList() {
+    this._createCountryZoneService.countryList().subscribe((data) => {
+      this.country = data['data'];
+    });
+  }
+
+  serviceList() {
+    this._createCountryZoneService.serviceList().subscribe((data) => {
+      this.service = data['data'];
+    });
+  }
 
 }

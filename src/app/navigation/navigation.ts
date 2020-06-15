@@ -84,6 +84,22 @@ export const navigation = [
                 ]
             },
             {
+              'id'       : 'outbound',
+              'title'    : 'Outbound',
+              'translate': 'NAV.OUTBOUND',
+              'type'     : 'collapse',
+              'icon'     : 'label_outline',
+              'children' : [
+                  {
+                      'id'   : 'order',
+                      'title': 'Order',
+                      'type' : 'item',
+                      'url'  : '/apps/outbound/order',
+                      'exactMatch': true
+                  },
+              ]
+          },
+            {
                 'id'       : 'utility',
                 'title'    : 'Utility',
                 'translate': 'NAV.UTILITY',
