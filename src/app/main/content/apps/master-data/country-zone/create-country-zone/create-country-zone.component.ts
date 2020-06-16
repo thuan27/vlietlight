@@ -111,7 +111,7 @@ export class CreateCountryZoneComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries-zone']);
+              this.router.navigate(['master-data/countries-zone']);
             },
             700
           );
@@ -123,7 +123,7 @@ export class CreateCountryZoneComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries-zone']);
+              this.router.navigate(['master-data/countries-zone']);
             },
             700
           );

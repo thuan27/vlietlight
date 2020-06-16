@@ -43,7 +43,7 @@ export class CountryZoneListComponent implements OnInit
 
         this.countryList.subscribe((dataList: any[]) => {
             dataList['data'].forEach((data) => {
-                data['service_name_link'] = `<a href="apps/master-data/countries-zone/${data['country_id']}">${data['service_name']}</a>`;
+                data['service_name_link'] = `<a href="master-data/countries-zone/${data['country_id']}">${data['service_name']}</a>`;
             });
             this.rows = dataList['data'];
             this.total = dataList['meta']['pagination']['total'];
@@ -63,7 +63,7 @@ export class CountryZoneListComponent implements OnInit
     }
 
     create() {
-        this.router.navigate(['apps/master-data/countries-zone/create']);
+        this.router.navigate(['master-data/countries-zone/create']);
     }
 
     update() {
@@ -72,7 +72,7 @@ export class CountryZoneListComponent implements OnInit
         } else if (this.selected.length > 1) {
             this.toastyService.error('please select one item');
         } else {
-            this.router.navigateByUrl(`apps/master-data/countries-zone/${this.selected[0]['id']}/update`);
+            this.router.navigateByUrl(`master-data/countries-zone/${this.selected[0]['id']}/update`);
         }
     }
 

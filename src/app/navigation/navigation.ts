@@ -17,13 +17,13 @@ export const navigation = [
                         'id'   : 'analytics',
                         'title': 'Analytics',
                         'type' : 'item',
-                        'url'  : '/apps/dashboards/analytics'
+                        'url'  : '/dashboards/analytics'
                     },
                     {
                         'id'   : 'project',
                         'title': 'Project',
                         'type' : 'item',
-                        'url'  : '/apps/dashboards/project'
+                        'url'  : '/dashboards/project'
                     }
                 ]
             },
@@ -38,31 +38,31 @@ export const navigation = [
                         'id'   : 'UsersList',
                         'title': 'Users',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/users'
+                        'url'  : '/master-data/users'
                     },
                     {
                         'id'   : 'CustomersList',
                         'title': 'Customers',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/customers'
+                        'url'  : '/master-data/customers'
                     },
                     {
                         'id'   : 'CountriesList',
                         'title': 'Countries',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/countries'
+                        'url'  : '/master-data/countries'
                     },
                     {
                         'id'   : 'CountriesZoneList',
                         'title': 'Countries Zone',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/countries-zone'
+                        'url'  : '/master-data/countries-zone'
                     },
                     {
                       'id'   : 'ServiceList',
                       'title': 'Service',
                       'type' : 'item',
-                      'url'  : '/apps/master-data/service'
+                      'url'  : '/master-data/service'
                     }
                 ]
             },
@@ -77,14 +77,14 @@ export const navigation = [
                         'id'   : 'AWBList',
                         'title': 'AWB',
                         'type' : 'item',
-                        'url'  : '/apps/inbound/awb',
+                        'url'  : '/inbound/awb',
                         'exactMatch': true
                     },
                     // {
                     //     'id'   : 'AWBListForCus',
                     //     'title': 'AWB Customer',
                     //     'type' : 'item',
-                    //     'url'  : '/apps/inbound/awb/create-for-cus',
+                    //     'url'  : '/inbound/awb/create-for-cus',
                     //     'exactMatch': true
                     // }
                 ]
@@ -100,7 +100,7 @@ export const navigation = [
                       'id'   : 'order',
                       'title': 'Order',
                       'type' : 'item',
-                      'url'  : '/apps/outbound/order',
+                      'url'  : '/outbound/order',
                       'exactMatch': true
                   },
               ]
@@ -116,14 +116,14 @@ export const navigation = [
                         'id'   : 'quicksearch',
                         'title': 'Quick Search',
                         'type' : 'item',
-                        'url'  : '/apps/utility/quick-search',
+                        'url'  : '/utility/quick-search',
                         'exactMatch': true
                     },
                     {
                         'id'   : 'calculateMoney',
                         'title': 'Calculate Money',
                         'type' : 'item',
-                        'url'  : '/apps/utility/calculate-money',
+                        'url'  : '/utility/calculate-money',
                         'exactMatch': true
                     }
                 ]
@@ -134,7 +134,7 @@ export const navigation = [
                 'translate': 'NAV.CALENDAR',
                 'type'     : 'item',
                 'icon'     : 'today',
-                'url'      : '/apps/calendar'
+                'url'      : '/calendar'
             },
             // {
             //     'id'       : 'e-commerce',
@@ -147,34 +147,34 @@ export const navigation = [
             //             'id'   : 'dashboard',
             //             'title': 'Dashboard',
             //             'type' : 'item',
-            //             'url'  : '/apps/e-commerce/dashboard'
+            //             'url'  : '/e-commerce/dashboard'
             //         },
             //         {
             //             'id'        : 'products',
             //             'title'     : 'Products',
             //             'type'      : 'item',
-            //             'url'       : '/apps/e-commerce/products',
+            //             'url'       : '/e-commerce/products',
             //             'exactMatch': true
             //         },
             //         {
             //             'id'        : 'productDetail',
             //             'title'     : 'Product Detail',
             //             'type'      : 'item',
-            //             'url'       : '/apps/e-commerce/products/1/printed-dress',
+            //             'url'       : '/e-commerce/products/1/printed-dress',
             //             'exactMatch': true
             //         },
             //         {
             //             'id'        : 'orders',
             //             'title'     : 'Orders',
             //             'type'      : 'item',
-            //             'url'       : '/apps/e-commerce/orders',
+            //             'url'       : '/e-commerce/orders',
             //             'exactMatch': true
             //         },
             //         {
             //             'id'        : 'orderDetail',
             //             'title'     : 'Order Detail',
             //             'type'      : 'item',
-            //             'url'       : '/apps/e-commerce/orders/1',
+            //             'url'       : '/e-commerce/orders/1',
             //             'exactMatch': true
             //         }
             //     ]
@@ -185,7 +185,7 @@ export const navigation = [
         //         'translate': 'NAV.ACADEMY',
         //         'type'     : 'item',
         //         'icon'     : 'school',
-        //         'url'      : '/apps/academy'
+        //         'url'      : '/academy'
         //     },
         //     {
         //         'id'       : 'mail',
@@ -193,7 +193,7 @@ export const navigation = [
         //         'translate': 'NAV.MAIL.TITLE',
         //         'type'     : 'item',
         //         'icon'     : 'email',
-        //         'url'      : '/apps/mail',
+        //         'url'      : '/mail',
         //         'badge'    : {
         //             'title'    : 25,
         //             'translate': 'NAV.MAIL.BADGE',
@@ -207,7 +207,7 @@ export const navigation = [
         //         'translate': 'NAV.MAIL_NGRX.TITLE',
         //         'type'     : 'item',
         //         'icon'     : 'email',
-        //         'url'      : '/apps/mail-ngrx',
+        //         'url'      : '/mail-ngrx',
         //         'badge'    : {
         //             'title'    : 13,
         //             'translate': 'NAV.MAIL_NGRX.BADGE',
@@ -221,7 +221,7 @@ export const navigation = [
         //         'translate': 'NAV.CHAT',
         //         'type'     : 'item',
         //         'icon'     : 'chat',
-        //         'url'      : '/apps/chat',
+        //         'url'      : '/chat',
         //         'badge'    : {
         //             'title': 13,
         //             'bg'   : '#09d261',
@@ -234,7 +234,7 @@ export const navigation = [
         //         'translate': 'NAV.FILE_MANAGER',
         //         'type'     : 'item',
         //         'icon'     : 'folder',
-        //         'url'      : '/apps/file-manager'
+        //         'url'      : '/file-manager'
         //     },
         //     {
         //         'id'       : 'contacts',
@@ -242,7 +242,7 @@ export const navigation = [
         //         'translate': 'NAV.CONTACTS',
         //         'type'     : 'item',
         //         'icon'     : 'account_box',
-        //         'url'      : '/apps/contacts'
+        //         'url'      : '/contacts'
         //     },
         //     {
         //         'id'       : 'to-do',
@@ -250,7 +250,7 @@ export const navigation = [
         //         'translate': 'NAV.TODO',
         //         'type'     : 'item',
         //         'icon'     : 'check_box',
-        //         'url'      : '/apps/todo',
+        //         'url'      : '/todo',
         //         'badge'    : {
         //             'title': 3,
         //             'bg'   : '#FF6F00',
@@ -263,7 +263,7 @@ export const navigation = [
         //         'translate': 'NAV.SCRUMBOARD',
         //         'type'     : 'item',
         //         'icon'     : 'assessment',
-        //         'url'      : '/apps/scrumboard'
+        //         'url'      : '/scrumboard'
         //     }
         ]
     },
