@@ -92,17 +92,15 @@ export class CreateServiceComponent implements OnInit {
     this.CountryForm = this.formBuilder.group({
       service_name: ['', [Validators.required]],
       service_name2: [''],
-      status: ['Active', [Validators.required]]
+      status: ['Active']
     });
   }
 
   private detailForm(data) {
     this.CountryForm = this.formBuilder.group({
-      service_id: [data['service_id'], [Validators.required]],
-      country_id: [data['country_id'], [Validators.required]],
-      zone: [data['zone'], [Validators.required]],
-      state_code: [data['state_code'], [Validators.required]],
-      state_name: [data['state_name'], [Validators.required]],
+      service_name: [data['service_name'], [Validators.required]],
+      service_name2: [data['service_name2']],
+      status: [data['status']],
     });
   }
 
@@ -139,8 +137,8 @@ export class CreateServiceComponent implements OnInit {
 
   detail(id) {
     this._createServiceService.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['country_zone'];
-      this.detailForm(data['country_zone']);
+      this.countryDetail = data['service'];
+      this.detailForm(data['service']);
     });
   }
 

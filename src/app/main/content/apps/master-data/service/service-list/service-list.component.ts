@@ -72,7 +72,7 @@ export class ServiceListComponent implements OnInit
         } else if (this.selected.length > 1) {
             this.toastyService.error('please select one item');
         } else {
-            this.router.navigateByUrl(`apps/master-data/service/${this.selected[0]['id']}/update`);
+            this.router.navigateByUrl(`apps/master-data/service/${this.selected[0]['service_id']}/update`);
         }
     }
 
@@ -82,7 +82,7 @@ export class ServiceListComponent implements OnInit
         } else if (this.selected.length > 1) {
             this.toastyService.error('please select one item');
         } else {
-        this.serviceListService.delete(this.selected[0]['id']).subscribe((data) => {
+        this.serviceListService.delete(this.selected[0]['service_id']).subscribe((data) => {
                 this.toastyService.success(data['message']);
                 setTimeout(
                     () => {
