@@ -8,6 +8,10 @@ export const listRoutes: Routes = [
         component: OrderListComponent
     },
     {
+        path: 'order/:id',
+        component: CreateOrderComponent
+    },
+    {
         path: 'order/create',
         component: CreateOrderComponent
     },

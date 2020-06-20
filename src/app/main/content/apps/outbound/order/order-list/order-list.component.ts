@@ -40,10 +40,10 @@ export class OrderListComponent implements OnInit
     getList(page = 1) {
         const params = '?page=' + page;
         this.countryList = this.orderListService.getList(params);
-        
+
         this.countryList.subscribe((dataList: any[]) => {
             dataList['data'].forEach((data) => {
-                data['country_id_link'] = `<a href="apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
+                data['order_id_link'] = `<a href="apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
             });
             this.rows = dataList['data'];
             this.total = dataList['meta']['pagination']['total'];

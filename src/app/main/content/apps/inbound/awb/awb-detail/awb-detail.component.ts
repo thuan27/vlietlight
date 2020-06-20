@@ -1,6 +1,6 @@
 import { AWBDetailService } from './awb-detail.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
 
@@ -56,7 +56,7 @@ export class AWBDetailComponent implements OnInit {
       from_email: ['lequangthuan@gmail.com', [Validators.required]],
       from_contact_name: ['THON', [Validators.required]],
       from_company_name: ['THON', [Validators.required]],
-      to_country_id: [0, [Validators.required]],
+      to_country_id: [1, [Validators.required]],
       to_contact_name: ['', [Validators.required]],
       to_company_name: ['', [Validators.required]],
       to_address: ['', [Validators.required]],
@@ -84,7 +84,7 @@ export class AWBDetailComponent implements OnInit {
       item_id: [0, [Validators.required]],
       pack_num: 0,
       quantity: 1,
-      weight: [null, [Validators.required]],
+      weight: [null, [Validators.required, this.Validate]],
       length: [null, [Validators.required]],
       width: [null, [Validators.required]],
       height: [null, [Validators.required]],
@@ -103,6 +103,14 @@ export class AWBDetailComponent implements OnInit {
         console.log(data);
         this.router.navigate(['apps/inbound/awb']);
       });
+    }
+  }
+
+  Validate (control: FormControl) {
+    if (control.value > 2.5) {
+      return { 'invalidPassword': false };
+    } else {
+      return { 'invalidPassword': true };
     }
   }
 

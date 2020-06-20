@@ -20,6 +20,7 @@ export class APIConfig {
   public LIST_AWB = this.API_BASE + '/awbs/v1/search';
   public GET_COUNTRY = this.API_BASE + '/master-data/v1/country';
   public COUNTRY_LIST = this.API_BASE + '/master-data/v1/country';
+  public ORDER_LIST = this.API_BASE + '/orders/v1/orders';
   public SERVICE_LIST = this.API_BASE + '/master-data/v1/service';
   public COUNTRY_ZONE_LIST = this.API_BASE + '/master-data/v1/country-zone';
   public RESET_PASS = this.API_MASTER + '/reset-password';

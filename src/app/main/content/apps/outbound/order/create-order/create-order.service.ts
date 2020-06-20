@@ -14,15 +14,19 @@ export class CreateOrderService
     {
     }
 
-    createCountry(param) {
-        return this.http.post(this.apiConfig.COUNTRY_LIST + '/store', param, { headers: this._Func.AuthHeader() });
+    create(param) {
+        return this.http.post(this.apiConfig.ORDER_LIST + '/store', param, { headers: this._Func.AuthHeader() });
     }
 
-    getCountryDetail(params) {
-        return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+    getDetail(params) {
+        return this.http.get(this.apiConfig.ORDER_LIST + '/' + params, { headers: this._Func.AuthHeader() });
     }
 
-    updateCountry(id, param) {
-        return this.http.put(this.apiConfig.COUNTRY_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
+    update(id, param) {
+        return this.http.put(this.apiConfig.ORDER_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
     }
+
+    getCountry() {
+      return this.http.get(this.apiConfig.GET_COUNTRY, { headers: this._Func.AuthHeader() });
+  }
 }

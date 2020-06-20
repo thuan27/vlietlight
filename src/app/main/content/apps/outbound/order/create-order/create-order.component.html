@@ -1,45 +1,613 @@
-<ng2-toasty></ng2-toasty>
-
 <div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
 
-    <!-- HEADER -->
-    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
-        fxLayoutAlign.gt-xs="space-between center">
-        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
-            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="secondary-text s-16">home</mat-icon>
-                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">{{ title }}</span>
-            </div>
-            <div class="h2 mt-16">{{ title }}</div>
-        </div>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+      fxLayoutAlign.gt-xs="space-between center">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+          <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="secondary-text s-16">home</mat-icon>
+              <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+              <span class="secondary-text">{{ title }}</span>
+          </div>
+        <div class="h2 mt-16">{{ title }}</div>
+      </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+<form [formGroup]="OrderForm" autocomplete="off" class="form" (submit)="onSubmit()">
+  <div class="background-title mat-cyan-200-bg">
+    <h2 class="title">Accountant</h2>
+  </div>
+  <div class="box-shadow-form margin-top-10">
+    <div fxLayout="row">
+      <mat-form-field fxFlex="25">
+        <input [readonly]="true" formControlName="acc_benefit" matInput placeholder="Accountant Benefit">
+        <mat-error *ngIf="OrderForm.controls.acc_benefit.hasError('required')">
+          Accountant Benefit Fee is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="acc_fuel_fee" matInput placeholder="Accountant Fuel Fee">
+        <mat-error *ngIf="OrderForm.controls.acc_fuel_fee.hasError('required')">
+          Accountant Fuel Fee is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="acc_other_fee" matInput placeholder="Accountant Other Fee">
+        <mat-error *ngIf="OrderForm.controls.acc_other_fee.hasError('required')">
+          Accountant Other Fee is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="acc_other_fee_internal" matInput
+          placeholder="Accountant Other Fee Internal">
+        <mat-error *ngIf="OrderForm.controls.acc_other_fee_internal.hasError('required')">
+          Accountant Other Fee Internal is required
+        </mat-error>
+      </mat-form-field>
     </div>
-    <!-- / HEADER -->
 
-    <!-- CONTENT -->
-    <div class="p-24">
+    <div fxLayout="row">
+      <mat-form-field fxFlex="25">
+        <input [readonly]="true" formControlName="acc_price" matInput placeholder="Accountant Price">
+        <mat-error *ngIf="OrderForm.controls.acc_price.hasError('required')">
+          Accountant Price is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="acc_surcharge_fee" matInput placeholder="Accountant Surcharge Fee">
+        <mat-error *ngIf="OrderForm.controls.acc_surcharge_fee.hasError('required')">
+          Accountant Surcharge Fee is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="acc_total_cost" matInput placeholder="Accountant Total Cost">
+        <mat-error *ngIf="OrderForm.controls.acc_total_cost.hasError('required')">
+          Accountant Total Cost is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="acc_vat" matInput placeholder="Accountant VAT">
+        <mat-error *ngIf="OrderForm.controls.acc_vat.hasError('required')">
+          Accountant VAT is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
 
-        <form [formGroup]="CountryForm" autocomplete="off" class="form" (submit)="onSubmit()">
-            <div class="background-title mat-cyan-200-bg margin-top-10">
-                <h2 class="title">{{ titleGroup }}</h2>
-            </div>
-            <div class="box-shadow-form margin-top-10">
-                <div fxLayout="row">
-                    <mat-form-field fxFlex="50">
-                        <input [readonly]="disabledForm" formControlName="code" matInput placeholder="Country Code">
-                        <mat-error *ngIf="CountryForm.controls.code.hasError('required')">
-                            Country Code is required
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field fxFlex="50" class="margin-left-10">
-                        <input [readonly]="disabledForm" formControlName="name" matInput placeholder="Country Name">
-                        <mat-error *ngIf="CountryForm.controls.name.hasError('required')">
-                            Country Name is required
-                        </mat-error>
-                    </mat-form-field>
+  <div class="background-title mat-cyan-200-bg margin-top-10">
+    <h2 class="title">Sale</h2>
+  </div>
+  <div class="box-shadow-form margin-top-10">
+      <div fxLayout="row">
+          <mat-form-field fxFlex="25">
+              <input [readonly]="true" formControlName="sale_other_fee" matInput placeholder="Sale Other Fee">
+              <mat-error *ngIf="OrderForm.controls.sale_other_fee.hasError('required')">
+                Sale Other Fee is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25" class="margin-left-10">
+              <input [readonly]="true" formControlName="sale_price" matInput placeholder="Sale Price">
+              <mat-error *ngIf="OrderForm.controls.sale_price.hasError('required')">
+                Sale Price is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25" class="margin-left-10">
+              <input [readonly]="true" formControlName="sale_surcharge" matInput placeholder="Sale Surcharge">
+              <mat-error *ngIf="OrderForm.controls.sale_surcharge.hasError('required')">
+                Sale Surcharge is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25" class="margin-left-10">
+              <input [readonly]="true" formControlName="sale_total_price" matInput placeholder="Sale Total Price">
+              <mat-error *ngIf="OrderForm.controls.sale_total_price.hasError('required')">
+                Sale Total Price is required
+              </mat-error>
+            </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+          <mat-form-field fxFlex="25">
+              <input [readonly]="true" formControlName="sale_vat" matInput placeholder="Sale VAT">
+              <mat-error *ngIf="OrderForm.controls.sale_vat.hasError('required')">
+                Sale VAT is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25" class="margin-left-10">
+              <input [readonly]="true" formControlName="sales_note_for_cs" matInput placeholder="Sale Note For CS">
+              <mat-error *ngIf="OrderForm.controls.sales_note_for_cs.hasError('required')">
+                Sale Note For CS is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25" class="margin-left-10">
+                <input [readonly]="true" formControlName="sale_benefit" matInput placeholder="Sale Benefit">
+                <mat-error *ngIf="OrderForm.controls.sale_benefit.hasError('required')">
+                  Sale Benefit is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="25" class="margin-left-10">
+                <input [readonly]="true" formControlName="sale_commission" matInput placeholder="Sale Comission">
+                <mat-error *ngIf="OrderForm.controls.sale_commission.hasError('required')">
+                  Sale Comission is required
+                </mat-error>
+              </mat-form-field>
+      </div>
+  </div>
+
+  <div class="background-title mat-cyan-200-bg margin-top-10">
+    <h2 class="title">Customer</h2>
+  </div>
+  <div class="box-shadow-form margin-top-10">
+    <div fxLayout="row">
+      <mat-form-field fxFlex="25">
+        <input [readonly]="true" formControlName="cus_commission" matInput placeholder="Customer commission">
+        <mat-error *ngIf="OrderForm.controls.cus_commission.hasError('required')">
+          Customer commission is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="cus_name" matInput placeholder="Customer Name">
+        <mat-error *ngIf="OrderForm.controls.cus_name.hasError('required')">
+          Customer Name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="cus_other_fee" matInput placeholder="Customer Other Fee">
+        <mat-error *ngIf="OrderForm.controls.cus_other_fee.hasError('required')">
+          Customer Other Fee is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="cus_price" matInput placeholder="Customer Price">
+        <mat-error *ngIf="OrderForm.controls.cus_price.hasError('required')">
+          Customer Price is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row">
+      <mat-form-field fxFlex="25">
+        <input [readonly]="true" formControlName="cus_surcharge" matInput placeholder="Customer Surcharge">
+        <mat-error *ngIf="OrderForm.controls.cus_surcharge.hasError('required')">
+          Customer Surcharge is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="cus_total_price" matInput placeholder="Customer Total Price">
+        <mat-error *ngIf="OrderForm.controls.cus_total_price.hasError('required')">
+          Customer Total Price is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="cus_vat" matInput placeholder="Customer VAT">
+        <mat-error *ngIf="OrderForm.controls.cus_vat.hasError('required')">
+          Customer VAT is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="margin-left-10">
+        <input [readonly]="true" formControlName="customer_id" matInput placeholder="Customer ID">
+        <mat-error *ngIf="OrderForm.controls.customer_id.hasError('required')">
+          Customer ID is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+          <div class="background-title mat-cyan-200-bg margin-top-10">
+              <h2 class="title">Information</h2>
+          </div>
+
+          <div class="box-shadow-form margin-top-10">
+
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="33">
+                    <input [readonly]="true" formControlName="cs_id" matInput placeholder="CS ID">
+                    <mat-error *ngIf="OrderForm.controls.cs_id.hasError('required')">
+                      CS ID Fee is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="33" class="margin-left-10">
+                    <input [readonly]="true" formControlName="cs_other_fee_internal_note" matInput
+                      placeholder="CS Other Fee Internal Note">
+                    <mat-error *ngIf="OrderForm.controls.cs_other_fee_internal_note.hasError('required')">
+                      CS Other Fee Internal Note Fee is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="33" class="margin-left-10">
+                    <input [readonly]="true" formControlName="account_number" matInput placeholder="Account Number">
+                    <mat-error *ngIf="OrderForm.controls.account_number.hasError('required')">
+                      Account Number is required
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-            </div>
-            <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent" type="submit">{{ buttonType }}</button>
-        </form>
-    </div>
+
+                <div fxLayout="row">
+                  <mat-form-field fxFlex="33">
+                    <input [readonly]="true" formControlName="awb_id" matInput placeholder="AWB ID">
+                    <mat-error *ngIf="OrderForm.controls.awb_id.hasError('required')">
+                      AWB ID is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="33">
+                    <input [readonly]="true" formControlName="awb_num" matInput placeholder="AWB Number">
+                    <mat-error *ngIf="OrderForm.controls.awb_num.hasError('required')">
+                      AWB Number is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="33" class="margin-left-10">
+                    <input [readonly]="true" formControlName="created_by" matInput placeholder="Create By">
+                    <mat-error *ngIf="OrderForm.controls.created_by.hasError('required')">
+                      Create By is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="25">
+                      <input [readonly]="true" formControlName="from_port" matInput placeholder="From Port">
+                      <mat-error *ngIf="OrderForm.controls.from_port.hasError('required')">
+                        From Port is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="net_profit" matInput placeholder="Net Profile">
+                      <mat-error *ngIf="OrderForm.controls.net_profit.hasError('required')">
+                        Net Profile is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="odr_name" matInput placeholder="Order Name">
+                      <mat-error *ngIf="OrderForm.controls.odr_name.hasError('required')">
+                        Order Name is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="odr_status" matInput placeholder="Order Status">
+                      <mat-error *ngIf="OrderForm.controls.odr_status.hasError('required')">
+                        Order Status is required
+                      </mat-error>
+                    </mat-form-field>
+              </div>
+
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="25">
+                      <input [readonly]="true" formControlName="order_id" matInput placeholder="Order ID">
+                      <mat-error *ngIf="OrderForm.controls.order_id.hasError('required')">
+                        Order ID is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="out_awb_num" matInput placeholder="Outbound AWB Number">
+                      <mat-error *ngIf="OrderForm.controls.out_awb_num.hasError('required')">
+                        Outbound AWB Number is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="pack_quantity" matInput placeholder="Pack Quantity">
+                      <mat-error *ngIf="OrderForm.controls.pack_quantity.hasError('required')">
+                        Pack Quantity is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="picker" matInput placeholder="Picker">
+                      <mat-error *ngIf="OrderForm.controls.picker.hasError('required')">
+                        Picker is required
+                      </mat-error>
+                    </mat-form-field>
+              </div>
+
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="25">
+                      <input [readonly]="true" formControlName="range_id" matInput placeholder="Range ID">
+                      <mat-error *ngIf="OrderForm.controls.range_id.hasError('required')">
+                        Range ID is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="reweight" matInput placeholder="Re Weight">
+                      <mat-error *ngIf="OrderForm.controls.reweight.hasError('required')">
+                        Re Weight is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25">
+                        <input [readonly]="true" formControlName="service_id" matInput placeholder="Service ID">
+                        <mat-error *ngIf="OrderForm.controls.service_id.hasError('required')">
+                          Service ID is required
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input [readonly]="true" formControlName="to_country_id" matInput placeholder="To Country ID">
+                        <mat-error *ngIf="OrderForm.controls.to_country_id.hasError('required')">
+                          To Country ID is required
+                        </mat-error>
+                      </mat-form-field>
+              </div>
+
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="25">
+                      <input [readonly]="true" formControlName="to_port" matInput placeholder="To Port">
+                      <mat-error *ngIf="OrderForm.controls.to_port.hasError('required')">
+                        To Port is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="ttl_weight" matInput placeholder="Total Weight">
+                      <mat-error *ngIf="OrderForm.controls.ttl_weight.hasError('required')">
+                        Total Weight is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25">
+                        <input [readonly]="true" formControlName="updated_by" matInput placeholder="Updated By">
+                        <mat-error *ngIf="OrderForm.controls.updated_by.hasError('required')">
+                          Updated By is required
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input [readonly]="true" formControlName="user_id" matInput placeholder="User ID">
+                        <mat-error *ngIf="OrderForm.controls.user_id.hasError('required')">
+                          User ID is required
+                        </mat-error>
+                      </mat-form-field>
+              </div>
+
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="25">
+                      <input [readonly]="true" formControlName="vat" matInput placeholder="VAT">
+                      <mat-error *ngIf="OrderForm.controls.vat.hasError('required')">
+                        VAT is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="volume_discrepancy" matInput placeholder="Volume Discrepancy">
+                      <mat-error *ngIf="OrderForm.controls.volume_discrepancy.hasError('required')">
+                        Volume Discrepancy is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25">
+                        <input [readonly]="true" formControlName="volume_in" matInput placeholder="Volume In">
+                        <mat-error *ngIf="OrderForm.controls.volume_in.hasError('required')">
+                            Volume In is required
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input [readonly]="true" formControlName="volume_out" matInput placeholder="Volume Out">
+                        <mat-error *ngIf="OrderForm.controls.volume_out.hasError('required')">
+                          Volume Out is required
+                        </mat-error>
+                      </mat-form-field>
+              </div>
+
+              <div fxLayout="row">
+                  <mat-form-field fxFlex="25">
+                      <input [readonly]="true" formControlName="weight_discrepancy" matInput placeholder="Weight Discrepancy">
+                      <mat-error *ngIf="OrderForm.controls.weight_discrepancy.hasError('required')">
+                        Weight Discrepancy is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="true" formControlName="weight_in" matInput placeholder="Weight In">
+                      <mat-error *ngIf="OrderForm.controls.weight_in.hasError('required')">
+                        Weight In is required
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25">
+                        <input [readonly]="true" formControlName="weight_out" matInput placeholder="Weight Out">
+                        <mat-error *ngIf="OrderForm.controls.weight_out.hasError('required')">
+                            Weight Out is required
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input [readonly]="true" formControlName="zone_id" matInput placeholder="Zone ID">
+                        <mat-error *ngIf="OrderForm.controls.zone_id.hasError('required')">
+                          Zone ID is required
+                        </mat-error>
+                      </mat-form-field>
+              </div>
+
+              <!-- <div fxLayout="row">
+                  <mat-form-field fxFlex="33">
+                      <input formControlName="pick_up_address" matInput placeholder="Pick Up Address">
+                      <mat-error *ngIf="OrderForm.controls.pick_up_address.hasError('required')">
+                          Pick Up Address is required
+                      </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="33" class="margin-left-10">
+                      <input matInput formControlName="pick_up_date" [matDatepicker]="pickUpDate"
+                          placeholder="Pick Up Date">
+                      <mat-datepicker-toggle matSuffix [for]="pickUpDate"></mat-datepicker-toggle>
+                      <mat-datepicker #pickUpDate disabled="false"></mat-datepicker>
+                      <mat-error *ngIf="OrderForm.controls.pick_up_date.hasError('required')">
+                          Pick Up Date is required
+                      </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="33" class="margin-left-10">
+                      <input formControlName="description" matInput placeholder="Description">
+                  </mat-form-field>
+              </div> -->
+
+              <table class="table table-striped table-bordered mat-cyan-50-bg">
+                  <thead>
+                      <tr>
+                          <th>Height</th>
+                          <th>Item ID</th>
+                          <th>Length</th>
+                          <th>Max Weight</th>
+                          <th>Order Detail ID</th>
+                          <th>Order Detail Weight Up</th>
+                          <th>Pack Number</th>
+                          <th>Pack Size</th>
+                          <th>Quantity</th>
+                          <th>Volume</th>
+                          <th>Weight</th>
+                          <th>Width</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody formArrayName="items">
+                      <tr *ngFor="let item of OrderForm.get('items')['controls']; let i = index" [formGroupName]="i">
+                          <!-- <td class="border-table">
+                              <mat-select formControlName="item_id">
+                                  <mat-option *ngFor="let item of itemType" [value]="item.value">
+                                      {{ item.name }}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-error
+                                  *ngIf="OrderForm.controls.items.controls[i].controls.item_id.hasError('required') && OrderForm.controls.items.controls[i].controls.item_id.touched">
+                                  Item is required
+                              </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="weight" matInput (keypress)="checkInputNumber($event,true)"
+                                  (blur)="CalculateTotalWeight()">
+                              <mat-error
+                                  *ngIf="OrderForm.controls.items.controls[i].controls.weight.hasError('required') && OrderForm.controls.items.controls[i].controls.weight.touched">
+                                  Weight is required
+                              </mat-error>
+                            <p>{{ OrderForm.controls.items.controls[i].controls.weight.errors.invalidPassword }}</p>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="length" matInput (keypress)="checkInputNumber($event,true)"
+                                  (blur)="CalculateTheVoulume(i)">
+                              <mat-error
+                                  *ngIf="OrderForm.controls.items.controls[i].controls.length.hasError('required') && OrderForm.controls.items.controls[i].controls.length.touched">
+                                  Length is required
+                              </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="width" matInput (keypress)="checkInputNumber($event,true)"
+                                  (blur)="CalculateTheVoulume(i)">
+                              <mat-error
+                                  *ngIf="OrderForm.controls.items.controls[i].controls.width.hasError('required') && OrderForm.controls.items.controls[i].controls.width.touched">
+                                  Width is required
+                              </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="height" matInput (keypress)="checkInputNumber($event,true)"
+                                  (blur)="CalculateTheVoulume(i)">
+                              <mat-error
+                                  *ngIf="OrderForm.controls.items.controls[i].controls.height.hasError('required') && OrderForm.controls.items.controls[i].controls.height.touched">
+                                  Height is required
+                              </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="volume" matInput readonly>
+                          </td> -->
+
+
+                          <td class="border-table">
+                              <input formControlName="height" matInput readonly>
+                              <mat-error
+                                  *ngIf="OrderForm.controls.items.controls[i].controls.height.hasError('required') && OrderForm.controls.items.controls[i].controls.height.touched">
+                                  Height is required
+                              </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="item_id" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.item_id.hasError('required') && OrderForm.controls.items.controls[i].controls.item_id.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="length" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.length.hasError('required') && OrderForm.controls.items.controls[i].controls.length.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="max_weight" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.max_weight.hasError('required') && OrderForm.controls.items.controls[i].controls.max_weight.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="odr_dtl_id" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.odr_dtl_id.hasError('required') && OrderForm.controls.items.controls[i].controls.odr_dtl_id.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="order_dtl_weight_up" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.order_dtl_weight_up.hasError('required') && OrderForm.controls.items.controls[i].controls.order_dtl_weight_up.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="pack_num" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.pack_num.hasError('required') && OrderForm.controls.items.controls[i].controls.pack_num.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="pack_size" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.pack_size.hasError('required') && OrderForm.controls.items.controls[i].controls.pack_size.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="quantity" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.quantity.hasError('required') && OrderForm.controls.items.controls[i].controls.quantity.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="volume" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.volume.hasError('required') && OrderForm.controls.items.controls[i].controls.volume.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="weight" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.weight.hasError('required') && OrderForm.controls.items.controls[i].controls.weight.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+                          <td class="border-table">
+                              <input formControlName="width" matInput readonly>
+                              <mat-error
+                              *ngIf="OrderForm.controls.items.controls[i].controls.width.hasError('required') && OrderForm.controls.items.controls[i].controls.width.touched">
+                              Height is required
+                          </mat-error>
+                          </td>
+
+                          <td class="border-table">
+                              <button mat-raised-button (click)="deleteMoreItem(i)">
+                                  <mat-icon class="button-in-table">delete</mat-icon>
+                              </button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="padding-left: 10px;">
+                              <button mat-raised-button [disabled]="OrderForm.valid == false"
+                                  (click)="addMoreItem($event)">
+                                  <mat-icon class="button-in-table">add_circle</mat-icon>
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <!-- <div fxLayout="row">
+                  <mat-form-field fxFlex="50">
+                      <label>Total Weight</label>
+                      <input readonly formControlName="weight" matInput (keypress)="checkInputNumber($event,true)">
+                  </mat-form-field>
+                  <mat-form-field fxFlex="50">
+                      <label>Total Volome</label>
+                      <input readonly formControlName="volume" matInput (keypress)="checkInputNumber($event,true)">
+                  </mat-form-field>
+              </div> -->
+          </div>
+          <button class="button-submit" mat-raised-button color="accent" type="submit">Create</button>
+      </form>
+  </div>
+
 </div>
