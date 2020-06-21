@@ -263,55 +263,31 @@ export class CreateOrderComponent implements OnInit {
       // volume: 0,
       // user_id: 1,
       // pick_up_time: '10:30',
-      items: this.formBuilder.array([
-        data.items.forEach(x => {
-          console.log(x)
-          // this.detailChildGroup(x);
-        })
-      ])
+      items: this.detailChildGroup(data.items)
     });
+
   }
 
   detailChildGroup(data) {
-    console.log(data);
-  //   let detail = this.formBuilder.group({
-  //     height: [null, [Validators.required]],
-  //     item_id: [null, [Validators.required]],
-  //     length: [null, [Validators.required]],
-  //     max_weight: [null, [Validators.required]],
-  //     odr_dtl_id: [null, [Validators.required]],
-  //     order_dtl_weight_up: [null, [Validators.required]],
-  //     pack_num: [null, [Validators.required]],
-  //     pack_size: [null, [Validators.required]],
-  //     quantity: [null, [Validators.required]],
-  //     volume: [null, [Validators.required]],
-  //     weight: [null, [Validators.required]],
-  //     width: [null, [Validators.required]],
-  //   });
-  // for (let i=0; i< data.length; i++) {
-  //       this.detail.push()
-
-  //       }
-
-    console.log(data['height'])
-      return this.formBuilder.group({
-        height: [data['height'], [Validators.required]],
-        item_id: [data['item_id'], [Validators.required]],
-        length: [data['length'], [Validators.required]],
-        max_weight: [data['max_weight'], [Validators.required]],
-        odr_dtl_id: [data['odr_dtl_id'], [Validators.required]],
-        order_dtl_weight_up: [data['order_dtl_weight_up'], [Validators.required]],
-        pack_num: [data['pack_num'], [Validators.required]],
-        pack_size: [data['pack_size'], [Validators.required]],
-        quantity: [data['quantity'], [Validators.required]],
-        volume: [data['volume'], [Validators.required]],
-        weight: [data['weight'], [Validators.required]],
-        width: [data['width'], [Validators.required]],
+    const itemDetail = this.OrderForm.get('items') as FormArray;
+    for (let i = 0; i < data.length; i++) {
+      const detail = this.formBuilder.group({
+        height: [data[i]['height'], [Validators.required]],
+        item_id: [data[i]['item_id'], [Validators.required]],
+        length: [data[i]['length'], [Validators.required]],
+        max_weight: [data[i]['max_weight'], [Validators.required]],
+        odr_dtl_id: [data[i]['odr_dtl_id'], [Validators.required]],
+        order_dtl_weight_up: [data[i]['order_dtl_weight_up'], [Validators.required]],
+        pack_num: [data[i]['pack_num'], [Validators.required]],
+        pack_size: [data[i]['pack_size'], [Validators.required]],
+        quantity: [data[i]['quantity'], [Validators.required]],
+        volume: [data[i]['volume'], [Validators.required]],
+        weight: [data[i]['weight'], [Validators.required]],
+        width: [data[i]['width'], [Validators.required]],
       });
-      // for (let i=0; i< data.length; i++) {
-      //   return this.formBuilder.array(data[i]);
-
-      //   }
+      itemDetail.push(detail);
+    }
+    return itemDetail;
   }
 
   addMoreItem(event) {
