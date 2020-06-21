@@ -168,6 +168,7 @@ export class CreateOrderComponent implements OnInit {
       // user_id: 1,
       // pick_up_time: '10:30',
       items: this.formBuilder.array([this.buildChildGroup()])
+
     });
   }
 
@@ -268,8 +269,9 @@ export class CreateOrderComponent implements OnInit {
 
   }
 
-  detailChildGroup(data) {
+  detailChildGroup(data = []) {
     const itemDetail = this.OrderForm.get('items') as FormArray;
+    itemDetail.removeAt(0);
     for (let i = 0; i < data.length; i++) {
       const detail = this.formBuilder.group({
         height: [data[i]['height'], [Validators.required]],

@@ -581,14 +581,14 @@
               </td>
 
               <td class="border-table">
-                <button mat-raised-button (click)="deleteMoreItem(i)">
+                <button disabled mat-raised-button (click)="deleteMoreItem(i)">
                   <mat-icon class="button-in-table">delete</mat-icon>
                 </button>
               </td>
             </tr>
             <tr>
               <td style="padding-left: 10px;">
-                <button mat-raised-button [disabled]="OrderForm.valid == false" (click)="addMoreItem($event)">
+                <button mat-raised-button disabled (click)="addMoreItem($event)">
                   <mat-icon class="button-in-table">add_circle</mat-icon>
                 </button>
               </td>
