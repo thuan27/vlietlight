@@ -25,6 +25,6 @@ export class OrderListService
     }
 
     getStatus() {
-      return this.http.get(this.apiConfig.GET_STATUS, { headers: this._Func.AuthHeader()});
+      return this.http.get(this.apiConfig.GET_ORDER_STATUS, { headers: this._Func.AuthHeader()});
   }
 }
