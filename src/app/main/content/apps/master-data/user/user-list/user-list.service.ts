@@ -3,18 +3,20 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../../../../../environments/environment';
 import { Functions } from '@fuse/core/function';
+import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
 export class UserListService
 {
     constructor(
         private http: HttpClient,
-        private _Func: Functions
+        private _Func: Functions,
+        private apiConfig: APIConfig
     )
     {
     }
 
     getList() {
-        return this.http.get(environment.API.apiBase + '/users/index', { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.GET_USER, { headers: this._Func.AuthHeader() });
     }
 }
