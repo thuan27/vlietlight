@@ -1,8 +1,9 @@
 import { AWBDetailService } from './awb-detail.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
+import { e } from '@angular/core/src/render3';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -56,7 +57,7 @@ export class AWBDetailComponent implements OnInit {
       from_email: ['lequangthuan@gmail.com', [Validators.required]],
       from_contact_name: ['THON', [Validators.required]],
       from_company_name: ['THON', [Validators.required]],
-      to_country_id: [0, [Validators.required]],
+      to_country_id: [1, [Validators.required]],
       to_contact_name: ['', [Validators.required]],
       to_company_name: ['', [Validators.required]],
       to_address: ['', [Validators.required]],
@@ -84,10 +85,10 @@ export class AWBDetailComponent implements OnInit {
       item_id: [0, [Validators.required]],
       pack_num: 0,
       quantity: 1,
-      weight: [null, [Validators.required]],
-      length: [null, [Validators.required]],
-      width: [null, [Validators.required]],
-      height: [null, [Validators.required]],
+      weight: [null, [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],
+      length: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+      width: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+      height: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
       volume: [0, [Validators.required]],
       max_weight: 1,
       awb_dtl_weight_up: 1
@@ -103,6 +104,54 @@ export class AWBDetailComponent implements OnInit {
         console.log(data);
         this.router.navigate(['apps/inbound/awb']);
       });
+    }
+  }
+
+  ValidateWeightDOC (control: FormControl) {
+      if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
+        return { 'invalid_DOC_weight': false };
+      } else {
+        return { 'invalid_DOC_weight': true };
+      }
+  }
+
+  ValidateWeightPACK(control: FormControl) {
+    if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
+      return { 'invalid_PACK_weight': true };
+    } else {
+      return { 'invalid_PACK_weight': false };
+    }
+  }
+
+  ValidateWeightINVENLOP(control: FormControl) {
+    if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
+      return { 'invalid_INVENLOP_weight': true };
+    } else {
+      return { 'invalid_INVENLOP_weight': false };
+    }
+  }
+
+  ValidateLWH_DOC(control: FormControl) {
+    if ((Number(control.value) < 1000) && (Number(control.value) > 0)) {
+      return { 'invalid_DOC_LWH': false };
+    } else {
+      return { 'invalid_DOC_LWH': true };
+    }
+  }
+
+  ValidateLWH_PACK(control: FormControl) {
+    if ((Number(control.value) < 10000) && (Number(control.value) > 0)) {
+      return { 'invalid_PACK_LWH': true };
+    } else {
+      return { 'invalid_PACK_LWH': false };
+    }
+  }
+
+  ValidateLWH_INVENLOP(control: FormControl) {
+    if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
+      return { 'invalid_INVENLOP_LWH': true };
+    } else {
+      return { 'invalid_INVENLOP_LWH': false };
     }
   }
 

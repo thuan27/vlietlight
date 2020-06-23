@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { OrderListService } from './order-list.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -16,15 +18,19 @@ export class OrderListComponent implements OnInit
     loadingIndicator = true;
     reorderable = true;
     pagination: any;
-    countryList;
+    orderList;
     total;
     current_page;
     selected: any[] = [];
+    searchForm: FormGroup;
+    status;
 
     constructor(
         private router: Router,
+        private formBuilder: FormBuilder,
         private orderListService: OrderListService,
         private toastyService: ToastyService,
+        private datePipe: DatePipe,
         private toastyConfig: ToastyConfig
         )
     {
@@ -34,16 +40,31 @@ export class OrderListComponent implements OnInit
 
     ngOnInit()
     {
+        this.buildForm();
         this.getList();
+        this.getStatus();
     }
 
-    getList(page = 1) {
-        const params = '?page=' + page;
-        this.countryList = this.orderListService.getList(params);
-        
-        this.countryList.subscribe((dataList: any[]) => {
+    getStatus() {
+      this.orderListService.getStatus().subscribe((data) => {
+          this.status = data['data'];
+      });
+  }
+
+    getList(page = 1, searchData = {}) {
+      console.log(searchData)
+        let params = '?page=' + page;
+        if (searchData !== '') {
+          params = params + '&account_number=' + searchData['account_number']
+          + '&awb_num=' + searchData['awb_num']
+          + '&cus_name=' + searchData['cus_name']
+          + '&odr_status=' + searchData['odr_status'];
+        }
+        this.orderList = this.orderListService.getList(params);
+
+        this.orderList.subscribe((dataList: any[]) => {
             dataList['data'].forEach((data) => {
-                data['country_id_link'] = `<a href="apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
+                data['order_id_link'] = `<a href="apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
             });
             this.rows = dataList['data'];
             this.total = dataList['meta']['pagination']['total'];
@@ -52,6 +73,20 @@ export class OrderListComponent implements OnInit
             this.loadingIndicator = false;
         });
     }
+
+    private buildForm() {
+      this.searchForm = this.formBuilder.group({
+          account_number: '',
+          odr_status: 'New',
+          awb_num: '',
+          cus_name: ''
+      });
+  }
+
+  //   search(data) {
+  //     console.log('this.searchForm.value',this.searchForm.value)
+  //     this.getList(this.searchForm.value);
+  // }
 
     onSelect(event) {
         console.log('this.selected', this.selected);
