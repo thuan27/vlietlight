@@ -22,7 +22,7 @@ export class FuseLoginComponent implements OnInit {
     private AuthHeaderNoTK = this._Func.AuthHeaderNoTK();
     loginForm: FormGroup;
     loginFormErrors: any;
-    checkRemember = false;
+    checkRemember = true;
     private loginURL: string;
     private callCheckVersion: any;
     private intervalCheckVersion = 2000;
@@ -123,6 +123,7 @@ export class FuseLoginComponent implements OnInit {
                             }
                             localStorage.setItem(environment.token, res['data'].token);
                             this.router.navigate(['apps/dashboards/analytics']);
+                            console.log(localStorage.getItem(environment.username));
                         } else {
                             this.toastyService.error('No Token Found.');
                         }
