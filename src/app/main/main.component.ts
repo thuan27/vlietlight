@@ -2,9 +2,12 @@ import { Component, ElementRef, HostBinding, Inject, OnDestroy, Renderer2, ViewE
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import { Subscription } from 'rxjs/Subscription';
+import { environment } from 'environments/environment';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { MatDialog } from '@angular/material';
+import { FuseLoginFormDialogComponent } from '@fuse/directives/login-form/login-form.component';
 
 @Component({
     selector     : 'fuse-main',
@@ -14,11 +17,16 @@ import { ToastyConfig } from '@fuse/directives/ng2-toasty';
 })
 export class FuseMainComponent implements OnDestroy
 {
+    private intervalCheckVersion = 300000;
+    private intervalCheck;
     onConfigChanged: Subscription;
     fuseSettings: any;
+    dialogRef: any;
+    private versionName: string = environment.API.version;
     @HostBinding('attr.fuse-layout-mode') layoutMode;
 
     constructor(
+        public dialog: MatDialog,
         private _renderer: Renderer2,
         private _elementRef: ElementRef,
         private fuseConfig: FuseConfigService,
@@ -48,9 +56,18 @@ export class FuseMainComponent implements OnDestroy
         // this.currentTitle = this.titleService.getTitle();
     }
 
+    // tslint:disable-next-line:use-life-cycle-interface
+    ngAfterViewInit(): void {
+      this.intervalCheck = setInterval(() => {
+        this.checkVersionChange();
+      }, this.intervalCheckVersion);
+
+    }
+
     ngOnDestroy()
     {
         this.onConfigChanged.unsubscribe();
+        // clearInterval(this.intervalCheck);
     }
 
     addClass(className: string)
@@ -62,4 +79,14 @@ export class FuseMainComponent implements OnDestroy
     {
         this._renderer.removeClass(this._elementRef.nativeElement, className);
     }
+
+    private checkVersionChange(isReloadPage: boolean = false) {
+      this.dialogRef = this.dialog.open(FuseLoginFormDialogComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            action: 'new'
+        }
+    });
+  }
 }
+

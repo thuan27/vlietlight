@@ -1,0 +1,28 @@
+<div class="title">LOGIN ADMIN AGAIN</div>
+
+<div class="page-layout simple fullwidth">
+  <form class="form" name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit(loginForm.value)">
+
+    <div>
+      <input class="input" matInput placeholder="User Name" formControlName="username" autocomplete="off">
+      <div class="text-error" *ngIf="loginForm.controls.username.hasError('required')">
+        User Name is required
+      </div>
+    </div>
+
+    <div class="margin-top-10">
+      <input class="input" matInput type="password" placeholder="Password" formControlName="password"
+        autocomplete="off">
+      <div class="text-error" *ngIf="loginForm.controls.password.hasError('required')">
+        Password is required
+      </div>
+    </div>
+
+    <div>
+      <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN" [disabled]="loginForm.invalid">
+        LOGIN
+      </button>
+    </div>
+
+  </form>
+</div>

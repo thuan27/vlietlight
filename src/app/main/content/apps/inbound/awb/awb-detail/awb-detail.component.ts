@@ -20,6 +20,7 @@ export class AWBDetailComponent implements OnInit {
   AWBForm: FormGroup;
   ChildAWBFrom: FormGroup;
   country;
+  isENVELOP = false;
   itemType = [
     {
       value: 0,
@@ -116,18 +117,18 @@ export class AWBDetailComponent implements OnInit {
   }
 
   ValidateWeightPACK(control: FormControl) {
-    if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
-      return { 'invalid_PACK_weight': true };
-    } else {
+    if ((Number(control.value) < 2000) && (Number(control.value) > 0)) {
       return { 'invalid_PACK_weight': false };
+    } else {
+      return { 'invalid_PACK_weight': true };
     }
   }
 
   ValidateWeightINVENLOP(control: FormControl) {
-    if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
-      return { 'invalid_INVENLOP_weight': true };
-    } else {
+    if (Number(control.value) > 0) {
       return { 'invalid_INVENLOP_weight': false };
+    } else {
+      return { 'invalid_INVENLOP_weight': true };
     }
   }
 
@@ -141,17 +142,17 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateLWH_PACK(control: FormControl) {
     if ((Number(control.value) < 10000) && (Number(control.value) > 0)) {
-      return { 'invalid_PACK_LWH': true };
-    } else {
       return { 'invalid_PACK_LWH': false };
+    } else {
+      return { 'invalid_PACK_LWH': true };
     }
   }
 
   ValidateLWH_INVENLOP(control: FormControl) {
-    if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
-      return { 'invalid_INVENLOP_LWH': true };
-    } else {
+    if (Number(control.value) > 0) {
       return { 'invalid_INVENLOP_LWH': false };
+    } else {
+      return { 'invalid_INVENLOP_LWH': true };
     }
   }
 
@@ -234,5 +235,20 @@ export class AWBDetailComponent implements OnInit {
     });
   }
 
-  addEvent(e) {}
+  addEvent(event: any) {}
+
+  changeItem(event: any, i) {
+    this.AWBForm.controls['details']['controls'][i]['controls']['weight'].setValue(0);
+    this.AWBForm.controls['details']['controls'][i]['controls']['length'].setValue(0);
+    this.AWBForm.controls['details']['controls'][i]['controls']['width'].setValue(0);
+    this.AWBForm.controls['details']['controls'][i]['controls']['height'].setValue(0);
+    this.AWBForm.controls['details']['controls'][i]['controls']['volume'].setValue(0);
+    this.AWBForm.controls['weight'].setValue(0);
+    this.AWBForm.controls['volume'].setValue(0);
+    if (event.value === 2) {
+      this.isENVELOP = true;
+    } else {
+      this.isENVELOP = false;
+    }
+  }
 }
