@@ -52,7 +52,6 @@ export class OrderListComponent implements OnInit
   }
 
     getList(page = 1, searchData = {}) {
-      console.log(searchData)
         let params = '?page=' + page;
         if (searchData !== '') {
           params = params + '&account_number=' + searchData['account_number']

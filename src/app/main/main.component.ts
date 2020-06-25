@@ -17,7 +17,7 @@ import { FuseLoginFormDialogComponent } from '@fuse/directives/login-form/login-
 })
 export class FuseMainComponent implements OnDestroy
 {
-    private intervalCheckVersion = 300000;
+    private intervalCheckVersion = 84600000;
     private intervalCheck;
     onConfigChanged: Subscription;
     fuseSettings: any;

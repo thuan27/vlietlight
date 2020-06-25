@@ -6,12 +6,15 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { environment } from 'environments/environment';
 import { JwtHelperService } from '@fuse/directives/@auth0/angular-jwt';
+import { HttpClient } from '@angular/common/http';
+import { Functions } from '@fuse/core/function';
+import { APIConfig } from '../content/pages/authentication/config';
 
 @Component({
     selector   : 'fuse-toolbar',
     templateUrl: './toolbar.component.html',
     styleUrls  : ['./toolbar.component.scss'],
-    providers: []
+    providers: [APIConfig]
 })
 
 export class FuseToolbarComponent
@@ -28,10 +31,13 @@ export class FuseToolbarComponent
 
     constructor(
         private router: Router,
+        private http: HttpClient,
         private fuseConfig: FuseConfigService,
         private sidebarService: FuseSidebarService,
         private jwtHelper: JwtHelperService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private _Func: Functions,
+        private apiConfig: APIConfig
     )
     {
         if (localStorage.getItem(environment.token)) {
@@ -123,7 +129,10 @@ export class FuseToolbarComponent
     }
 
     logout() {
+      const logout = this.http.get(this.apiConfig.LOG_OUT, { headers: this._Func.AuthHeader() });
+      logout.subscribe((data) => {
         localStorage.clear();
         this.router.navigateByUrl('');
+      });
     }
 }
