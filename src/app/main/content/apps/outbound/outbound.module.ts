@@ -1,15 +1,16 @@
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, 
-         MatCheckboxModule, 
-         MatIconModule, 
-         MatInputModule, 
-         MatSelectModule, 
-         MatDatepickerModule, 
-         MatMenuModule, 
-         MatTableModule, 
-         MatRadioModule 
+import { MatButtonModule,
+         MatCheckboxModule,
+         MatIconModule,
+         MatInputModule,
+         MatSelectModule,
+         MatDatepickerModule,
+         MatMenuModule,
+         MatTableModule,
+         MatRadioModule,
+         MatTabsModule
         } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -39,7 +40,8 @@ import { OrderListService } from './order/order-list/order-list.service';
         MatMomentDateModule,
         MatMenuModule,
         MatRadioModule,
-        MatTableModule
+        MatTableModule,
+        MatTabsModule
     ],
     providers: [
         CreateOrderService,

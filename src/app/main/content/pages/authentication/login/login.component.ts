@@ -82,9 +82,9 @@ export class FuseLoginComponent implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.checkVersionChange(true);
-        this.callCheckVersion = setInterval(() => {
+        // this.callCheckVersion = setInterval(() => {
             this.checkVersionChange();
-        }, this.intervalCheckVersion);
+        // }, this.intervalCheckVersion);
     }
 
     private buildFrom() {

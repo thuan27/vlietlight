@@ -42,8 +42,11 @@
                 <input formControlName="account_number" matInput placeholder="Code">
             </mat-form-field>
             <mat-form-field fxFlex="20" class="margin-left-10">
-                <mat-select placeholder="Status">
-                    <mat-option *ngFor="let item of status" [value]="item.value">
+                <mat-select formControlName="odr_status" placeholder="Status">
+                    <mat-option style="top:0 !important" [value]="">
+                        Please select option
+                  </mat-option>
+                    <mat-option style="top:0 !important" *ngFor="let item of status" [value]="item.value">
                           {{ item.value }}
                     </mat-option>
                 </mat-select>
@@ -95,7 +98,6 @@
 
             <ngx-datatable-column [width]="200" name="Customer Total Price" prop="cus_total_price"></ngx-datatable-column>
         </ngx-datatable>
-
     </div>
 
 </div>

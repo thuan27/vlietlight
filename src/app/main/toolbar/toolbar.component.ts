@@ -134,5 +134,7 @@ export class FuseToolbarComponent
         localStorage.clear();
         this.router.navigateByUrl('');
       });
+      // localStorage.clear();
+      // this.router.navigateByUrl('');
     }
 }
