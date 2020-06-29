@@ -7,7 +7,7 @@ import { environment } from 'environments/environment';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { MatDialog } from '@angular/material';
-import { FuseLoginFormDialogComponent } from '@fuse/directives/login-form/login-form.component';
+import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-form.component';
 
 @Component({
     selector     : 'fuse-main',
