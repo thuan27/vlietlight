@@ -52,7 +52,8 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'pages/landing'
+        redirectTo: 'pages/landing',
+        pathMatch: 'full'
     }
 ];
 

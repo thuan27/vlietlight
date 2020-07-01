@@ -131,10 +131,8 @@ export class FuseToolbarComponent
     logout() {
       const logout = this.http.get(this.apiConfig.LOG_OUT, { headers: this._Func.AuthHeader() });
       logout.subscribe((data) => {
-        localStorage.clear();
-        this.router.navigateByUrl('');
       });
-      // localStorage.clear();
-      // this.router.navigateByUrl('');
+      localStorage.clear();
+      this.router.navigateByUrl('pages/landing');
     }
 }
