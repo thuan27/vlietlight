@@ -2,10 +2,10 @@
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
-const PAGE_URL = 'https://wms360.aspira.qc.seldatdirect.com';
+const PAGE_URL = 'http://vietlight.info';
 const API_URL = 'https://www.vietlightgroup.com/demoapi';
 const API_ADMIN_URL = 'http://35.240.239.183/demoapi';
-const DOMAINS = ['wms360.aspira.qc.seldatdirect.com', 'apigw-live3.seldatdirect.com'];
+const DOMAINS = ['vietlight.info'];
 const TOKEN = 'id_token';
 const USERNAME = 'username';
 const PASSWORD = 'password';
