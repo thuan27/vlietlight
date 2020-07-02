@@ -40,7 +40,7 @@ export class CountryListComponent implements OnInit
     getList(page = 1) {
         const params = '?page=' + page;
         this.countryList = this.countryListService.getList(params);
-        
+
         this.countryList.subscribe((dataList: any[]) => {
             dataList['data'].forEach((data) => {
                 data['country_id_link'] = `<a href="apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
@@ -68,9 +68,9 @@ export class CountryListComponent implements OnInit
 
     update() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
             this.router.navigateByUrl(`apps/master-data/countries/${this.selected[0]['country_id']}/update`);
         }
@@ -78,9 +78,9 @@ export class CountryListComponent implements OnInit
 
     delete() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
         this.countryListService.deleteCountry(this.selected[0]['country_id']).subscribe((data) => {
                 this.toastyService.success(data['message']);

@@ -60,7 +60,7 @@ export const navigation = [
                     },
                     {
                       'id'   : 'ServiceList',
-                      'title': 'Service Zone',
+                      'title': 'Service',
                       'type' : 'item',
                       'url'  : '/apps/master-data/service'
                     }

@@ -110,7 +110,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateWeightDOC (control: FormControl) {
       if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
-        return { 'invalid_DOC_weight': false };
+        return null;
       } else {
         return { 'invalid_DOC_weight': true };
       }
@@ -118,7 +118,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateWeightPACK(control: FormControl) {
     if ((Number(control.value) < 2000) && (Number(control.value) > 0)) {
-      return { 'invalid_PACK_weight': false };
+      return null;
     } else {
       return { 'invalid_PACK_weight': true };
     }
@@ -126,7 +126,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateWeightINVENLOP(control: FormControl) {
     if (Number(control.value) > 0) {
-      return { 'invalid_INVENLOP_weight': false };
+      return null;
     } else {
       return { 'invalid_INVENLOP_weight': true };
     }
@@ -134,7 +134,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateLWH_DOC(control: FormControl) {
     if ((Number(control.value) < 1000) && (Number(control.value) > 0)) {
-      return { 'invalid_DOC_LWH': false };
+      return null;
     } else {
       return { 'invalid_DOC_LWH': true };
     }
@@ -142,7 +142,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateLWH_PACK(control: FormControl) {
     if ((Number(control.value) < 10000) && (Number(control.value) > 0)) {
-      return { 'invalid_PACK_LWH': false };
+      return null;
     } else {
       return { 'invalid_PACK_LWH': true };
     }
@@ -150,7 +150,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateLWH_INVENLOP(control: FormControl) {
     if (Number(control.value) > 0) {
-      return { 'invalid_INVENLOP_LWH': false };
+      return null;
     } else {
       return { 'invalid_INVENLOP_LWH': true };
     }

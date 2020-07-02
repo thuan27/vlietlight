@@ -23,4 +23,12 @@ export class CountryZoneListService
     deleteCountry(id) {
         return this.http.delete(this.apiConfig.COUNTRY_ZONE_LIST + '/delete/' + id, { headers: this._Func.AuthHeader() });
     }
+
+    getService() {
+      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+    }
+
+    getCountry() {
+      return this.http.get(this.apiConfig.COUNTRY_LIST, { headers: this._Func.AuthHeader() });
+  }
 }

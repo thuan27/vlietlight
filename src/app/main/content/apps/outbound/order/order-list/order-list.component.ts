@@ -112,9 +112,9 @@ export class OrderListComponent implements OnInit {
 
   update() {
     if (this.selected.length < 1) {
-      this.toastyService.error('please select at least one item');
+      this.toastyService.error('Please select at least one item.');
     } else if (this.selected.length > 1) {
-      this.toastyService.error('please select one item');
+      this.toastyService.error('Please select one item.');
     } else {
       this.router.navigateByUrl(`apps/master-data/countries/${this.selected[0]['country_id']}/update`);
     }
@@ -122,9 +122,9 @@ export class OrderListComponent implements OnInit {
 
   delete() {
     if (this.selected.length < 1) {
-      this.toastyService.error('please select at least one item');
+      this.toastyService.error('Please select at least one item.');
     } else if (this.selected.length > 1) {
-      this.toastyService.error('please select one item');
+      this.toastyService.error('Please select one item.');
     } else {
       this.orderListService.deleteCountry(this.selected[0]['country_id']).subscribe((data) => {
         this.toastyService.success(data['message']);

@@ -44,6 +44,9 @@
             <mat-error *ngIf="CountryForm.controls.zone.hasError('required')">
               Zone is required
             </mat-error>
+            <mat-error *ngIf="CountryForm.controls.zone.hasError('validate_Zone')">
+              Zone must has 2 characters
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row">

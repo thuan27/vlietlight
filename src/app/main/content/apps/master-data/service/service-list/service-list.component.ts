@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ServiceListService } from './service-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,11 +21,15 @@ export class ServiceListComponent implements OnInit
     total;
     current_page;
     selected: any[] = [];
+    searchForm: FormGroup;
+    status;
+    serviceName;
 
     constructor(
         private router: Router,
         private serviceListService: ServiceListService,
         private toastyService: ToastyService,
+        private formBuilder: FormBuilder,
         private toastyConfig: ToastyConfig
         )
     {
@@ -34,7 +39,31 @@ export class ServiceListComponent implements OnInit
 
     ngOnInit()
     {
+        this.buildForm();
         this.getList();
+        this.getStatus();
+        this.getService();
+    }
+
+    private buildForm() {
+      this.searchForm = this.formBuilder.group({
+          service_name_link: 1,
+          status: 'New',
+      });
+    }
+
+    search() {}
+
+    getStatus() {
+      this.serviceListService.getStatus().subscribe((data) => {
+          this.status = data['data'];
+      });
+    }
+
+    getService() {
+      this.serviceListService.getService().subscribe((data) => {
+        this.serviceName = data['data'];
+      });
     }
 
     getList(page = 1) {
@@ -68,9 +97,9 @@ export class ServiceListComponent implements OnInit
 
     update() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
             this.router.navigateByUrl(`apps/master-data/service/${this.selected[0]['service_id']}/update`);
         }
@@ -78,9 +107,9 @@ export class ServiceListComponent implements OnInit
 
     delete() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
         this.serviceListService.delete(this.selected[0]['service_id']).subscribe((data) => {
                 this.toastyService.success(data['message']);

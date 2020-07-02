@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CreateCountryZoneService } from './create-country-zone.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
@@ -88,7 +88,7 @@ export class CreateCountryZoneComponent implements OnInit {
     this.CountryForm = this.formBuilder.group({
       service_id: [1, [Validators.required]],
       country_id: [1, [Validators.required]],
-      zone: ['', [Validators.required]],
+      zone: ['', [Validators.required, this.ValidateZone]],
       state_code: ['', [Validators.required]],
       state_name: ['', [Validators.required]],
     });
@@ -98,7 +98,7 @@ export class CreateCountryZoneComponent implements OnInit {
     this.CountryForm = this.formBuilder.group({
       service_id: [data['service_id'], [Validators.required]],
       country_id: [data['country_id'], [Validators.required]],
-      zone: [data['zone'], [Validators.required]],
+      zone: [data['zone'], [Validators.required, this.ValidateZone]],
       state_code: [data['state_code'], [Validators.required]],
       state_name: [data['state_name'], [Validators.required]],
     });
@@ -158,4 +158,11 @@ export class CreateCountryZoneComponent implements OnInit {
     });
   }
 
+  ValidateZone (control: FormControl) {
+    if (control.value.length === 2 || control.value.length === 0) {
+      return null;
+    } else {
+      return { 'validate_Zone': true };
+    }
+  }
 }
