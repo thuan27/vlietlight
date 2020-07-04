@@ -10,7 +10,8 @@ import { MatButtonModule,
          MatMenuModule,
          MatTableModule,
          MatRadioModule,
-         MatTabsModule
+         MatTabsModule,
+         MatAutocompleteModule
         } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -41,7 +42,8 @@ import { OrderListService } from './order/order-list/order-list.service';
         MatMenuModule,
         MatRadioModule,
         MatTableModule,
-        MatTabsModule
+        MatTabsModule,
+        MatAutocompleteModule
     ],
     providers: [
         CreateOrderService,

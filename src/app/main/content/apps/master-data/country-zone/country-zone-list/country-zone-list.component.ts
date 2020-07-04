@@ -41,7 +41,7 @@ export class CountryZoneListComponent implements OnInit
     {
         this.getList();
         this.buildForm();
-        this.getCountry();
+        this.getCountry('');
         this.getService();
     }
 
@@ -64,7 +64,7 @@ export class CountryZoneListComponent implements OnInit
     private buildForm() {
       this.searchForm = this.formBuilder.group({
           service_name_link: 1,
-          country_name: 1,
+          country_name: '',
           zone: ''
       });
     }
@@ -81,10 +81,12 @@ export class CountryZoneListComponent implements OnInit
       });
     }
 
-    getCountry() {
-      this.countryZoneListService.getCountry().subscribe((data) => {
-        this.country = data['data'];
-      });
+    getCountry(event) {
+      setTimeout(() => {
+        this.countryZoneListService.getCountry(event.target.value).subscribe((data) => {
+          this.country = data['data'];
+        });
+      },100)
     }
 
     pageCallback(e) {

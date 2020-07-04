@@ -28,7 +28,7 @@ export class CountryZoneListService
       return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
     }
 
-    getCountry() {
-      return this.http.get(this.apiConfig.COUNTRY_LIST, { headers: this._Func.AuthHeader() });
-  }
+    getCountry(data) {
+      return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data, { headers: this._Func.AuthHeader() });
+    }
 }

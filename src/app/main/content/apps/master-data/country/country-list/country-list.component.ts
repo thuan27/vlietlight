@@ -2,6 +2,7 @@ import { CountryListService } from './country-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -20,10 +21,13 @@ export class CountryListComponent implements OnInit
     total;
     current_page;
     selected: any[] = [];
+    searchForm: FormGroup;
+    country;
 
     constructor(
         private router: Router,
         private countryListService: CountryListService,
+        private formBuilder: FormBuilder,
         private toastyService: ToastyService,
         private toastyConfig: ToastyConfig
         )
@@ -35,6 +39,14 @@ export class CountryListComponent implements OnInit
     ngOnInit()
     {
         this.getList();
+        this.buildForm();
+        this.getCountry('');
+    }
+
+    private buildForm() {
+      this.searchForm = this.formBuilder.group({
+          country_name: '',
+      });
     }
 
     getList(page = 1) {
@@ -51,6 +63,14 @@ export class CountryListComponent implements OnInit
             this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
             this.loadingIndicator = false;
         });
+    }
+
+    getCountry(event) {
+      setTimeout(() => {
+        this.countryListService.getCountry(event.target.value).subscribe((data) => {
+          this.country = data['data'];
+        });
+      },100)
     }
 
     onSelect(event) {
