@@ -26,8 +26,8 @@ export class CreateCountryZoneService
         return this.http.put(this.apiConfig.COUNTRY_ZONE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
     }
 
-    countryList() {
-      return this.http.get(this.apiConfig.COUNTRY_LIST, { headers: this._Func.AuthHeader() });
+    countryList(data) {
+      return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data, { headers: this._Func.AuthHeader() });
     }
 
     serviceList() {

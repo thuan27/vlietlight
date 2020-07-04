@@ -33,11 +33,12 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex="33" class="margin-left-10">
-            <mat-select [disabled]="disabledForm" formControlName="country_id" placeholder="Country">
-              <mat-option *ngFor="let item of country" [value]="item.country_id">
-                {{ item.country_name }}
+            <input [disabled]="disabledForm"  placeholder="Country Name" formControlName="country_id" (keypress)="countryList($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option style="top:0 !important" *ngFor="let option of country" [value]="option.country_id">
+                {{ option.country_name }}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
           </mat-form-field>
           <mat-form-field fxFlex="33" class="margin-left-10">
             <input [readonly]="disabledForm" formControlName="zone" matInput placeholder="Zone">

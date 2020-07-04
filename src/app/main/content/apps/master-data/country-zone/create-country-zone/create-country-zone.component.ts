@@ -58,7 +58,7 @@ export class CreateCountryZoneComponent implements OnInit {
           this.title = 'Update Country Zone';
           this.titleGroup = 'Update';
           this.serviceList();
-          this.countryList();
+          this.countryList('');
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
@@ -68,7 +68,7 @@ export class CreateCountryZoneComponent implements OnInit {
           this.title = 'Country Zone Detail';
           this.titleGroup = 'Detail';
           this.serviceList();
-          this.countryList();
+          this.countryList('');
         }
       }
       else {
@@ -78,7 +78,7 @@ export class CreateCountryZoneComponent implements OnInit {
         this.title = 'Create Country Zone';
         this.buttonType = 'Create';
         this.disabledForm = false;
-        this.countryList();
+        this.countryList('');
         this.serviceList();
       }
     });
@@ -87,7 +87,7 @@ export class CreateCountryZoneComponent implements OnInit {
   private buildForm() {
     this.CountryForm = this.formBuilder.group({
       service_id: [1, [Validators.required]],
-      country_id: [1, [Validators.required]],
+      country_id: [null, [Validators.required]],
       zone: ['', [Validators.required, this.ValidateZone]],
       state_code: ['', [Validators.required]],
       state_name: ['', [Validators.required]],
@@ -146,10 +146,12 @@ export class CreateCountryZoneComponent implements OnInit {
     this._Valid.isNumber($event, int);
   }
 
-  countryList() {
-    this._createCountryZoneService.countryList().subscribe((data) => {
-      this.country = data['data'];
-    });
+  countryList(event) {
+    setTimeout(() => {
+      this._createCountryZoneService.countryList(event.target.value).subscribe((data) => {
+        this.country = data['data'];
+      });
+    },100);
   }
 
   serviceList() {

@@ -70,7 +70,7 @@ export class CountryListComponent implements OnInit
         this.countryListService.getCountry(event.target.value).subscribe((data) => {
           this.country = data['data'];
         });
-      },100)
+      },100);
     }
 
     onSelect(event) {
