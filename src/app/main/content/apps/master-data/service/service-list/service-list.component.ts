@@ -53,12 +53,15 @@ export class ServiceListComponent implements OnInit
       });
     }
 
-    search() {}
+    reset() {
+      this.searchForm.controls['service_name_link'].setValue('');
+      this.searchForm.controls['status'].setValue('active');
+    }
 
     getService(event) {
       let data = '?status=' + this.searchForm.controls['status'].value;
       if (event.target.value) {
-        data = data + '&service_name=' +event.target.value;
+        data = data + '&service_name=' + event.target.value;
       }
       this.serviceListService.getService(data).subscribe((data) => {
         this.serviceName = data['data'];
@@ -66,7 +69,10 @@ export class ServiceListComponent implements OnInit
     }
 
     getList(page = 1) {
-        const params = '?page=' + page;
+        let params = '?page=' + page + '&status=' + this.searchForm.controls['status'].value;
+        if (this.searchForm.controls['service_name_link'].value != '') {
+          params = params + '&service_name_link=' + this.searchForm.controls['service_name_link'].value;
+        }
         this.countryList = this.serviceListService.getList(params);
 
         this.countryList.subscribe((dataList: any[]) => {

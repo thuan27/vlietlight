@@ -38,7 +38,7 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
+        <form id="form-control" [formGroup]="searchForm" autocomplete="off">
             <mat-form-field class="margin-left-10 custom-select">
                 <input placeholder="Service Name" formControlName="service_name_link" (keyup)="getService($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -54,8 +54,8 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <button class="margin-left-20" mat-raised-button color="accent" type="submit">Search</button>
-            <button mat-raised-button>Reset</button>
+            <button class="margin-left-20" mat-raised-button color="accent" (click)="getList()">Search</button>
+            <button mat-raised-button (click)="reset()">Reset</button>
         </form>
 
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
