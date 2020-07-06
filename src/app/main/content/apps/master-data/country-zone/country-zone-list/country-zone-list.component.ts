@@ -82,11 +82,9 @@ export class CountryZoneListComponent implements OnInit
     }
 
     getCountry(event) {
-      setTimeout(() => {
-        this.countryZoneListService.getCountry(event.target.value).subscribe((data) => {
-          this.country = data['data'];
-        });
-      },100);
+      this.countryZoneListService.getCountry(event.target.value).subscribe((data) => {
+        this.country = data['data'];
+      });
     }
 
     pageCallback(e) {

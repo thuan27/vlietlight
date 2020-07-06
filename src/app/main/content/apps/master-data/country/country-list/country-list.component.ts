@@ -40,12 +40,12 @@ export class CountryListComponent implements OnInit
     {
         this.getList();
         this.buildForm();
-        this.getCountry('');
     }
 
     private buildForm() {
       this.searchForm = this.formBuilder.group({
           country_name: '',
+          country_id: null,
       });
     }
 
@@ -66,11 +66,9 @@ export class CountryListComponent implements OnInit
     }
 
     getCountry(event) {
-      setTimeout(() => {
-        this.countryListService.getCountry(event.target.value).subscribe((data) => {
-          this.country = data['data'];
-        });
-      },100);
+      this.countryListService.getCountry(event.target.value).subscribe((data) => {
+        this.country = data['data'];
+      });
     }
 
     onSelect(event) {
@@ -112,5 +110,9 @@ export class CountryListComponent implements OnInit
                   );
             });
         }
+    }
+
+    selectedOption(data) {
+      this.searchForm.controls['country_id'].setValue(data);
     }
 }

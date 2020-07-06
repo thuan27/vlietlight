@@ -40,9 +40,9 @@
 
         <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
             <mat-form-field class="custom-select">
-                <input placeholder="Country Name" formControlName="country_name" (keypress)="getCountry($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+                <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                  <mat-option style="top:0 !important" *ngFor="let option of country" [value]="option.country_id">
+                  <mat-option (click)="selectedOption(option.country_id)" style="top:0 !important" *ngFor="let option of country" [value]="option.country_name">
                     {{ option.country_name }}
                   </mat-option>
                 </mat-autocomplete>

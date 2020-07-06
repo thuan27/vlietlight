@@ -9,75 +9,93 @@ import { CreateCountryZoneComponent } from './country-zone/create-country-zone/c
 import { CountryZoneListComponent } from './country-zone/country-zone-list/country-zone-list.component';
 import { ServiceListComponent } from './service/service-list/service-list.component';
 import { CreateServiceComponent } from './service/create-service/create-service.component';
+import { AuthGuard, AdminGuard } from '../../guards';
 
 export const listRoutes: Routes = [
     {
         path     : 'users',
         component: UserListComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path    : 'users/create',
-        component: CreateUserComponent
+        component: CreateUserComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path    : 'customers',
-        component: CustomerListComponent
+        component: CustomerListComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path    : 'customers/:id',
-        component: CreateCustomeromponent
+        component: CreateCustomeromponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'customers/create',
-        component: CreateCustomeromponent
+        component: CreateCustomeromponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries',
-        component: CountryListComponent
+        component: CountryListComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries/create',
-        component: CreateCountryComponent
+        component: CreateCountryComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries/:id',
-        component: CreateCountryComponent
+        component: CreateCountryComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries/:id/:update',
-        component: CreateCountryComponent
+        component: CreateCountryComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries-zone',
-        component: CountryZoneListComponent
+        component: CountryZoneListComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries-zone/create',
-        component: CreateCountryZoneComponent
+        component: CreateCountryZoneComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries-zone/:id',
-        component: CreateCountryZoneComponent
+        component: CreateCountryZoneComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'countries-zone/:id/:update',
-        component: CreateCountryZoneComponent
+        component: CreateCountryZoneComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'service',
-        component: ServiceListComponent
+        component: ServiceListComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'service/create',
-        component: CreateServiceComponent
+        component: CreateServiceComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'service/:id',
-        component: CreateServiceComponent
+        component: CreateServiceComponent,
+        canActivate: [AuthGuard, AdminGuard]
     },
     {
         path: 'service/:id/:update',
-        component: CreateServiceComponent
+        component: CreateServiceComponent,
+        canActivate: [AuthGuard, AdminGuard]
     }
 ];
 

@@ -20,6 +20,7 @@ import { ToastyModule } from '@fuse/directives/ng2-toasty';
 
 import { JwtModule } from '@fuse/directives/@auth0/angular-jwt';
 import { environment } from 'environments/environment';
+import { AuthGuard, AdminGuard } from './main/content/guards';
 
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
@@ -91,6 +92,7 @@ const appRoutes: Routes = [
     bootstrap   : [
         AppComponent
     ],
+    providers: [AuthGuard, AdminGuard],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule

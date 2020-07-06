@@ -122,8 +122,8 @@ export class FuseLoginComponent implements OnInit {
                                 localStorage.setItem(environment.password, this.loginForm.value['password']);
                             }
                             localStorage.setItem(environment.token, res['data'].token);
+                            localStorage.setItem(environment.userType, 'admin');
                             this.router.navigate(['apps/dashboards/analytics']);
-                            console.log(localStorage.getItem(environment.username));
                         } else {
                             this.toastyService.error('No Token Found.');
                         }
@@ -140,7 +140,7 @@ export class FuseLoginComponent implements OnInit {
     // tslint:disable-next-line:member-ordering
     onSubmit1() {
         const authHeader = new HttpHeaders({
-            'Content-Type': 'pplication/json; charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
         });
         this.http.post(this.loginURL, this.loginForm.value, {headers: authHeader})
             .subscribe(

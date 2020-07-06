@@ -50,6 +50,7 @@ export class AWBDetailComponent implements OnInit {
   private buildForm() {
     this.AWBForm = this.formBuilder.group({
       from_country_id: [null, [Validators.required]],
+      from_country_name: ['Thuan222', [Validators.required]],
       from_address: ['132 132', [Validators.required]],
       from_postcode: ['ABC', [Validators.required]],
       from_phone: ['090909', [Validators.required]],
@@ -58,6 +59,7 @@ export class AWBDetailComponent implements OnInit {
       from_contact_name: ['THON', [Validators.required]],
       from_company_name: ['THON', [Validators.required]],
       to_country_id: [null, [Validators.required]],
+      to_country_name: ['', [Validators.required]],
       to_contact_name: ['', [Validators.required]],
       to_company_name: ['', [Validators.required]],
       to_address: ['', [Validators.required]],
@@ -96,6 +98,7 @@ export class AWBDetailComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.AWBForm.value)
     if (this.AWBForm.valid) {
       this.AWBForm.value.received_at = this.AWBForm.value.received_at.format('YYYY/MM/DD');
       this.AWBForm.value.ship_date = this.AWBForm.value.ship_date.format('YYYY/MM/DD');
@@ -228,14 +231,17 @@ export class AWBDetailComponent implements OnInit {
     }
   }
 
-  getCountry(event) {
-    // setTimeout(() => {
-      if (event.target.value) {
-        this._AWBDetailService.getCountry(event.target.value).subscribe((data) => {
-          this.country = data['data'];
-        });
-      }
-    // },100);
+  getCountry(event, optionId, optionName) {
+    this.AWBForm.controls[optionId].setValue(null);
+    this.AWBForm.controls[optionName].setErrors({'invalid_Country' : true})
+    this._AWBDetailService.getCountry(event.target.value).subscribe((data) => {
+      this.country = data['data'];
+    });
+  }
+
+  selectedOption(optionID, optionName, data) {
+    this.AWBForm.controls[optionID].setValue(data);
+    this.AWBForm.controls[optionName].setErrors(null);
   }
 
   addEvent(event: any) {}

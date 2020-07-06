@@ -27,5 +27,6 @@ export const environment = {
       whitelistedDomains: DOMAINS,
       token: TOKEN,
       username: USERNAME,
-      password: PASSWORD
+      password: PASSWORD,
+      userType: ''
 };

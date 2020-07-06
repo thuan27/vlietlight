@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
+import { FuseConfigService } from '@fuse/services/config.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -38,9 +39,18 @@ export class AWBDetailForCusComponentV1 implements OnInit {
   constructor(
     private _AWBDetailForCusService: AWBDetailForCusServiceV1,
     private formBuilder: FormBuilder,
+    private fuseConfig: FuseConfigService,
     private router: Router,
     private _Valid: ValidationService,
-  ) { }
+  ) {
+    this.fuseConfig.setConfig({
+      layout: {
+          navigation: 'none',
+          toolbar: 'above',
+          footer: 'below'
+      }
+    });
+  }
 
   ngOnInit() {
     this.buildForm();

@@ -22,7 +22,10 @@ export class ServiceListComponent implements OnInit
     current_page;
     selected: any[] = [];
     searchForm: FormGroup;
-    status;
+    status = [
+      {value: 'active', name: 'Active'},
+      {value: 'inactive', name: 'Inactive'}
+    ];
     serviceName;
 
     constructor(
@@ -41,27 +44,23 @@ export class ServiceListComponent implements OnInit
     {
         this.buildForm();
         this.getList();
-        this.getStatus();
-        this.getService();
     }
 
     private buildForm() {
       this.searchForm = this.formBuilder.group({
-          service_name_link: 1,
-          status: 'New',
+          service_name_link: '',
+          status: 'active',
       });
     }
 
     search() {}
 
-    getStatus() {
-      this.serviceListService.getStatus().subscribe((data) => {
-          this.status = data['data'];
-      });
-    }
-
-    getService() {
-      this.serviceListService.getService().subscribe((data) => {
+    getService(event) {
+      let data = '?status=' + this.searchForm.controls['status'].value;
+      if (event.target.value) {
+        data = data + '&service_name=' +event.target.value;
+      }
+      this.serviceListService.getService(data).subscribe((data) => {
         this.serviceName = data['data'];
       });
     }

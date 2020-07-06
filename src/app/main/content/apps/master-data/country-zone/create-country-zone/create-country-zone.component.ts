@@ -147,11 +147,9 @@ export class CreateCountryZoneComponent implements OnInit {
   }
 
   countryList(event) {
-    setTimeout(() => {
-      this._createCountryZoneService.countryList(event.target.value).subscribe((data) => {
-        this.country = data['data'];
-      });
-    },100);
+    this._createCountryZoneService.countryList(event.target.value).subscribe((data) => {
+      this.country = data['data'];
+    });
   }
 
   serviceList() {

@@ -24,12 +24,18 @@
       <div class="box-shadow-form margin-top-10">
         <div fxLayout="row">
           <mat-form-field fxFlex="25">
-            <input placeholder="Country Name" formControlName="from_country_id" (keyup)="getCountry($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+            <input placeholder="Country Name" formControlName="from_country_name" (keyup)="getCountry($event,'from_country_id','from_country_name')" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-              <mat-option style="top:0 !important" *ngFor="let option of country" [value]="option.country_id">
+              <mat-option (click)="selectedOption('from_country_id', 'from_country_name', option.country_id)" style="top:0 !important" *ngFor="let option of country" [value]="option.country_name">
                 {{ option.country_name }}
               </mat-option>
             </mat-autocomplete>
+            <mat-error *ngIf="AWBForm.controls.from_country_name.hasError('invalid_Country')">
+              Please choose one option.
+            </mat-error>
+            <mat-error *ngIf="AWBForm.controls.from_country_name.hasError('required')">
+              From Country is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="margin-left-10">
             <input formControlName="from_address" matInput placeholder="From Address">
@@ -84,13 +90,16 @@
       <div class="box-shadow-form margin-top-10">
         <div fxLayout="row">
           <mat-form-field fxFlex="25">
-            <input placeholder="Country Name" formControlName="to_country_id" (keypress)="getCountry($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+            <input placeholder="Country Name" formControlName="to_country_name" (keyup)="getCountry($event,'to_country_id','to_country_name')" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-              <mat-option style="top:0 !important" *ngFor="let option of country" [value]="option.country_id">
+              <mat-option (click)="selectedOption('to_country_id','to_country_name',option.country_id)" style="top:0 !important" *ngFor="let option of country" [value]="option.country_name">
                 {{ option.country_name }}
               </mat-option>
             </mat-autocomplete>
-            <mat-error *ngIf="AWBForm.controls.to_country_id.hasError('required')">
+            <mat-error *ngIf="AWBForm.controls.to_country_name.hasError('invalid_Country')">
+              Please choose one option.
+            </mat-error>
+            <mat-error *ngIf="AWBForm.controls.to_country_name.hasError('required')">
               To Country is required
             </mat-error>
           </mat-form-field>
