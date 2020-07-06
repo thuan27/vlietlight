@@ -59,10 +59,11 @@ export class FuseMainComponent implements OnDestroy
 
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit(): void {
-      this.intervalCheck = setInterval(() => {
-        this.checkVersionChange();
-      }, this.intervalCheckVersion);
-
+      if (localStorage.getItem(environment.token)) {
+        this.intervalCheck = setInterval(() => {
+          this.checkVersionChange();
+        }, this.intervalCheckVersion);
+      }
     }
 
     ngOnDestroy()

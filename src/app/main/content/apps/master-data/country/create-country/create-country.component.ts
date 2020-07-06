@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs/Subscription';
 import { CreateCountryService } from './create-country.service';
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -35,7 +35,8 @@ export class CreateCountryComponent implements OnInit {
     private _Valid: ValidationService,
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
-    private toastyConfig: ToastyConfig
+    private toastyConfig: ToastyConfig,
+    private location: Location
   ) {
     this.toastyConfig.position = 'top-right';
    }
@@ -126,5 +127,9 @@ export class CreateCountryComponent implements OnInit {
 
   checkInputNumber($event, int) {
     this._Valid.isNumber($event, int);
+  }
+
+  cancel() {
+    this.location.back();
   }
 }

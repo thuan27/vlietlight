@@ -18,11 +18,13 @@ export const listRoutes: Routes = [
     },
     {
         path: 'awb/create-for-cus1',
-        component: AWBDetailForCusComponent
+        component: AWBDetailForCusComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'awb/create-for-cus',
-        component: AWBDetailForCusComponentV1
+        component: AWBDetailForCusComponentV1,
+        canActivate: [AuthGuard]
     },
 ];
 

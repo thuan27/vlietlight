@@ -19,7 +19,8 @@ export class AdminGuard implements CanActivate {
     if (userType == 'admin') {
       return true;
     } else {
-      this.router.navigate(['apps/inbound/awb/create-for-cus']);
+      this.router.navigateByUrl('pages/landing');
+      localStorage.clear();
       return false;
     }
   }

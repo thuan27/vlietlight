@@ -19,11 +19,11 @@ export const listRoutes: Routes = [
         component: CreateOrderComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
-    {
-        path: 'order/create-for-cus',
-        component: CreateOrderComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
+    // {
+    //     path: 'order/create-for-cus',
+    //     component: CreateOrderComponent,
+    //     canActivate: [AuthGuard, AdminGuard]
+    // },
 ];
 
 

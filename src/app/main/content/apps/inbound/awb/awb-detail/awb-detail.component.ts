@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
-import { e } from '@angular/core/src/render3';
+import { Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -41,6 +41,7 @@ export class AWBDetailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -259,5 +260,9 @@ export class AWBDetailComponent implements OnInit {
     } else {
       this.isENVELOP = false;
     }
+  }
+
+  cancel() {
+    this.location.back();
   }
 }

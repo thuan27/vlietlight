@@ -41,7 +41,6 @@ export class CountryZoneListComponent implements OnInit
     {
         this.getList();
         this.buildForm();
-        this.getCountry('');
         this.getService();
     }
 

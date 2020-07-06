@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@ang
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -37,6 +38,7 @@ export class CreateCountryZoneComponent implements OnInit {
     private _Valid: ValidationService,
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
+    private location: Location,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -58,7 +60,6 @@ export class CreateCountryZoneComponent implements OnInit {
           this.title = 'Update Country Zone';
           this.titleGroup = 'Update';
           this.serviceList();
-          this.countryList('');
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
@@ -68,7 +69,6 @@ export class CreateCountryZoneComponent implements OnInit {
           this.title = 'Country Zone Detail';
           this.titleGroup = 'Detail';
           this.serviceList();
-          this.countryList('');
         }
       }
       else {
@@ -78,7 +78,6 @@ export class CreateCountryZoneComponent implements OnInit {
         this.title = 'Create Country Zone';
         this.buttonType = 'Create';
         this.disabledForm = false;
-        this.countryList('');
         this.serviceList();
       }
     });
@@ -164,5 +163,9 @@ export class CreateCountryZoneComponent implements OnInit {
     } else {
       return { 'validate_Zone': true };
     }
+  }
+
+  cancel() {
+    this.location.back();
   }
 }
