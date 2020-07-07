@@ -127,4 +127,15 @@ export class CountryListComponent implements OnInit {
     this.sortData = '';
     this.getList();
   }
+
+  exportCsv() {
+    let params = `?country_name=${this.searchForm.value['country_name']}`;
+    if (this.sortData !== '') {
+      params += this.sortData;
+    }
+    let getReport = this.countryListService.getReport(params);
+    getReport.subscribe((data) => {
+      console.log(data)
+    })
+  }
 }
