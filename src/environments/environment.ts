@@ -10,6 +10,7 @@ const DOMAINS = ['vietlight.info'];
 const TOKEN = 'id_token';
 const USERNAME = 'username';
 const PASSWORD = 'password';
+const USERTYPE = '';
 
 export const environment = {
     production: false,
@@ -28,5 +29,5 @@ export const environment = {
       token: TOKEN,
       username: USERNAME,
       password: PASSWORD,
-      userType: ''
+      userType: USERTYPE
 };
