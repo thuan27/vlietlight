@@ -336,7 +336,7 @@ export class AWBDetailForCusComponent implements OnInit {
 
     }
     this._AWBDetailForCusService.createAWB(this.AWBForm.value).subscribe((data) => {
-      this.router.navigate(['apps/inbound/awb']);
+      this.router.navigate(['inbound/awb']);
     });
   }
 

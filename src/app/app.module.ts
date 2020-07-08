@@ -28,32 +28,32 @@ export function tokenGetter() {
 
 const appRoutes: Routes = [
     {
-        path        : 'apps',
+        path        : '',
         loadChildren: './main/content/apps/apps.module#FuseAppsModule'
     },
-    {
-        path        : 'pages',
-        loadChildren: './main/content/pages/pages.module#FusePagesModule'
-    },
-    {
-        path        : 'ui',
-        loadChildren: './main/content/ui/ui.module#FuseUIModule'
-    },
-    {
-        path        : 'services',
-        loadChildren: './main/content/services/services.module#FuseServicesModule'
-    },
-    {
-        path        : 'components',
-        loadChildren: './main/content/components/components.module#FuseComponentsModule'
-    },
-    {
-        path        : 'components-third-party',
-        loadChildren: './main/content/components-third-party/components-third-party.module#FuseComponentsThirdPartyModule'
-    },
+    // {
+    //     path        : 'pages',
+    //     loadChildren: './main/content/pages/pages.module#FusePagesModule'
+    // },
+    // {
+    //     path        : 'ui',
+    //     loadChildren: './main/content/ui/ui.module#FuseUIModule'
+    // },
+    // {
+    //     path        : 'services',
+    //     loadChildren: './main/content/services/services.module#FuseServicesModule'
+    // },
+    // {
+    //     path        : 'components',
+    //     loadChildren: './main/content/components/components.module#FuseComponentsModule'
+    // },
+    // {
+    //     path        : 'components-third-party',
+    //     loadChildren: './main/content/components-third-party/components-third-party.module#FuseComponentsThirdPartyModule'
+    // },
     {
         path      : '**',
-        redirectTo: 'pages/landing',
+        redirectTo: 'landing',
         pathMatch: 'full'
     }
 ];

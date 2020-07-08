@@ -50,7 +50,7 @@ export class CustomerListComponent implements OnInit
         const params = `?limit=15` + `&page=` + pageNum;
         this.customerListService.getList(params).subscribe((data: any[]) => {
             data['data'].forEach((customer) => {
-                customer['customer_id_link'] = `<a href="apps/master-data/customers/${customer['customer_id']}">${customer['customer_id']}</a>`;
+                customer['customer_id_link'] = `<a href="master-data/customers/${customer['customer_id']}">${customer['customer_id']}</a>`;
             });
             for (let i = 0; i < data['data'].length; i++) {
                 if (data['data'][i]['status'] === 10) {
@@ -77,7 +77,7 @@ export class CustomerListComponent implements OnInit
     }
 
     create() {
-        this.router.navigate(['apps/master-data/customers/create']);
+        this.router.navigate(['master-data/customers/create']);
     }
 
     onSelect(e) {}

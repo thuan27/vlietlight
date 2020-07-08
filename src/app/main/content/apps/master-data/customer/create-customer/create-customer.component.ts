@@ -99,7 +99,7 @@ export class CreateCustomeromponent implements OnInit {
 
     }
     this._createCustomerService.createCustomer(this.CustomerForm.value).subscribe((data) => {
-      this.router.navigate(['apps/master-date/users']);
+      this.router.navigate(['master-date/users']);
     });
   }
 

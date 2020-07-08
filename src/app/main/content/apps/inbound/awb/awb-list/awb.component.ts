@@ -98,7 +98,7 @@ export class AWBComponent implements OnInit {
     }
 
     create() {
-        this.router.navigate(['apps/inbound/awb/create']);
+        this.router.navigate(['inbound/awb/create']);
     }
 
     onTableContextMenu(event) {

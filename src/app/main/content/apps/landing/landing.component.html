@@ -1,0 +1,22 @@
+<div id="login" fxLayout="column" fusePerfectScrollbar>
+    <ng-container>
+        <div class="toolbar">
+            <div fxLayout="row" style="width: 100%;">
+                <div fxFlex="50">
+                </div>
+                <div fxFlex="50">
+                    <div fxLayout="row" class="group-toolbar">
+                        <span class="align-center">Liên hệ: 0888888888</span>
+                        <button class="align-center" (click)="login()" mat-raised-button color="accent">Login Admin</button>
+                        <button class="align-center" (click)="loginCus()" mat-raised-button color="accent">Login Customer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+        <div id="login-form" *fuseIfOnDom [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                <img src="assets/images/logos/logo.png">
+        </div>
+    </div>

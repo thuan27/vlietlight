@@ -71,6 +71,22 @@ const routes = [
         path        : 'utility',
         loadChildren: './utility/utility.module#FuseUtilityModule'
     },
+    {
+        path        : 'login',
+        loadChildren: './login/login.module#LoginModule'
+    },
+    {
+        path        : 'login-customer',
+        loadChildren: './login-customer/login-customer.module#LoginCustomerModule'
+    },
+    {
+        path        : 'landing',
+        loadChildren: './landing/landing.module#LandingModule'
+    },
+    {
+        path        : '',
+        loadChildren: './landing/landing.module#LandingModule'
+  },
 ];
 
 @NgModule({

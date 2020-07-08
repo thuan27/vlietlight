@@ -73,7 +73,7 @@ export class OrderListComponent implements OnInit {
 
     this.orderList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['order_id_link'] = `<a href="apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
+        data['order_id_link'] = `<a href="outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -107,7 +107,7 @@ export class OrderListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/master-data/countries/create']);
+    this.router.navigate(['master-data/countries/create']);
   }
 
   update() {
@@ -116,7 +116,7 @@ export class OrderListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/countries/${this.selected[0]['country_id']}/update`);
+      this.router.navigateByUrl(`master-data/countries/${this.selected[0]['country_id']}/update`);
     }
   }
 

@@ -112,7 +112,7 @@ export class AWBDetailForCusComponentV1 implements OnInit {
       this.AWBForm.value.pick_up_date = this.AWBForm.value.pick_up_date.format('YYYY/MM/DD');
       this._AWBDetailForCusService.createAWB(this.AWBForm.value).subscribe((data) => {
         console.log(data);
-        this.router.navigate(['apps/inbound/awb']);
+        this.router.navigate(['inbound/awb']);
       });
     }
   }

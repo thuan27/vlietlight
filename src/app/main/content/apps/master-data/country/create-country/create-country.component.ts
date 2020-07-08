@@ -98,7 +98,7 @@ export class CreateCountryComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['master-data/countries']);
             },
             700
           );
@@ -108,7 +108,7 @@ export class CreateCountryComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['master-data/countries']);
             },
             700
           );

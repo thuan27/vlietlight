@@ -17,13 +17,13 @@ export const navigation = [
                         'id'   : 'analytics',
                         'title': 'Analytics',
                         'type' : 'item',
-                        'url'  : '/apps/dashboards/analytics'
+                        'url'  : '/dashboards/analytics'
                     },
                     {
                         'id'   : 'project',
                         'title': 'Project',
                         'type' : 'item',
-                        'url'  : '/apps/dashboards/project'
+                        'url'  : '/dashboards/project'
                     }
                 ]
             },
@@ -38,31 +38,31 @@ export const navigation = [
                         'id'   : 'UsersList',
                         'title': 'Users',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/users'
+                        'url'  : '/master-data/users'
                     },
                     {
                         'id'   : 'CustomersList',
                         'title': 'Customers',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/customers'
+                        'url'  : '/master-data/customers'
                     },
                     {
                         'id'   : 'CountriesList',
                         'title': 'Countries',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/countries'
+                        'url'  : '/master-data/countries'
                     },
                     {
                         'id'   : 'CountriesZoneList',
                         'title': 'Countries Zone',
                         'type' : 'item',
-                        'url'  : '/apps/master-data/countries-zone'
+                        'url'  : '/master-data/countries-zone'
                     },
                     {
                       'id'   : 'ServiceList',
                       'title': 'Service',
                       'type' : 'item',
-                      'url'  : '/apps/master-data/service'
+                      'url'  : '/master-data/service'
                     }
                 ]
             },
@@ -77,14 +77,14 @@ export const navigation = [
                         'id'   : 'AWBList',
                         'title': 'AWB',
                         'type' : 'item',
-                        'url'  : '/apps/inbound/awb',
+                        'url'  : '/inbound/awb',
                         'exactMatch': true
                     },
                     // {
                     //     'id'   : 'AWBListForCus',
                     //     'title': 'AWB Customer',
                     //     'type' : 'item',
-                    //     'url'  : '/apps/inbound/awb/create-for-cus',
+                    //     'url'  : '/inbound/awb/create-for-cus',
                     //     'exactMatch': true
                     // }
                 ]
@@ -100,7 +100,7 @@ export const navigation = [
                       'id'   : 'order',
                       'title': 'Order',
                       'type' : 'item',
-                      'url'  : '/apps/outbound/order',
+                      'url'  : '/outbound/order',
                       'exactMatch': true
                   },
               ]
@@ -116,14 +116,14 @@ export const navigation = [
                         'id'   : 'quicksearch',
                         'title': 'Quick Search',
                         'type' : 'item',
-                        'url'  : '/apps/utility/quick-search',
+                        'url'  : '/utility/quick-search',
                         'exactMatch': true
                     },
                     {
                         'id'   : 'calculateMoney',
                         'title': 'Calculate Money',
                         'type' : 'item',
-                        'url'  : '/apps/utility/calculate-money',
+                        'url'  : '/utility/calculate-money',
                         'exactMatch': true
                     }
                 ]
@@ -134,7 +134,7 @@ export const navigation = [
                 'translate': 'NAV.CALENDAR',
                 'type'     : 'item',
                 'icon'     : 'today',
-                'url'      : '/apps/calendar'
+                'url'      : '/calendar'
             },
             // {
             //     'id'       : 'e-commerce',
