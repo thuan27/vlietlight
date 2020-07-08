@@ -92,7 +92,7 @@ export class CountryZoneListComponent implements OnInit
     }
 
     create() {
-        this.router.navigate(['apps/mmaster-data/countries-zone/create']);
+        this.router.navigate(['apps/master-data/countries-zone/create']);
     }
 
     update() {
@@ -101,7 +101,7 @@ export class CountryZoneListComponent implements OnInit
         } else if (this.selected.length > 1) {
             this.toastyService.error('Please select one item.');
         } else {
-            this.router.navigateByUrl(`apps/mmaster-data/countries-zone/${this.selected[0]['id']}/update`);
+            this.router.navigateByUrl(`apps/master-data/countries-zone/${this.selected[0]['id']}/update`);
         }
     }
 
