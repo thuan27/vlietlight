@@ -29,6 +29,6 @@ export class CountryListService
     }
 
     getReport(params: string = '') {
-      return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { headers: this._Func.AuthHeader(), responseType: 'blob' });
     }
 }
