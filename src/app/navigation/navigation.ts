@@ -288,61 +288,61 @@ export const navigation = [
     //                     'id'   : 'login',
     //                     'title': 'Login',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/login'
+    //                     'url'  : '/apps/pages/auth/login'
     //                 },
     //                 {
     //                     'id'   : 'login-v2',
     //                     'title': 'Login v2',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/login-2'
+    //                     'url'  : '/apps/pages/auth/login-2'
     //                 },
     //                 {
     //                     'id'   : 'register',
     //                     'title': 'Register',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/register'
+    //                     'url'  : '/apps/pages/auth/register'
     //                 },
     //                 {
     //                     'id'   : 'register-v2',
     //                     'title': 'Register v2',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/register-2'
+    //                     'url'  : '/apps/pages/auth/register-2'
     //                 },
     //                 {
     //                     'id'   : 'forgot-password',
     //                     'title': 'Forgot Password',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/forgot-password'
+    //                     'url'  : '/apps/pages/auth/forgot-password'
     //                 },
     //                 {
     //                     'id'   : 'forgot-password-v2',
     //                     'title': 'Forgot Password v2',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/forgot-password-2'
+    //                     'url'  : '/apps/pages/auth/forgot-password-2'
     //                 },
     //                 {
     //                     'id'   : 'reset-password',
     //                     'title': 'Reset Password',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/reset-password'
+    //                     'url'  : '/apps/pages/auth/reset-password'
     //                 },
     //                 {
     //                     'id'   : 'reset-password-v2',
     //                     'title': 'Reset Password v2',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/reset-password-2'
+    //                     'url'  : '/apps/pages/auth/reset-password-2'
     //                 },
     //                 {
     //                     'id'   : 'lock-screen',
     //                     'title': 'Lock Screen',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/lock'
+    //                     'url'  : '/apps/pages/auth/lock'
     //                 },
     //                 {
     //                     'id'   : 'mail-confirmation',
     //                     'title': 'Mail Confirmation',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/auth/mail-confirm'
+    //                     'url'  : '/apps/pages/auth/mail-confirm'
     //                 }
     //             ]
     //         },
@@ -351,7 +351,7 @@ export const navigation = [
     //             'title': 'Coming Soon',
     //             'type' : 'item',
     //             'icon' : 'alarm',
-    //             'url'  : '/pages/coming-soon'
+    //             'url'  : '/apps/pages/coming-soon'
     //         },
     //         {
     //             'id'      : 'errors',
@@ -363,13 +363,13 @@ export const navigation = [
     //                     'id'   : '404',
     //                     'title': '404',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/errors/error-404'
+    //                     'url'  : '/apps/pages/errors/error-404'
     //                 },
     //                 {
     //                     'id'   : '500',
     //                     'title': '500',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/errors/error-500'
+    //                     'url'  : '/apps/pages/errors/error-500'
     //                 }
     //             ]
     //         },
@@ -383,13 +383,13 @@ export const navigation = [
     //                     'id'   : 'modern',
     //                     'title': 'Modern',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/invoices/modern'
+    //                     'url'  : '/apps/pages/invoices/modern'
     //                 },
     //                 {
     //                     'id'   : 'compact',
     //                     'title': 'Compact',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/invoices/compact'
+    //                     'url'  : '/apps/pages/invoices/compact'
     //                 }
     //             ]
     //         },
@@ -398,7 +398,7 @@ export const navigation = [
     //             'title': 'Maintenance',
     //             'type' : 'item',
     //             'icon' : 'build',
-    //             'url'  : '/pages/maintenance'
+    //             'url'  : '/apps/pages/maintenance'
     //         },
     //         {
     //             'id'      : 'pricing',
@@ -410,19 +410,19 @@ export const navigation = [
     //                     'id'   : 'style-1',
     //                     'title': 'Style 1',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/pricing/style-1'
+    //                     'url'  : '/apps/pages/pricing/style-1'
     //                 },
     //                 {
     //                     'id'   : 'style-2',
     //                     'title': 'Style 2',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/pricing/style-2'
+    //                     'url'  : '/apps/pages/pricing/style-2'
     //                 },
     //                 {
     //                     'id'   : 'style-3',
     //                     'title': 'Style 3',
     //                     'type' : 'item',
-    //                     'url'  : '/pages/pricing/style-3'
+    //                     'url'  : '/apps/pages/pricing/style-3'
     //                 }
     //             ]
     //         },
@@ -431,32 +431,32 @@ export const navigation = [
     //             'title': 'Profile',
     //             'type' : 'item',
     //             'icon' : 'person',
-    //             'url'  : '/pages/profile'
+    //             'url'  : '/apps/pages/profile'
     //         },
     //         {
     //             'id'   : 'search',
     //             'title': 'Search',
     //             'type' : 'item',
     //             'icon' : 'search',
-    //             'url'  : '/pages/search'
+    //             'url'  : '/apps/pages/search'
     //         },
     //         {
     //             'title': 'Faq',
     //             'type' : 'item',
     //             'icon' : 'help',
-    //             'url'  : '/pages/faq'
+    //             'url'  : '/apps/pages/faq'
     //         },
     //         {
     //             'title': 'Landding',
     //             'type' : 'item',
     //             'icon' : 'help',
-    //             'url'  : '/pages/landing'
+    //             'url'  : '/apps/pages/landing'
     //         },
     //         {
     //             'title': 'Knowledge Base',
     //             'type' : 'item',
     //             'icon' : 'import_contacts',
-    //             'url'  : '/pages/knowledge-base'
+    //             'url'  : '/apps/pages/knowledge-base'
     //         }
     //     ]
     // },
@@ -471,28 +471,28 @@ export const navigation = [
     //             'title': 'Forms',
     //             'type' : 'item',
     //             'icon' : 'web_asset',
-    //             'url'  : '/ui/forms'
+    //             'url'  : '/apps/ui/forms'
     //         },
     //         {
     //             'id'   : 'icons',
     //             'title': 'Icons',
     //             'type' : 'item',
     //             'icon' : 'photo',
-    //             'url'  : '/ui/icons'
+    //             'url'  : '/apps/ui/icons'
     //         },
     //         {
     //             'id'   : 'typography',
     //             'title': 'Typography',
     //             'type' : 'item',
     //             'icon' : 'text_fields',
-    //             'url'  : '/ui/typography'
+    //             'url'  : '/apps/ui/typography'
     //         },
     //         {
     //             'id'   : 'helper-classes',
     //             'title': 'Helper Classes',
     //             'type' : 'item',
     //             'icon' : 'help',
-    //             'url'  : '/ui/helper-classes'
+    //             'url'  : '/apps/ui/helper-classes'
     //         },
     //         {
     //             'id'      : 'page-layouts',
@@ -514,61 +514,61 @@ export const navigation = [
     //                             'id'   : 'full-width',
     //                             'title': 'Full Width',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/full-width'
+    //                             'url'  : '/apps/ui/page-layouts/carded/full-width'
     //                         },
     //                         {
     //                             'id'   : 'full-width-2',
     //                             'title': 'Full Width 2',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/full-width-2'
+    //                             'url'  : '/apps/ui/page-layouts/carded/full-width-2'
     //                         },
     //                         {
     //                             'id'   : 'left-sidenav',
     //                             'title': 'Left Sidenav',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/left-sidenav'
+    //                             'url'  : '/apps/ui/page-layouts/carded/left-sidenav'
     //                         },
     //                         {
     //                             'id'   : 'left-sidenav-tabbed',
     //                             'title': 'Left Sidenav Tabbed',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/left-sidenav-tabbed'
+    //                             'url'  : '/apps/ui/page-layouts/carded/left-sidenav-tabbed'
     //                         },
     //                         {
     //                             'id'   : 'left-sidenav-2',
     //                             'title': 'Left Sidenav 2',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/left-sidenav-2'
+    //                             'url'  : '/apps/ui/page-layouts/carded/left-sidenav-2'
     //                         },
     //                         {
     //                             'id'   : 'left-sidenav-2-tabbed',
     //                             'title': 'Left Sidenav 2 Tabbed',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/left-sidenav-2-tabbed'
+    //                             'url'  : '/apps/ui/page-layouts/carded/left-sidenav-2-tabbed'
     //                         },
     //                         {
     //                             'id'   : 'right-sidenav',
     //                             'title': 'Right Sidenav',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/right-sidenav'
+    //                             'url'  : '/apps/ui/page-layouts/carded/right-sidenav'
     //                         },
     //                         {
     //                             'id'   : 'right-sidenav-tabbed',
     //                             'title': 'Right Sidenav Tabbed',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/right-sidenav-tabbed'
+    //                             'url'  : '/apps/ui/page-layouts/carded/right-sidenav-tabbed'
     //                         },
     //                         {
     //                             'id'   : 'right-sidenav-2',
     //                             'title': 'Right Sidenav 2',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/right-sidenav-2'
+    //                             'url'  : '/apps/ui/page-layouts/carded/right-sidenav-2'
     //                         },
     //                         {
     //                             'id'   : 'right-sidenav-2-tabbed',
     //                             'title': 'Right Sidenav 2 Tabbed',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/carded/right-sidenav-2-tabbed'
+    //                             'url'  : '/apps/ui/page-layouts/carded/right-sidenav-2-tabbed'
     //                         }
     //                     ]
     //                 },
@@ -586,49 +586,49 @@ export const navigation = [
     //                             'id'   : 'full-width',
     //                             'title': 'Full Width',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/full-width'
+    //                             'url'  : '/apps/ui/page-layouts/simple/full-width'
     //                         },
     //                         {
     //                             'id'   : 'left-sidenav',
     //                             'title': 'Left Sidenav',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/left-sidenav'
+    //                             'url'  : '/apps/ui/page-layouts/simple/left-sidenav'
     //                         },
     //                         {
     //                             'id'   : 'left-sidenav-2',
     //                             'title': 'Left Sidenav 2',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/left-sidenav-2'
+    //                             'url'  : '/apps/ui/page-layouts/simple/left-sidenav-2'
     //                         },
     //                         {
     //                             'id'   : 'left-sidenav-3',
     //                             'title': 'Left Sidenav 3',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/left-sidenav-3'
+    //                             'url'  : '/apps/ui/page-layouts/simple/left-sidenav-3'
     //                         },
     //                         {
     //                             'id'   : 'right-sidenav',
     //                             'title': 'Right Sidenav',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/right-sidenav'
+    //                             'url'  : '/apps/ui/page-layouts/simple/right-sidenav'
     //                         },
     //                         {
     //                             'id'   : 'right-sidenav-2',
     //                             'title': 'Right Sidenav 2',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/right-sidenav-2'
+    //                             'url'  : '/apps/ui/page-layouts/simple/right-sidenav-2'
     //                         },
     //                         {
     //                             'id'   : 'right-sidenav-3',
     //                             'title': 'Right Sidenav 3',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/right-sidenav-3'
+    //                             'url'  : '/apps/ui/page-layouts/simple/right-sidenav-3'
     //                         },
     //                         {
     //                             'id'   : 'tabbed',
     //                             'title': 'Tabbed',
     //                             'type' : 'item',
-    //                             'url'  : '/ui/page-layouts/simple/tabbed'
+    //                             'url'  : '/apps/ui/page-layouts/simple/tabbed'
     //                         }
     //                     ]
     //                 },
@@ -636,7 +636,7 @@ export const navigation = [
     //                     'id'   : 'blank',
     //                     'title': 'Blank',
     //                     'type' : 'item',
-    //                     'url'  : '/ui/page-layouts/blank'
+    //                     'url'  : '/apps/ui/page-layouts/blank'
     //                 }
     //             ]
     //         },
@@ -645,7 +645,7 @@ export const navigation = [
     //             'title': 'Colors',
     //             'type' : 'item',
     //             'icon' : 'color_lens',
-    //             'url'  : '/ui/colors'
+    //             'url'  : '/apps/ui/colors'
     //         }
     //     ]
     // },
@@ -660,14 +660,14 @@ export const navigation = [
     //             'title': 'Config',
     //             'type' : 'item',
     //             'icon' : 'settings',
-    //             'url'  : '/services/config'
+    //             'url'  : '/apps/services/config'
     //         },
     //         {
     //             'id'   : 'splash-screen',
     //             'title': 'Splash Screen',
     //             'type' : 'item',
     //             'icon' : 'settings',
-    //             'url'  : '/services/splash-screen'
+    //             'url'  : '/apps/services/splash-screen'
     //         }
     //     ]
     // },
@@ -692,55 +692,55 @@ export const navigation = [
     //                             'id'   : 'autocomplete',
     //                             'title': 'Autocomplete',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/autocomplete'
+    //                             'url'  : '/apps/components/angular-material/autocomplete'
     //                         },
     //                         {
     //                             'id'   : 'checkbox',
     //                             'title': 'Checkbox',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/checkbox'
+    //                             'url'  : '/apps/components/angular-material/checkbox'
     //                         },
     //                         {
     //                             'id'   : 'datepicker',
     //                             'title': 'Datepicker',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/datepicker'
+    //                             'url'  : '/apps/components/angular-material/datepicker'
     //                         },
     //                         {
     //                             'id'   : 'form-field',
     //                             'title': 'Form field',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/form-field'
+    //                             'url'  : '/apps/components/angular-material/form-field'
     //                         },
     //                         {
     //                             'id'   : 'input',
     //                             'title': 'Input',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/input'
+    //                             'url'  : '/apps/components/angular-material/input'
     //                         },
     //                         {
     //                             'id'   : 'radio-button',
     //                             'title': 'Radio button',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/radio-button'
+    //                             'url'  : '/apps/components/angular-material/radio-button'
     //                         },
     //                         {
     //                             'id'   : 'select',
     //                             'title': 'Select',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/select'
+    //                             'url'  : '/apps/components/angular-material/select'
     //                         },
     //                         {
     //                             'id'   : 'slider',
     //                             'title': 'Slider',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/slider'
+    //                             'url'  : '/apps/components/angular-material/slider'
     //                         },
     //                         {
     //                             'id'   : 'slide-toggle',
     //                             'title': 'Slide toggle',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/slide-toggle'
+    //                             'url'  : '/apps/components/angular-material/slide-toggle'
     //                         }
     //                     ]
     //                 },
@@ -753,19 +753,19 @@ export const navigation = [
     //                             'id'   : 'menu',
     //                             'title': 'Menu',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/menu'
+    //                             'url'  : '/apps/components/angular-material/menu'
     //                         },
     //                         {
     //                             'id'   : 'sidenav',
     //                             'title': 'Sidenav',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/sidenav'
+    //                             'url'  : '/apps/components/angular-material/sidenav'
     //                         },
     //                         {
     //                             'id'   : 'toolbar',
     //                             'title': 'Toolbar',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/toolbar'
+    //                             'url'  : '/apps/components/angular-material/toolbar'
     //                         }
     //                     ]
     //                 },
@@ -778,49 +778,49 @@ export const navigation = [
     //                             'id'   : 'list',
     //                             'title': 'List',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/list'
+    //                             'url'  : '/apps/components/angular-material/list'
     //                         },
     //                         {
     //                             'id'   : 'grid-list',
     //                             'title': 'Grid list',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/grid-list'
+    //                             'url'  : '/apps/components/angular-material/grid-list'
     //                         },
     //                         {
     //                             'id'   : 'card',
     //                             'title': 'Card',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/card'
+    //                             'url'  : '/apps/components/angular-material/card'
     //                         },
     //                         {
     //                             'id'   : 'divider',
     //                             'title': 'Divider',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/divider'
+    //                             'url'  : '/apps/components/angular-material/divider'
     //                         },
     //                         {
     //                             'id'   : 'stepper',
     //                             'title': 'Stepper',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/stepper'
+    //                             'url'  : '/apps/components/angular-material/stepper'
     //                         },
     //                         {
     //                             'id'   : 'tabs',
     //                             'title': 'Tabs',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/tabs'
+    //                             'url'  : '/apps/components/angular-material/tabs'
     //                         },
     //                         {
     //                             'id'   : 'elevation',
     //                             'title': 'Elevation',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/elevation'
+    //                             'url'  : '/apps/components/angular-material/elevation'
     //                         },
     //                         {
     //                             'id'   : 'expansion-panel',
     //                             'title': 'Expansion Panel',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/expansion-panel'
+    //                             'url'  : '/apps/components/angular-material/expansion-panel'
     //                         }
     //                     ]
     //                 },
@@ -833,37 +833,37 @@ export const navigation = [
     //                             'id'   : 'button',
     //                             'title': 'Button',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/button'
+    //                             'url'  : '/apps/components/angular-material/button'
     //                         },
     //                         {
     //                             'id'   : 'button-toggle',
     //                             'title': 'Button toggle',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/button-toggle'
+    //                             'url'  : '/apps/components/angular-material/button-toggle'
     //                         },
     //                         {
     //                             'id'   : 'chips',
     //                             'title': 'Chips',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/chips'
+    //                             'url'  : '/apps/components/angular-material/chips'
     //                         },
     //                         {
     //                             'id'   : 'icon',
     //                             'title': 'Icon',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/icon'
+    //                             'url'  : '/apps/components/angular-material/icon'
     //                         },
     //                         {
     //                             'id'   : 'progress-spinner',
     //                             'title': 'Progress spinner',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/progress-spinner'
+    //                             'url'  : '/apps/components/angular-material/progress-spinner'
     //                         },
     //                         {
     //                             'id'   : 'progress-bar',
     //                             'title': 'Progress bar',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/progress-bar'
+    //                             'url'  : '/apps/components/angular-material/progress-bar'
     //                         }
     //                     ]
     //                 },
@@ -876,19 +876,19 @@ export const navigation = [
     //                             'id'   : 'dialog',
     //                             'title': 'Dialog',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/dialog'
+    //                             'url'  : '/apps/components/angular-material/dialog'
     //                         },
     //                         {
     //                             'id'   : 'tooltip',
     //                             'title': 'Tooltip',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/tooltip'
+    //                             'url'  : '/apps/components/angular-material/tooltip'
     //                         },
     //                         {
     //                             'id'   : 'snackbar',
     //                             'title': 'Snackbar',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/snackbar'
+    //                             'url'  : '/apps/components/angular-material/snackbar'
     //                         }
     //                     ]
     //                 },
@@ -901,19 +901,19 @@ export const navigation = [
     //                             'id'   : 'table',
     //                             'title': 'Table',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/data-table'
+    //                             'url'  : '/apps/components/angular-material/data-table'
     //                         },
     //                         {
     //                             'id'   : 'sort-header',
     //                             'title': 'Sort header',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/sort-header'
+    //                             'url'  : '/apps/components/angular-material/sort-header'
     //                         },
     //                         {
     //                             'id'   : 'paginator',
     //                             'title': 'Paginator',
     //                             'type' : 'item',
-    //                             'url'  : '/components/angular-material/paginator'
+    //                             'url'  : '/apps/components/angular-material/paginator'
     //                         }
     //                     ]
     //                 }
@@ -924,70 +924,70 @@ export const navigation = [
     //             'title': 'Cards',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/cards'
+    //             'url'  : '/apps/components/cards'
     //         },
     //         {
     //             'id'   : 'countdown',
     //             'title': 'Countdown',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/countdown'
+    //             'url'  : '/apps/components/countdown'
     //         },
     //         {
     //             'id'   : 'highlight',
     //             'title': 'Highlight',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/highlight'
+    //             'url'  : '/apps/components/highlight'
     //         },
     //         {
     //             'id'   : 'material-color-picker',
     //             'title': 'Material Color Picker',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/material-color-picker'
+    //             'url'  : '/apps/components/material-color-picker'
     //         },
     //         {
     //             'id'   : 'multi-language',
     //             'title': 'Multi Language',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/multi-language'
+    //             'url'  : '/apps/components/multi-language'
     //         },
     //         {
     //             'id'   : 'navigation',
     //             'title': 'Navigation',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/navigation'
+    //             'url'  : '/apps/components/navigation'
     //         },
     //         {
     //             'id'   : 'search-bar',
     //             'title': 'Search Bar',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/search-bar'
+    //             'url'  : '/apps/components/search-bar'
     //         },
     //         {
     //             'id'   : 'sidebar',
     //             'title': 'Sidebar',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/sidebar'
+    //             'url'  : '/apps/components/sidebar'
     //         },
     //         {
     //             'id'   : 'shortcuts',
     //             'title': 'Shortcuts',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/shortcuts'
+    //             'url'  : '/apps/components/shortcuts'
     //         },
     //         {
     //             'id'   : 'widget',
     //             'title': 'Widget',
     //             'type' : 'item',
     //             'icon' : 'settings_input_component',
-    //             'url'  : '/components/widget'
+    //             'url'  : '/apps/components/widget'
     //         }
     //     ]
     // },
@@ -1007,7 +1007,7 @@ export const navigation = [
     //                     'id'   : 'ngxdatatable',
     //                     'title': 'ngx-datatable',
     //                     'type' : 'item',
-    //                     'url'  : '/components-third-party/datatables/ngx-datatable'
+    //                     'url'  : '/apps/components-third-party/datatables/ngx-datatable'
     //                 }
     //             ]
     //         },
@@ -1016,7 +1016,7 @@ export const navigation = [
     //             'title': 'Google Maps',
     //             'type' : 'item',
     //             'icon' : 'place',
-    //             'url'  : '/components-third-party/google-maps'
+    //             'url'  : '/apps/components-third-party/google-maps'
     //         }
     //     ]
     // }
