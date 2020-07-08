@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -41,13 +42,14 @@ export class CreateServiceComponent implements OnInit {
     private _Valid: ValidationService,
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
+    private location: Location,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
    }
 
   ngOnInit() {
-    this.title = 'Create Country Zone';
+    this.title = 'Create Service';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
     this.routeSub = this.activeRoute.params.subscribe(params => {
@@ -59,7 +61,7 @@ export class CreateServiceComponent implements OnInit {
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonType = 'Update';
-          this.title = 'Update Country Zone';
+          this.title = 'Update Service';
           this.titleGroup = 'Update';
           this.serviceList();
           this.countryList();
@@ -69,7 +71,7 @@ export class CreateServiceComponent implements OnInit {
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Country Zone Detail';
+          this.title = 'Service Detail';
           this.titleGroup = 'Detail';
           this.serviceList();
           this.countryList();
@@ -79,7 +81,7 @@ export class CreateServiceComponent implements OnInit {
         this.action = 'create';
         this.titleGroup = 'Registration';
         this.buildForm();
-        this.title = 'Create Country Zone';
+        this.title = 'Create Service';
         this.buttonType = 'Create';
         this.disabledForm = false;
         this.countryList();
@@ -158,4 +160,7 @@ export class CreateServiceComponent implements OnInit {
     });
   }
 
+  cancel() {
+    this.location.back();
+  }
 }

@@ -38,37 +38,29 @@
     <!-- CONTENT -->
     <div class="p-24">
         <form id="form-control" [formGroup]="searchForm" (submit)="getList(1, searchForm.value)" autocomplete="off">
-            <mat-form-field>
+          <mat-form-field fxFlex="20">
                 <input formControlName="account_number" matInput placeholder="Code">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field fxFlex="20" class="margin-left-10">
                 <mat-select formControlName="odr_status" placeholder="Status">
-                    <mat-option *ngFor="let item of status" [value]="item.value">
-                        {{ item.value }}
+                    <mat-option style="top:0 !important" [value]="">
+                        Please select option
+                  </mat-option>
+                    <mat-option style="top:0 !important" *ngFor="let item of status" [value]="item.value">
+                          {{ item.value }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field fxFlex="20" class="margin-left-10">
                 <input formControlName="awb_num" matInput placeholder="Code">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field fxFlex="20" class="margin-left-10">
                 <input formControlName="cus_name" matInput placeholder="Code">
             </mat-form-field>
-            <!-- <mat-form-field>
-                <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date">
-                <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
-                <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
-                <mat-error *ngIf="searchForm.controls.created_at.errors?.date">
-                    La date d'envoi n'est pas <strong>valide</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput formControlName="updated_at" [matDatepicker]="dpUpdated" placeholder="Updated Date">
-                <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
-                <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
-            </mat-form-field> -->
-            <button mat-raised-button color="accent" type="submit">Search</button>
-            <button mat-raised-button>Reset</button>
+            <span fxFlex="20" class="margin-left-10" style="border-top: 0.84375em solid transparent;">
+                <button mat-raised-button color="accent" type="submit">Search</button>
+                <button mat-raised-button>Reset</button>
+            </span>
         </form>
 
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
@@ -89,8 +81,6 @@
                 </ng-template>
             </ngx-datatable-column>
 
-            <!-- <ngx-datatable-column [width]="200" name="Country ID" prop="country_id"></ngx-datatable-column> -->
-
             <ngx-datatable-column [width]="200" name="Order Name" prop="order_id_link"></ngx-datatable-column>
 
             <ngx-datatable-column [width]="200" name="Customer Name" prop="cus_name"></ngx-datatable-column>
@@ -108,7 +98,6 @@
 
             <ngx-datatable-column [width]="200" name="Customer Total Price" prop="cus_total_price"></ngx-datatable-column>
         </ngx-datatable>
-
     </div>
 
 </div>

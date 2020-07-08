@@ -2,6 +2,7 @@ import { CountryZoneListService } from './country-zone-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -20,12 +21,16 @@ export class CountryZoneListComponent implements OnInit
     total;
     current_page;
     selected: any[] = [];
+    searchForm: FormGroup;
+    serviceName;
+    country;
 
     constructor(
         private router: Router,
         private countryZoneListService: CountryZoneListService,
         private toastyService: ToastyService,
-        private toastyConfig: ToastyConfig
+        private toastyConfig: ToastyConfig,
+        private formBuilder: FormBuilder
         )
     {
         this.toastyConfig.position = 'top-right';
@@ -35,6 +40,8 @@ export class CountryZoneListComponent implements OnInit
     ngOnInit()
     {
         this.getList();
+        this.buildForm();
+        this.getService();
     }
 
     getList(page = 1) {
@@ -53,8 +60,30 @@ export class CountryZoneListComponent implements OnInit
         });
     }
 
+    private buildForm() {
+      this.searchForm = this.formBuilder.group({
+          service_name_link: 1,
+          country_name: '',
+          zone: ''
+      });
+    }
+
+    search() {}
+
     onSelect(event) {
         console.log('this.selected', this.selected);
+    }
+
+    getService() {
+      this.countryZoneListService.getService().subscribe((data) => {
+        this.serviceName = data['data'];
+      });
+    }
+
+    getCountry(event) {
+      this.countryZoneListService.getCountry(event.target.value).subscribe((data) => {
+        this.country = data['data'];
+      });
     }
 
     pageCallback(e) {
@@ -68,9 +97,9 @@ export class CountryZoneListComponent implements OnInit
 
     update() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
             this.router.navigateByUrl(`master-data/countries-zone/${this.selected[0]['id']}/update`);
         }
@@ -78,9 +107,9 @@ export class CountryZoneListComponent implements OnInit
 
     delete() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
         this.countryZoneListService.deleteCountry(this.selected[0]['id']).subscribe((data) => {
                 this.toastyService.success(data['message']);

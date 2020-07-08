@@ -7,7 +7,7 @@ import { environment } from 'environments/environment';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { MatDialog } from '@angular/material';
-import { FuseLoginFormDialogComponent } from '@fuse/directives/login-form/login-form.component';
+import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-form.component';
 
 @Component({
     selector     : 'fuse-main',
@@ -17,7 +17,8 @@ import { FuseLoginFormDialogComponent } from '@fuse/directives/login-form/login-
 })
 export class FuseMainComponent implements OnDestroy
 {
-    private intervalCheckVersion = 300000;
+    //private intervalCheckVersion = 84600000;
+    private intervalCheckVersion = 600000;
     private intervalCheck;
     onConfigChanged: Subscription;
     fuseSettings: any;
@@ -58,10 +59,11 @@ export class FuseMainComponent implements OnDestroy
 
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit(): void {
-      this.intervalCheck = setInterval(() => {
-        this.checkVersionChange();
-      }, this.intervalCheckVersion);
-
+      if (localStorage.getItem(environment.token)) {
+        this.intervalCheck = setInterval(() => {
+          this.checkVersionChange();
+        }, this.intervalCheckVersion);
+      }
     }
 
     ngOnDestroy()

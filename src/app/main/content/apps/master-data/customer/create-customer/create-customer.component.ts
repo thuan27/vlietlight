@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -32,6 +33,7 @@ export class CreateCustomeromponent implements OnInit {
     private router: Router,
     private _Valid: ValidationService,
     private activeRoute: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -105,5 +107,7 @@ export class CreateCustomeromponent implements OnInit {
     this._Valid.isNumber($event, int);
   }
 
-
+  cancel() {
+    this.location.back();
+  }
 }

@@ -23,4 +23,8 @@ export class ServiceListService
     delete(id) {
         return this.http.delete(this.apiConfig.SERVICE_LIST  + '/delete/' + id, { headers: this._Func.AuthHeader() });
     }
+
+    getService(data) {
+      return this.http.get(this.apiConfig.SERVICE_LIST + data, { headers: this._Func.AuthHeader() });
+    }
 }

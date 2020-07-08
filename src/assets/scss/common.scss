@@ -78,3 +78,26 @@ table {
     padding-bottom: 10px;
     font-size: 20px;
 }
+
+.hidden {
+  display: none;
+}
+
+.export {
+  .label-export {
+    vertical-align: top;
+    font-weight: normal;
+  }
+  .csv, .pdf {
+    background: url('/assets/images/common/export-file.png') no-repeat;
+    width: 25px;
+    height: 25px;
+    background-size: 100px auto;
+    cursor: pointer;
+    margin-left: 10px;
+    display: inline-block;
+  }
+  .pdf {
+    background-position: -71px;
+  }
+}

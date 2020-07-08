@@ -2,95 +2,140 @@ import { CountryListService } from './country-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector   : 'country-list',
-    templateUrl: './country-list.component.html',
-    styleUrls  : ['./country-list.component.scss'],
-    providers: [CountryListService, ToastyService]
+  // tslint:disable-next-line:component-selector
+  selector: 'country-list',
+  templateUrl: './country-list.component.html',
+  styleUrls: ['./country-list.component.scss'],
+  providers: [CountryListService, ToastyService]
 })
-export class CountryListComponent implements OnInit
-{
-    rows: any;
-    loadingIndicator = true;
-    reorderable = true;
-    pagination: any;
-    countryList;
-    total;
-    current_page;
-    selected: any[] = [];
+export class CountryListComponent implements OnInit {
+  rows: any;
+  loadingIndicator = true;
+  reorderable = true;
+  pagination: any;
+  countryList;
+  total;
+  current_page;
+  selected: any[] = [];
+  searchForm: FormGroup;
+  country;
+  sortData = '';
 
-    constructor(
-        private router: Router,
-        private countryListService: CountryListService,
-        private toastyService: ToastyService,
-        private toastyConfig: ToastyConfig
-        )
-    {
-        this.toastyConfig.position = 'top-right';
-        this.total = 0;
-    }
+  constructor(
+    private router: Router,
+    private countryListService: CountryListService,
+    private formBuilder: FormBuilder,
+    private toastyService: ToastyService,
+    private toastyConfig: ToastyConfig
+  ) {
+    this.toastyConfig.position = 'top-right';
+    this.total = 0;
+  }
 
-    ngOnInit()
-    {
-        this.getList();
-    }
+  ngOnInit() {
+    this.buildForm();
+    this.getList();
+  }
 
-    getList(page = 1) {
-        const params = '?page=' + page;
-        this.countryList = this.countryListService.getList(params);
-        
-        this.countryList.subscribe((dataList: any[]) => {
-            dataList['data'].forEach((data) => {
-                data['country_id_link'] = `<a href="master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
-            });
-            this.rows = dataList['data'];
-            this.total = dataList['meta']['pagination']['total'];
-            // tslint:disable-next-line:radix
-            this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
-            this.loadingIndicator = false;
-        });
-    }
+  private buildForm() {
+    this.searchForm = this.formBuilder.group({
+      country_name: ''
+    });
+  }
 
-    onSelect(event) {
-        console.log('this.selected', this.selected);
+  getList(page = 1, ) {
+    let params = '?page=' + page;
+    if (this.sortData !== '') {
+      params += this.sortData;
     }
+    params += `&country_name=${this.searchForm.value['country_name']}`;
+    this.countryList = this.countryListService.getList(params);
 
-    pageCallback(e) {
-        // tslint:disable-next-line:radix
-        this.getList(parseInt(e['offset']) + 1);
-    }
+    this.countryList.subscribe((dataList: any[]) => {
+      dataList['data'].forEach((data) => {
+        data['country_id'] = `<a href="apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
+      });
+      this.rows = dataList['data'];
+      this.total = dataList['meta']['pagination']['total'];
+      // tslint:disable-next-line:radix
+      this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
+      this.loadingIndicator = false;
+    });
+  }
 
-    create() {
-        this.router.navigate(['master-data/countries/create']);
-    }
+  getCountry(event) {
+    this.countryListService.getCountry(event.target.value).subscribe((data) => {
+      this.country = data['data'];
+    });
+  }
 
-    update() {
-        if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
-        } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
-        } else {
-            this.router.navigateByUrl(`master-data/countries/${this.selected[0]['country_id']}/update`);
-        }
-    }
+  onSelect(event) {
+    console.log('this.selected', this.selected);
+  }
 
-    delete() {
-        if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
-        } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
-        } else {
-        this.countryListService.deleteCountry(this.selected[0]['country_id']).subscribe((data) => {
-                this.toastyService.success(data['message']);
-                setTimeout(
-                    () => {
-                        this.getList();
-                    },
-                    700
-                  );
-            });
-        }
+  pageCallback(e) {
+    // tslint:disable-next-line:radix
+    this.getList(parseInt(e['offset']) + 1);
+  }
+
+  create() {
+    this.router.navigate(['apps/master-data/countries/create']);
+  }
+
+  update() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.router.navigateByUrl(`apps/master-data/countries/${this.selected[0]['country_id']}/update`);
     }
+  }
+
+  delete() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.countryListService.deleteCountry(this.selected[0]['country_id']).subscribe((data) => {
+        this.toastyService.success(data['message']);
+        setTimeout(
+          () => {
+            this.getList();
+          },
+          700
+        );
+      });
+    }
+  }
+
+  selectedOption(data) {
+    this.searchForm.controls['country_id'].setValue(data);
+  }
+
+  onSort(event) {
+    this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+    this.getList(this.current_page);
+  }
+
+  reset() {
+    this.searchForm.controls['country_name'].setValue('');
+    this.sortData = '';
+    this.getList();
+  }
+
+  exportCsv() {
+    let params = `?country_name=${this.searchForm.value['country_name']}`;
+    if (this.sortData !== '') {
+      params += this.sortData;
+    }
+    let getReport = this.countryListService.getReport(params);
+    getReport.subscribe((data) => {
+      console.log(data)
+    })
+  }
 }

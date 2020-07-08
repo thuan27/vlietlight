@@ -38,6 +38,29 @@
     <!-- CONTENT -->
     <div class="p-24">
 
+        <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
+            <mat-form-field class="margin-left-10 custom-select">
+                <mat-select formControlName="service_name_link" placeholder="Service Name">
+                    <mat-option style="top:0 !important" *ngFor="let item of serviceName" [value]="item.service_id">
+                        {{ item.service_name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="custom-select">
+                <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option style="top:0 !important" *ngFor="let option of country" [value]="option.country_name">
+                    {{ option.country_name }}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="margin-left-10">
+                <input formControlName="zone" matInput placeholder="Zone">
+            </mat-form-field>
+            <button class="margin-left-20" mat-raised-button color="accent" type="submit">Search</button>
+            <button mat-raised-button>Reset</button>
+        </form>
+
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
             [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"

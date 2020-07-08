@@ -2,15 +2,16 @@ import { AWBDetailService } from './awb/awb-detail/awb-detail.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, 
-         MatCheckboxModule, 
-         MatIconModule, 
-         MatInputModule, 
-         MatSelectModule, 
-         MatDatepickerModule, 
-         MatMenuModule, 
-         MatTableModule, 
-         MatRadioModule 
+import { MatButtonModule,
+         MatCheckboxModule,
+         MatIconModule,
+         MatInputModule,
+         MatSelectModule,
+         MatDatepickerModule,
+         MatMenuModule,
+         MatTableModule,
+         MatRadioModule,
+         MatAutocompleteModule
         } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -47,7 +48,8 @@ import { AWBDetailForCusServiceV1 } from './awb-for-customer-v1/awb-for-customer
         MatMomentDateModule,
         MatMenuModule,
         MatRadioModule,
-        MatTableModule
+        MatTableModule,
+        MatAutocompleteModule
     ],
     providers: [
         AWBService,

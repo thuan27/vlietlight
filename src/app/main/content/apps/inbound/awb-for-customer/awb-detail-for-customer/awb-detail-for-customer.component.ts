@@ -194,7 +194,7 @@ export class AWBDetailForCusComponent implements OnInit {
     private router: Router,
     private _Valid: ValidationService,
     private fuseConfig: FuseConfigService,
-  ) { 
+  ) {
     this.fuseConfig.setConfig({
       layout: {
           navigation: 'none',

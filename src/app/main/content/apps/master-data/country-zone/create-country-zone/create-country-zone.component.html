@@ -33,16 +33,20 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex="33" class="margin-left-10">
-            <mat-select [disabled]="disabledForm" formControlName="country_id" placeholder="Country">
-              <mat-option *ngFor="let item of country" [value]="item.country_id">
-                {{ item.country_name }}
+            <input [disabled]="disabledForm"  placeholder="Country Name" formControlName="country_id" (keyup)="countryList($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option style="top:0 !important" *ngFor="let option of country" [value]="option.country_id">
+                {{ option.country_name }}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
           </mat-form-field>
           <mat-form-field fxFlex="33" class="margin-left-10">
             <input [readonly]="disabledForm" formControlName="zone" matInput placeholder="Zone">
             <mat-error *ngIf="CountryForm.controls.zone.hasError('required')">
               Zone is required
+            </mat-error>
+            <mat-error *ngIf="CountryForm.controls.zone.hasError('validate_Zone')">
+              Zone must has 2 characters
             </mat-error>
           </mat-form-field>
         </div>
@@ -61,6 +65,7 @@
           </mat-form-field>
         </div>
       </div>
+      <button class="button-cancel" mat-raised-button (click)="cancel()">Cancel</button>
       <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent"
         type="submit">{{ buttonType }}</button>
     </form>

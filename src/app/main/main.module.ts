@@ -16,7 +16,7 @@ import { FuseDirectivesModule } from '@fuse/directives/directives';
 import { ToastyModule } from '@fuse/directives/ng2-toasty';
 import { Functions } from '@fuse/core/function';
 import { DatePipe } from '@angular/common';
-import { FuseLoginFormDialogComponent } from '@fuse/directives/login-form/login-form.component';
+import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-form.component';
 
 @NgModule({
     declarations: [

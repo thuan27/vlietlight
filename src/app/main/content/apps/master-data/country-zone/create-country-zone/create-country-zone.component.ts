@@ -2,10 +2,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { CreateCountryZoneService } from './create-country-zone.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -37,6 +38,7 @@ export class CreateCountryZoneComponent implements OnInit {
     private _Valid: ValidationService,
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
+    private location: Location,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -58,7 +60,6 @@ export class CreateCountryZoneComponent implements OnInit {
           this.title = 'Update Country Zone';
           this.titleGroup = 'Update';
           this.serviceList();
-          this.countryList();
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
@@ -68,7 +69,6 @@ export class CreateCountryZoneComponent implements OnInit {
           this.title = 'Country Zone Detail';
           this.titleGroup = 'Detail';
           this.serviceList();
-          this.countryList();
         }
       }
       else {
@@ -78,7 +78,6 @@ export class CreateCountryZoneComponent implements OnInit {
         this.title = 'Create Country Zone';
         this.buttonType = 'Create';
         this.disabledForm = false;
-        this.countryList();
         this.serviceList();
       }
     });
@@ -87,8 +86,8 @@ export class CreateCountryZoneComponent implements OnInit {
   private buildForm() {
     this.CountryForm = this.formBuilder.group({
       service_id: [1, [Validators.required]],
-      country_id: [1, [Validators.required]],
-      zone: ['', [Validators.required]],
+      country_id: [null, [Validators.required]],
+      zone: ['', [Validators.required, this.ValidateZone]],
       state_code: ['', [Validators.required]],
       state_name: ['', [Validators.required]],
     });
@@ -98,7 +97,7 @@ export class CreateCountryZoneComponent implements OnInit {
     this.CountryForm = this.formBuilder.group({
       service_id: [data['service_id'], [Validators.required]],
       country_id: [data['country_id'], [Validators.required]],
-      zone: [data['zone'], [Validators.required]],
+      zone: [data['zone'], [Validators.required, this.ValidateZone]],
       state_code: [data['state_code'], [Validators.required]],
       state_name: [data['state_name'], [Validators.required]],
     });
@@ -146,8 +145,8 @@ export class CreateCountryZoneComponent implements OnInit {
     this._Valid.isNumber($event, int);
   }
 
-  countryList() {
-    this._createCountryZoneService.countryList().subscribe((data) => {
+  countryList(event) {
+    this._createCountryZoneService.countryList(event.target.value).subscribe((data) => {
       this.country = data['data'];
     });
   }
@@ -158,4 +157,15 @@ export class CreateCountryZoneComponent implements OnInit {
     });
   }
 
+  ValidateZone (control: FormControl) {
+    if (control.value.length === 2 || control.value.length === 0) {
+      return null;
+    } else {
+      return { 'validate_Zone': true };
+    }
+  }
+
+  cancel() {
+    this.location.back();
+  }
 }

@@ -6,7 +6,7 @@ import { UserListService } from './user/user-list/user-list.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatDatepickerModule, MatSelectModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatDatepickerModule, MatSelectModule, MatInputModule, MatAutocompleteModule } from '@angular/material';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './master-data.routers';
@@ -57,7 +57,8 @@ import { CreateServiceService } from './service/create-service/create-service.se
         MatInputModule,
         ToastyModule.forRoot(),
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatAutocompleteModule
     ],
     providers   : [
         UserListService,

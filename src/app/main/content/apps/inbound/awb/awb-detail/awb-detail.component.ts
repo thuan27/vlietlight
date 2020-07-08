@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
-import { e } from '@angular/core/src/render3';
+import { Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -41,16 +41,17 @@ export class AWBDetailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
+    private location: Location
   ) { }
 
   ngOnInit() {
     this.buildForm();
-    this.getCountry();
   }
 
   private buildForm() {
     this.AWBForm = this.formBuilder.group({
-      from_country_id: [3, [Validators.required]],
+      from_country_id: [null, [Validators.required]],
+      from_country_name: ['Thuan222', [Validators.required]],
       from_address: ['132 132', [Validators.required]],
       from_postcode: ['ABC', [Validators.required]],
       from_phone: ['090909', [Validators.required]],
@@ -58,7 +59,8 @@ export class AWBDetailComponent implements OnInit {
       from_email: ['lequangthuan@gmail.com', [Validators.required]],
       from_contact_name: ['THON', [Validators.required]],
       from_company_name: ['THON', [Validators.required]],
-      to_country_id: [1, [Validators.required]],
+      to_country_id: [null, [Validators.required]],
+      to_country_name: ['', [Validators.required]],
       to_contact_name: ['', [Validators.required]],
       to_company_name: ['', [Validators.required]],
       to_address: ['', [Validators.required]],
@@ -97,6 +99,7 @@ export class AWBDetailComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.AWBForm.value)
     if (this.AWBForm.valid) {
       this.AWBForm.value.received_at = this.AWBForm.value.received_at.format('YYYY/MM/DD');
       this.AWBForm.value.ship_date = this.AWBForm.value.ship_date.format('YYYY/MM/DD');
@@ -110,7 +113,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateWeightDOC (control: FormControl) {
       if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
-        return { 'invalid_DOC_weight': false };
+        return null;
       } else {
         return { 'invalid_DOC_weight': true };
       }
@@ -118,7 +121,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateWeightPACK(control: FormControl) {
     if ((Number(control.value) < 2000) && (Number(control.value) > 0)) {
-      return { 'invalid_PACK_weight': false };
+      return null;
     } else {
       return { 'invalid_PACK_weight': true };
     }
@@ -126,7 +129,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateWeightINVENLOP(control: FormControl) {
     if (Number(control.value) > 0) {
-      return { 'invalid_INVENLOP_weight': false };
+      return null;
     } else {
       return { 'invalid_INVENLOP_weight': true };
     }
@@ -134,7 +137,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateLWH_DOC(control: FormControl) {
     if ((Number(control.value) < 1000) && (Number(control.value) > 0)) {
-      return { 'invalid_DOC_LWH': false };
+      return null;
     } else {
       return { 'invalid_DOC_LWH': true };
     }
@@ -142,7 +145,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateLWH_PACK(control: FormControl) {
     if ((Number(control.value) < 10000) && (Number(control.value) > 0)) {
-      return { 'invalid_PACK_LWH': false };
+      return null;
     } else {
       return { 'invalid_PACK_LWH': true };
     }
@@ -150,7 +153,7 @@ export class AWBDetailComponent implements OnInit {
 
   ValidateLWH_INVENLOP(control: FormControl) {
     if (Number(control.value) > 0) {
-      return { 'invalid_INVENLOP_LWH': false };
+      return null;
     } else {
       return { 'invalid_INVENLOP_LWH': true };
     }
@@ -229,10 +232,17 @@ export class AWBDetailComponent implements OnInit {
     }
   }
 
-  getCountry() {
-    this._AWBDetailService.getCountry().subscribe((data) => {
+  getCountry(event, optionId, optionName) {
+    this.AWBForm.controls[optionId].setValue(null);
+    this.AWBForm.controls[optionName].setErrors({'invalid_Country' : true})
+    this._AWBDetailService.getCountry(event.target.value).subscribe((data) => {
       this.country = data['data'];
     });
+  }
+
+  selectedOption(optionID, optionName, data) {
+    this.AWBForm.controls[optionID].setValue(data);
+    this.AWBForm.controls[optionName].setErrors(null);
   }
 
   addEvent(event: any) {}
@@ -250,5 +260,9 @@ export class AWBDetailComponent implements OnInit {
     } else {
       this.isENVELOP = false;
     }
+  }
+
+  cancel() {
+    this.location.back();
   }
 }

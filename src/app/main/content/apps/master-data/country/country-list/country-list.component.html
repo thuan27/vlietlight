@@ -38,13 +38,27 @@
     <!-- CONTENT -->
     <div class="p-24">
 
+        <form id="form-control" [formGroup]="searchForm" autocomplete="off">
+            <mat-form-field class="custom-select">
+                <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option (click)="selectedOption(option.country_id)" style="top:0 !important" *ngFor="let option of country" [value]="option.country_name">
+                    {{ option.country_name }}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <button class="margin-left-20" mat-raised-button color="accent" (click)="getList()">Search</button>
+            <button class="margin-left-10" mat-raised-button (click)="reset()">Reset</button>
+        </form>
+
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
             [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
             [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
-            [limit]="15">
+            [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
 
-            <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
+            <ngx-datatable-column [width]="48" [canAutoResize]="true" [resizeable]="true" [sortable]="false">
                 <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
                     let-selectFn="selectFn">
                     <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
@@ -56,13 +70,14 @@
                 </ng-template>
             </ngx-datatable-column>
 
-            <!-- <ngx-datatable-column [width]="200" name="Country ID" prop="country_id"></ngx-datatable-column> -->
+            <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Country Name" prop="country_name"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="200" name="Country Code" prop="country_id_link"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Country Name" prop="country_name"></ngx-datatable-column>
+            <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Country Code" prop="country_id"></ngx-datatable-column>
         </ngx-datatable>
 
+        <div class="export margin-top-10">
+          <label class="label-export">{{'Export to:'|translate}}</label>
+          <a (click)="exportCsv()" class="csv"></a>
+      </div>
     </div>
-
 </div>

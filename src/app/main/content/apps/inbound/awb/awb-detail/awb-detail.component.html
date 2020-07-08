@@ -24,11 +24,18 @@
       <div class="box-shadow-form margin-top-10">
         <div fxLayout="row">
           <mat-form-field fxFlex="25">
-            <mat-select formControlName="from_country_id" placeholder="From Country">
-              <mat-option *ngFor="let item of country" [value]="item.country_id">
-                {{ item.country_name }}
+            <input placeholder="Country Name" formControlName="from_country_name" (keyup)="getCountry($event,'from_country_id','from_country_name')" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option (click)="selectedOption('from_country_id', 'from_country_name', option.country_id)" style="top:0 !important" *ngFor="let option of country" [value]="option.country_name">
+                {{ option.country_name }}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
+            <mat-error *ngIf="AWBForm.controls.from_country_name.hasError('invalid_Country')">
+              Please choose one option.
+            </mat-error>
+            <mat-error *ngIf="AWBForm.controls.from_country_name.hasError('required')">
+              From Country is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="margin-left-10">
             <input formControlName="from_address" matInput placeholder="From Address">
@@ -83,12 +90,16 @@
       <div class="box-shadow-form margin-top-10">
         <div fxLayout="row">
           <mat-form-field fxFlex="25">
-            <mat-select formControlName="to_country_id" placeholder="To Country">
-              <mat-option *ngFor="let item of country" [value]="item.country_id">
-                {{ item.country_name }}
+            <input placeholder="Country Name" formControlName="to_country_name" (keyup)="getCountry($event,'to_country_id','to_country_name')" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option (click)="selectedOption('to_country_id','to_country_name',option.country_id)" style="top:0 !important" *ngFor="let option of country" [value]="option.country_name">
+                {{ option.country_name }}
               </mat-option>
-            </mat-select>
-            <mat-error *ngIf="AWBForm.controls.to_country_id.hasError('required')">
+            </mat-autocomplete>
+            <mat-error *ngIf="AWBForm.controls.to_country_name.hasError('invalid_Country')">
+              Please choose one option.
+            </mat-error>
+            <mat-error *ngIf="AWBForm.controls.to_country_name.hasError('required')">
               To Country is required
             </mat-error>
           </mat-form-field>
@@ -209,33 +220,33 @@
                   </mat-option>
                 </mat-select>
                 <mat-error
-                  *ngIf="AWBForm.controls.details.controls[i].controls.item_id.hasError('required') && AWBForm.controls.details.controls[i].controls.item_id.touched">
+                  *ngIf="AWBForm.controls.details['controls'][i].controls.item_id.hasError('required') && AWBForm.controls.details['controls'][i].controls.item_id.touched">
                   Item is required
                 </mat-error>
               </td>
               <td class="border-table">
                 <input formControlName="weight" matInput (keypress)="checkInputNumber($event,true)"
                   (blur)="CalculateTotalWeight()">
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.weight.hasError('required')
-                                     && AWBForm.controls.details.controls[i].controls.weight.touched">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.weight.hasError('required')
+                                     && AWBForm.controls.details['controls'][i].controls.weight.touched">
                   Weight is required
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.weight.errors.invalid_DOC_weight
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 0)
-                                && AWBForm.controls.details.controls[i].controls.weight.value != null
-                                && AWBForm.controls.details.controls[i].controls.weight.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.weight.hasError('invalid_DOC_weight')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 0)
+                                && AWBForm.controls.details['controls'][i].controls.weight.value != null
+                                && AWBForm.controls.details['controls'][i].controls.weight.value != ''">
                   Weight must be greater than 0 and less than 2.5 (kg)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.weight.errors.invalid_PACK_weight
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 1)
-                                && AWBForm.controls.details.controls[i].controls.weight.value != null
-                                && AWBForm.controls.details.controls[i].controls.weight.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.weight.hasError('invalid_PACK_weight')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 1)
+                                && AWBForm.controls.details['controls'][i].controls.weight.value != null
+                                && AWBForm.controls.details['controls'][i].controls.weight.value != ''">
                   Weight must be greater than 0 and less than 2000 (kg)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.weight.errors.invalid_INVENLOP_weight
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 2)
-                                && AWBForm.controls.details.controls[i].controls.weight.value != null
-                                && AWBForm.controls.details.controls[i].controls.weight.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.weight.hasError('invalid_INVENLOP_weight')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 2)
+                                && AWBForm.controls.details['controls'][i].controls.weight.value != null
+                                && AWBForm.controls.details['controls'][i].controls.weight.value != ''">
                   Weight must be greater than 0 (kg)
                 </mat-error>
               </td>
@@ -243,25 +254,25 @@
                 <input [readonly]="isENVELOP" formControlName="length" matInput (keypress)="checkInputNumber($event,true)"
                   (blur)="CalculateTheVoulume(i)">
                 <mat-error
-                  *ngIf="AWBForm.controls.details.controls[i].controls.length.hasError('required') && AWBForm.controls.details.controls[i].controls.length.touched">
+                  *ngIf="AWBForm.controls.details['controls'][i].controls.length.hasError('required') && AWBForm.controls.details['controls'][i].controls.length.touched">
                   Length is required
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.length.errors.invalid_DOC_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 0)
-                                && AWBForm.controls.details.controls[i].controls.length.value != null
-                                && AWBForm.controls.details.controls[i].controls.length.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.length.hasError('invalid_DOC_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 0)
+                                && AWBForm.controls.details['controls'][i].controls.length.value != null
+                                && AWBForm.controls.details['controls'][i].controls.length.value != ''">
                   Length must be greater than 0 and less than 1000 (cm)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.length.errors.invalid_PACK_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 1)
-                                && AWBForm.controls.details.controls[i].controls.length.value != null
-                                && AWBForm.controls.details.controls[i].controls.length.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.length.hasError('invalid_PACK_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 1)
+                                && AWBForm.controls.details['controls'][i].controls.length.value != null
+                                && AWBForm.controls.details['controls'][i].controls.length.value != ''">
                   Length must be greater than 0 and less than 10000 (cm)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.length.errors.invalid_INVENLOP_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 2)
-                                && AWBForm.controls.details.controls[i].controls.length.value != null
-                                && AWBForm.controls.details.controls[i].controls.length.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.length.hasError('invalid_INVENLOP_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 2)
+                                && AWBForm.controls.details['controls'][i].controls.length.value != null
+                                && AWBForm.controls.details['controls'][i].controls.length.value != ''">
                   Length must be greater than 0 (cm)
                 </mat-error>
               </td>
@@ -269,25 +280,25 @@
                 <input [readonly]="isENVELOP" formControlName="width" matInput (keypress)="checkInputNumber($event,true)"
                   (blur)="CalculateTheVoulume(i)">
                 <mat-error
-                  *ngIf="AWBForm.controls.details.controls[i].controls.width.hasError('required') && AWBForm.controls.details.controls[i].controls.width.touched">
+                  *ngIf="AWBForm.controls.details['controls'][i].controls.width.hasError('required') && AWBForm.controls.details['controls'][i].controls.width.touched">
                   Width is required
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.width.errors.invalid_DOC_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 0)
-                                && AWBForm.controls.details.controls[i].controls.width.value != null
-                                && AWBForm.controls.details.controls[i].controls.width.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.width.hasError('invalid_DOC_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 0)
+                                && AWBForm.controls.details['controls'][i].controls.width.value != null
+                                && AWBForm.controls.details['controls'][i].controls.width.value != ''">
                   Width must be greater than 0 and less than 1000 (cm)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.width.errors.invalid_PACK_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 1)
-                                && AWBForm.controls.details.controls[i].controls.width.value != null
-                                && AWBForm.controls.details.controls[i].controls.width.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.width.hasError('invalid_PACK_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 1)
+                                && AWBForm.controls.details['controls'][i].controls.width.value != null
+                                && AWBForm.controls.details['controls'][i].controls.width.value != ''">
                   Width must be greater than 0 and less than 10000 (cm)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.width.errors.invalid_INVENLOP_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 2)
-                                && AWBForm.controls.details.controls[i].controls.width.value != null
-                                && AWBForm.controls.details.controls[i].controls.width.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.width.hasError('invalid_INVENLOP_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 2)
+                                && AWBForm.controls.details['controls'][i].controls.width.value != null
+                                && AWBForm.controls.details['controls'][i].controls.width.value != ''">
                   Width must be greater than 0 (cm)
                 </mat-error>
               </td>
@@ -295,25 +306,25 @@
                 <input [readonly]="isENVELOP" formControlName="height" matInput (keypress)="checkInputNumber($event,true)"
                   (blur)="CalculateTheVoulume(i)">
                 <mat-error
-                  *ngIf="AWBForm.controls.details.controls[i].controls.height.hasError('required') && AWBForm.controls.details.controls[i].controls.height.touched">
+                  *ngIf="AWBForm.controls.details['controls'][i].controls.height.hasError('required') && AWBForm.controls.details['controls'][i].controls.height.touched">
                   Height is required
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.height.errors.invalid_DOC_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 0)
-                                && AWBForm.controls.details.controls[i].controls.height.value != null
-                                && AWBForm.controls.details.controls[i].controls.height.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.height.hasError('invalid_DOC_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 0)
+                                && AWBForm.controls.details['controls'][i].controls.height.value != null
+                                && AWBForm.controls.details['controls'][i].controls.height.value != ''">
                   Height must be greater than 0 and less than 1000 (cm)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.height.errors.invalid_PACK_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 1)
-                                && AWBForm.controls.details.controls[i].controls.height.value != null
-                                && AWBForm.controls.details.controls[i].controls.height.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.height.hasError('invalid_PACK_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 1)
+                                && AWBForm.controls.details['controls'][i].controls.height.value != null
+                                && AWBForm.controls.details['controls'][i].controls.height.value != ''">
                   Height must be greater than 0 and less than 10000 (cm)
                 </mat-error>
-                <mat-error *ngIf="AWBForm.controls.details.controls[i].controls.height.errors.invalid_INVENLOP_LWH
-                                && (AWBForm.controls.details.controls[i].controls.item_id.value == 2)
-                                && AWBForm.controls.details.controls[i].controls.height.value != null
-                                && AWBForm.controls.details.controls[i].controls.height.value != ''">
+                <mat-error *ngIf="AWBForm.controls.details['controls'][i].controls.height.hasError('invalid_INVENLOP_LWH')
+                                && (AWBForm.controls.details['controls'][i].controls.item_id.value == 2)
+                                && AWBForm.controls.details['controls'][i].controls.height.value != null
+                                && AWBForm.controls.details['controls'][i].controls.height.value != ''">
                   Height must be greater than 0 (cm)
                 </mat-error>
               </td>
@@ -346,6 +357,7 @@
           </mat-form-field>
         </div>
       </div>
+      <button class="button-cancel" mat-raised-button (click)="cancel()">Cancel</button>
       <button class="button-submit" mat-raised-button color="accent" type="submit">Create</button>
     </form>
   </div>

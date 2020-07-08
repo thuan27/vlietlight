@@ -38,6 +38,26 @@
     <!-- CONTENT -->
     <div class="p-24">
 
+        <form id="form-control" [formGroup]="searchForm" autocomplete="off">
+            <mat-form-field class="margin-left-10 custom-select">
+                <input placeholder="Service Name" formControlName="service_name_link" (keyup)="getService($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option style="top:0 !important" *ngFor="let option of serviceName" [value]="option.service_name">
+                    {{ option.service_name }}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="margin-left-10 custom-select">
+                <mat-select formControlName="status" placeholder="Status">
+                    <mat-option style="top:0 !important" *ngFor="let item of status" [value]="item.value">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button class="margin-left-20" mat-raised-button color="accent" (click)="getList()">Search</button>
+            <button mat-raised-button (click)="reset()">Reset</button>
+        </form>
+
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
             [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"

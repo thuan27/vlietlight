@@ -6,7 +6,7 @@ import { environment } from 'environments/environment';
 import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 import { HttpClient } from '@angular/common/http';
-import { ToastyConfig, ToastyService } from '../ng2-toasty';
+import { ToastyConfig, ToastyService } from '../../directives/ng2-toasty';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 

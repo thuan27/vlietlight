@@ -101,7 +101,7 @@ export class AWBComponent implements OnInit {
         this.router.navigate(['apps/inbound/awb/create']);
     }
 
-    onTableContextMenu(event) { 
+    onTableContextMenu(event) {
     //     // console.log(event);
     //     // console.log(event.event.target);
     //     console.log(this.xMenuContext, this.yMenuContext);
@@ -125,4 +125,8 @@ export class AWBComponent implements OnInit {
     }
 
     onSelect(e) {}
+
+    onSort(event){
+      console.log(event);
+    }
 }

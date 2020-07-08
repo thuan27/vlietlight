@@ -30,4 +30,5 @@ export class APIConfig {
   public RESET_PASS_TOKEN = this.API_MASTER + '/check-reset-password-token';
   public SETUP_PASS = this.API_MASTER + '/setup-password';
   public API_User_Token = this.API_AUTHEN + '/users/token';
+  public LOG_OUT = this.API_BASE + '/master-service/v1/logout';
 }

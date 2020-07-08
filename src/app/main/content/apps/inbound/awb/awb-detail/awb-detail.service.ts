@@ -5,21 +5,19 @@ import { environment } from '../../../../../../../environments/environment';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class AWBDetailService
-{
-    constructor(
-        private http: HttpClient,
-        private _Func: Functions,
-        private apiConfig: APIConfig
-    )
-    {
-    }
+export class AWBDetailService {
+  constructor(
+    private http: HttpClient,
+    private _Func: Functions,
+    private apiConfig: APIConfig
+  ) {
+  }
 
-    createAWB(param) {
-        return this.http.post(this.apiConfig.CREATE_AWB, param, { headers: this._Func.AuthHeader() });
-    }
+  createAWB(param) {
+    return this.http.post(this.apiConfig.CREATE_AWB, param, { headers: this._Func.AuthHeader() });
+  }
 
-    getCountry() {
-        return this.http.get(this.apiConfig.GET_COUNTRY, { headers: this._Func.AuthHeader() });
-    }
+  getCountry(data) {
+    return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data, { headers: this._Func.AuthHeader() });
+  }
 }

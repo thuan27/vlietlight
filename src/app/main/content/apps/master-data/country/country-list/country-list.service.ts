@@ -23,4 +23,12 @@ export class CountryListService
     deleteCountry(id) {
         return this.http.delete(this.apiConfig.COUNTRY_LIST + '/delete/' + id, { headers: this._Func.AuthHeader() });
     }
+
+    getCountry(data) {
+      return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data, { headers: this._Func.AuthHeader() });
+    }
+
+    getReport(params: string = '') {
+      return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { headers: this._Func.AuthHeader() });
+    }
 }

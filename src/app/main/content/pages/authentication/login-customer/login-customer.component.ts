@@ -81,9 +81,9 @@ export class FuseLoginCustomerComponent implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.checkVersionChange(true);
-        this.callCheckVersion = setInterval(() => {
+        // this.callCheckVersion = setInterval(() => {
             this.checkVersionChange();
-        }, this.intervalCheckVersion);
+        // }, this.intervalCheckVersion);
     }
 
     private buildFrom() {
@@ -124,6 +124,7 @@ export class FuseLoginCustomerComponent implements OnInit {
                                 localStorage.setItem(environment.password, this.loginForm.value['password']);
                             }
                             localStorage.setItem(environment.token, res['data'].token);
+                            localStorage.setItem(environment.userType, 'customer');
                             this.router.navigate(['apps/inbound/awb/create-for-cus']);
                         } else {
                             this.toastyService.error('No Token Found.');

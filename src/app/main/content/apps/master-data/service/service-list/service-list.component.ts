@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ServiceListService } from './service-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,11 +21,18 @@ export class ServiceListComponent implements OnInit
     total;
     current_page;
     selected: any[] = [];
+    searchForm: FormGroup;
+    status = [
+      {value: 'active', name: 'Active'},
+      {value: 'inactive', name: 'Inactive'}
+    ];
+    serviceName;
 
     constructor(
         private router: Router,
         private serviceListService: ServiceListService,
         private toastyService: ToastyService,
+        private formBuilder: FormBuilder,
         private toastyConfig: ToastyConfig
         )
     {
@@ -34,11 +42,37 @@ export class ServiceListComponent implements OnInit
 
     ngOnInit()
     {
+        this.buildForm();
         this.getList();
     }
 
+    private buildForm() {
+      this.searchForm = this.formBuilder.group({
+          service_name_link: '',
+          status: 'active',
+      });
+    }
+
+    reset() {
+      this.searchForm.controls['service_name_link'].setValue('');
+      this.searchForm.controls['status'].setValue('active');
+    }
+
+    getService(event) {
+      let data = '?status=' + this.searchForm.controls['status'].value;
+      if (event.target.value) {
+        data = data + '&service_name=' + event.target.value;
+      }
+      this.serviceListService.getService(data).subscribe((data) => {
+        this.serviceName = data['data'];
+      });
+    }
+
     getList(page = 1) {
-        const params = '?page=' + page;
+        let params = '?page=' + page + '&status=' + this.searchForm.controls['status'].value;
+        if (this.searchForm.controls['service_name_link'].value != '') {
+          params = params + '&service_name_link=' + this.searchForm.controls['service_name_link'].value;
+        }
         this.countryList = this.serviceListService.getList(params);
 
         this.countryList.subscribe((dataList: any[]) => {
@@ -68,9 +102,9 @@ export class ServiceListComponent implements OnInit
 
     update() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
             this.router.navigateByUrl(`apps/master-data/service/${this.selected[0]['service_id']}/update`);
         }
@@ -78,9 +112,9 @@ export class ServiceListComponent implements OnInit
 
     delete() {
         if (this.selected.length < 1) {
-            this.toastyService.error('please select at least one item');
+            this.toastyService.error('Please select at least one item.');
         } else if (this.selected.length > 1) {
-            this.toastyService.error('please select one item');
+            this.toastyService.error('Please select one item.');
         } else {
         this.serviceListService.delete(this.selected[0]['service_id']).subscribe((data) => {
                 this.toastyService.success(data['message']);
