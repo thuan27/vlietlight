@@ -28,7 +28,7 @@ export function tokenGetter() {
 
 const appRoutes: Routes = [
     {
-        path        : 'apps',
+        path        : '',
         loadChildren: './main/content/apps/apps.module#FuseAppsModule'
     },
     {
