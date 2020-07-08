@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { FormGroup, FormBuilder } from '@angular/forms';
-declare const saveAs: any;
-const FileSaver = require('file-saver');
+import * as FileSaver from 'file-saver';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -132,7 +131,7 @@ export class CountryListComponent implements OnInit {
   }
 
   exportCsv() {
-    let fileName = 'Orders';
+    let fileName = 'Country';
     let fileType = '.csv';
     let params = `?country_name=${this.searchForm.value['country_name']}`;
     if (this.sortData !== '') {
