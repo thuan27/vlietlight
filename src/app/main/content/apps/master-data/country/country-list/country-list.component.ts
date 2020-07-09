@@ -108,6 +108,7 @@ export class CountryListComponent implements OnInit {
         setTimeout(
           () => {
             this.getList();
+            this.selected = [];
           },
           700
         );
