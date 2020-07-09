@@ -27,4 +27,8 @@ export class ServiceListService
     getService(data) {
       return this.http.get(this.apiConfig.SERVICE_LIST + data, { headers: this._Func.AuthHeader() });
     }
+
+    getReport(params: string = '') {
+      return this.http.get(this.apiConfig.SERVICE_LIST + params + '&export=1', { headers: this._Func.AuthHeader(), responseType: 'blob' });
+    }
 }
