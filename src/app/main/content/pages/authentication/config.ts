@@ -13,6 +13,7 @@ export class APIConfig {
   public API_AUTHEN = environment.API.apiAuthen;
   /* API SUB-URLs */
   public LOGIN = this.API_BASE + '/master-service/v1/login';
+  public API_USER_Permission = this.API_BASE + '/master-service/v1/users/permissions';
   public LOGIN_CUS = this.API_BASE + '/authentication/customer/login';
   public CUSTOMER = this.API_BASE  + '/authentication/customer';
   public CREATE_AWB = this.API_BASE + '/awbs/v1/awb';

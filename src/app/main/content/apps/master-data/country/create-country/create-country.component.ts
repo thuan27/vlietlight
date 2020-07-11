@@ -1,20 +1,20 @@
 import { Subscription } from 'rxjs/Subscription';
 import { CreateCountryService } from './create-country.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { Location } from '@angular/common';
+import { UserService } from '@fuse/directives/users/users.service';
+import { Functions } from '@fuse/core/function';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'create-country',
   templateUrl: './create-country.component.html',
   styleUrls: ['./create-country.component.scss'],
-  providers: [ValidationService, ToastyService]
+  providers: [ValidationService, ToastyService, UserService]
 })
-// tslint:disable-next-line:component-class-suffix
 export class CreateCountryComponent implements OnInit {
 
   items: FormArray;
@@ -27,6 +27,10 @@ export class CreateCountryComponent implements OnInit {
   buttonType;
   action;
   titleGroup;
+  hasEditUserPermission = false;
+  hasCreateUserPermission = false;
+  hasDeleteUserPermission = false;
+  private hasViewUserPermission = false;
 
   constructor(
     private _createCountryService: CreateCountryService,
@@ -36,6 +40,8 @@ export class CreateCountryComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
     private toastyConfig: ToastyConfig,
+    private _user: UserService,
+    private _Func: Functions,
     private location: Location
   ) {
     this.toastyConfig.position = 'top-right';
@@ -45,12 +51,16 @@ export class CreateCountryComponent implements OnInit {
     this.title = 'Create Country';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
+    this.checkPermission();
+    this.buildForm();
+  }
+
+  defaultPage() {
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
+        if (params['update']  === 'update' && this.hasEditUserPermission) {
           this.action = 'update';
           this.idCountry = params['id'];
-          this.buildForm();
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonType = 'Update';
@@ -59,22 +69,41 @@ export class CreateCountryComponent implements OnInit {
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
-          this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'Country Detail';
           this.titleGroup = 'Detail';
         }
       }
-      else {
+      else if (this.hasCreateUserPermission) {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.buildForm();
         this.title = 'Create Country';
         this.buttonType = 'Create';
         this.disabledForm = false;
       }
     });
+  }
+
+  // Check permission for user using this function page
+  private checkPermission() {
+    this._user.GetPermissionUser().subscribe(
+        data => {
+            this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountry');
+            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountry');
+            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountry');
+            this.hasViewUserPermission = this._user.RequestPermission(data,'viewCountry');
+            /* Check orther permission if View allow */
+            if(!this.hasViewUserPermission) {
+                this.router.navigateByUrl('pages/landing');
+            } else {
+              this.defaultPage();
+            }
+        },
+        err => {
+            this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+        }
+    );
   }
 
   private buildForm() {
