@@ -67,7 +67,7 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes
-        ,{ enableTracing: true } // <-- debugging purposes only
+        // ,{ enableTracing: true } // <-- debugging purposes only
 
         ),
 

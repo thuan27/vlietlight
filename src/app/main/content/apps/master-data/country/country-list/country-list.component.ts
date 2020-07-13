@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as FileSaver from 'file-saver';
+import { UserService } from '@fuse/directives/users/users.service';
+import { Functions } from '@fuse/core/function';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'country-list',
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.scss'],
-  providers: [CountryListService, ToastyService]
+  providers: [CountryListService, ToastyService, UserService]
 })
 export class CountryListComponent implements OnInit {
   rows: any;
@@ -24,12 +25,18 @@ export class CountryListComponent implements OnInit {
   searchForm: FormGroup;
   country;
   sortData = '';
+  hasEditUserPermission = false;
+  hasCreateUserPermission = false;
+  hasDeleteUserPermission = false;
+  private hasViewUserPermission = false;
 
   constructor(
     private router: Router,
     private countryListService: CountryListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
+    private _user: UserService,
+    private _Func: Functions,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -37,8 +44,30 @@ export class CountryListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkPermission();
     this.buildForm();
-    this.getList();
+  }
+
+  // Check permission for user using this function page
+  private checkPermission() {
+    this._user.GetPermissionUser().subscribe(
+      data => {
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountry');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountry');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountry');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCountry');
+        /* Check orther permission if View allow */
+        if (!this.hasViewUserPermission) {
+          this.router.navigateByUrl('pages/landing');
+        }
+        else {
+          this.getList();
+        }
+      },
+      err => {
+        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+      }
+    );
   }
 
   private buildForm() {
@@ -74,12 +103,7 @@ export class CountryListComponent implements OnInit {
     });
   }
 
-  onSelect(event) {
-    console.log('this.selected', this.selected);
-  }
-
   pageCallback(e) {
-    // tslint:disable-next-line:radix
     this.getList(parseInt(e['offset']) + 1);
   }
 
@@ -108,6 +132,7 @@ export class CountryListComponent implements OnInit {
         setTimeout(
           () => {
             this.getList();
+            this.selected = [];
           },
           700
         );

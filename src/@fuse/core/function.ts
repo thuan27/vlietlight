@@ -19,11 +19,18 @@ export class Functions {
     }
 
     AuthHeader() {
-        // const authHeader = new HttpHeaders().set('Authorization', 'Bearer ' + this.getToken());
         const authHeader = new HttpHeaders({
             'Authorization': 'Bearer ' + this.getToken(),
         });
         return authHeader;
+    }
+
+    AuthHeaderPost() {
+      const authHeader = new HttpHeaders({
+          'Authorization': 'Bearer ' + this.getToken(),
+          'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      return authHeader;
     }
 
     Pagination(data) {
@@ -53,4 +60,42 @@ export class Functions {
         // console.log('__pagin fuction');
         return tmpPageCount;
     }
+
+    // Error handle
+  parseErrorMessageFromServer(err) {
+    var errMessage = '';
+    try {
+      if(typeof err == 'object' && err._body) {
+        err = JSON.parse(err._body);
+      }
+      else {
+        err = err.json();
+      }
+      if(err.error) {
+        if(typeof err.error == 'object') {
+          for(let key in err.error) {
+            let msgErr = typeof err.error[key] == 'string' ? err.error[key] : err.error[key][0];
+            errMessage += '<p>'+ msgErr + '</p>'
+          }
+        }
+        if(typeof err.error == 'string') {
+          errMessage = err.error;
+        }
+      }
+      else if(err.message || err.detail) {
+        errMessage = err.message || err.detail;
+      }
+      else if(err.errors) {
+        err = err.errors;
+        errMessage = err.message || err.detail;
+      }
+    }
+    catch(err) {
+      // console.log('parse err', err);
+    }
+    if(!errMessage) {
+      errMessage = "Sorry, there's a problem with the connection.";
+    }
+    return errMessage;
+  }
 }

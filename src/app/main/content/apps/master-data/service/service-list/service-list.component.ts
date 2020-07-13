@@ -3,6 +3,7 @@ import { ServiceListService } from './service-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import * as FileSaver from 'file-saver';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -27,6 +28,7 @@ export class ServiceListComponent implements OnInit
       {value: 'inactive', name: 'Inactive'}
     ];
     serviceName;
+    sortData = '';
 
     constructor(
         private router: Router,
@@ -48,13 +50,13 @@ export class ServiceListComponent implements OnInit
 
     private buildForm() {
       this.searchForm = this.formBuilder.group({
-          service_name_link: '',
+          service_name: '',
           status: 'active',
       });
     }
 
     reset() {
-      this.searchForm.controls['service_name_link'].setValue('');
+      this.searchForm.controls['service_name'].setValue('');
       this.searchForm.controls['status'].setValue('active');
     }
 
@@ -70,18 +72,21 @@ export class ServiceListComponent implements OnInit
 
     getList(page = 1) {
         let params = '?page=' + page + '&status=' + this.searchForm.controls['status'].value;
-        if (this.searchForm.controls['service_name_link'].value != '') {
-          params = params + '&service_name_link=' + this.searchForm.controls['service_name_link'].value;
+        if (this.searchForm.controls['service_name'].value != '') {
+          params = params + '&service_name=' + this.searchForm.controls['service_name'].value;
+        }
+        if (this.sortData !== '') {
+          params += this.sortData;
         }
         this.countryList = this.serviceListService.getList(params);
 
         this.countryList.subscribe((dataList: any[]) => {
             dataList['data'].forEach((data) => {
-                data['service_name_link'] = `<a href="apps/master-data/service/${data['service_id']}">${data['service_name']}</a>`;
+              data['service_name_temp'] = data['service_name'];
+              data['service_name'] = `<a href="apps/master-data/service/${data['service_id']}">${data['service_name']}</a>`;
             });
             this.rows = dataList['data'];
             this.total = dataList['meta']['pagination']['total'];
-            // tslint:disable-next-line:radix
             this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
             this.loadingIndicator = false;
         });
@@ -92,7 +97,6 @@ export class ServiceListComponent implements OnInit
     }
 
     pageCallback(e) {
-        // tslint:disable-next-line:radix
         this.getList(parseInt(e['offset']) + 1);
     }
 
@@ -121,10 +125,33 @@ export class ServiceListComponent implements OnInit
                 setTimeout(
                     () => {
                         this.getList();
+                        this.selected = [];
                     },
                     700
                   );
             });
         }
+    }
+
+    onSort(event) {
+      this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+      this.getList(this.current_page);
+    }
+
+    exportCsv() {
+      let fileName = 'Service';
+      let fileType = '.csv';
+      let params = '?status=' + this.searchForm.controls['status'].value;
+      if (this.searchForm.controls['service_name'].value != '') {
+        params = params + '&service_name=' + this.searchForm.controls['service_name'].value;
+      }
+      if (this.sortData !== '') {
+        params += this.sortData;
+      }
+      let getReport = this.serviceListService.getReport(params);
+      getReport.subscribe((data) => {
+        var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        FileSaver.saveAs.saveAs(blob, fileName + fileType);
+      })
     }
 }
