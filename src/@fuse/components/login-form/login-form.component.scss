@@ -12,9 +12,15 @@
   background: #b3e5fc;
   height: 40px;
   border-radius: 3px;
+  color: white;
+  cursor: pointer;
   @include media-breakpoint('xs') {
       width: 90%;
   }
+}
+
+.submit-button:hover {
+  background-color: #61c5f3;
 }
 
 .input {

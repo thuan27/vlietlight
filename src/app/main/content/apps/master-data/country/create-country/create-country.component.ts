@@ -24,7 +24,8 @@ export class CreateCountryComponent implements OnInit {
   private routeSub: Subscription;
   disabledForm;
   title;
-  buttonType;
+  buttonSubmitType;
+  buttonCancel;
   action;
   titleGroup;
   hasEditUserPermission = false;
@@ -50,7 +51,8 @@ export class CreateCountryComponent implements OnInit {
   ngOnInit() {
     this.title = 'Create Country';
     this.titleGroup = 'Registration';
-    this.buttonType = 'Create';
+    this.buttonSubmitType = 'Create';
+    this.buttonCancel = 'Cancel'
     this.checkPermission();
     this.buildForm();
   }
@@ -63,7 +65,7 @@ export class CreateCountryComponent implements OnInit {
           this.idCountry = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
-          this.buttonType = 'Update';
+          this.buttonSubmitType = 'Update';
           this.title = 'Update Country';
           this.titleGroup = 'Update';
         } else {
@@ -73,13 +75,14 @@ export class CreateCountryComponent implements OnInit {
           this.disabledForm = true;
           this.title = 'Country Detail';
           this.titleGroup = 'Detail';
+          this.buttonCancel = 'Back';
         }
       }
       else if (this.hasCreateUserPermission) {
         this.action = 'create';
         this.titleGroup = 'Registration';
         this.title = 'Create Country';
-        this.buttonType = 'Create';
+        this.buttonSubmitType = 'Create';
         this.disabledForm = false;
       }
     });

@@ -17,7 +17,7 @@ import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-
 })
 export class FuseMainComponent implements OnDestroy
 {
-    //private intervalCheckVersion = 84600000;
+    // private intervalCheckVersion = 84600000;
     private intervalCheckVersion = 600000;
     private intervalCheck;
     onConfigChanged: Subscription;
@@ -52,14 +52,16 @@ export class FuseMainComponent implements OnDestroy
         this.toastyConfig.position = 'top-right';
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngOnInit() {
         // this.currentTitle = this.titleService.getTitle();
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
+    public getToken(): string {
+      return localStorage.getItem(environment.token);
+    }
+
     ngAfterViewInit(): void {
-      if (localStorage.getItem(environment.token)) {
+      if (this.getToken()) {
         this.intervalCheck = setInterval(() => {
           this.checkVersionChange();
         }, this.intervalCheckVersion);
@@ -69,7 +71,6 @@ export class FuseMainComponent implements OnDestroy
     ngOnDestroy()
     {
         this.onConfigChanged.unsubscribe();
-        // clearInterval(this.intervalCheck);
     }
 
     addClass(className: string)

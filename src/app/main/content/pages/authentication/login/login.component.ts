@@ -10,6 +10,7 @@ import { APIConfig } from '../config';
 import { environment } from 'environments/environment';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { Functions } from '@fuse/core/function';
+import { JwtHelperService } from '@fuse/directives/@auth0/angular-jwt';
 
 @Component({
     selector: 'fuse-login',
@@ -36,6 +37,7 @@ export class FuseLoginComponent implements OnInit {
         private api: APIConfig,
         private http: HttpClient,
         private toastyService: ToastyService,
+        private jwtHelper: JwtHelperService,
         private toastyConfig: ToastyConfig
     ) {
         this.toastyConfig.position = 'top-right';
@@ -55,36 +57,18 @@ export class FuseLoginComponent implements OnInit {
         this.loginURL = this.api.LOGIN;
 
         const token = localStorage.getItem(environment.token);
-        if (token !== null) {
-            // this.http.get(this.api.API_User_Token, { headers: this._Func.AuthHeader() })
-            //     .subscribe((data) => {
-            //         this.router.navigate(['apps/dashboards/analytics']);
-            //     },
-            //         err => {
-            //             this.loginForm = this.formBuilder.group({
-            //                 username: ['', Validators.compose([Validators.required])],
-            //                 password: ['', [Validators.required]]
-            //             });
-            //         }
-            //     );
+        if (!this.jwtHelper.isTokenExpired(token)) {
             this.router.navigate(['apps/dashboards/analytics']);
         }
     }
 
     ngOnInit() {
         this.buildFrom();
-
-        // this.loginForm.valueChanges.subscribe(() => {
-        //     this.onLoginFormValuesChanged(this.loginForm.value);
-        // });
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.checkVersionChange(true);
-        // this.callCheckVersion = setInterval(() => {
-            this.checkVersionChange();
-        // }, this.intervalCheckVersion);
+        this.checkVersionChange();
     }
 
     private buildFrom() {
@@ -137,7 +121,6 @@ export class FuseLoginComponent implements OnInit {
 
     }
 
-    // tslint:disable-next-line:member-ordering
     onSubmit1() {
         const authHeader = new HttpHeaders({
             'Content-Type': 'application/json; charset=UTF-8',
@@ -147,12 +130,6 @@ export class FuseLoginComponent implements OnInit {
                 (res) => {
                     if (res['code'] === 405) {
                         this.toastyService.warning('No Token Found.');
-                        // this.messages = {
-                        //     status: 'danger',
-                        //     txt: res.message +
-                        //         '. Please click <a id="resetPass" href="#/reset-password?token=' +
-                        //         res.token + '">here</a> to reset password.'
-                        // };
                     } else {
                         if (res['data'].token) {
                             if (this.checkRemember) {
@@ -170,24 +147,6 @@ export class FuseLoginComponent implements OnInit {
                     this.toastyService.warning(err.error.message);
                 }
             );
-        // for ( const field in this.loginFormErrors )
-        // {
-        //     if ( !this.loginFormErrors.hasOwnProperty(field) )
-        //     {
-        //         continue;
-        //     }
-
-        //     // Clear previous errors
-        //     this.loginFormErrors[field] = {};
-
-        //     // Get the control
-        //     const control = this.loginForm.get(field);
-
-        //     if ( control && control.dirty && !control.valid )
-        //     {
-        //         this.loginFormErrors[field] = control.errors;
-        //     }
-        // }
 
     }
 

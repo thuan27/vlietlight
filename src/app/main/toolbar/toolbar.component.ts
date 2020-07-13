@@ -9,7 +9,7 @@ import { JwtHelperService } from '@fuse/directives/@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
 import { Functions } from '@fuse/core/function';
 import { APIConfig } from '../content/pages/authentication/config';
-
+import * as moment from 'moment';
 @Component({
     selector   : 'fuse-toolbar',
     templateUrl: './toolbar.component.html',
@@ -40,7 +40,7 @@ export class FuseToolbarComponent
         private apiConfig: APIConfig
     )
     {
-        if (localStorage.getItem(environment.token)) {
+        if (!this.jwtHelper.isTokenExpired(this.getToken())) {
             this.profile = this.jwtHelper.decodeToken(localStorage.getItem(environment.token));
         }
         else {
@@ -106,6 +106,10 @@ export class FuseToolbarComponent
             this.noNav = settings.layout.navigation === 'none';
         });
 
+    }
+
+    getToken(): string {
+      return localStorage.getItem(environment.token);
     }
 
     toggleSidebarOpened(key)
