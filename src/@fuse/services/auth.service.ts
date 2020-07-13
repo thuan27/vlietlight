@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpRequest } from '@angular/common/http/src/request';
 import { environment } from 'environments/environment';
+import { JwtHelperService } from '@fuse/directives/@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
