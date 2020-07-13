@@ -41,7 +41,7 @@
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
       <mat-form-field class="custom-select">
-          <mat-select [disabled]="disabledForm" formControlName="service_id" placeholder="Service">
+          <mat-select formControlName="service_id" placeholder="Service">
               <mat-option [value]="">
                   Please select option
             </mat-option>
