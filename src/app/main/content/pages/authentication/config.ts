@@ -26,6 +26,7 @@ export class APIConfig {
   public ORDER_LIST = this.API_BASE + '/orders/v1/orders';
   public SERVICE_LIST = this.API_BASE + '/master-data/v1/service';
   public COUNTRY_ZONE_LIST = this.API_BASE + '/master-data/v1/country-zone';
+  public PRICE_LIST = this.API_BASE + '/master-data/v1/price';
   public RESET_PASS = this.API_MASTER + '/reset-password';
   public FORGOT_PASS = this.API_MASTER + '/forgot-password';
   public RESET_PASS_TOKEN = this.API_MASTER + '/check-reset-password-token';

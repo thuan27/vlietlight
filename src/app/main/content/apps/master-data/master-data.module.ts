@@ -28,6 +28,8 @@ import { ServiceListComponent } from './service/service-list/service-list.compon
 import { ServiceListService } from './service/service-list/service-list.service';
 import { CreateServiceComponent } from './service/create-service/create-service.component';
 import { CreateServiceService } from './service/create-service/create-service.service';
+import { CreatePriceComponent } from './price/create-country/create-price.component';
+import { PriceListComponent } from './price/price-list/price-list.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,9 @@ import { CreateServiceService } from './service/create-service/create-service.se
         CountryZoneListComponent,
         CreateCountryZoneComponent,
         ServiceListComponent,
-        CreateServiceComponent
+        CreateServiceComponent,
+        CreatePriceComponent,
+        PriceListComponent
     ],
     imports: [
         CommonModule,

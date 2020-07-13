@@ -10,6 +10,8 @@ import { CountryZoneListComponent } from './country-zone/country-zone-list/count
 import { ServiceListComponent } from './service/service-list/service-list.component';
 import { CreateServiceComponent } from './service/create-service/create-service.component';
 import { AuthGuard, AdminGuard } from '../../guards';
+import { PriceListComponent } from './price/price-list/price-list.component';
+import { CreatePriceComponent } from './price/create-country/create-price.component';
 
 export const listRoutes: Routes = [
     {
@@ -96,7 +98,27 @@ export const listRoutes: Routes = [
         path: 'service/:id/:update',
         component: CreateServiceComponent,
         canActivate: [AuthGuard, AdminGuard]
-    }
+    },
+    {
+      path: 'price',
+      component: PriceListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'price/create',
+      component: CreatePriceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'price/:id',
+      component: CreatePriceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'price/:id/:update',
+      component: CreatePriceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  }
 ];
 
 

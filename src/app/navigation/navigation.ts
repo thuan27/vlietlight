@@ -63,6 +63,12 @@ export const navigation = [
                       'title': 'Service',
                       'type' : 'item',
                       'url'  : '/apps/master-data/service'
+                    },
+                    {
+                      'id'   : 'PriceList',
+                      'title': 'Price',
+                      'type' : 'item',
+                      'url'  : '/apps/master-data/price'
                     }
                 ]
             },

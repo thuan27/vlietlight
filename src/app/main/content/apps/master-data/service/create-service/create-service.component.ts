@@ -76,26 +76,26 @@ export class CreateServiceComponent implements OnInit {
     });
   }
 
-    // Check permission for user using this function page
-    private checkPermission() {
-      this._user.GetPermissionUser().subscribe(
-          data => {
-              this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
-              this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
-              this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
-              this.hasViewUserPermission = this._user.RequestPermission(data,'viewService');
-              /* Check orther permission if View allow */
-              if(!this.hasViewUserPermission) {
-                  this.router.navigateByUrl('pages/landing');
-              } else {
-                this.defaultPage();
-              }
-          },
-          err => {
-              this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
-          }
-      );
-    }
+  // Check permission for user using this function page
+  private checkPermission() {
+    this._user.GetPermissionUser().subscribe(
+      data => {
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewService');
+        /* Check orther permission if View allow */
+        if (!this.hasViewUserPermission) {
+          this.router.navigateByUrl('pages/landing');
+        } else {
+          this.defaultPage();
+        }
+      },
+      err => {
+        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+      }
+    );
+  }
 
   defaultPage() {
     this.routeSub = this.activeRoute.params.subscribe(params => {

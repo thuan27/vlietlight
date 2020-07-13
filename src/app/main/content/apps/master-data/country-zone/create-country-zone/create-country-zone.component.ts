@@ -7,6 +7,8 @@ import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { Location } from '@angular/common';
+import { UserService } from '@fuse/directives/users/users.service';
+import { Functions } from '@fuse/core/function';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -30,6 +32,10 @@ export class CreateCountryZoneComponent implements OnInit {
   titleGroup;
   country;
   service;
+  hasEditUserPermission = false;
+  hasCreateUserPermission = false;
+  hasDeleteUserPermission = false;
+  private hasViewUserPermission = false;
 
   constructor(
     private _createCountryZoneService: CreateCountryZoneService,
@@ -39,18 +45,46 @@ export class CreateCountryZoneComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
     private location: Location,
+    private _Func: Functions,
+    private _user: UserService,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
-   }
+  }
 
   ngOnInit() {
     this.title = 'Create Country Zone';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
+    this.checkPermission();
+    this.serviceList();
+  }
+
+  // Check permission for user using this function page
+  private checkPermission() {
+    this._user.GetPermissionUser().subscribe(
+      data => {
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountryZone');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountryZone');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountryZone');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCountryZone');
+        /* Check orther permission if View allow */
+        if (!this.hasViewUserPermission) {
+          this.router.navigateByUrl('pages/landing');
+        } else {
+          this.defaultPage();
+        }
+      },
+      err => {
+        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+      }
+    );
+  }
+
+  defaultPage() {
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
+        if (params['update'] === 'update') {
           this.action = 'update';
           this.idCountry = params['id'];
           this.buildForm();
@@ -59,7 +93,6 @@ export class CreateCountryZoneComponent implements OnInit {
           this.buttonType = 'Update';
           this.title = 'Update Country Zone';
           this.titleGroup = 'Update';
-          this.serviceList();
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
@@ -68,7 +101,6 @@ export class CreateCountryZoneComponent implements OnInit {
           this.disabledForm = true;
           this.title = 'Country Zone Detail';
           this.titleGroup = 'Detail';
-          this.serviceList();
         }
       }
       else {
@@ -78,7 +110,6 @@ export class CreateCountryZoneComponent implements OnInit {
         this.title = 'Create Country Zone';
         this.buttonType = 'Create';
         this.disabledForm = false;
-        this.serviceList();
       }
     });
   }
@@ -157,7 +188,7 @@ export class CreateCountryZoneComponent implements OnInit {
     });
   }
 
-  ValidateZone (control: FormControl) {
+  ValidateZone(control: FormControl) {
     if (control.value.length === 2 || control.value.length === 0) {
       return null;
     } else {

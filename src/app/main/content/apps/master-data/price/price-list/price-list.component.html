@@ -1,0 +1,97 @@
+<ng2-toasty></ng2-toasty>
+
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Price List</span>
+      </div>
+      <div class="h2 mt-16">Price List</div>
+    </div>
+
+    <div class="reference-button mat-white-bg align-right"
+      *ngIf="hasCreateUserPermission || hasEditUserPermission || hasDeleteUserPermission">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
+          <mat-icon>add_circle_outline</mat-icon>
+          <span>Create</span>
+        </button>
+        <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
+          <mat-icon>system_update_alt</mat-icon>
+          <span>Update</span>
+        </button>
+        <button *ngIf="hasDeleteUserPermission" mat-menu-item (click)="delete()">
+          <mat-icon>delete_forever</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+
+    <form id="form-control" [formGroup]="searchForm" autocomplete="off">
+      <mat-form-field class="custom-select">
+          <mat-select [disabled]="disabledForm" formControlName="service_id" placeholder="Service">
+              <mat-option [value]="">
+                  Please select option
+            </mat-option>
+              <mat-option *ngFor="let item of service" [value]="item.service_id">
+                {{ item.service_name }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="margin-left-10 custom-select">
+            <input formControlName="currency" matInput placeholder="Currency">
+          </mat-form-field>
+          <mat-form-field class="margin-left-10 custom-select">
+              <input formControlName="zone" matInput placeholder="Zone">
+            </mat-form-field>
+
+      <button class="margin-left-20" mat-raised-button color="accent" (click)="getList()">Search</button>
+      <button class="margin-left-10" mat-raised-button (click)="reset()">Reset</button>
+    </form>
+
+    <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
+      [selectionType]="'checkbox'" [count]="total" [selected]="selected" [externalPaging]="true" [offset]="current_page"
+      [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
+
+      <ngx-datatable-column [width]="48" [canAutoResize]="true" [resizeable]="true" [sortable]="false">
+        <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn">
+          <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Currency" prop="currency">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Range Code"
+        prop="range_code"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Value" prop="value">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Weight" prop="weight">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Zone" prop="zone">
+      </ngx-datatable-column>
+    </ngx-datatable>
+
+    <div class="export margin-top-10">
+      <label class="label-export">{{'Export to:'|translate}}</label>
+      <a (click)="exportCsv()" class="csv"></a>
+    </div>
+  </div>
+</div>
