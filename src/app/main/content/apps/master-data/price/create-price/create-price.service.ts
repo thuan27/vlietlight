@@ -25,4 +25,8 @@ export class CreatePriceService
     updatePrice(id, param) {
         return this.http.put(this.apiConfig.PRICE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
     }
+
+    serviceList() {
+      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+    }
 }

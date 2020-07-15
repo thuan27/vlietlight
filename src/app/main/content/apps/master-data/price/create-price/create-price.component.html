@@ -1,0 +1,121 @@
+<ng2-toasty></ng2-toasty>
+
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">{{ title }}</span>
+            </div>
+            <div class="h2 mt-16">{{ title }}</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="p-24">
+
+        <form [formGroup]="PriceForm" autocomplete="off" class="form" (submit)="onSubmit()">
+            <div class="background-title mat-cyan-200-bg margin-top-10">
+                <h2 class="title">{{ titleGroup }}</h2>
+            </div>
+            <div class="box-shadow-form margin-top-10">
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="25">
+                        <mat-select [disabled]="disabledForm" formControlName="service_id" placeholder="Service">
+                            <mat-option *ngFor="let item of service" [value]="item.service_id">
+                              {{ item.service_name }}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <mat-select [disabled]="disabledForm" formControlName="item_type_id" placeholder="Item Type">
+                            <mat-option *ngFor="let item of itemType" [value]="item.value">
+                              {{ item.name }}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input [readonly]="disabledForm" formControlName="weight" matInput placeholder="Weight" (keypress)="checkInputNumber($event,true)">
+                        <mat-error *ngIf="PriceForm.controls.weight.hasError('required')">
+                            Country Name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                        <input [readonly]="disabledForm" formControlName="zone" matInput placeholder="Zone">
+                        <mat-error *ngIf="PriceForm.controls.zone.hasError('required')">
+                            Country Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-radio-group fxFlex="25" class="padding-left-10" style="display: block !important; margin-top:20px"
+                     fxLayout="column">
+                    <mat-radio-group formControlName="is_rate">
+                        <label>Rate</label>
+                      <mat-radio-button *ngFor="let item of rate" class="example-margin custom-radio"
+                        [value]="item.value">{{ item.name }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </mat-radio-group>
+                  <mat-radio-group fxFlex="25" class="padding-left-10" style="display: block !important; margin-top:20px"
+                     fxLayout="column">
+                    <mat-radio-group formControlName="is_range">
+                        <label>Range</label>
+                      <mat-radio-button *ngFor="let item of range" class="example-margin custom-radio"
+                        [value]="item.value">{{ item.name }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </mat-radio-group>
+                  <mat-radio-group fxFlex="25" class="padding-left-10" style="display: block !important; margin-top:20px"
+                     fxLayout="column">
+                    <mat-radio-group formControlName="is_range">
+                        <label>Range ID</label>
+                      <mat-radio-button *ngFor="let item of rangeID" class="example-margin custom-radio"
+                        [value]="item.value">{{ item.name }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </mat-radio-group>
+                  <mat-form-field fxFlex="25" class="margin-left-10">
+                    <input [readonly]="disabledForm" formControlName="range_code" matInput placeholder="Range Code">
+                    <mat-error *ngIf="PriceForm.controls.range_code.hasError('required')">
+                        Country Name is required
+                    </mat-error>
+                </mat-form-field>
+              </div>
+                <div fxLayout="row">
+                  <mat-form-field fxFlex="25" class="margin-left-10">
+                    <input [readonly]="disabledForm" formControlName="min_range" matInput placeholder="Min Range" (keypress)="checkInputNumber($event,true)">
+                    <mat-error *ngIf="PriceForm.controls.min_range.hasError('required')">
+                        Country Name is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="25" class="margin-left-10">
+                    <input [readonly]="disabledForm" formControlName="max_range" matInput placeholder="Max Range" (keypress)="checkInputNumber($event,true)">
+                    <mat-error *ngIf="PriceForm.controls.max_range.hasError('required')">
+                        Country Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="25" class="margin-left-10">
+                  <input [readonly]="disabledForm" formControlName="currency" matInput placeholder="Currency">
+                  <mat-error *ngIf="PriceForm.controls.currency.hasError('required')">
+                      Country Name is required
+                  </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="25" class="margin-left-10">
+                      <input [readonly]="disabledForm" formControlName="value" matInput placeholder="Value" (keypress)="checkInputNumber($event,true)">
+                      <mat-error *ngIf="PriceForm.controls.value.hasError('required')">
+                          Country Name is required
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+            </div>
+              <button class="button-cancel" mat-raised-button (click)="cancel()">{{ buttonCancel }}</button>
+              <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent" type="submit">{{ buttonSubmitType }}</button>
+        </form>
+    </div>
+</div>

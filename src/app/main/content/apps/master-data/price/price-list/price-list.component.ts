@@ -96,11 +96,10 @@ export class PriceListComponent implements OnInit {
     this.countryList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['currency_temp'] = data['currency'];
-        data['currency'] = `<a href="apps/master-data/price/${data['service_id']}">${data['currency']}</a>`;
+        data['currency'] = `<a href="apps/master-data/price/${data['id']}">${data['currency']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
-      // tslint:disable-next-line:radix
       this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
       this.loadingIndicator = false;
     });
@@ -126,7 +125,7 @@ export class PriceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/price/${this.selected[0]['service_id']}/update`);
+      this.router.navigateByUrl(`apps/master-data/price/${this.selected[0]['id']}/update`);
     }
   }
 
@@ -136,7 +135,7 @@ export class PriceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.priceListService.deletePrice(this.selected[0]['service_id']).subscribe((data) => {
+      this.priceListService.deletePrice(this.selected[0]['id']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {

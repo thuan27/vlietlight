@@ -11,7 +11,7 @@ import { ServiceListComponent } from './service/service-list/service-list.compon
 import { CreateServiceComponent } from './service/create-service/create-service.component';
 import { AuthGuard, AdminGuard } from '../../guards';
 import { PriceListComponent } from './price/price-list/price-list.component';
-import { CreatePriceComponent } from './price/create-country/create-price.component';
+import { CreatePriceComponent } from './price/create-price/create-price.component';
 
 export const listRoutes: Routes = [
     {
