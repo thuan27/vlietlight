@@ -26,14 +26,14 @@
             <div class="box-shadow-form margin-top-10">
                 <div fxLayout="row">
                     <mat-form-field fxFlex="25">
-                        <mat-select [disabled]="disabledForm" formControlName="service_id" placeholder="Service">
+                        <mat-select [attr.disabled]="disabledForm" formControlName="service_id" placeholder="Service">
                             <mat-option *ngFor="let item of service" [value]="item.service_id">
                               {{ item.service_name }}
                             </mat-option>
                           </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="25" class="margin-left-10">
-                        <mat-select [disabled]="disabledForm" formControlName="item_type_id" placeholder="Item Type">
+                        <mat-select [attr.disabled]="disabledForm" formControlName="item_type_id" placeholder="Item Type">
                             <mat-option *ngFor="let item of itemType" [value]="item.value">
                               {{ item.name }}
                             </mat-option>
@@ -42,13 +42,13 @@
                     <mat-form-field fxFlex="25" class="margin-left-10">
                         <input [readonly]="disabledForm" formControlName="weight" matInput placeholder="Weight" (keypress)="checkInputNumber($event,true)">
                         <mat-error *ngIf="PriceForm.controls.weight.hasError('required')">
-                            Country Name is required
+                            Weight is required
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="25" class="margin-left-10">
-                        <input [readonly]="disabledForm" formControlName="zone" matInput placeholder="Zone">
+                        <input [readonly]="disabledForm" maxlength="2" minlength="2" formControlName="zone" matInput placeholder="Zone">
                         <mat-error *ngIf="PriceForm.controls.zone.hasError('required')">
-                            Country Name is required
+                            Zone is required
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -57,7 +57,7 @@
                      fxLayout="column">
                     <mat-radio-group formControlName="is_rate">
                         <label>Rate</label>
-                      <mat-radio-button *ngFor="let item of rate" class="example-margin custom-radio"
+                      <mat-radio-button [disabled]="disabledForm" *ngFor="let item of rate" class="example-margin custom-radio"
                         [value]="item.value">{{ item.name }}
                       </mat-radio-button>
                     </mat-radio-group>
@@ -66,7 +66,7 @@
                      fxLayout="column">
                     <mat-radio-group formControlName="is_range">
                         <label>Range</label>
-                      <mat-radio-button *ngFor="let item of range" class="example-margin custom-radio"
+                      <mat-radio-button [disabled]="disabledForm" *ngFor="let item of range" class="example-margin custom-radio"
                         [value]="item.value">{{ item.name }}
                       </mat-radio-button>
                     </mat-radio-group>
@@ -75,7 +75,7 @@
                      fxLayout="column">
                     <mat-radio-group formControlName="is_range">
                         <label>Range ID</label>
-                      <mat-radio-button *ngFor="let item of rangeID" class="example-margin custom-radio"
+                      <mat-radio-button [disabled]="disabledForm" *ngFor="let item of rangeID" class="example-margin custom-radio"
                         [value]="item.value">{{ item.name }}
                       </mat-radio-button>
                     </mat-radio-group>
@@ -83,7 +83,7 @@
                   <mat-form-field fxFlex="25" class="margin-left-10">
                     <input [readonly]="disabledForm" formControlName="range_code" matInput placeholder="Range Code">
                     <mat-error *ngIf="PriceForm.controls.range_code.hasError('required')">
-                        Country Name is required
+                        Range Code is required
                     </mat-error>
                 </mat-form-field>
               </div>
@@ -91,25 +91,25 @@
                   <mat-form-field fxFlex="25" class="margin-left-10">
                     <input [readonly]="disabledForm" formControlName="min_range" matInput placeholder="Min Range" (keypress)="checkInputNumber($event,true)">
                     <mat-error *ngIf="PriceForm.controls.min_range.hasError('required')">
-                        Country Name is required
+                        Min Range is required
                     </mat-error>
                   </mat-form-field>
                   <mat-form-field fxFlex="25" class="margin-left-10">
                     <input [readonly]="disabledForm" formControlName="max_range" matInput placeholder="Max Range" (keypress)="checkInputNumber($event,true)">
                     <mat-error *ngIf="PriceForm.controls.max_range.hasError('required')">
-                        Country Name is required
+                        Max Range is required
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex="25" class="margin-left-10">
                   <input [readonly]="disabledForm" formControlName="currency" matInput placeholder="Currency">
                   <mat-error *ngIf="PriceForm.controls.currency.hasError('required')">
-                      Country Name is required
+                      Currency is required
                   </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="25" class="margin-left-10">
                       <input [readonly]="disabledForm" formControlName="value" matInput placeholder="Value" (keypress)="checkInputNumber($event,true)">
                       <mat-error *ngIf="PriceForm.controls.value.hasError('required')">
-                          Country Name is required
+                          Value is required
                       </mat-error>
                   </mat-form-field>
                 </div>

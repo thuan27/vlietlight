@@ -146,8 +146,18 @@ export class CreatePriceComponent implements OnInit {
 
   private detailForm(data) {
     this.PriceForm = this.formBuilder.group({
-      code: [data['country_code'], [Validators.required]],
-      name: [data['country_name'], [Validators.required]]
+      service_id: [data['service_id']],
+      item_type_id: [data['item_type_id']],
+      weight: [data['weight'], [Validators.required]],
+      zone: [data['zone'], [Validators.required]],
+      is_rate: [data['is_rate']],
+      is_range: [data['is_range']],
+      range_id: [data['range_id']],
+      range_code: [data['range_code'], [Validators.required]],
+      min_range: [data['min_range'], [Validators.required]],
+      max_range: [data['max_range'], [Validators.required]],
+      currency: [data['currency'], [Validators.required]],
+      value: [data['value'], [Validators.required]],
     });
   }
 
@@ -164,20 +174,24 @@ export class CreatePriceComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['apps/master-data/price']);
             },
             700
           );
+        }, err => {
+          this.toastyService.error(err.error.errors.message);
         });
       } else if (this.action === 'update') {
         this._createPriceService.updatePrice(this.idPrice, this.PriceForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['apps/master-data/price']);
             },
             700
           );
+        }, err => {
+          this.toastyService.error(err.error.errors.message);
         });
       }
 
@@ -186,8 +200,8 @@ export class CreatePriceComponent implements OnInit {
 
   detail(id) {
     this._createPriceService.getPriceDetail(id).subscribe((data) => {
-      this.priceDetail = data['country'];
-      this.detailForm(data['country']);
+      this.priceDetail = data['price'];
+      this.detailForm(data['price']);
     });
   }
 
