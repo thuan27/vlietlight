@@ -117,4 +117,9 @@ export class CustomerListComponent implements OnInit
 
     onSelect(e) {}
     reset() {}
+
+    onSort(event) {
+      this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+      this.getList(this.current_page);
+    }
 }
