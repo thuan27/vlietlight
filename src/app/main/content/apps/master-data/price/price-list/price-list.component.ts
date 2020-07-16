@@ -30,6 +30,22 @@ export class PriceListComponent implements OnInit {
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
   service;
+  itemType = [
+    {name: 'Doc', value: 1},
+    {name: 'Pack', value: 2}
+  ];
+  rate = [
+    {name: 'No', value: 0},
+    {name: 'Yes', value: 1}
+  ];
+  range = [
+    {name: 'No', value: 0},
+    {name: 'Yes', value: 1}
+  ];
+  rangeID = [
+    {name: 0, value: 0},
+    {name: 1, value: 1}
+  ];
 
   constructor(
     private router: Router,
@@ -75,8 +91,17 @@ export class PriceListComponent implements OnInit {
   private buildForm() {
     this.searchForm = this.formBuilder.group({
       service_id: '',
+      item_type_id: '',
+      weight: '',
+      zone: '',
+      is_rate: '',
+      is_range: '',
+      range_id: '',
+      range_code: '',
+      min_range: '',
+      max_range: '',
       currency: '',
-      zone: ''
+      value: '',
     });
   }
 
@@ -89,14 +114,23 @@ export class PriceListComponent implements OnInit {
       this.searchForm.controls['service_id'].setValue('');
     }
     params = params + '&service_id=' + this.searchForm.controls['service_id'].value
+      + '&item_type_id=' + this.searchForm.controls['item_type_id'].value
+      + '&weight=' + this.searchForm.controls['weight'].value
+      + '&zone=' + this.searchForm.controls['zone'].value
+      + '&is_rate=' + this.searchForm.controls['is_rate'].value
+      + '&is_range=' + this.searchForm.controls['is_range'].value
+      + '&range_id=' + this.searchForm.controls['range_id'].value
+      + '&range_code=' + this.searchForm.controls['range_code'].value
+      + '&min_range=' + this.searchForm.controls['min_range'].value
+      + '&max_range=' + this.searchForm.controls['max_range'].value
       + '&currency=' + this.searchForm.controls['currency'].value
-      + '&zone=' + this.searchForm.controls['zone'].value;
+      + '&value=' + this.searchForm.controls['value'].value;
     this.countryList = this.priceListService.getList(params);
 
     this.countryList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['currency_temp'] = data['currency'];
-        data['currency'] = `<a href="apps/master-data/price/${data['id']}">${data['currency']}</a>`;
+        data['id_temp'] = data['id'];
+        data['id'] = `<a href="apps/master-data/price/${data['id']}">${data['id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -155,8 +189,16 @@ export class PriceListComponent implements OnInit {
 
   reset() {
     this.searchForm.controls['service_id'].setValue('');
-    this.searchForm.controls['currency'].setValue('');
+    this.searchForm.controls['item_type_id'].setValue('');
     this.searchForm.controls['zone'].setValue('');
+    this.searchForm.controls['is_rate'].setValue('');
+    this.searchForm.controls['is_range'].setValue('');
+    this.searchForm.controls['range_id'].setValue('');
+    this.searchForm.controls['range_code'].setValue('');
+    this.searchForm.controls['min_range'].setValue('');
+    this.searchForm.controls['max_range'].setValue('');
+    this.searchForm.controls['currency'].setValue('');
+    this.searchForm.controls['value'].setValue('');
     this.sortData = '';
     this.getList();
   }

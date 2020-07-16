@@ -41,24 +41,62 @@
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
       <mat-form-field class="custom-select">
-          <mat-select formControlName="service_id" placeholder="Service">
-              <mat-option [value]="">
-                  Please select option
-            </mat-option>
-              <mat-option *ngFor="let item of service" [value]="item.service_id">
-                {{ item.service_name }}
-              </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="margin-left-10 custom-select">
-            <input formControlName="currency" matInput placeholder="Currency">
-          </mat-form-field>
-          <mat-form-field class="margin-left-10 custom-select">
-              <input formControlName="zone" matInput placeholder="Zone">
-            </mat-form-field>
+        <mat-select formControlName="service_id" placeholder="Service">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of service" [value]="item.service_id">
+            {{ item.service_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="margin-left-10 custom-select">
+        <mat-select formControlName="item_type_id" placeholder="Item Type">
+          <mat-option *ngFor="let item of itemType" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="margin-left-10">
+        <input formControlName="weight" matInput placeholder="Weight">
+      </mat-form-field>
+      <mat-form-field class="margin-left-10">
+        <input maxlength="2" minlength="2" formControlName="zone" matInput placeholder="Zone">
+      </mat-form-field>
+      <mat-form-field class="margin-left-10 custom-select">
+        <input formControlName="currency" matInput placeholder="Currency">
+      </mat-form-field>
+      <mat-form-field class="margin-left-10 custom-select">
+        <input formControlName="zone" matInput placeholder="Zone">
+      </mat-form-field>
+      <mat-form-field class="margin-left-10 custom-select">
+        <mat-select formControlName="is_rate" placeholder="Rate">
+          <mat-option *ngFor="let item of rate" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="margin-left-10 custom-select">
+        <mat-select formControlName="is_range" placeholder="Range">
+          <mat-option *ngFor="let item of range" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="margin-left-10 custom-select">
+        <mat-select formControlName="range_id" placeholder="Range">
+          <mat-option *ngFor="let item of rangeID" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="margin-left-10">
+        <input formControlName="range_code" matInput placeholder="Range Code">
+      </mat-form-field>
 
-      <button class="margin-left-20" mat-raised-button color="accent" (click)="getList()">Search</button>
-      <button class="margin-left-10" mat-raised-button (click)="reset()">Reset</button>
+      <button class="margin-left-20 margin-bottom-10" mat-raised-button color="accent"
+        (click)="getList()">Search</button>
+      <button class="margin-left-10 margin-bottom-10" mat-raised-button (click)="reset()">Reset</button>
     </form>
 
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
@@ -73,19 +111,45 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Currency" prop="currency">
+      <ngx-datatable-column [width]="50" [canAutoResize]="true" [resizeable]="true" name="ID" prop="id">
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Range Code"
+      <ngx-datatable-column [width]="100" [canAutoResize]="true" [resizeable]="true" name="Service Name"
+        prop="service_name">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="100" [canAutoResize]="true" [resizeable]="true" name="Item Type"
+        prop="item_type_name">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="60" [canAutoResize]="true" [resizeable]="true" name="Weight" prop="weight">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="60" [canAutoResize]="true" [resizeable]="true" name="Zone" prop="zone">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="60" [canAutoResize]="true" [resizeable]="true" name="Is Rate" prop="is_rate">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="60" [canAutoResize]="true" [resizeable]="true" name="Is Range" prop="is_range">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="60" [canAutoResize]="true" [resizeable]="true" name="Range ID" prop="range_id">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="150" [canAutoResize]="true" [resizeable]="true" name="Range Code"
         prop="range_code"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Value" prop="value">
+      <ngx-datatable-column [width]="60" [canAutoResize]="true" [resizeable]="true" name="Min Range" prop="min_range">
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Weight" prop="weight">
+      <ngx-datatable-column [width]="60" [canAutoResize]="true" [resizeable]="true" name="Max Range" prop="max_range">
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Zone" prop="zone">
+      <ngx-datatable-column [width]="100" [canAutoResize]="true" [resizeable]="true" name="Value" prop="value">
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [width]="150" [canAutoResize]="true" [resizeable]="true" name="Currency" prop="currency">
       </ngx-datatable-column>
     </ngx-datatable>
 

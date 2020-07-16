@@ -17,7 +17,7 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="create()">
+                <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
                     <mat-icon>add_circle_outline</mat-icon>
                     <span>Create</span>
                 </button>
@@ -28,40 +28,30 @@
 
     <!-- CONTENT -->
     <div class="p-24">
-        <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
+        <form id="form-control" [formGroup]="searchForm" autocomplete="off">
             <mat-form-field>
                 <input formControlName="login_name" matInput placeholder="Login Name">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="margin-left-10">
                 <input formControlName="customer_name" matInput placeholder="Customer Name">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="margin-left-10">
                 <input formControlName="email" matInput placeholder="Email">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="margin-left-10">
                 <input formControlName="phone" matInput placeholder="Phone">
             </mat-form-field>
-            <button mat-raised-button color="accent" type="submit">Search</button>
-            <button mat-raised-button>Reset</button>
+            <button mat-raised-button color="accent" (click)="getList()">Search</button>
+            <button mat-raised-button (click)="reset()">Reset</button>
         </form>
 
-        <!-- <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [scrollbarV]="true"
-            [scrollbarH]="true" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48"
-            [footerHeight]="56" [rowHeight]="50" [reorderable]="reorderable" [selectionType]="'checkbox'"
-            [count]="total" [selected]="selected" (select)="onSelect($event)" [externalPaging]="true"
-            [offset]="current_page" [limit]="15"> -->
             <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
             [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
             [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
-            [limit]="15">
+            [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
 
             <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
-                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
-                    let-selectFn="selectFn">
-                    <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
-                </ng-template>
-
                 <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
                     let-onCheckboxChangeFn="onCheckboxChangeFn">
                     <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>

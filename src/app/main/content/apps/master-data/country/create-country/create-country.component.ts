@@ -133,7 +133,9 @@ export class CreateCountryComponent implements OnInit {
               this.router.navigate(['apps/master-data/countries']);
             },
             700
-          );
+          ), err => {
+            this.toastyService.error(err.error.errors.message);
+          };
         });
       } else if (this.action === 'update') {
         this._createCountryService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
@@ -144,6 +146,8 @@ export class CreateCountryComponent implements OnInit {
             },
             700
           );
+        }, err => {
+          this.toastyService.error(err.error.errors.message);
         });
       }
 
