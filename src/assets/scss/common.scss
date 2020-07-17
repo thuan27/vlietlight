@@ -45,7 +45,15 @@ table {
 }
 
 .margin-left-10 {
-    margin-left: 10px;
+  margin-left: 10px !important;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+
+.align-right {
+  margin-left: auto;
 }
 
 .custom-radio {

@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreateCountryService } from './create-country.service';
+import { CreatePriceService } from './create-price.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
@@ -10,17 +10,17 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'create-country',
-  templateUrl: './create-country.component.html',
-  styleUrls: ['./create-country.component.scss'],
+  selector: 'create-price',
+  templateUrl: './create-price.component.html',
+  styleUrls: ['./create-price.component.scss'],
   providers: [ValidationService, ToastyService, UserService]
 })
-export class CreateCountryComponent implements OnInit {
+export class CreatePriceComponent implements OnInit {
 
   items: FormArray;
-  CountryForm: FormGroup;
-  idCountry;
-  countryDetail;
+  PriceForm: FormGroup;
+  idPrice;
+  priceDetail;
   private routeSub: Subscription;
   disabledForm;
   title;
@@ -32,9 +32,26 @@ export class CreateCountryComponent implements OnInit {
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
+  service;
+  itemType = [
+    {name: 'Doc', value: 1},
+    {name: 'Pack', value: 2}
+  ];
+  rate = [
+    {name: 'No', value: 0},
+    {name: 'Yes', value: 1}
+  ];
+  range = [
+    {name: 'No', value: 0},
+    {name: 'Yes', value: 1}
+  ];
+  rangeID = [
+    {name: 0, value: 0},
+    {name: 1, value: 1}
+  ];
 
   constructor(
-    private _createCountryService: CreateCountryService,
+    private _createPriceService: CreatePriceService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -49,12 +66,13 @@ export class CreateCountryComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.title = 'Create Country';
+    this.title = 'Create Price';
     this.titleGroup = 'Registration';
     this.buttonSubmitType = 'Create';
     this.buttonCancel = 'Cancel'
     this.checkPermission();
     this.buildForm();
+    this.serviceList();
   }
 
   defaultPage() {
@@ -62,18 +80,18 @@ export class CreateCountryComponent implements OnInit {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update' && this.hasEditUserPermission) {
           this.action = 'update';
-          this.idCountry = params['id'];
+          this.idPrice = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonSubmitType = 'Update';
-          this.title = 'Update Country';
+          this.title = 'Update Price';
           this.titleGroup = 'Update';
         } else {
-          this.idCountry = params['id'];
+          this.idPrice = params['id'];
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Country Detail';
+          this.title = 'Price Detail';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }
@@ -81,7 +99,7 @@ export class CreateCountryComponent implements OnInit {
       else if (this.hasCreateUserPermission) {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.title = 'Create Country';
+        this.title = 'Create Price';
         this.buttonSubmitType = 'Create';
         this.disabledForm = false;
       }
@@ -92,10 +110,10 @@ export class CreateCountryComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
         data => {
-            this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountry');
-            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountry');
-            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountry');
-            this.hasViewUserPermission = this._user.RequestPermission(data,'viewCountry');
+            this.hasEditUserPermission = this._user.RequestPermission(data, 'editPrice');
+            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createPrice');
+            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deletePrice');
+            this.hasViewUserPermission = this._user.RequestPermission(data,'viewPrice');
             /* Check orther permission if View allow */
             if(!this.hasViewUserPermission) {
                 this.router.navigateByUrl('pages/landing');
@@ -110,39 +128,65 @@ export class CreateCountryComponent implements OnInit {
   }
 
   private buildForm() {
-    this.CountryForm = this.formBuilder.group({
-      code: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+    this.PriceForm = this.formBuilder.group({
+      service_id: [1],
+      item_type_id: [1],
+      weight: [null, [Validators.required]],
+      zone: ['', [Validators.required]],
+      is_rate: [0],
+      is_range: [0],
+      range_id: [0],
+      range_code: ['', [Validators.required]],
+      min_range: [null, [Validators.required]],
+      max_range: [null, [Validators.required]],
+      currency: ['', [Validators.required]],
+      value: [null, [Validators.required]],
     });
   }
 
   private detailForm(data) {
-    this.CountryForm = this.formBuilder.group({
-      code: [data['country_code'], [Validators.required]],
-      name: [data['country_name'], [Validators.required]]
+    this.PriceForm = this.formBuilder.group({
+      service_id: [data['service_id']],
+      item_type_id: [data['item_type_id']],
+      weight: [data['weight'], [Validators.required]],
+      zone: [data['zone'], [Validators.required]],
+      is_rate: [data['is_rate']],
+      is_range: [data['is_range']],
+      range_id: [data['range_id']],
+      range_code: [data['range_code'], [Validators.required]],
+      min_range: [data['min_range'], [Validators.required]],
+      max_range: [data['max_range'], [Validators.required]],
+      currency: [data['currency'], [Validators.required]],
+      value: [data['value'], [Validators.required]],
+    });
+  }
+
+  serviceList() {
+    this._createPriceService.serviceList().subscribe((data) => {
+      this.service = data['data'];
     });
   }
 
   onSubmit() {
-    if (this.CountryForm.valid) {
+    if (this.PriceForm.valid) {
       if (this.action === 'create') {
-        this._createCountryService.createCountry(this.CountryForm.value).subscribe((data) => {
+        this._createPriceService.createPrice(this.PriceForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['apps/master-data/price']);
             },
             700
-          ), err => {
-            this.toastyService.error(err.error.errors.message);
-          };
+          );
+        }, err => {
+          this.toastyService.error(err.error.errors.message);
         });
       } else if (this.action === 'update') {
-        this._createCountryService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+        this._createPriceService.updatePrice(this.idPrice, this.PriceForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/countries']);
+              this.router.navigate(['apps/master-data/price']);
             },
             700
           );
@@ -155,9 +199,9 @@ export class CreateCountryComponent implements OnInit {
   }
 
   detail(id) {
-    this._createCountryService.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['country'];
-      this.detailForm(data['country']);
+    this._createPriceService.getPriceDetail(id).subscribe((data) => {
+      this.priceDetail = data['price'];
+      this.detailForm(data['price']);
     });
   }
 

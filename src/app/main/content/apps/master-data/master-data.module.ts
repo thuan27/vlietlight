@@ -6,7 +6,7 @@ import { UserListService } from './user/user-list/user-list.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatDatepickerModule, MatSelectModule, MatInputModule, MatAutocompleteModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatDatepickerModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatRadioModule } from '@angular/material';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './master-data.routers';
@@ -28,6 +28,10 @@ import { ServiceListComponent } from './service/service-list/service-list.compon
 import { ServiceListService } from './service/service-list/service-list.service';
 import { CreateServiceComponent } from './service/create-service/create-service.component';
 import { CreateServiceService } from './service/create-service/create-service.service';
+import { CreatePriceComponent } from './price/create-price/create-price.component';
+import { PriceListComponent } from './price/price-list/price-list.component';
+import { PriceListService } from './price/price-list/price-list.service';
+import { CreatePriceService } from './price/create-price/create-price.service';
 
 @NgModule({
     declarations: [
@@ -40,7 +44,9 @@ import { CreateServiceService } from './service/create-service/create-service.se
         CountryZoneListComponent,
         CreateCountryZoneComponent,
         ServiceListComponent,
-        CreateServiceComponent
+        CreateServiceComponent,
+        CreatePriceComponent,
+        PriceListComponent
     ],
     imports: [
         CommonModule,
@@ -55,6 +61,7 @@ import { CreateServiceService } from './service/create-service/create-service.se
         MatSelectModule,
         MatDatepickerModule,
         MatInputModule,
+        MatRadioModule,
         ToastyModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
@@ -70,7 +77,9 @@ import { CreateServiceService } from './service/create-service/create-service.se
         CountryZoneListService,
         CreateCountryZoneService,
         ServiceListService,
-        CreateServiceService
+        CreateServiceService,
+        CreatePriceService,
+        PriceListService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

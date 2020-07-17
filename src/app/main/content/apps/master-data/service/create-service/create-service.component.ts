@@ -7,13 +7,15 @@ import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { Location } from '@angular/common';
+import { UserService } from '@fuse/directives/users/users.service';
+import { Functions } from '@fuse/core/function';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'create-service',
   templateUrl: './create-service.component.html',
   styleUrls: ['./create-service.component.scss'],
-  providers: [ValidationService, ToastyService, CreateServiceService]
+  providers: [UserService, ValidationService, ToastyService, CreateServiceService]
 })
 // tslint:disable-next-line:component-class-suffix
 export class CreateServiceComponent implements OnInit {
@@ -34,6 +36,11 @@ export class CreateServiceComponent implements OnInit {
     {value: 'Active'},
     {value: 'Inactive'}
   ];
+  buttonCancel;
+  hasEditUserPermission = false;
+  hasCreateUserPermission = false;
+  hasDeleteUserPermission = false;
+  private hasViewUserPermission = false;
 
   constructor(
     private _createServiceService: CreateServiceService,
@@ -43,6 +50,8 @@ export class CreateServiceComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
     private location: Location,
+    private _Func: Functions,
+    private _user: UserService,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -52,42 +61,11 @@ export class CreateServiceComponent implements OnInit {
     this.title = 'Create Service';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
-    this.routeSub = this.activeRoute.params.subscribe(params => {
-      if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
-          this.action = 'update';
-          this.idCountry = params['id'];
-          this.buildForm();
-          this.detail(params['id']);
-          this.disabledForm = false;
-          this.buttonType = 'Update';
-          this.title = 'Update Service';
-          this.titleGroup = 'Update';
-          this.serviceList();
-          this.countryList();
-        } else {
-          this.idCountry = params['id'];
-          this.action = 'detail';
-          this.buildForm();
-          this.detail(params['id']);
-          this.disabledForm = true;
-          this.title = 'Service Detail';
-          this.titleGroup = 'Detail';
-          this.serviceList();
-          this.countryList();
-        }
-      }
-      else {
-        this.action = 'create';
-        this.titleGroup = 'Registration';
-        this.buildForm();
-        this.title = 'Create Service';
-        this.buttonType = 'Create';
-        this.disabledForm = false;
-        this.countryList();
-        this.serviceList();
-      }
-    });
+    this.buttonCancel = 'Cancel'
+    this.checkPermission();
+    this.buildForm();
+    this.countryList();
+    this.serviceList();
   }
 
   private buildForm() {
@@ -95,6 +73,58 @@ export class CreateServiceComponent implements OnInit {
       service_name: ['', [Validators.required]],
       service_name2: [''],
       status: ['Active']
+    });
+  }
+
+  // Check permission for user using this function page
+  private checkPermission() {
+    this._user.GetPermissionUser().subscribe(
+      data => {
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewService');
+        /* Check orther permission if View allow */
+        if (!this.hasViewUserPermission) {
+          this.router.navigateByUrl('pages/landing');
+        } else {
+          this.defaultPage();
+        }
+      },
+      err => {
+        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+      }
+    );
+  }
+
+  defaultPage() {
+    this.routeSub = this.activeRoute.params.subscribe(params => {
+      if (params['id'] !== undefined) {
+        if (params['update']  === 'update') {
+          this.action = 'update';
+          this.idCountry = params['id'];
+          this.detail(params['id']);
+          this.disabledForm = false;
+          this.buttonType = 'Update';
+          this.title = 'Update Service';
+          this.titleGroup = 'Update';
+        } else {
+          this.idCountry = params['id'];
+          this.action = 'detail';
+          this.detail(params['id']);
+          this.disabledForm = true;
+          this.title = 'Service Detail';
+          this.titleGroup = 'Detail';
+        }
+      }
+      else {
+        this.action = 'create';
+        this.titleGroup = 'Registration';
+        this.title = 'Create Service';
+        this.buttonType = 'Create';
+        this.disabledForm = false;
+        this.buttonCancel = 'Back'
+      }
     });
   }
 

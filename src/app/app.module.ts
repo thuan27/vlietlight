@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -18,9 +18,11 @@ import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
 import { ToastyModule } from '@fuse/directives/ng2-toasty';
 
-import { JwtModule } from '@fuse/directives/@auth0/angular-jwt';
+import { JwtModule, JwtInterceptor } from '@fuse/directives/@auth0/angular-jwt';
 import { environment } from 'environments/environment';
 import { AuthGuard, AdminGuard } from './main/content/guards';
+import { TokenInterceptor } from '@fuse/interceptor/token.interceptor';
+import { AuthService } from '@fuse/services/auth.service';
 
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
@@ -28,7 +30,7 @@ export function tokenGetter() {
 
 const appRoutes: Routes = [
     {
-        path        : '',
+        path        : 'apps',
         loadChildren: './main/content/apps/apps.module#FuseAppsModule'
     },
     {
@@ -66,7 +68,10 @@ const appRoutes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes
+        // ,{ enableTracing: true } // <-- debugging purposes only
+
+        ),
 
         TranslateModule.forRoot(),
         InMemoryWebApiModule.forRoot(FuseFakeDbService, {
@@ -92,7 +97,21 @@ const appRoutes: Routes = [
     bootstrap   : [
         AppComponent
     ],
-    providers: [AuthGuard, AdminGuard],
+    providers: [
+      AuthGuard,
+      AdminGuard,
+      AuthService,
+     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule
