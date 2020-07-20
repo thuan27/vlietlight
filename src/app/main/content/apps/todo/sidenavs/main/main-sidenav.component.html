@@ -35,7 +35,7 @@
 
     <div class="nav">
 
-        <div class="nav-item">
+        <div class="nav-item-fuse">
             <a class="nav-link" matRipple [routerLink]="'/apps/todo/all'" routerLinkActive="active">
                 <mat-icon class="nav-link-icon">view_headline</mat-icon>
                 <span>All</span>
@@ -44,7 +44,7 @@
 
         <div class="nav-subheader">FILTERS</div>
 
-        <div class="nav-item" *ngFor="let filter of filters">
+        <div class="nav-item-fuse" *ngFor="let filter of filters">
             <a class="nav-link" matRipple [routerLink]="'/apps/todo/filter/' + filter.handle" routerLinkActive="active">
                 <mat-icon class="nav-link-icon" *ngIf="filter.icon">{{filter.icon}}</mat-icon>
                 <span>{{filter.title}}</span>
@@ -53,7 +53,7 @@
 
         <div class="nav-subheader">TAGS</div>
 
-        <div class="nav-item" *ngFor="let tag of tags">
+        <div class="nav-item-fuse" *ngFor="let tag of tags">
             <a class="nav-link" matRipple [routerLink]="'/apps/todo/tag/' + tag.handle" routerLinkActive="active">
                 <mat-icon class="nav-link-icon" [ngStyle]="{'color':tag.color}">label</mat-icon>
                 <span>{{tag.title}}</span>

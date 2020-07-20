@@ -7,7 +7,7 @@ import { Component, HostBinding, Input } from '@angular/core';
 })
 export class FuseNavVerticalGroupComponent
 {
-    @HostBinding('class') classes = 'nav-group nav-item';
+    @HostBinding('class') classes = 'nav-group-fuse nav-item-fuse';
     @Input() item: any;
 
     constructor()

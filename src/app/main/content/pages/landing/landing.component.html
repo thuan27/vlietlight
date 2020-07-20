@@ -1,6 +1,6 @@
 <div id="login" fxLayout="column" fusePerfectScrollbar>
     <ng-container>
-        <div class="toolbar">
+        <!-- <div class="toolbar">
             <div fxLayout="row" style="width: 100%;">
                 <div fxFlex="50">
                 </div>
@@ -12,11 +12,57 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+          <nav class="stroke navbar navbar-expand-lg navbar-light blue-50-bg">
+              <!-- Brand -->
+              <img width="128" src="assets/images/logos/logo.png">
+
+              <!-- Toggler/collapsibe Button -->
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <!-- Navbar links -->
+              <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                  <ul>
+                      <li><a href="#">Home</a></li>
+                      <li><a href="#">Service</a></li>
+                      <li><a href="#">Documents</a></li>
+                      <li><a href="#">News</a></li>
+                      <li><a href="#">Tracking Number</a></li>
+                      <li><a href="#">Contact</a></li>
+                      <li>
+                          <button class="align-center" [routerLink]="['/pages/auth/login']" mat-raised-button color="accent">Login Admin</button>
+                      </li>
+                      <li>
+                          <button class="align-center" [routerLink]="['/pages/auth/login-customer']" mat-raised-button color="accent">Login Customer</button>
+                      </li>
+                    </ul>
+              </div>
+            </nav>
     </ng-container>
+    <div id="wrapper" [ngClass]="{'active': isShowNav}">
+    <div id="sidebar-wrapper">
+        <ul (click)="showMenu()" id="sidebar_menu" class="sidebar-nav">
+           <li class="sidebar-brand"><a id="menu-toggle">Menu<mat-icon class="icon-nav-custom">apps</mat-icon></a></li>
+        </ul>
+        <ul class="sidebar-nav" id="sidebar">
+          <li><a>Cadastro<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+           <ul class="sidebar-nav" id="sidebar">
+                <li><a>link1<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+                <li><a>link2<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+           </ul>
+          <li><a>Consulta<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+          <li><a>Relatorio<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+        </ul>
+      </div>
+      </div>
 
     <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
         <div id="login-form" *fuseIfOnDom [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
                 <img src="assets/images/logos/logo.png">
         </div>
     </div>
+
+

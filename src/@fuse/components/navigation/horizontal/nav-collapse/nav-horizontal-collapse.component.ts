@@ -15,7 +15,7 @@ export class FuseNavHorizontalCollapseComponent implements OnDestroy
     fuseSettings: any;
     isOpen = false;
 
-    @HostBinding('class') classes = 'nav-item nav-collapse';
+    @HostBinding('class') classes = 'nav-item-fuse nav-collapse';
     @Input() item: any;
 
     @HostListener('mouseenter')

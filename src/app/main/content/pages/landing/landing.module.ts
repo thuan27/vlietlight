@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
@@ -27,7 +27,8 @@ const routes = [
         MatFormFieldModule,
         MatInputModule,
         FuseDirectivesModule,
-        FuseSharedModule
+        FuseSharedModule,
+        MatIconModule
     ]
 })
 export class LandingModule

@@ -18,7 +18,7 @@ export class ContextMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.xMenuContext = $('.nav-group').width();
+    this.xMenuContext = $('.nav-group-fuse').width();
     this.yMenuContext = $('#form-control').height();
     // document.addEventListener('copy', function(e){
     //   document.clipboardData.setData('text/plain', 'foo');
@@ -29,7 +29,7 @@ export class ContextMenuComponent implements OnInit {
   onCopy(event): void {
     // const copyText = this.content.getElementById("myInput");
     // console.log(copyText);
-      
+
       // this.content.select();
       // this.content.setSelectionRange(0, 99999)
       // document.execCommand("copy");

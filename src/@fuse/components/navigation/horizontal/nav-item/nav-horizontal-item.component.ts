@@ -7,6 +7,6 @@ import { Component, HostBinding, Input } from '@angular/core';
 })
 export class FuseNavHorizontalItemComponent
 {
-    @HostBinding('class') classes = 'nav-item';
+    @HostBinding('class') classes = 'nav-item-fuse';
     @Input() item: any;
 }

@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { Functions } from '@fuse/core/function';
+import * as $ from 'jquery/dist/jquery.min.js';
+import { isThisSecond } from 'date-fns';
 
 @Component({
     selector: 'fuse-landing',
@@ -18,6 +20,8 @@ import { Functions } from '@fuse/core/function';
     providers: [ToastyService]
 })
 export class FuseLandingComponent implements OnInit {
+
+  isShowNav;
 
     constructor(
         private fuseConfig: FuseConfigService,
@@ -32,5 +36,10 @@ export class FuseLandingComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    showMenu() {
+      this.isShowNav = !this.isShowNav;
+      console.log(this.isShowNav)
     }
 }

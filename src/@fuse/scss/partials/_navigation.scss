@@ -1,4 +1,4 @@
-.nav {
+.nav-fuse {
 
     .nav-subheader {
         display: flex;
@@ -11,10 +11,10 @@
         white-space: nowrap;
     }
 
-    .nav-group {
+    .nav-group-fuse {
         display: block;
 
-        > .group-title {
+        > .group-title-fuse {
             position: relative;
             display: flex;
             align-items: center;
@@ -27,7 +27,7 @@
         }
     }
 
-    .nav-item {
+    .nav-item-fuse {
 
         .nav-link {
             text-decoration: none !important;
@@ -108,21 +108,21 @@
 
             > .children {
 
-                > .nav-item {
+                > .nav-item-fuse {
 
                     > .nav-link,
-                    &.nav-group > .group-title,
-                    &.nav-group > .group-items > .nav-item > .nav-link {
+                    &.nav-group-fuse > .group-title-fuse,
+                    &.nav-group-fuse > .group-items > .nav-item-fuse > .nav-link {
                         padding-left: 56px;
                     }
 
                     > .children {
 
-                        > .nav-item {
+                        > .nav-item-fuse {
 
                             > .nav-link,
-                            &.nav-group > .group-title,
-                            &.nav-group > .group-items > .nav-item > .nav-link {
+                            &.nav-group-fuse > .group-title-fuse,
+                            &.nav-group-fuse > .group-items > .nav-item-fuse > .nav-link {
                                 padding-left: 72px;
                             }
                         }
@@ -133,7 +133,7 @@
 
     }
 
-    > .nav-item {
+    > .nav-item-fuse {
 
         &.nav-collapse {
             background: transparent;
@@ -145,7 +145,7 @@
         }
     }
 
-    > .nav-group {
+    > .nav-group-fuse {
 
         > .group-items {
 
@@ -162,9 +162,9 @@
 
     &.vertical {
 
-        .nav-group {
+        .nav-group-fuse {
 
-            .group-title {
+            .group-title-fuse {
                 text-transform: uppercase;
             }
         }
@@ -174,7 +174,7 @@
         display: flex;
         flex-direction: row;
 
-        .nav-item {
+        .nav-item-fuse {
 
             &.nav-collapse {
                 position: relative;
@@ -199,7 +199,7 @@
             }
         }
 
-        > .nav-item {
+        > .nav-item-fuse {
 
             > .nav-link {
                 height: 56px;

@@ -20,7 +20,7 @@ export const locale = {
             'CONTACTS'    : 'Kişiler',
             'TODO'        : 'Yapılacaklar',
             'SCRUMBOARD'  : 'Proje',
-            'MASTERDATA'  : 'Master Data',
+            'MASTERDATA'  : 'Master fffdifniniediedneidnei',
             'INBOUND'     : 'Inbound',
             'UTILITY'     : 'Utility',
             'OUTBOUND'    : 'Outbound'

@@ -38,7 +38,7 @@
 
         <div class="nav-subheader">{{ 'MAIL.FOLDERS' | translate }}</div>
 
-        <div class="nav-item" *ngFor="let folder of folders">
+        <div class="nav-item-fuse" *ngFor="let folder of folders">
             <a class="nav-link" matRipple [routerLink]="'/apps/mail/' + folder.handle" routerLinkActive="active">
                 <mat-icon class="nav-link-icon" *ngIf="folder.icon">{{folder.icon}}</mat-icon>
                 <span>{{folder.title}}</span>
@@ -47,7 +47,7 @@
 
         <div class="nav-subheader">{{ 'MAIL.FILTERS' | translate }}</div>
 
-        <div class="nav-item" *ngFor="let filter of filters">
+        <div class="nav-item-fuse" *ngFor="let filter of filters">
             <a class="nav-link" matRipple [routerLink]="'/apps/mail/filter/' + filter.handle" routerLinkActive="active">
                 <mat-icon class="nav-link-icon" *ngIf="filter.icon">{{filter.icon}}</mat-icon>
                 <span>{{filter.title}}</span>
@@ -56,7 +56,7 @@
 
         <div class="nav-subheader">{{ 'MAIL.LABELS' | translate }}</div>
 
-        <div class="nav-item" *ngFor="let label of labels">
+        <div class="nav-item-fuse" *ngFor="let label of labels">
             <a class="nav-link" matRipple [routerLink]="'/apps/mail/label/' + label.handle" routerLinkActive="active">
                 <mat-icon class="nav-link-icon" [ngStyle]="{'color':label.color}">label</mat-icon>
                 <span>{{label.title}}</span>

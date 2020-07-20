@@ -12,7 +12,7 @@ import { fuseAnimations } from '../../../../animations/index';
 export class FuseNavVerticalCollapseComponent implements OnInit
 {
     @Input() item: any;
-    @HostBinding('class') classes = 'nav-collapse nav-item';
+    @HostBinding('class') classes = 'nav-collapse nav-item-fuse';
     @HostBinding('class.open') public isOpen = false;
 
     constructor(
