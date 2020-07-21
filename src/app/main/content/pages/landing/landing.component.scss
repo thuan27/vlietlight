@@ -5,8 +5,9 @@
     #login {
         width: 100%;
         overflow: auto;
-        background: url('/assets/images/backgrounds/express.jpg') no-repeat;
-        background-size: cover;
+        background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        // background: url('/assets/images/backgrounds/logistics2.jpg') no-repeat;
+        // background-size: cover;
 
         #login-form-wrapper {
             flex: 1 0 auto;
@@ -233,7 +234,7 @@ nav ul li a {
   display: block;
   padding: 2px;
   text-decoration: none;
-  color: #aaa;
+  color: white;
   font-weight: 800;
   text-transform: uppercase;
   margin: 0 10px;
@@ -244,7 +245,7 @@ nav ul li a:before {
   transition: all .5s;
 }
 nav ul li a:hover {
-  color: #555;
+  color: #93d6ef;
 }
 
 
@@ -299,9 +300,10 @@ nav.fill ul li a:hover:after {
 
 #sidebar-wrapper {
   margin-left: -150px;
-  left: 70px;
-  width: 150px;
-  background: #222;
+  top: 94px;
+  left: 0;
+  width: 220px;
+  background-image: linear-gradient(#0ba4de, #bdd5d6);
   position: fixed;
   height: 100%;
   z-index: 10000;
@@ -311,11 +313,12 @@ nav.fill ul li a:hover:after {
 .sidebar-nav {
   display: block;
   float: left;
-  width: 150px;
+  width: 220px;
   list-style: none;
   margin: 0;
   padding: 0;
   cursor: pointer;
+  font-size: 1.4rem;
 }
 #page-content-wrapper {
   padding-left: 0;
@@ -335,14 +338,15 @@ width: 100%;
 }
 
 #sidebar_menu li a, .sidebar-nav li a {
-  color: #999;
+  // color: #999;
   display: block;
   float: left;
   text-decoration: none;
-  width: 150px;
-  background: #252525;
-  border-top: 1px solid #373737;
-  border-bottom: 1px solid #1A1A1A;
+  width: 220px;
+  color: white;
+  background: #0b80b9;
+  border-top: 1px solid #0652cc;
+  border-bottom: 1px solid #e7eaef;
   -webkit-transition: background .5s;
   -moz-transition: background .5s;
   -o-transition: background .5s;
@@ -361,13 +365,15 @@ text-indent: 20px;
 }
 
 .sidebar-nav li a {
-color: #999999;
+// color: #999999;
+color: white;
 display: block;
 text-decoration: none;
 }
 
 .sidebar-nav li a:hover {
-color: #fff;
+// color: #93D6EF;
+color: white;
 background: rgba(255,255,255,0.2);
 text-decoration: none;
 }
@@ -422,17 +428,19 @@ display: inline-block;
   transition: all .4s ease 0s;
 }
 #sidebar-wrapper {
-  left: 70px;
+  left: 0;
 }
 #wrapper.active {
   padding-left: 150px;
 }
 #wrapper.active #sidebar-wrapper {
   left: 150px;
-  width: 150px;
+  width: 220px;
   transition: all .4s ease 0s;
 }
 }
 .icon-nav-custom {
   color: white;
+  margin-left: 86px;
+  margin-top: 15px;
 }

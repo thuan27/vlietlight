@@ -22,7 +22,7 @@ import { isThisSecond } from 'date-fns';
 export class FuseLandingComponent implements OnInit {
 
   isShowNav;
-
+  isCollapsed = false;
     constructor(
         private fuseConfig: FuseConfigService,
     ) {
