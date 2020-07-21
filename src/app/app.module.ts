@@ -23,6 +23,8 @@ import { environment } from 'environments/environment';
 import { AuthGuard, AdminGuard } from './main/content/guards';
 import { TokenInterceptor } from '@fuse/interceptor/token.interceptor';
 import { AuthService } from '@fuse/services/auth.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {APP_BASE_HREF} from '@angular/common';
 
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
@@ -110,7 +112,9 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    }},
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: APP_BASE_HREF, useValue: '/apps/master-data' }
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
