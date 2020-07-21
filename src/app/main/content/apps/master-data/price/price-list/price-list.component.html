@@ -40,7 +40,7 @@
   <div class="p-24">
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="custom-select">
+      <mat-form-field class="custom-selection">
         <mat-select formControlName="service_id" placeholder="Service">
           <mat-option [value]="">
             Please select option
@@ -50,7 +50,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-select">
+      <mat-form-field class="margin-left-10 custom-selection">
         <mat-select formControlName="item_type_id" placeholder="Item Type">
           <mat-option *ngFor="let item of itemType" [value]="item.value">
             {{ item.name }}
@@ -63,27 +63,27 @@
       <mat-form-field class="margin-left-10">
         <input maxlength="2" minlength="2" formControlName="zone" matInput placeholder="Zone">
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-select">
+      <mat-form-field class="margin-left-10 custom-selection">
         <input formControlName="currency" matInput placeholder="Currency">
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-select">
+      <mat-form-field class="margin-left-10 custom-selection">
         <input formControlName="zone" matInput placeholder="Zone">
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-select">
+      <mat-form-field class="margin-left-10 custom-selection">
         <mat-select formControlName="is_rate" placeholder="Rate">
           <mat-option *ngFor="let item of rate" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-select">
+      <mat-form-field class="margin-left-10 custom-selection">
         <mat-select formControlName="is_range" placeholder="Range">
           <mat-option *ngFor="let item of range" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-select">
+      <mat-form-field class="margin-left-10 custom-selection">
         <mat-select formControlName="range_id" placeholder="Range">
           <mat-option *ngFor="let item of rangeID" [value]="item.value">
             {{ item.name }}

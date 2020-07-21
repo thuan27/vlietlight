@@ -25,13 +25,15 @@ import { CountryZoneListComponent } from './country-zone/country-zone-list/count
 import { CreateCountryZoneService } from './country-zone/create-country-zone/create-country-zone.service';
 import { CountryZoneListService } from './country-zone/country-zone-list/country-zone-list.service';
 import { ServiceListComponent } from './service/service-list/service-list.component';
-import { ServiceListService } from './service/service-list/service-list.service';
+import { ServiceList } from './service/service-list/service-list.service';
 import { CreateServiceComponent } from './service/create-service/create-service.component';
-import { CreateServiceService } from './service/create-service/create-service.service';
+import { CreateService } from './service/create-service/create-service.service';
 import { CreatePriceComponent } from './price/create-price/create-price.component';
 import { PriceListComponent } from './price/price-list/price-list.component';
 import { PriceListService } from './price/price-list/price-list.service';
 import { CreatePriceService } from './price/create-price/create-price.service';
+import { CreateCustomerServiceComponent } from './customer-service/create-customer-service/create-customer-service.component';
+import { CustomerServiceListComponent } from './customer-service/customer-service-list/customer-service-list.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +48,9 @@ import { CreatePriceService } from './price/create-price/create-price.service';
         ServiceListComponent,
         CreateServiceComponent,
         CreatePriceComponent,
-        PriceListComponent
+        PriceListComponent,
+        CustomerServiceListComponent,
+        CreateCustomerServiceComponent
     ],
     imports: [
         CommonModule,
@@ -76,8 +80,8 @@ import { CreatePriceService } from './price/create-price/create-price.service';
         CreateCountryService,
         CountryZoneListService,
         CreateCountryZoneService,
-        ServiceListService,
-        CreateServiceService,
+        ServiceList,
+        CreateService,
         CreatePriceService,
         PriceListService
     ],

@@ -12,6 +12,8 @@ import { CreateServiceComponent } from './service/create-service/create-service.
 import { AuthGuard, AdminGuard } from '../../guards';
 import { PriceListComponent } from './price/price-list/price-list.component';
 import { CreatePriceComponent } from './price/create-price/create-price.component';
+import { CustomerServiceListComponent } from './customer-service/customer-service-list/customer-service-list.component';
+import { CreateCustomerServiceComponent } from './customer-service/create-customer-service/create-customer-service.component';
 
 export const listRoutes: Routes = [
     {
@@ -118,7 +120,27 @@ export const listRoutes: Routes = [
       path: 'price/:id/:update',
       component: CreatePriceComponent,
       canActivate: [AuthGuard, AdminGuard]
-  }
+  },
+  {
+    path: 'customers-service',
+    component: CustomerServiceListComponent,
+    canActivate: [AuthGuard, AdminGuard]
+},
+{
+    path: 'customers-service/create',
+    component: CreateCustomerServiceComponent,
+    canActivate: [AuthGuard, AdminGuard]
+},
+{
+    path: 'customers-service/:id',
+    component: CreateCustomerServiceComponent,
+    canActivate: [AuthGuard, AdminGuard]
+},
+{
+    path: 'customers-service/:id/:update',
+    component: CreateCustomerServiceComponent,
+    canActivate: [AuthGuard, AdminGuard]
+},
 ];
 
 

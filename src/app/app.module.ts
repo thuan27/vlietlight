@@ -113,8 +113,8 @@ const appRoutes: Routes = [
       useClass: JwtInterceptor,
       multi: true
     },
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
-    { provide: APP_BASE_HREF, useValue: '/apps/master-data' }
+    // {provide: LocationStrategy, useClass: HashLocationStrategy},
+    // { provide: APP_BASE_HREF, useValue: '/apps/master-data' }
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

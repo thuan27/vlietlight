@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreateService } from './create-service.service';
+import { CreateCustomerService } from './create-customer-service.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -11,14 +11,12 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'create-service',
-  templateUrl: './create-service.component.html',
-  styleUrls: ['./create-service.component.scss'],
-  providers: [UserService, ValidationService, ToastyService, CreateService]
+  selector: 'create-customer-service',
+  templateUrl: './create-customer-service.component.html',
+  styleUrls: ['./create-customer-service.component.scss'],
+  providers: [UserService, ValidationService, ToastyService, CreateCustomerService]
 })
-// tslint:disable-next-line:component-class-suffix
-export class CreateServiceComponent implements OnInit {
+export class CreateCustomerServiceComponent implements OnInit {
 
   items: FormArray;
   CountryForm: FormGroup;
@@ -43,7 +41,7 @@ export class CreateServiceComponent implements OnInit {
   private hasViewUserPermission = false;
 
   constructor(
-    private _createService: CreateService,
+    private createCustomerService: CreateCustomerService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -139,7 +137,7 @@ export class CreateServiceComponent implements OnInit {
   onSubmit() {
     if (this.CountryForm.valid) {
       if (this.action === 'create') {
-        this._createService.createCountryList(this.CountryForm.value).subscribe((data) => {
+        this.createCustomerService.createCountryList(this.CountryForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -151,7 +149,7 @@ export class CreateServiceComponent implements OnInit {
           this.toastyService.error(err['error']['errors']['message']);
         });
       } else if (this.action === 'update') {
-        this._createService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+        this.createCustomerService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -168,7 +166,7 @@ export class CreateServiceComponent implements OnInit {
   }
 
   detail(id) {
-    this._createService.getCountryDetail(id).subscribe((data) => {
+    this.createCustomerService.getCountryDetail(id).subscribe((data) => {
       this.countryDetail = data['service'];
       this.detailForm(data['service']);
     });
@@ -179,13 +177,13 @@ export class CreateServiceComponent implements OnInit {
   }
 
   countryList() {
-    this._createService.countryList().subscribe((data) => {
+    this.createCustomerService.countryList().subscribe((data) => {
       this.country = data['data'];
     });
   }
 
   serviceList() {
-    this._createService.serviceList().subscribe((data) => {
+    this.createCustomerService.serviceList().subscribe((data) => {
       this.service = data['data'];
     });
   }

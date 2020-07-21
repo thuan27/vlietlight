@@ -1,5 +1,5 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ServiceList } from './service-list.service';
+import { CustomerServiceList } from './customer-service-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -9,12 +9,12 @@ import { UserService } from '@fuse/directives/users/users.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'service-list',
-  templateUrl: './service-list.component.html',
-  styleUrls: ['./service-list.component.scss'],
-  providers: [UserService, ServiceList, ToastyService]
+  selector: 'customer-service-list',
+  templateUrl: './customer-service-list.component.html',
+  styleUrls: ['./customer-service-list.component.scss'],
+  providers: [UserService, CustomerServiceList, ToastyService]
 })
-export class ServiceListComponent implements OnInit {
+export class CustomerServiceListComponent implements OnInit {
   rows: any;
   loadingIndicator = true;
   reorderable = true;
@@ -37,7 +37,7 @@ export class ServiceListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private serviceList: ServiceList,
+    private customerServiceList: CustomerServiceList,
     private toastyService: ToastyService,
     private formBuilder: FormBuilder,
     private _user: UserService,
@@ -87,12 +87,12 @@ export class ServiceListComponent implements OnInit {
     this.searchForm.controls['status'].setValue('active');
   }
 
-  getService(event) {
+  getCustomerService(event) {
     let data = '?status=' + this.searchForm.controls['status'].value;
     if (event.target.value) {
       data = data + '&service_name=' + event.target.value;
     }
-    this.serviceList.getService(data).subscribe((data) => {
+    this.customerServiceList.getCustomerService(data).subscribe((data) => {
       this.serviceName = data['data'];
     });
   }
@@ -105,12 +105,12 @@ export class ServiceListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    this.countryList = this.serviceList.getList(params);
+    this.countryList = this.customerServiceList.getList(params);
 
     this.countryList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['service_name_temp'] = data['service_name'];
-        data['service_name'] = `<a href="apps/master-data/service/${data['service_id']}">${data['service_name']}</a>`;
+        data['scus_service_id_temp'] = data['scus_service_id'];
+        data['scus_service_id'] = `<a href="apps/master-data/service/${data['service_id']}">${data['cus_service_id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -147,7 +147,7 @@ export class ServiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.serviceList.delete(this.selected[0]['service_id']).subscribe((data) => {
+      this.customerServiceList.delete(this.selected[0]['service_id']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {
@@ -175,7 +175,7 @@ export class ServiceListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    let getReport = this.serviceList.getReport(params);
+    let getReport = this.customerServiceList.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

@@ -40,7 +40,7 @@
   <div class="p-24">
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="margin-left-10 custom-select">
+      <mat-form-field class="margin-left-10 custom-selection">
         <input placeholder="Service Name" formControlName="service_name" (keyup)="getService($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="autoServiceName">
         <mat-autocomplete autoActiveFirstOption #autoServiceName="matAutocomplete">
@@ -49,7 +49,7 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <mat-form-field class="custom-select margin-left-10">
+      <mat-form-field class="custom-selection margin-left-10">
         <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">

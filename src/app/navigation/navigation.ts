@@ -47,6 +47,12 @@ export const navigation = [
                         'url'  : '/apps/master-data/customers'
                     },
                     {
+                        'id'   : 'CustomerServiceListComponent',
+                        'title': 'Customers Service',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/customers-service'
+                    },
+                    {
                         'id'   : 'CountriesList',
                         'title': 'Countries',
                         'type' : 'item',
@@ -59,16 +65,16 @@ export const navigation = [
                         'url'  : '/apps/master-data/countries-zone'
                     },
                     {
-                      'id'   : 'ServiceList',
-                      'title': 'Service',
-                      'type' : 'item',
-                      'url'  : '/apps/master-data/service'
+                        'id'   : 'ServiceList',
+                        'title': 'Service',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/service'
                     },
                     {
-                      'id'   : 'PriceList',
-                      'title': 'Price',
-                      'type' : 'item',
-                      'url'  : '/apps/master-data/price'
+                        'id'   : 'PriceList',
+                        'title': 'Price',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/price'
                     }
                 ]
             },
