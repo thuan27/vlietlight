@@ -37,7 +37,7 @@ export class CreateCustomeromponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title = 'Create Country';
+    this.title = 'Create Customer';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
     this.routeSub = this.activeRoute.params.subscribe(params => {
@@ -49,7 +49,7 @@ export class CreateCustomeromponent implements OnInit {
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonType = 'Update';
-          this.title = 'Update Country';
+          this.title = 'Update Customer';
           this.titleGroup = 'Update';
         } else {
           this.idCountry = params['id'];

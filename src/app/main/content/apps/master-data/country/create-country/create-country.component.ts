@@ -99,8 +99,6 @@ export class CreateCountryComponent implements OnInit {
             /* Check orther permission if View allow */
             if(!this.hasViewUserPermission) {
                 this.router.navigateByUrl('pages/landing');
-            } else {
-              this.defaultPage();
             }
         },
         err => {

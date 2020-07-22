@@ -14,23 +14,19 @@ export class CreateCustomerService
     {
     }
 
-    createCountryList(param) {
-        return this.http.post(this.apiConfig.SERVICE_LIST + '/store', param, { headers: this._Func.AuthHeader() });
+    createCustomerServiceList(param) {
+        return this.http.post(this.apiConfig.CUSTOMER_SERVICE_LIST + '/store', param, { headers: this._Func.AuthHeader() });
     }
 
-    getCountryDetail(params) {
-        return this.http.get(this.apiConfig.SERVICE_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+    getCustomerServiceDetail(params) {
+        return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
     }
 
-    updateCountry(id, param) {
-        return this.http.put(this.apiConfig.SERVICE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
+    updateCustomerService(id, param) {
+        return this.http.put(this.apiConfig.CUSTOMER_SERVICE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
     }
 
-    countryList() {
-      return this.http.get(this.apiConfig.COUNTRY_LIST, { headers: this._Func.AuthHeader() });
-    }
-
-    serviceList() {
-      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+    getCustomerList() {
+      return this.http.get(this.apiConfig.CUSTOMER_LIST, { headers: this._Func.AuthHeader() });
     }
 }

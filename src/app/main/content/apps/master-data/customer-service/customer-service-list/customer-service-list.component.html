@@ -8,9 +8,9 @@
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-        <span class="secondary-text">Service List</span>
+        <span class="secondary-text">Customer Service List</span>
       </div>
-      <div class="h2 mt-16">Service List</div>
+      <div class="h2 mt-16">Customer Service List</div>
     </div>
 
     <div class="reference-button mat-white-bg align-right" *ngIf="hasCreateUserPermission || hasEditUserPermission || hasDeleteUserPermission">
@@ -39,15 +39,12 @@
   <div class="p-24">
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="margin-left-10 custom-selection">
-        <input placeholder="Service Name" formControlName="service_name" (keyup)="getService($event)" type="text"
-          aria-label="Number" matInput [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of serviceName" [value]="option.service_name">
-            {{ option.service_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+      <mat-form-field>
+          <input formControlName="cus_service_code" matInput placeholder="Customer Service Code">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="cus_service_name" matInput placeholder="Customer Service Name">
+        </mat-form-field>
       <mat-form-field class="margin-left-10 custom-selection">
         <mat-select formControlName="status" placeholder="Status">
           <mat-option *ngFor="let item of status" [value]="item.value">

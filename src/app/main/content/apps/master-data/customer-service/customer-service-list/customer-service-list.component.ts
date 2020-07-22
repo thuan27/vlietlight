@@ -19,7 +19,7 @@ export class CustomerServiceListComponent implements OnInit {
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  countryList;
+  dataList;
   total;
   current_page;
   selected: any[] = [];
@@ -55,7 +55,8 @@ export class CustomerServiceListComponent implements OnInit {
 
   private buildForm() {
     this.searchForm = this.formBuilder.group({
-      service_name: '',
+      cus_service_name: '',
+      cus_service_code: '',
       status: 'active',
     });
   }
@@ -64,10 +65,10 @@ export class CustomerServiceListComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
       data => {
-        this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
-        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
-        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
-        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewService');
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editCustomerService');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCustomerService');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCustomerService');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCustomerService');
         /* Check orther permission if View allow */
         if (!this.hasViewUserPermission) {
           this.router.navigateByUrl('pages/landing');
@@ -83,7 +84,8 @@ export class CustomerServiceListComponent implements OnInit {
   }
 
   reset() {
-    this.searchForm.controls['service_name'].setValue('');
+    this.searchForm.controls['cus_service_name'].setValue('');
+    this.searchForm.controls['cus_service_code'].setValue('');
     this.searchForm.controls['status'].setValue('active');
   }
 
@@ -99,18 +101,17 @@ export class CustomerServiceListComponent implements OnInit {
 
   getList(page = 1) {
     let params = '?page=' + page + '&status=' + this.searchForm.controls['status'].value;
-    if (this.searchForm.controls['service_name'].value != '') {
-      params = params + '&service_name=' + this.searchForm.controls['service_name'].value;
-    }
+    params = params + '&cus_service_name=' + this.searchForm.controls['cus_service_name'].value
+      + '&cus_service_code=' + this.searchForm.controls['cus_service_code'].value;
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    this.countryList = this.customerServiceList.getList(params);
+    this.dataList = this.customerServiceList.getList(params);
 
-    this.countryList.subscribe((dataList: any[]) => {
+    this.dataList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['scus_service_id_temp'] = data['scus_service_id'];
-        data['scus_service_id'] = `<a href="apps/master-data/service/${data['service_id']}">${data['cus_service_id']}</a>`;
+        data['cus_service_id_temp'] = data['cus_service_id'];
+        data['cus_service_id'] = `<a href="apps/master-data/customers-service/${data['cus_service_id']}">${data['cus_service_id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -128,7 +129,7 @@ export class CustomerServiceListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/master-data/service/create']);
+    this.router.navigate(['apps/master-data/customers-service/create']);
   }
 
   update() {
@@ -137,7 +138,7 @@ export class CustomerServiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/service/${this.selected[0]['service_id']}/update`);
+      this.router.navigateByUrl(`apps/master-data/customers-service/${this.selected[0]['cus_service_id']}/update`);
     }
   }
 
@@ -147,7 +148,7 @@ export class CustomerServiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.customerServiceList.delete(this.selected[0]['service_id']).subscribe((data) => {
+      this.customerServiceList.delete(this.selected[0]['cus_service_id']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {
@@ -166,12 +167,11 @@ export class CustomerServiceListComponent implements OnInit {
   }
 
   exportCsv() {
-    let fileName = 'Service';
+    let fileName = 'Customer-Service';
     let fileType = '.csv';
     let params = '?status=' + this.searchForm.controls['status'].value;
-    if (this.searchForm.controls['service_name'].value != '') {
-      params = params + '&service_name=' + this.searchForm.controls['service_name'].value;
-    }
+    params = params + '&cus_service_name=' + this.searchForm.controls['cus_service_name'].value
+      + '&cus_service_code=' + this.searchForm.controls['cus_service_code'].value;
     if (this.sortData !== '') {
       params += this.sortData;
     }

@@ -15,7 +15,7 @@ import { Functions } from '@fuse/core/function';
   selector: 'create-country-zone',
   templateUrl: './create-country-zone.component.html',
   styleUrls: ['./create-country-zone.component.scss'],
-  providers: [ValidationService, ToastyService]
+  providers: [ValidationService, ToastyService, UserService]
 })
 // tslint:disable-next-line:component-class-suffix
 export class CreateCountryZoneComponent implements OnInit {
@@ -58,6 +58,7 @@ export class CreateCountryZoneComponent implements OnInit {
     this.buttonType = 'Create';
     this.checkPermission();
     this.serviceList();
+    this.buildForm();
   }
 
   // Check permission for user using this function page

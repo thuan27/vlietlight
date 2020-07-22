@@ -19,21 +19,17 @@ import { Functions } from '@fuse/core/function';
 export class CreateCustomerServiceComponent implements OnInit {
 
   items: FormArray;
-  CountryForm: FormGroup;
-  idCountry;
-  countryDetail;
+  CustomerServiceForm: FormGroup;
+  idCustomerService;
+  customerServiceDetail;
   private routeSub: Subscription;
   disabledForm;
   title;
   buttonType;
   action;
   titleGroup;
-  country;
+  customer;
   service;
-  status = [
-    {value: 'Active'},
-    {value: 'Inactive'}
-  ];
   buttonCancel;
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
@@ -56,21 +52,19 @@ export class CreateCustomerServiceComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.title = 'Create Service';
+    this.title = 'Create Customer Service';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
-    this.buttonCancel = 'Cancel'
     this.checkPermission();
     this.buildForm();
-    this.countryList();
-    this.serviceList();
+    this.getCustomerList();
   }
 
   private buildForm() {
-    this.CountryForm = this.formBuilder.group({
-      service_name: ['', [Validators.required]],
-      service_name2: [''],
-      status: ['Active']
+    this.CustomerServiceForm = this.formBuilder.group({
+      cus_service_code: ['', [Validators.required]],
+      cus_service_name: ['', [Validators.required]],
+      customer_id: ['', [Validators.required]]
     });
   }
 
@@ -78,10 +72,10 @@ export class CreateCustomerServiceComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
       data => {
-        this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
-        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
-        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
-        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewService');
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editCustomerService');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCustomerService');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCustomerService');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCustomerService');
         /* Check orther permission if View allow */
         if (!this.hasViewUserPermission) {
           this.router.navigateByUrl('pages/landing');
@@ -100,48 +94,50 @@ export class CreateCustomerServiceComponent implements OnInit {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update') {
           this.action = 'update';
-          this.idCountry = params['id'];
+          this.idCustomerService = params['id'];
+          this.buildForm();
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonType = 'Update';
-          this.title = 'Update Service';
+          this.title = 'Update Customer Service';
           this.titleGroup = 'Update';
         } else {
-          this.idCountry = params['id'];
+          this.idCustomerService = params['id'];
           this.action = 'detail';
+          this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Service Detail';
+          this.title = 'Customer Service Detail';
           this.titleGroup = 'Detail';
         }
       }
       else {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.title = 'Create Service';
+        this.buildForm();
+        this.title = 'Create Customer Service';
         this.buttonType = 'Create';
         this.disabledForm = false;
-        this.buttonCancel = 'Back'
       }
     });
   }
 
   private detailForm(data) {
-    this.CountryForm = this.formBuilder.group({
-      service_name: [data['service_name'], [Validators.required]],
-      service_name2: [data['service_name2']],
-      status: [data['status']],
+    this.CustomerServiceForm = this.formBuilder.group({
+      cus_service_name: [data['cus_service_name'], [Validators.required]],
+      cus_service_code: [data['cus_service_code'], [Validators.required]],
+      customer_id: [data['customer_id'], [Validators.required]],
     });
   }
 
   onSubmit() {
-    if (this.CountryForm.valid) {
+    if (this.CustomerServiceForm.valid) {
       if (this.action === 'create') {
-        this.createCustomerService.createCountryList(this.CountryForm.value).subscribe((data) => {
+        this.createCustomerService.createCustomerServiceList(this.CustomerServiceForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/service']);
+              this.router.navigate(['apps/master-data/customers-service']);
             },
             700
           );
@@ -149,11 +145,11 @@ export class CreateCustomerServiceComponent implements OnInit {
           this.toastyService.error(err['error']['errors']['message']);
         });
       } else if (this.action === 'update') {
-        this.createCustomerService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+        this.createCustomerService.updateCustomerService(this.idCustomerService, this.CustomerServiceForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/service']);
+              this.router.navigate(['apps/master-data/customers-service']);
             },
             700
           );
@@ -166,9 +162,9 @@ export class CreateCustomerServiceComponent implements OnInit {
   }
 
   detail(id) {
-    this.createCustomerService.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['service'];
-      this.detailForm(data['service']);
+    this.createCustomerService.getCustomerServiceDetail(id).subscribe((data) => {
+      this.customerServiceDetail = data['cus_service'];
+      this.detailForm(data['cus_service']);
     });
   }
 
@@ -176,15 +172,9 @@ export class CreateCustomerServiceComponent implements OnInit {
     this._Valid.isNumber($event, int);
   }
 
-  countryList() {
-    this.createCustomerService.countryList().subscribe((data) => {
-      this.country = data['data'];
-    });
-  }
-
-  serviceList() {
-    this.createCustomerService.serviceList().subscribe((data) => {
-      this.service = data['data'];
+  getCustomerList() {
+    this.createCustomerService.getCustomerList().subscribe((data) => {
+      this.customer = data['data'];
     });
   }
 
