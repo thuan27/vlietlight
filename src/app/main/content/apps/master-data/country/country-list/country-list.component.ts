@@ -87,7 +87,7 @@ export class CountryListComponent implements OnInit {
     this.countryList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['country_id_temp'] = data['country_id'];
-        data['country_id'] = `<a href="apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
+        data['country_id'] = `<a href="#/apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];

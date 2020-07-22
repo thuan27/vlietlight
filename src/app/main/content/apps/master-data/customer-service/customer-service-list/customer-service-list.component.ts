@@ -111,7 +111,7 @@ export class CustomerServiceListComponent implements OnInit {
     this.dataList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['cus_service_id_temp'] = data['cus_service_id'];
-        data['cus_service_id'] = `<a href="apps/master-data/customers-service/${data['cus_service_id']}">${data['cus_service_id']}</a>`;
+        data['cus_service_id'] = `<a href="#/apps/master-data/customers-service/${data['cus_service_id']}">${data['cus_service_id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -138,7 +138,7 @@ export class CustomerServiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/customers-service/${this.selected[0]['cus_service_id']}/update`);
+      this.router.navigateByUrl(`apps/master-data/customers-service/${this.selected[0]['cus_service_id_temp']}/update`);
     }
   }
 
@@ -148,7 +148,7 @@ export class CustomerServiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.customerServiceList.delete(this.selected[0]['cus_service_id']).subscribe((data) => {
+      this.customerServiceList.delete(this.selected[0]['cus_service_id_temp']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {

@@ -73,7 +73,7 @@ export class OrderListComponent implements OnInit {
 
     this.orderList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['order_id_link'] = `<a href="apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
+        data['order_id_link'] = `<a href="#/apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];

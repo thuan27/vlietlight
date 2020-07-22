@@ -91,7 +91,7 @@ export class CustomerListComponent implements OnInit
           + '&phone=' + this.searchForm.controls['phone'].value;
         this.customerListService.getList(params).subscribe((data: any[]) => {
             data['data'].forEach((customer) => {
-                customer['customer_id_link'] = `<a href="apps/master-data/customers/${customer['customer_id']}">${customer['customer_id']}</a>`;
+                customer['customer_id_link'] = `<a href="#/apps/master-data/customers/${customer['customer_id']}">${customer['customer_id']}</a>`;
             });
             for (let i = 0; i < data['data'].length; i++) {
                 if (data['data'][i]['status'] === 10) {

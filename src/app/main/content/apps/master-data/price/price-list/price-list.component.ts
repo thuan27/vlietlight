@@ -130,7 +130,7 @@ export class PriceListComponent implements OnInit {
     this.countryList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['id_temp'] = data['id'];
-        data['id'] = `<a href="apps/master-data/price/${data['id']}">${data['id']}</a>`;
+        data['id'] = `<a href="#/apps/master-data/price/${data['id']}">${data['id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];

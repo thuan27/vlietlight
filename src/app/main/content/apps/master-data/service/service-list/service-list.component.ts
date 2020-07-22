@@ -110,7 +110,7 @@ export class ServiceListComponent implements OnInit {
     this.countryList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['service_name_temp'] = data['service_name'];
-        data['service_name'] = `<a href="apps/master-data/service/${data['service_id']}">${data['service_name']}</a>`;
+        data['service_name'] = `<a href="#/apps/master-data/service/${data['service_id']}">${data['service_name']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
