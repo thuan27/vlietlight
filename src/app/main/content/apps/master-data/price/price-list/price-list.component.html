@@ -39,8 +39,8 @@
   <!-- CONTENT -->
   <div class="p-24">
 
-    <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="custom-selection">
+    <form id="form-control" [formGroup]="searchForm" autocomplete="off" (submit)="getList()">
+      <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="service_id" placeholder="Service">
           <mat-option [value]="">
             Please select option
@@ -50,53 +50,60 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
+      <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="item_type_id" placeholder="Item Type">
           <mat-option *ngFor="let item of itemType" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10">
+      <mat-form-field class="mr-2">
         <input formControlName="weight" matInput placeholder="Weight">
       </mat-form-field>
-      <mat-form-field class="margin-left-10">
-        <input maxlength="2" minlength="2" formControlName="zone" matInput placeholder="Zone">
-      </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
-        <input formControlName="currency" matInput placeholder="Currency">
-      </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
+      <mat-form-field class="mr-2">
         <input formControlName="zone" matInput placeholder="Zone">
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
+      <!-- <mat-form-field class="mr-2 custom-selection">
+        <input formControlName="zone" matInput placeholder="Zone">
+      </mat-form-field> -->
+      <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="is_rate" placeholder="Rate">
           <mat-option *ngFor="let item of rate" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
+      <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="is_range" placeholder="Range">
           <mat-option *ngFor="let item of range" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
-        <mat-select formControlName="range_id" placeholder="Range">
+      <mat-form-field class="mr-2 custom-selection">
+        <mat-select formControlName="range_id" placeholder="Range ID">
           <mat-option *ngFor="let item of rangeID" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="margin-left-10">
+      <mat-form-field class="mr-2 custom-selection">
         <input formControlName="range_code" matInput placeholder="Range Code">
       </mat-form-field>
-
-      <button class="margin-left-20 margin-bottom-10" mat-raised-button color="accent"
-        (click)="getList()">Search</button>
-      <button class="margin-left-10 margin-bottom-10" mat-raised-button (click)="reset()">Reset</button>
+      <mat-form-field class="mr-2 custom-selection">
+        <input formControlName="min_range" matInput placeholder="Min">
+      </mat-form-field>
+      <mat-form-field class="mr-2 custom-selection">
+        <input formControlName="max_range" matInput placeholder="Max">
+      </mat-form-field>
+      <mat-form-field class="mr-2 custom-selection">
+        <input formControlName="value" matInput placeholder="Value">
+      </mat-form-field>
+      <mat-form-field class="mr-2 custom-selection">
+        <input formControlName="currency" matInput placeholder="Currency">
+      </mat-form-field>
+      <button class="mr-2 mb-4" mat-raised-button color="accent" type="submit">Search</button>
+      <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
     </form>
 
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"

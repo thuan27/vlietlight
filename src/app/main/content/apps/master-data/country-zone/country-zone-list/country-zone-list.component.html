@@ -40,7 +40,7 @@
   <div class="p-24">
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="margin-left-10 custom-selection">
+      <mat-form-field class="mr-2 custom-selection">
         <input placeholder="Service Name" formControlName="service_name" (keyup)="getService($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="autoServiceName">
         <mat-autocomplete autoActiveFirstOption #autoServiceName="matAutocomplete">
@@ -49,7 +49,7 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <mat-form-field class="custom-selection margin-left-10">
+      <mat-form-field class="custom-selection mr-2">
         <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -58,12 +58,12 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <mat-form-field class="margin-left-10">
+      <mat-form-field class="mr-2">
         <input formControlName="zone" matInput placeholder="Zone">
       </mat-form-field>
-      <button class="margin-left-20 margin-bottom-10" mat-raised-button color="accent"
+      <button class="mr-2 mb-4" mat-raised-button color="accent"
         (click)="getList()">Search</button>
-      <button class="margin-left-10 margin-bottom-10" mat-raised-button (click)="reset()">Reset</button>
+      <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
     </form>
 
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"

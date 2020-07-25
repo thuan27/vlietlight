@@ -39,7 +39,7 @@
   <div class="p-24">
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="margin-left-10 custom-selection">
+      <mat-form-field class="mr-2 custom-selection">
         <input placeholder="Service Name" formControlName="service_name" (keyup)="getService($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -48,7 +48,7 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
+      <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="status" placeholder="Status">
           <mat-option *ngFor="let item of status" [value]="item.value">
             {{ item.name }}
@@ -56,8 +56,8 @@
         </mat-select>
       </mat-form-field>
       <span>
-          <button class="margin-left-20 margin-bottom-10" mat-raised-button color="accent" (click)="getList()">Search</button>
-          <button class="margin-left-10 margin-bottom-10" mat-raised-button (click)="reset()">Reset</button>
+          <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+          <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
       </span>
 
     </form>

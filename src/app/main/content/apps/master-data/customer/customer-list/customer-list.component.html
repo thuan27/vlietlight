@@ -29,20 +29,20 @@
     <!-- CONTENT -->
     <div class="p-24">
         <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-            <mat-form-field>
+            <mat-form-field class="mr-2">
                 <input formControlName="login_name" matInput placeholder="Login Name">
             </mat-form-field>
-            <mat-form-field class="margin-left-10">
+            <mat-form-field class="mr-2">
                 <input formControlName="customer_name" matInput placeholder="Customer Name">
             </mat-form-field>
-            <mat-form-field class="margin-left-10">
+            <mat-form-field class="mr-2">
                 <input formControlName="email" matInput placeholder="Email">
             </mat-form-field>
-            <mat-form-field class="margin-left-10">
+            <mat-form-field class="mr-2">
                 <input formControlName="phone" matInput placeholder="Phone">
             </mat-form-field>
-            <button mat-raised-button color="accent" (click)="getList()">Search</button>
-            <button mat-raised-button (click)="reset()">Reset</button>
+            <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+            <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
         </form>
 
             <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"

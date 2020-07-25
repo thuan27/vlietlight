@@ -39,13 +39,13 @@
   <div class="p-24">
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field>
+      <mat-form-field class="mr-2">
           <input formControlName="cus_service_code" matInput placeholder="Customer Service Code">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="mr-2">
           <input formControlName="cus_service_name" matInput placeholder="Customer Service Name">
         </mat-form-field>
-      <mat-form-field class="margin-left-10 custom-selection">
+      <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="status" placeholder="Status">
           <mat-option *ngFor="let item of status" [value]="item.value">
             {{ item.name }}
@@ -53,8 +53,8 @@
         </mat-select>
       </mat-form-field>
       <span>
-          <button class="margin-left-20 margin-bottom-10" mat-raised-button color="accent" (click)="getList()">Search</button>
-          <button class="margin-left-10 margin-bottom-10" mat-raised-button (click)="reset()">Reset</button>
+          <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+          <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
       </span>
 
     </form>

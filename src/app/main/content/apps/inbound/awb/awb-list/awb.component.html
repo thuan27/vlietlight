@@ -28,17 +28,17 @@
     <div class="p-24">
 
         <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
-            <mat-form-field>
+            <mat-form-field class="mr-2">
                 <input formControlName="awb_code" matInput placeholder="Code">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="mr-2">
                 <mat-select formControlName="awb_sts" placeholder="Status">
                     <mat-option *ngFor="let item of status" [value]="item.value">
                         {{ item.value }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="mr-2">
                 <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date">
                 <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
                 <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
@@ -46,13 +46,13 @@
                     La date d'envoi n'est pas <strong>valide</strong>
                 </mat-error>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="mr-2">
                 <input matInput formControlName="updated_at" [matDatepicker]="dpUpdated" placeholder="Updated Date">
                 <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
                 <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
             </mat-form-field>
-            <button mat-raised-button color="accent" type="submit">Search</button>
-            <button mat-raised-button>Reset</button>
+            <button class="mr-2 mb-4" mat-raised-button color="accent" type="submit">Search</button>
+            <button class="mr-2 mb-4" mat-raised-button>Reset</button>
         </form>
 
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
