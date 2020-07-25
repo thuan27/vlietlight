@@ -19,7 +19,15 @@ export class AWBService
         return this.http.get(this.apiConfig.LIST_AWB + params, { headers: this._Func.AuthHeader() });
     }
 
+    cancelAWB() {
+      // return this.http.put(this.apiConfig.OPTION_AWB)
+    }
+
     getStatus() {
         return this.http.get(this.apiConfig.GET_STATUS, { headers: this._Func.AuthHeader()});
+    }
+
+    serviceList() {
+      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
     }
 }

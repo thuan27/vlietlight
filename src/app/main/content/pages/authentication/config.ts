@@ -20,6 +20,7 @@ export class APIConfig {
   public GET_STATUS = this.API_BASE + '/awbs/v1/awb-statuses';
   public GET_ORDER_STATUS = this.API_BASE + '/orders/v1/order-statuses';
   public LIST_AWB = this.API_BASE + '/awbs/v1/search';
+  public OPTION_AWB = this.API_BASE + '/awbs/v1/awb';
   public GET_COUNTRY = this.API_BASE + '/master-data/v1/country';
   public GET_USER = this.API_BASE + '/master-data/v1/users';
   public COUNTRY_LIST = this.API_BASE + '/master-data/v1/country';

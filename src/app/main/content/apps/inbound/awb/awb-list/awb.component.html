@@ -10,12 +10,12 @@
             </div>
             <div class="h2 mt-16">AWB List</div>
         </div>
-        <div class="reference-button mat-white-bg">
+        <div *ngIf="isOption" class="reference-button mat-white-bg">
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="create()">
+                <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
                     <mat-icon>add_circle_outline</mat-icon>
                     <span>Create</span>
                 </button>
@@ -27,16 +27,29 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
+        <form id="form-control" [formGroup]="searchForm" autocomplete="off">
             <mat-form-field class="mr-2">
                 <input formControlName="awb_code" matInput placeholder="Code">
             </mat-form-field>
-            <mat-form-field class="mr-2">
+            <mat-form-field class="mr-2 custom-selection">
                 <mat-select formControlName="awb_sts" placeholder="Status">
+                    <mat-option [value]="">
+                        Please select option
+                      </mat-option>
                     <mat-option *ngFor="let item of status" [value]="item.value">
                         {{ item.value }}
                     </mat-option>
                 </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mr-2 custom-selection">
+              <mat-select formControlName="service_id" placeholder="Service">
+                <mat-option [value]="">
+                  Please select option
+                </mat-option>
+                <mat-option *ngFor="let item of service" [value]="item.service_id">
+                  {{ item.service_name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <mat-form-field class="mr-2">
                 <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date">
@@ -51,15 +64,15 @@
                 <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
                 <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
             </mat-form-field>
-            <button class="mr-2 mb-4" mat-raised-button color="accent" type="submit">Search</button>
-            <button class="mr-2 mb-4" mat-raised-button>Reset</button>
+            <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+            <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
         </form>
 
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
         [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
         [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
-        [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
-        [limit]="15"  (sort)="onSort($event)" [sorts]="[{prop: 'company', dir: 'asc'}]">
+        [selected]="selected" [externalPaging]="true" [offset]="current_page"
+        [limit]="15" (sort)="onSort($event)" [externalSorting]="true" [scrollbarH]="true">
 
             <ngx-datatable-column [width]="80" [canAutoResize]="false" [sortable]="false">
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let- let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
@@ -67,25 +80,44 @@
                 </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column [width]="100" name="Code" prop="awb_code"></ngx-datatable-column>
+            <ngx-datatable-column [width]="130" name="Code" prop="awb_code"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="80" name="From Phone" prop="from_phone"></ngx-datatable-column>
+            <ngx-datatable-column [width]="130" name="Out AWB #" prop="out_awb_num"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="300" name="From Email" prop="from_email"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="300" name="From Address" prop="from_address"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Created Date" prop="created_at"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Updated Date" prop="updated_at"></ngx-datatable-column>
+            <ngx-datatable-column [width]="130" name="Account #" prop="account_number"></ngx-datatable-column>
 
             <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Sales" prop="sales_note"></ngx-datatable-column>
+
+            <ngx-datatable-column name="From Contact Name" prop="from_contact_name"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="120" name="From Phone" prop="from_phone"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="From Email" prop="from_email"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="From Address" prop="from_address"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="From Company Name" prop="from_company_name"></ngx-datatable-column>
+
+            <ngx-datatable-column name="To Contact Name" prop="to_contact_name"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="120" name="To Phone" prop="to_phone"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="To Email" prop="to_email"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="To Address" prop="to_address"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="200" name="To Company Name" prop="to_company_name"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="150" name="Created Date" prop="created_at"></ngx-datatable-column>
+
+            <ngx-datatable-column [width]="150" name="Updated Date" prop="updated_at"></ngx-datatable-column>
+
 
             <ngx-datatable-column name="Description" prop="description  "></ngx-datatable-column>
 
         </ngx-datatable>
-        <!-- <fuse-context-menu [element]="element" [content]="content" [isShow]="contextmenu" [x]="contextmenuX" [y]="contextmenuY">
-        </fuse-context-menu> -->
 
     </div>
 

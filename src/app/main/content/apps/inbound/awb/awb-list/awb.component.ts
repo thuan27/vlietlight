@@ -1,22 +1,20 @@
 import { Router } from '@angular/router';
 import { AWBService } from './awb.service';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { UserService } from '@fuse/directives/users/users.service';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'awb',
     templateUrl: './awb.component.html',
     styleUrls: ['./awb.component.scss'],
-    providers: [AWBService, ToastyService]
+    providers: [AWBService, ToastyService, UserService]
 })
 export class AWBComponent implements OnInit {
-    contextmenuX: any;
-    contextmenuY: any;
-    contextmenu = false;
     content;
     element;
     rows: any;
@@ -24,21 +22,25 @@ export class AWBComponent implements OnInit {
     reorderable = true;
     searchForm: FormGroup;
     total;
+    sortData = '';
     current_page;
+    service;
     selected: any[] = [];
     private listSelectedItem = [];
-
+    hasEditUserPermission = false;
+    hasCreateUserPermission = false;
+    hasDeleteUserPermission = false;
+    private hasViewUserPermission = false;
     status;
-    xMenuContext: number;
-    yMenuContext: number;
 
     constructor(
         private formBuilder: FormBuilder,
         private _AWBService: AWBService,
         private datePipe: DatePipe,
-        private func: Functions,
         private router: Router,
         private toastyService: ToastyService,
+        private _user: UserService,
+        private _Func: Functions,
         private toastyConfig: ToastyConfig
     ) {
         this.toastyConfig.position = 'top-right';
@@ -46,22 +48,54 @@ export class AWBComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.checkPermission();
         this.buildForm();
         this.getList();
         this.getStatus();
+        this.serviceList();
     }
+
+    // Check permission for user using this function page
+  private checkPermission() {
+    this._user.GetPermissionUser().subscribe(
+      data => {
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editAWB');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createAWB');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteAWB');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewAWB');
+        /* Check orther permission if View allow */
+        if (!this.hasViewUserPermission) {
+          this.router.navigateByUrl('pages/landing');
+        }
+        else {
+          this.getList();
+        }
+      },
+      err => {
+        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+      }
+    );
+  }
 
     private buildForm() {
         this.searchForm = this.formBuilder.group({
             awb_code: '',
-            awb_sts: 'New',
-            created_at: null,
-            updated_at: null
+            service_id: '',
+            awb_sts: '',
+            created_at: '',
+            updated_at: ''
         });
     }
 
     getList(page = 1) {
-        const params = `?limit=15` + `&page=` + page;
+        let params = `?limit=15` + `&page=` + page;
+        if (this.sortData !== '') {
+          params += this.sortData;
+        }
+        const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+        for (let i = 0; i < arrayItem.length; i++) {
+          params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+        }
         this._AWBService.getList(params).subscribe((data) => {
             this.rows = data['data'];
             this.total = data['meta']['pagination']['total'];
@@ -81,12 +115,6 @@ export class AWBComponent implements OnInit {
         this.getList(e['offset'] + 1);
     }
 
-    search() {
-        this.searchForm.value['created_at'] = this.datePipe.transform(this.searchForm.value['created_at'], 'MM/dd/yyyy');
-        this.searchForm.value['updated_at'] = this.datePipe.transform(this.searchForm.value['updated_at'], 'MM/dd/yyyy');
-        console.log(this.searchForm.value);
-    }
-
     onCheck(isSelected, row) {
         if (isSelected === false) {
             this.listSelectedItem.push(row.awb_id);
@@ -101,32 +129,29 @@ export class AWBComponent implements OnInit {
         this.router.navigate(['apps/inbound/awb/create']);
     }
 
-    onTableContextMenu(event) {
-    //     // console.log(event);
-    //     // console.log(event.event.target);
-    //     console.log(this.xMenuContext, this.yMenuContext);
-    //     this.element = event['event']['srcElement']['outerHTML'];
-    //     // this.content = event['event']['content'];
-    //     this.contextmenuX = event['event']['pageX'];
-    //     this.contextmenuY = event['event']['pageY'];
-    //     this.content = event.event.target;
-    //     // this.contextmenuX = event.event.target['offsetLeft'] + event.event.target['offsetWidth'];
-    //     // this.contextmenuY = event.event.target['offsetTop'] + event.event.target['offsetHeight'];
-    //     this.contextmenu = true;
-    //     event['event'].preventDefault();
-    //     event['event'].stopPropagation();
-    }
-
-    @HostListener('document:click', ['$event'])
-    clickedOutside($event) {
-      if ($event.target.className !== 'dropdown-item context-menu') {
-        this.contextmenu = false;
-      }
-    }
-
     onSelect(e) {}
 
     onSort(event){
-      console.log(event);
+      this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+      this.getList(this.current_page);
+    }
+
+    serviceList() {
+      this._AWBService.serviceList().subscribe((data) => {
+        this.service = data['data'];
+      });
+    }
+
+    reset() {
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        this.searchForm.controls[arrayItem[i]].setValue('');
+      }
+      this.sortData = '';
+      this.getList();
+    }
+
+    isOption() {
+      return (this.hasCreateUserPermission || this.hasEditUserPermission || this.hasDeleteUserPermission);
     }
 }
