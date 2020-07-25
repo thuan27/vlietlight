@@ -65,7 +65,7 @@
           </mat-form-field>
         </div>
       </div>
-      <button class="button-cancel" mat-raised-button (click)="cancel()">Cancel</button>
+      <button class="button-cancel" mat-raised-button (click)="cancel()">{{ buttonCancel }}</button>
       <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent"
         type="submit">{{ buttonType }}</button>
     </form>

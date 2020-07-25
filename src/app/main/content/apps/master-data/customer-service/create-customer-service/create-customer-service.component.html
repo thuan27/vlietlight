@@ -25,19 +25,7 @@
       </div>
       <div class="box-shadow-form margin-top-10">
         <div fxLayout="row">
-          <mat-form-field fxFlex="33">
-            <input [readonly]="disabledForm" formControlName="cus_service_code" matInput placeholder="Customer Service Code">
-            <mat-error *ngIf="CustomerServiceForm.controls.cus_service_code.hasError('required')">
-              Customer Service Code is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="33">
-            <input [readonly]="disabledForm" formControlName="cus_service_name" matInput placeholder="Customer Service Name">
-            <mat-error *ngIf="CustomerServiceForm.controls.cus_service_name.hasError('required')">
-              Customer Service Name is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="33" class="margin-left-10">
+          <mat-form-field fxFlex="33" class="mr-2">
             <mat-select [attr.disabled]="disabledForm" formControlName="customer_id" placeholder="Customer">
               <mat-option *ngFor="let item of customer" [value]="item.customer_id">
                 {{ item.customer_name }}
@@ -45,6 +33,18 @@
             </mat-select>
             <mat-error *ngIf="CustomerServiceForm.controls.customer_id.hasError('required')">
               Customer is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="33" class="mr-2">
+            <input [readonly]="disabledForm" formControlName="cus_service_code" matInput placeholder="Customer Service Code">
+            <mat-error *ngIf="CustomerServiceForm.controls.cus_service_code.hasError('required')">
+              Customer Service Code is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="33" class="mr-2">
+            <input [readonly]="disabledForm" formControlName="cus_service_name" matInput placeholder="Customer Service Name">
+            <mat-error *ngIf="CustomerServiceForm.controls.cus_service_name.hasError('required')">
+              Customer Service Name is required
             </mat-error>
           </mat-form-field>
         </div>

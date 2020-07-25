@@ -30,6 +30,7 @@ export class CreateCountryZoneComponent implements OnInit {
   buttonType;
   action;
   titleGroup;
+  buttonCancel;
   country;
   service;
   hasEditUserPermission = false;
@@ -56,6 +57,7 @@ export class CreateCountryZoneComponent implements OnInit {
     this.title = 'Create Country Zone';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
+    this.buttonCancel = 'Cancel'
     this.checkPermission();
     this.serviceList();
     this.buildForm();
@@ -102,6 +104,7 @@ export class CreateCountryZoneComponent implements OnInit {
           this.disabledForm = true;
           this.title = 'Country Zone Detail';
           this.titleGroup = 'Detail';
+          this.buttonCancel = 'Back';
         }
       }
       else {

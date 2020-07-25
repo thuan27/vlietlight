@@ -55,6 +55,7 @@ export class CreateCustomerServiceComponent implements OnInit {
     this.title = 'Create Customer Service';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
+    this.buttonCancel = 'Cancel';
     this.checkPermission();
     this.buildForm();
     this.getCustomerList();
@@ -109,6 +110,7 @@ export class CreateCustomerServiceComponent implements OnInit {
           this.disabledForm = true;
           this.title = 'Customer Service Detail';
           this.titleGroup = 'Detail';
+          this.buttonCancel = 'Back';
         }
       }
       else {
