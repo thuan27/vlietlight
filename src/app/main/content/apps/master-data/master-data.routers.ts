@@ -14,6 +14,8 @@ import { PriceListComponent } from './price/price-list/price-list.component';
 import { CreatePriceComponent } from './price/create-price/create-price.component';
 import { CustomerServiceListComponent } from './customer-service/customer-service-list/customer-service-list.component';
 import { CreateCustomerServiceComponent } from './customer-service/create-customer-service/create-customer-service.component';
+import { RangePriceListComponent } from './range-price/range-price-list/range-price-list.component';
+import { CreateRangePriceComponent } from './range-price/create-range-price/create-range-price.component';
 
 export const listRoutes: Routes = [
     {
@@ -122,25 +124,43 @@ export const listRoutes: Routes = [
       canActivate: [AuthGuard, AdminGuard]
   },
   {
-    path: 'customers-service',
-    component: CustomerServiceListComponent,
-    canActivate: [AuthGuard, AdminGuard]
-},
-{
-    path: 'customers-service/create',
-    component: CreateCustomerServiceComponent,
-    canActivate: [AuthGuard, AdminGuard]
-},
-{
-    path: 'customers-service/:id',
-    component: CreateCustomerServiceComponent,
-    canActivate: [AuthGuard, AdminGuard]
-},
-{
-    path: 'customers-service/:id/:update',
-    component: CreateCustomerServiceComponent,
-    canActivate: [AuthGuard, AdminGuard]
-},
+      path: 'customers-service',
+      component: CustomerServiceListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'customers-service/create',
+      component: CreateCustomerServiceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'customers-service/:id',
+      component: CreateCustomerServiceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'customers-service/:id/:update',
+      component: CreateCustomerServiceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'range-price',
+      component: RangePriceListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'range-price/create',
+      component: CreateRangePriceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'range-price/:id',
+      component: CreateRangePriceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'range-price/:id/:update',
+      component: CreateRangePriceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
 ];
-
-

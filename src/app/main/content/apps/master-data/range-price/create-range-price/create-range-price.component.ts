@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreateCountryService } from './create-country.service';
+import { CreateRangePriceService } from './create-range-price.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
@@ -10,17 +10,17 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'create-country',
-  templateUrl: './create-country.component.html',
-  styleUrls: ['./create-country.component.scss'],
+  selector: 'create-range-price',
+  templateUrl: './create-range-price.component.html',
+  styleUrls: ['./create-range-price.component.scss'],
   providers: [ValidationService, ToastyService, UserService]
 })
-export class CreateCountryComponent implements OnInit {
+export class CreateRangePriceComponent implements OnInit {
 
   items: FormArray;
-  CountryForm: FormGroup;
-  idCountry;
-  countryDetail;
+  RangePriceForm: FormGroup;
+  idRangePrice;
+  rangePriceDetail;
   private routeSub: Subscription;
   disabledForm;
   title;
@@ -28,13 +28,14 @@ export class CreateCountryComponent implements OnInit {
   buttonCancel;
   action;
   titleGroup;
+  service;
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
 
   constructor(
-    private _createCountryService: CreateCountryService,
+    private _createRangePriceService: CreateRangePriceService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -49,12 +50,13 @@ export class CreateCountryComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.title = 'Create Country';
+    this.title = 'Create Range Price';
     this.titleGroup = 'Registration';
     this.buttonSubmitType = 'Create';
     this.buttonCancel = 'Cancel'
     this.checkPermission();
     this.buildForm();
+    this.serviceList();
   }
 
   defaultPage() {
@@ -62,18 +64,18 @@ export class CreateCountryComponent implements OnInit {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update' && this.hasEditUserPermission) {
           this.action = 'update';
-          this.idCountry = params['id'];
+          this.idRangePrice = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonSubmitType = 'Update';
-          this.title = 'Update Country';
+          this.title = 'Update Range Price';
           this.titleGroup = 'Update';
         } else {
-          this.idCountry = params['id'];
+          this.idRangePrice = params['id'];
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Country Detail';
+          this.title = 'Range Price Detail';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }
@@ -81,7 +83,7 @@ export class CreateCountryComponent implements OnInit {
       else if (this.hasCreateUserPermission) {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.title = 'Create Country';
+        this.title = 'Create Range Price';
         this.buttonSubmitType = 'Create';
         this.disabledForm = false;
       }
@@ -92,10 +94,10 @@ export class CreateCountryComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
         data => {
-            this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountry');
-            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountry');
-            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountry');
-            this.hasViewUserPermission = this._user.RequestPermission(data,'viewCountry');
+            this.hasEditUserPermission = this._user.RequestPermission(data, 'editRangePrice');
+            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createRangePrice');
+            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteRangePrice');
+            this.hasViewUserPermission = this._user.RequestPermission(data,'viewRangePrice');
             /* Check orther permission if View allow */
             if(!this.hasViewUserPermission) {
                 this.router.navigateByUrl('pages/landing');
@@ -110,23 +112,23 @@ export class CreateCountryComponent implements OnInit {
   }
 
   private buildForm() {
-    this.CountryForm = this.formBuilder.group({
-      code: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+    this.RangePriceForm = this.formBuilder.group({
+      service_id: [1, [Validators.required]],
+      range_code: ['', [Validators.required]]
     });
   }
 
   private detailForm(data) {
-    this.CountryForm = this.formBuilder.group({
-      code: [data['country_code'], [Validators.required]],
-      name: [data['country_name'], [Validators.required]]
+    this.RangePriceForm = this.formBuilder.group({
+      service_id: [data['service_id'], [Validators.required]],
+      range_code: [data['range_code'], [Validators.required]]
     });
   }
 
   onSubmit() {
-    if (this.CountryForm.valid) {
+    if (this.RangePriceForm.valid) {
       if (this.action === 'create') {
-        this._createCountryService.createCountry(this.CountryForm.value).subscribe((data) => {
+        this._createRangePriceService.createRangePrice(this.RangePriceForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -138,7 +140,7 @@ export class CreateCountryComponent implements OnInit {
           };
         });
       } else if (this.action === 'update') {
-        this._createCountryService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+        this._createRangePriceService.updateRangePrice(this.idRangePrice, this.RangePriceForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -155,9 +157,9 @@ export class CreateCountryComponent implements OnInit {
   }
 
   detail(id) {
-    this._createCountryService.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['country'];
-      this.detailForm(data['country']);
+    this._createRangePriceService.getRangePriceDetail(id).subscribe((data) => {
+      this.rangePriceDetail = data['range_price'];
+      this.detailForm(data['range_price']);
     });
   }
 
@@ -167,5 +169,11 @@ export class CreateCountryComponent implements OnInit {
 
   cancel() {
     this.location.back();
+  }
+
+  serviceList() {
+    this._createRangePriceService.serviceList().subscribe((data) => {
+      this.service = data['data'];
+    });
   }
 }

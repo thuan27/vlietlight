@@ -1,3 +1,4 @@
+import { RangePriceListService } from './range-price/range-price-list/range-price-list.service';
 import { CreateCountryZoneComponent } from './country-zone/create-country-zone/create-country-zone.component';
 import { CreateCountryService } from './country/create-country/create-country.service';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
@@ -34,6 +35,9 @@ import { PriceListService } from './price/price-list/price-list.service';
 import { CreatePriceService } from './price/create-price/create-price.service';
 import { CreateCustomerServiceComponent } from './customer-service/create-customer-service/create-customer-service.component';
 import { CustomerServiceListComponent } from './customer-service/customer-service-list/customer-service-list.component';
+import { RangePriceListComponent } from './range-price/range-price-list/range-price-list.component';
+import { CreateRangePriceComponent } from './range-price/create-range-price/create-range-price.component';
+import { CreateRangePriceService } from './range-price/create-range-price/create-range-price.service';
 
 @NgModule({
     declarations: [
@@ -50,7 +54,9 @@ import { CustomerServiceListComponent } from './customer-service/customer-servic
         CreatePriceComponent,
         PriceListComponent,
         CustomerServiceListComponent,
-        CreateCustomerServiceComponent
+        CreateCustomerServiceComponent,
+        RangePriceListComponent,
+        CreateRangePriceComponent
     ],
     imports: [
         CommonModule,
@@ -83,7 +89,9 @@ import { CustomerServiceListComponent } from './customer-service/customer-servic
         ServiceList,
         CreateService,
         CreatePriceService,
-        PriceListService
+        PriceListService,
+        RangePriceListService,
+        CreateRangePriceService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
