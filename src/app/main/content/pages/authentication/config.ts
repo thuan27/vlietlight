@@ -31,6 +31,8 @@ export class APIConfig {
   public COUNTRY_ZONE_LIST = this.API_BASE + '/master-data/v1/country-zone';
   public PRICE_LIST = this.API_BASE + '/master-data/v1/price';
   public RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/range-price';
+  public ROLES = this.API_BASE + '/master-service/v1/roles';
+  public ROLES_PERMISSION = this.API_BASE + '/master-service/v1/permissions/groups';
   public RESET_PASS = this.API_MASTER + '/reset-password';
   public FORGOT_PASS = this.API_MASTER + '/forgot-password';
   public RESET_PASS_TOKEN = this.API_MASTER + '/check-reset-password-token';

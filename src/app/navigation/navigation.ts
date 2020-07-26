@@ -107,7 +107,7 @@ export const navigation = [
                     // }
                 ]
             },
-            {
+          {
               'id'       : 'outbound',
               'title'    : 'Outbound',
               'translate': 'NAV.OUTBOUND',
@@ -122,7 +122,7 @@ export const navigation = [
                       'exactMatch': true
                   },
               ]
-          },
+            },
             {
                 'id'       : 'utility',
                 'title'    : 'Utility',
@@ -145,6 +145,22 @@ export const navigation = [
                         'exactMatch': true
                     }
                 ]
+            },
+            {
+              'id'       : 'administration',
+              'title'    : 'Administration',
+              'translate': 'NAV.ADMINISTRATION',
+              'type'     : 'collapse',
+              'icon'     : 'person_outline',
+              'children' : [
+                  {
+                      'id'   : 'roles',
+                      'title': 'Roles',
+                      'type' : 'item',
+                      'url'  : '/apps/administration/roles',
+                      'exactMatch': true
+                  },
+              ]
             },
             {
                 'id'       : 'calendar',

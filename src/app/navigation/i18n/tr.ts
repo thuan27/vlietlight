@@ -23,7 +23,8 @@ export const locale = {
             'MASTERDATA'  : 'Master fffdifniniediedneidnei',
             'INBOUND'     : 'Inbound',
             'UTILITY'     : 'Utility',
-            'OUTBOUND'    : 'Outbound'
+            'OUTBOUND'    : 'Outbound',
+            'ADMINISTRATION': 'Administration'
         }
     }
 };

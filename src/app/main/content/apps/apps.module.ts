@@ -71,6 +71,10 @@ const routes = [
         path        : 'utility',
         loadChildren: './utility/utility.module#FuseUtilityModule'
     },
+    {
+        path        : 'administration',
+        loadChildren: './administration/administation.module#FuseAdministationModule'
+    },
 ];
 
 @NgModule({
