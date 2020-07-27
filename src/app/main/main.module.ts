@@ -17,11 +17,13 @@ import { ToastyModule } from '@fuse/directives/ng2-toasty';
 import { Functions } from '@fuse/core/function';
 import { DatePipe } from '@angular/common';
 import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-form.component';
+import { FuseSubmitRolesComponent } from '@fuse/components/submit-roles/submit-roles.component';
 
 @NgModule({
     declarations: [
         FuseMainComponent,
-        FuseLoginFormDialogComponent
+        FuseLoginFormDialogComponent,
+        FuseSubmitRolesComponent
     ],
     imports     : [
         RouterModule,
@@ -52,7 +54,7 @@ import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-
         DatePipe,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    entryComponents: [FuseLoginFormDialogComponent]
+    entryComponents: [FuseLoginFormDialogComponent, FuseSubmitRolesComponent]
 })
 export class FuseMainModule
 {

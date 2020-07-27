@@ -1,0 +1,39 @@
+<div class="title">ADD ROLE</div>
+
+<div class="page-layout simple fullwidth">
+  <form class="form" [formGroup]="form" novalidate (ngSubmit)="onSubmit(form.value)">
+      <div fxLayout="row">
+    <mat-form-field fxFlex="50">
+        <input class="input" matInput placeholder="Role Code" formControlName="code" autocomplete="off">
+      <div class="text-error" *ngIf="form.controls.code.touched && form.controls.code.hasError('required')">
+        Role Code is required.
+      </div>
+      <div class="text-error" *ngIf="form.controls.code.touched && form.controls.code.hasError('invalidCodeStr')">
+        Role Code should only contain alphanumeric and no space.
+      </div>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="50" class="ml-5">
+        <input class="input" matInput placeholder="Role Name" formControlName="name"
+        autocomplete="off">
+      <div class="text-error" *ngIf="form.controls.name.touched && form.controls.name.hasError('required')">
+          Role Name is required
+      </div>
+      <div class="text-error" *ngIf="form.controls.name.touched && form.controls.name.hasError('invalidNameStr')">
+        Role Name should only contain alphanumeric, space, hyphen and underscore.
+      </div>
+    </mat-form-field>
+
+      </div>
+    <div class="margin-top-10">
+        <input class="input" matInput placeholder="Description" formControlName="description"
+          autocomplete="off">
+      </div>
+    <div>
+      <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN">
+        LOGIN
+      </button>
+    </div>
+
+  </form>
+</div>
