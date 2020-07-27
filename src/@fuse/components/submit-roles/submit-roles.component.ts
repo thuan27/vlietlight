@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { environment } from 'environments/environment';
@@ -6,34 +6,35 @@ import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 import { HttpClient } from '@angular/common/http';
 import { ToastyConfig, ToastyService } from '../../directives/ng2-toasty';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ShareService } from '@fuse/services/share.service';
+import { RolesService } from 'app/main/content/apps/administration/roles/roles.service';
 
 
 @Component({
     selector     : 'fuse-submit-roles-dialog',
     templateUrl  : './submit-roles.component.html',
     styleUrls    : ['./submit-roles.component.scss'],
-    providers: [APIConfig, ToastyService]
+    providers: [APIConfig, ToastyService, ShareService]
 })
 
 export class FuseSubmitRolesComponent
 {
-    private AuthHeaderNoTK = this._Func.AuthHeaderNoTK();
     form: FormGroup;
-    private loginURL: string;
-    dialogRef: any;
-    submitted = false;
+    allGroupPermission;
 
     constructor(
         private formBuilder: FormBuilder,
         public dialog: MatDialog,
         private _Func: Functions,
         private api: APIConfig,
-        private http: HttpClient,
         private toastyService: ToastyService,
+        private rolesService: RolesService,
+        public dialogRef: MatDialogRef<FuseSubmitRolesComponent>,
+        @Inject(MAT_DIALOG_DATA) private data: any
     )
     {
-      this.loginURL = this.api.LOGIN;
+      this.allGroupPermission = data.allGroupPermission;
       this.buildFrom();
     }
 
@@ -45,42 +46,8 @@ export class FuseSubmitRolesComponent
     });
   }
 
-  onSubmit(data) {
-    // if (this.form.valid){
-    //   this.form.value['permissions'] = this.getGroupPermission('Dashboard')['permissions'];
-
-    //   const creds = 'username=' + data['username'] + '&password=' + encodeURIComponent(data['password']);
-    //   this.http.post(this.loginURL, creds, {
-    //       headers: this.AuthHeaderNoTK
-    //     })
-    //     .subscribe(
-    //         (res) => {
-    //             if (res['code'] === 405) {
-    //                 this.toastyService.warning('No Token Found.');
-    //             } else {
-    //                 if (res['data'].token) {
-    //                     localStorage.setItem(environment.username, this.loginForm.value['username']);
-    //                     localStorage.setItem(environment.password, this.loginForm.value['password']);
-    //                     localStorage.setItem(environment.token, res['data'].token);
-    //                     this.dialog.closeAll();
-    //                 } else {
-    //                     this.toastyService.error('No Token Found.');
-    //                 }
-    //             }
-    //         },
-    //         (err) => {
-    //             this.toastyService.warning(err.error.message);
-    //         }
-    //     );
-    // }
-  }
-
-  private getGroupPermission(groupName:string = '') {
-    // for (const groupPermission of this.allGroupPermission) {
-    //     if (groupPermission['group'] === groupName) {
-    //         return groupPermission;
-    //     }
-    // }
+  onSubmit() {
+    this.dialogRef.close(['save',this.form.value])
   }
 
   invalidNameStr(control) {

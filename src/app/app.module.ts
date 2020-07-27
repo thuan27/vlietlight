@@ -25,6 +25,7 @@ import { TokenInterceptor } from '@fuse/interceptor/token.interceptor';
 import { AuthService } from '@fuse/services/auth.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {APP_BASE_HREF} from '@angular/common';
+import { ShareService } from '@fuse/services/share.service';
 
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
@@ -100,6 +101,7 @@ const appRoutes: Routes = [
         AppComponent
     ],
     providers: [
+      ShareService,
       AuthGuard,
       AdminGuard,
       AuthService,

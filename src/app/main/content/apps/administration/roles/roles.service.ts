@@ -29,4 +29,8 @@ export class RolesService
     updateRole(roleName:string = '', stringData:string = '') {
       return this.http.put(`${this.apiConfig.ROLES}/${roleName}`, stringData, {headers: this._Func.AuthHeader()});
     }
+
+    addRole(stringData:string = '') {
+      return this.http.post(`${this.apiConfig.ROLES}`, stringData, {headers: this._Func.AuthHeader()});
+  }
 }

@@ -30,8 +30,8 @@
           autocomplete="off">
       </div>
     <div>
-      <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN">
-        LOGIN
+      <button [disabled]="form.invalid" (click)="onSubmit()" mat-raised-button color="accent" class="submit-button" aria-label="Submit">
+        SUBMIT
       </button>
     </div>
 

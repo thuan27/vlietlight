@@ -198,14 +198,6 @@ export class RolesComponent implements OnInit {
     }
   }
 
-  private getGroupPermission(groupName:string = '') {
-    for (const groupPermission of this.allGroupPermission) {
-        if (groupPermission['group'] === groupName) {
-            return groupPermission;
-        }
-    }
-  }
-
   update() {
     // Prepare updated data for role
     let updatedRole = {code: this.activeRole['code'], name: this.activeRole['name'], update_name: this.activeRole['name'], description: this.activeRole['description']};
@@ -230,21 +222,27 @@ export class RolesComponent implements OnInit {
     );
 }
 
-resetRoleForm() {
+addRole() {
   this.dialogRef = this.dialog.open(FuseSubmitRolesComponent, {
-    panelClass: 'contact-form-dialog',
     data      : {
-        action: 'new'
+      allGroupPermission: this.allGroupPermission
     }
 });
-  // this.popupMessages = null;
-  // this.showForm=false;
-  // this.submitted = false;
-
-  setTimeout(()=>{
-      // this.showForm=true;
-      // this.formBuilder();
-  })
+this.dialogRef.afterClosed()
+.subscribe(response => {
+  if (!response) { return }
+  this.rolesService.addRole(JSON.stringify(response[1])).subscribe(
+    data => {
+        this.toastyService.success('Created successfully.');
+        this.activeRole = response[1];
+        this.getRoles();
+        this.getPermissionsByRoleName(this.activeRole['name']);
+    },
+    err => {
+      this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+    }
+);
+});
 }
 
 }
