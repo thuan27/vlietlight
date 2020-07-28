@@ -1,7 +1,7 @@
 <div class="title">ADD ROLE</div>
 
 <div class="page-layout simple fullwidth">
-  <form class="form" [formGroup]="form" novalidate (ngSubmit)="onSubmit(form.value)">
+  <form class="form" [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
       <div fxLayout="row">
     <mat-form-field fxFlex="50">
         <input class="input" matInput placeholder="Role Code" formControlName="code" autocomplete="off">

@@ -38,7 +38,6 @@ export class RolesComponent implements OnInit {
   ngOnInit() {
     this.getRoles();
     this.getAllPermission();
-    this.getAllPermission();
   }
 
   private getRoles() {
@@ -48,7 +47,7 @@ export class RolesComponent implements OnInit {
     })
   }
 
-  updateActiveRole(role:any) {
+  updateActiveRole(role: any) {
     this.activeRole['is_active'] = false;
     role['is_active'] = true;
     this.activeRole = role;
@@ -64,7 +63,7 @@ export class RolesComponent implements OnInit {
     this.rolesService.getPermissionsByRoleName(roleName).subscribe(
       data => {
         this.upgradeGroupsPermission();
-        this.processAllGroupPermission(data['group_permissions']);
+        this.processAllGroupPermission(data['data']['group_permissions']);
         this.setIsCheckedAll();
       },
       err => {
@@ -187,62 +186,62 @@ export class RolesComponent implements OnInit {
     });
   }
 
-  private setActiveRole(roleName:string = '') {
+  private setActiveRole(roleName: string = '') {
     for (let role of this.roleList) {
-        if (role['name'] === roleName) {
-            this.activeRole['is_active'] = false;
-            role['is_active'] = true;
-            this.activeRole = role;
-            return;
-        }
+      if (role['name'] === roleName) {
+        this.activeRole['is_active'] = false;
+        role['is_active'] = true;
+        this.activeRole = role;
+        return;
+      }
     }
   }
 
   update() {
     // Prepare updated data for role
-    let updatedRole = {code: this.activeRole['code'], name: this.activeRole['name'], update_name: this.activeRole['name'], description: this.activeRole['description']};
+    let updatedRole = { code: this.activeRole['code'], name: this.activeRole['name'], update_name: this.activeRole['name'], description: this.activeRole['description'] };
     let permissions = [];
 
     for (const groupPermission of this.allGroupPermission) {
-        for (const exPermissions of groupPermission['extended_permissions']) {
-            if (exPermissions['checked']) {
-                permissions.push(exPermissions['name']);
-            }
+      for (const exPermissions of groupPermission['extended_permissions']) {
+        if (exPermissions['checked']) {
+          permissions.push(exPermissions['name']);
         }
+      }
     }
     updatedRole['permissions'] = permissions;
 
     this.rolesService.updateRole(updatedRole['name'], JSON.stringify(updatedRole)).subscribe(
-        data => {
-            this.toastyService.success('Updated successfully.');
-        },
-        err => {
-            this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
-        }
+      data => {
+        this.toastyService.success('Updated successfully.');
+      },
+      err => {
+        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+      }
     );
-}
+  }
 
-addRole() {
-  this.dialogRef = this.dialog.open(FuseSubmitRolesComponent, {
-    data      : {
-      allGroupPermission: this.allGroupPermission
-    }
-});
-this.dialogRef.afterClosed()
-.subscribe(response => {
-  if (!response) { return }
-  this.rolesService.addRole(JSON.stringify(response[1])).subscribe(
-    data => {
-        this.toastyService.success('Created successfully.');
-        this.activeRole = response[1];
-        this.getRoles();
-        this.getPermissionsByRoleName(this.activeRole['name']);
-    },
-    err => {
-      this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
-    }
-);
-});
-}
+  addRole() {
+    this.dialogRef = this.dialog.open(FuseSubmitRolesComponent, {
+      data: {
+        allGroupPermission: this.allGroupPermission
+      }
+    });
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) { return }
+        this.rolesService.addRole(JSON.stringify(response[1])).subscribe(
+          data => {
+            this.toastyService.success('Created successfully.');
+            this.activeRole = response[1];
+            this.getRoles();
+            this.getPermissionsByRoleName(this.activeRole['name']);
+          },
+          err => {
+            this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+          }
+        );
+      });
+  }
 
 }
