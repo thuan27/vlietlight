@@ -57,7 +57,12 @@ export class FuseLoginComponent implements OnInit {
         this.loginURL = this.api.LOGIN;
 
         const token = localStorage.getItem(environment.token);
+
         if (!this.jwtHelper.isTokenExpired(token)) {
+          // this.http.get(this.api.API_User_Token, { headers: this._Func.AuthHeader() })
+          // .subscribe((response) => {
+          //   console.log(response)
+          // })
             this.router.navigate(['apps/dashboards/analytics']);
         }
     }

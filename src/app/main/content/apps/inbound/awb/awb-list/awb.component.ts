@@ -30,6 +30,11 @@ export class AWBComponent implements OnInit {
     hasEditUserPermission = false;
     hasCreateUserPermission = false;
     hasDeleteUserPermission = false;
+    createWavePick = false;
+    hasCancelUserPermission = false;
+    pendingAWB = false;
+    completeAWB = false;
+    removeAWB = false;
     private hasViewUserPermission = false;
     status;
 
@@ -63,6 +68,13 @@ export class AWBComponent implements OnInit {
         this.hasCreateUserPermission = this._user.RequestPermission(data, 'createAWB');
         this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteAWB');
         this.hasViewUserPermission = this._user.RequestPermission(data, 'viewAWB');
+
+        this.createWavePick = this._user.RequestPermission(data, 'createWavePick');
+        this.hasCancelUserPermission = this._user.RequestPermission(data, 'cancelAWB');
+        this.pendingAWB = this._user.RequestPermission(data, 'pendingAWB');
+        this.completeAWB = this._user.RequestPermission(data, 'completeAWB');
+        this.removeAWB = this._user.RequestPermission(data, 'removeAWB');
+
         /* Check orther permission if View allow */
         if (!this.hasViewUserPermission) {
           this.router.navigateByUrl('pages/landing');

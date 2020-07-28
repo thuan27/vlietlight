@@ -75,6 +75,10 @@ const routes = [
         path        : 'administration',
         loadChildren: './administration/administation.module#FuseAdministationModule'
     },
+    {
+        path        : 'import',
+        loadChildren: './import/import.module#FuseImportModule'
+    },
 ];
 
 @NgModule({

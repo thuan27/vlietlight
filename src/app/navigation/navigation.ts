@@ -163,6 +163,22 @@ export const navigation = [
               ]
             },
             {
+              'id'       : 'import',
+              'title'    : 'Import',
+              'translate': 'NAV.IMPORT',
+              'type'     : 'collapse',
+              'icon'     : 'import_export',
+              'children' : [
+                  {
+                      'id'   : 'service',
+                      'title': 'Import Service',
+                      'type' : 'item',
+                      'url'  : '/apps/import/service',
+                      'exactMatch': true
+                  },
+              ]
+            },
+            {
                 'id'       : 'calendar',
                 'title'    : 'Calendar',
                 'translate': 'NAV.CALENDAR',

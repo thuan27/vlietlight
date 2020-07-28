@@ -42,6 +42,7 @@ export class FuseToolbarComponent
     {
         if (!this.jwtHelper.isTokenExpired(this.getToken())) {
             this.profile = this.jwtHelper.decodeToken(localStorage.getItem(environment.token));
+            console.log(this.profile)
         }
         else {
             this.profile['fullname'] = '';
