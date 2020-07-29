@@ -20,14 +20,14 @@ export class AWBService
     }
 
     cancelAWB() {
-      // return this.http.put(this.apiConfig.OPTION_AWB)
+      // return this.http.put(this.apiConfig.OPTION_AWB + '/' + id + '/' + 'cancel-awb')
     }
 
     getStatus() {
         return this.http.get(this.apiConfig.GET_STATUS, { headers: this._Func.AuthHeader()});
     }
 
-    serviceList() {
-      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+    getService(data) {
+      return this.http.get(this.apiConfig.SERVICE_LIST + data, { headers: this._Func.AuthHeader() });
     }
 }

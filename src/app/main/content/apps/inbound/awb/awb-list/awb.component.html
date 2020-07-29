@@ -60,6 +60,12 @@
       <mat-form-field class="mr-2">
         <input formControlName="awb_code" matInput placeholder="Code">
       </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input formControlName="out_awb_num" matInput placeholder="Out AWB #">
+      </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input formControlName="account_number" matInput placeholder="Account #">
+      </mat-form-field>
       <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="awb_sts" placeholder="Status">
           <mat-option [value]="">
@@ -70,7 +76,38 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input formControlName="user_id" matInput placeholder="Sales">
+      </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input matInput formControlName="ship_date" [matDatepicker]="dpCreated" placeholder="Shipe Date">
+        <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
+        <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
+      </mat-form-field>
       <mat-form-field class="mr-2 custom-selection">
+        <input placeholder="Service" formControlName="service_name" (keyup)="getService($event)" type="text"
+          aria-label="Number" matInput [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of serviceName" [value]="option.service_name">
+            {{ option.service_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <!-- <mat-form-field class="mr-2">
+        <input formControlName="sales_price" matInput placeholder="Sale Prices ($)">
+      </mat-form-field> -->
+      <mat-form-field class="mr-2">
+        <input formControlName="pre_alert" matInput placeholder="Pre Alert">
+      </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input formControlName="pick_up_address" matInput placeholder="Pick Up">
+      </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input formControlName="cs_id" matInput placeholder="Assigned CS">
+      </mat-form-field>
+
+
+      <!-- <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="service_id" placeholder="Service">
           <mat-option [value]="">
             Please select option
@@ -79,8 +116,8 @@
             {{ item.service_name }}
           </mat-option>
         </mat-select>
-      </mat-form-field>
-      <mat-form-field class="mr-2">
+      </mat-form-field> -->
+      <!-- <mat-form-field class="mr-2">
         <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date">
         <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
         <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
@@ -92,7 +129,7 @@
         <input matInput formControlName="updated_at" [matDatepicker]="dpUpdated" placeholder="Updated Date">
         <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
         <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
-      </mat-form-field>
+      </mat-form-field> -->
       <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
       <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
     </form>
@@ -118,7 +155,7 @@
 
       <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
 
-      <ngx-datatable-column name="Sales" prop="sales_note"></ngx-datatable-column>
+      <ngx-datatable-column name="Sales" prop="user_id"></ngx-datatable-column>
 
       <ngx-datatable-column name="From Contact Name" prop="from_contact_name"></ngx-datatable-column>
 
@@ -128,17 +165,17 @@
 
       <ngx-datatable-column [width]="200" name="Service ID" prop="service_id"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Net Weight" prop="weight"></ngx-datatable-column>
+      <ngx-datatable-column [width]="200" name="Net Weight" prop="ttl_weight"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Dim Weight" prop="weight"></ngx-datatable-column>
+      <ngx-datatable-column [width]="200" name="Dim Weight" prop="ttl_volume"></ngx-datatable-column>
 
       <ngx-datatable-column [width]="200" name="Charge Weight (Kg)" prop="weight"></ngx-datatable-column>
 
       <ngx-datatable-column [width]="200" name="Freight ($)" prop="freight"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Sales Prices ($)" prop="sales_price"></ngx-datatable-column>
+      <!-- <ngx-datatable-column [width]="200" name="Sales Prices ($)" prop="sales_price"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Pre Alert" prop="pre_alert"></ngx-datatable-column>
+      <ngx-datatable-column [width]="200" name="Pre Alert" prop="pre_alert"></ngx-datatable-column> -->
 
       <ngx-datatable-column [width]="200" name="Pick Up" prop="pick_up_address"></ngx-datatable-column>
 

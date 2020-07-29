@@ -37,6 +37,7 @@ export class AWBComponent implements OnInit {
     removeAWB = false;
     private hasViewUserPermission = false;
     status;
+    serviceName;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -57,7 +58,6 @@ export class AWBComponent implements OnInit {
         this.buildForm();
         this.getList();
         this.getStatus();
-        this.serviceList();
     }
 
     // Check permission for user using this function page
@@ -92,10 +92,20 @@ export class AWBComponent implements OnInit {
     private buildForm() {
         this.searchForm = this.formBuilder.group({
             awb_code: '',
+            out_awb_num: '',
+            account_number: '',
             service_id: '',
+            user_id: '',
             awb_sts: '',
-            created_at: '',
-            updated_at: ''
+            ship_date: '',
+            service_name: '',
+            // sales_price: '',
+            pre_alert: '',
+            pick_up_address: '',
+            cs_id: '',
+
+            // created_at: '',
+            // updated_at: ''
         });
     }
 
@@ -148,9 +158,13 @@ export class AWBComponent implements OnInit {
       this.getList(this.current_page);
     }
 
-    serviceList() {
-      this._AWBService.serviceList().subscribe((data) => {
-        this.service = data['data'];
+    getService(event) {
+      let data = '';
+      if (event.target.value) {
+        data = data + '?service_name=' + event.target.value;
+      }
+      this._AWBService.getService(data).subscribe((data) => {
+        this.serviceName = data['data'];
       });
     }
 
