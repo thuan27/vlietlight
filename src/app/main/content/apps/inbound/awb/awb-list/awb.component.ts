@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { UserService } from '@fuse/directives/users/users.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -38,6 +40,8 @@ export class AWBComponent implements OnInit {
     private hasViewUserPermission = false;
     status;
     serviceName;
+    dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -47,7 +51,8 @@ export class AWBComponent implements OnInit {
         private toastyService: ToastyService,
         private _user: UserService,
         private _Func: Functions,
-        private toastyConfig: ToastyConfig
+        private toastyConfig: ToastyConfig,
+        public dialog: MatDialog,
     ) {
         this.toastyConfig.position = 'top-right';
         this.total = 0;
@@ -151,7 +156,8 @@ export class AWBComponent implements OnInit {
         this.router.navigate(['apps/inbound/awb/create']);
     }
 
-    onSelect(e) {}
+    onSelect(e) {
+    }
 
     onSort(event){
       this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
@@ -179,5 +185,36 @@ export class AWBComponent implements OnInit {
 
     isOption() {
       return (this.hasCreateUserPermission || this.hasEditUserPermission || this.hasDeleteUserPermission);
+    }
+
+    doCreateWavePick() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else {
+        console.log(this.selected)
+console.log(this.selected[0].awb_sts)
+        let checkIsNew = true;
+        for (let i = 0; this.selected.length; i++) {
+          // if (this.selected[i].awb_sts !== 'New') {
+          //   this.toastyService.error('Please select new item.');
+          //   checkIsNew = false;
+          //   break;
+          // }
+        }
+        console.log(checkIsNew);
+        if (checkIsNew) {
+          this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to create Wave Pick?';
+
+          this.dialogRef.afterClosed().subscribe(result => {
+              if ( result )
+              {
+                  // this.contactsService.deleteSelectedContacts();
+              } else {
+              }
+              this.dialogRef = null;
+          });
+        }
+      }
     }
 }
