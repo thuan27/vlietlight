@@ -5,7 +5,8 @@
     #login {
         width: 100%;
         overflow: auto;
-        background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        background-image: linear-gradient(#bbf8f6, #3aebee);
+        // background-image: linear-gradient(141deg, #e5f6f7 0%, #7ee0ea 51%, #69cede 75%);
         // background: url('/assets/images/backgrounds/logistics2.jpg') no-repeat;
         // background-size: cover;
 
@@ -345,13 +346,20 @@ width: 100%;
   width: 220px;
   color: white;
   background: #0b80b9;
-  border-top: 1px solid #0652cc;
-  border-bottom: 1px solid #e7eaef;
+  // border-top: 1px solid #0652cc;
+  // border-bottom: 1px solid #e7eaef;
   -webkit-transition: background .5s;
   -moz-transition: background .5s;
   -o-transition: background .5s;
   -ms-transition: background .5s;
   transition: background .5s;
+  ::after {
+    width: 100%;
+    height: 0.2em;
+    content: '';
+    background: black;
+    background-image: linear-gradient(to right, #5e42a6, #b74e91);
+  }
 }
 .sidebar_name {
   padding-top: 25px;
@@ -444,3 +452,130 @@ display: inline-block;
   margin-left: 86px;
   margin-top: 15px;
 }
+
+.icon-shipping {
+  position: absolute;
+  bottom: -10px;
+  right: -100px;
+  width: 500px;
+  animation-delay: 1s;
+  transition: transform 0.4s;
+  animation-name: animationContainer;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  animation-duration: 0.7s;
+  &:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari 3-8 */
+    transform: scale(1.2);
+    animation-timing-function: ease-out;
+  }
+}
+
+.icon-cloud {
+  width: 100px;
+  top: 300px;
+  position: absolute;
+  animation: cloud 20s infinite;
+  opacity: 0.4;
+}
+
+.icon-sun {
+  width: 200px;
+  top: 90px;
+  @extend .icon-cloud;
+  animation: cloud 30s infinite;
+  opacity: 0.7;
+}
+
+@keyframes cloud {
+  from {left: 0px;}
+  to {left: 1600px; opacity: 0;}
+}
+
+.icon-logistics {
+  position: absolute;
+  bottom: 140px;
+  right: 1700px;
+  width: 130px;
+  animation-delay: 1.7s;
+  animation-name: animationItems;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-duration: 3s;
+  // &:hover {
+  //   animation-name: animationRun;
+  //   animation-timing-function: ease-out;
+  //   animation-fill-mode: forwards;
+  //   animation-duration: 2s;
+  // }
+}
+
+.title {
+  position: absolute;
+  top: 250px;
+  color: white;
+  font-weight: 800;
+  top: -100px;
+  left: 33%;
+  letter-spacing: 3px;
+  font-size: 60px;
+  animation-name: animationTitle;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+}
+
+@keyframes animationItems {
+  0% {
+    right: 1700px;
+  }
+  80% {
+    right: 900px;
+  }
+  100% {
+    right: 670px;
+  }
+}
+
+@keyframes animationContainer {
+  0% {
+    right: -100px;
+    opacity: 0;
+  }
+  100% {
+    right: 100px;
+    opacity: 1;
+  }
+}
+
+@keyframes animationTitle {
+  0% {
+    top: -100px;
+  }
+  20% {
+    top: 250px;
+  }
+  30% {
+    top: 200px;
+  }
+  35% {
+    top: 250px;
+  }
+  37% {
+    top: 230px;
+  }
+  40% {
+    top: 250px;
+  }
+  42% {
+    top: 245px;
+  }
+  43% {
+    top: 250px;
+  }
+  100% {
+    top: 250px;
+  }
+}
+
