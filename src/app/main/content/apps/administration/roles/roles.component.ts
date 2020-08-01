@@ -210,8 +210,7 @@ export class RolesComponent implements OnInit {
       }
     }
     updatedRole['permissions'] = permissions;
-
-    this.rolesService.updateRole(updatedRole['name'], JSON.stringify(updatedRole)).subscribe(
+    this.rolesService.updateRole(updatedRole['name'], updatedRole).subscribe(
       data => {
         this.toastyService.success('Updated successfully.');
       },

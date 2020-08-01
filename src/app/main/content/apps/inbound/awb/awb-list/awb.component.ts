@@ -191,18 +191,8 @@ export class AWBComponent implements OnInit {
       if (this.selected.length < 1) {
         this.toastyService.error('Please select at least one item.');
       } else {
-        console.log(this.selected)
-console.log(this.selected[0].awb_sts)
-        let checkIsNew = true;
-        for (let i = 0; this.selected.length; i++) {
-          // if (this.selected[i].awb_sts !== 'New') {
-          //   this.toastyService.error('Please select new item.');
-          //   checkIsNew = false;
-          //   break;
-          // }
-        }
-        console.log(checkIsNew);
-        if (checkIsNew) {
+        const result = this.selected.filter(item => {return item.awb_sts === 'New'});
+        if (result.length === this.selected.length) {
           this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
           this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to create Wave Pick?';
 
@@ -214,7 +204,30 @@ console.log(this.selected[0].awb_sts)
               }
               this.dialogRef = null;
           });
+        } else {
+          this.toastyService.error('Please select new AWB.');
         }
       }
     }
+
+    delete() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this AWB. The corresponding Order will be Deleted?';
+
+          this.dialogRef.afterClosed().subscribe(result => {
+              if ( result )
+              {
+                  // this.contactsService.deleteSelectedContacts();
+              } else {
+              }
+              this.dialogRef = null;
+          });
+      }
+    }
+
 }

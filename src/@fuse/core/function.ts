@@ -28,7 +28,7 @@ export class Functions {
     AuthHeaderPost() {
       const authHeader = new HttpHeaders({
           'Authorization': 'Bearer ' + this.getToken(),
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
       });
       return authHeader;
     }

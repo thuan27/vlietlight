@@ -26,11 +26,11 @@ export class RolesService
       return this.http.get(this.apiConfig.ROLES_PERMISSION, { headers: this._Func.AuthHeader() })
     }
 
-    updateRole(roleName:string = '', stringData:string = '') {
-      return this.http.put(`${this.apiConfig.ROLES}/${roleName}`, stringData, {headers: this._Func.AuthHeader()});
+    updateRole(roleName:string = '', stringData) {
+      return this.http.put(`${this.apiConfig.ROLES}/${roleName}`, stringData, {headers: this._Func.AuthHeaderPost()});
     }
 
     addRole(stringData:string = '') {
-      return this.http.post(`${this.apiConfig.ROLES}`, stringData, {headers: this._Func.AuthHeader()});
+      return this.http.post(`${this.apiConfig.ROLES}`, stringData, {headers: this._Func.AuthHeaderPost()});
   }
 }
