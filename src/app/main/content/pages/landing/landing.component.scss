@@ -235,7 +235,7 @@ nav ul li a {
   display: block;
   padding: 2px;
   text-decoration: none;
-  color: white;
+  color: #2e94d2;
   font-weight: 800;
   text-transform: uppercase;
   margin: 0 10px;
@@ -503,12 +503,6 @@ display: inline-block;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
   animation-duration: 3s;
-  // &:hover {
-  //   animation-name: animationRun;
-  //   animation-timing-function: ease-out;
-  //   animation-fill-mode: forwards;
-  //   animation-duration: 2s;
-  // }
 }
 
 .title {
@@ -577,5 +571,12 @@ display: inline-block;
   100% {
     top: 250px;
   }
+}
+
+.button-custom {
+  border-radius: 27px;
+  height: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
