@@ -222,6 +222,7 @@ nav {
   box-shadow: 0px 5px 0px #dedede;
 }
 nav ul {
+  width: 100%;
   list-style: none;
   text-align: center;
   margin-top: 10px;
@@ -302,9 +303,10 @@ nav.fill ul li a:hover:after {
 #sidebar-wrapper {
   margin-left: -150px;
   top: 94px;
-  left: 0;
+  left: -100px;
   width: 220px;
-  background-image: linear-gradient(#0ba4de, #bdd5d6);
+  background: transparent;
+  // background-image: linear-gradient(#0ba4de, #bdd5d6);
   position: fixed;
   height: 100%;
   z-index: 10000;
@@ -312,14 +314,20 @@ nav.fill ul li a:hover:after {
 }
 
 .sidebar-nav {
+  margin: 0;
   display: block;
   float: left;
   width: 220px;
   list-style: none;
-  margin: 0;
   padding: 0;
   cursor: pointer;
   font-size: 1.4rem;
+}
+
+.sidebar-nav-child {
+  margin-top: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+	0 1px 2px rgba(0, 0, 0, 0.24);
 }
 #page-content-wrapper {
   padding-left: 0;
@@ -338,14 +346,21 @@ nav.fill ul li a:hover:after {
 width: 100%;
 }
 
+.menu-siderbar {
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+	0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
 #sidebar_menu li a, .sidebar-nav li a {
   // color: #999;
   display: block;
   float: left;
   text-decoration: none;
   width: 220px;
-  color: white;
-  background: #0b80b9;
+  color: black;
+  background: white;
+  // background: #0b80b9;
   // border-top: 1px solid #0652cc;
   // border-bottom: 1px solid #e7eaef;
   -webkit-transition: background .5s;
@@ -368,20 +383,30 @@ width: 100%;
 }
 
 .sidebar-nav li {
-line-height: 40px;
+line-height: 50px;
 text-indent: 20px;
 }
 
 .sidebar-nav li a {
 // color: #999999;
-color: white;
+color: black;
 display: block;
 text-decoration: none;
 }
 
+.sidebar-child-frist {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.sidebar-child-last {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
 .sidebar-nav li a:hover {
 // color: #93D6EF;
-color: white;
+color: black;
 background: rgba(255,255,255,0.2);
 text-decoration: none;
 }
@@ -448,7 +473,7 @@ display: inline-block;
 }
 }
 .icon-nav-custom {
-  color: white;
+  color: black;
   margin-left: 86px;
   margin-top: 15px;
 }
@@ -578,5 +603,66 @@ display: inline-block;
   height: 50px;
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.open-button {
+  position: absolute;
+  top: 94px;
+  left: 0;
+  width: 81px;
+  color: white;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0;
+  margin: 0;
+  pointer-events: auto;
+  opacity: .75;
+  z-index: 998;
+
+  mat-icon {
+      animation: rotating 3s linear infinite;
+  }
+
+  &:hover {
+      opacity: 1;
+  }
+}
+
+@keyframes rotating {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+.icon {
+  min-width: 0;
+}
+
+.image-1 {
+  background-image: url("../../../../../assets/images/backgrounds/logistics1.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-2 {
+  @extend .image-1;
+  background-image: url("../../../../../assets/images/backgrounds/logistics2.jpg");
+}
+
+.image-3 {
+  @extend .image-1;
+  background-image: url("../../../../../assets/images/backgrounds/logistics3.jpg");
+}
+
+.image-4 {
+  @extend .image-1;
+  background-image: url("../../../../../assets/images/backgrounds/logistics4.jpg");
 }
 
