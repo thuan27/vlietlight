@@ -160,6 +160,13 @@ export const navigation = [
                       'url'  : '/apps/administration/roles',
                       'exactMatch': true
                   },
+                  {
+                    'id'   : 'user',
+                    'title': 'User',
+                    'type' : 'item',
+                    'url'  : '/apps/administration/users',
+                    'exactMatch': true
+                  },
               ]
             },
             {

@@ -21,11 +21,13 @@ import { RolesComponent } from './roles/roles.component';
 import { RolesService } from './roles/roles.service';
 import { SearchPipe } from './roles/search.pipe';
 import { UppercaseToSpaceLowerPipe } from './roles/string.pipe';
-
+import { UserAdminListComponent } from './user/user-list/user-list.component';
+import { UserAdminListService } from './user/user-list/user-list.service';
 
 @NgModule({
     declarations: [
         RolesComponent,
+        UserAdminListComponent,
         SearchPipe,
         UppercaseToSpaceLowerPipe
     ],
@@ -49,6 +51,7 @@ import { UppercaseToSpaceLowerPipe } from './roles/string.pipe';
     ],
     providers: [
       RolesService,
+      UserAdminListService
     ]
 })
 export class FuseAdministationModule {
