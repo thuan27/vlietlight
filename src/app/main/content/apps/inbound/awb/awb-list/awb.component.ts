@@ -124,6 +124,10 @@ export class AWBComponent implements OnInit {
           params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
         }
         this._AWBService.getList(params).subscribe((data) => {
+            data['data'].forEach((data) => {
+              data['awb_code_temp'] = data['awb_code'];
+              data['awb_code'] = `<a href="#/apps/inbound/awb/${data['awb_id']}">${data['awb_code']}</a>`;
+            });
             this.rows = data['data'];
             this.total = data['meta']['pagination']['total'];
             // tslint:disable-next-line:radix
@@ -217,7 +221,36 @@ export class AWBComponent implements OnInit {
         this.toastyService.error('Please select one item.');
       } else {
         this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this AWB. The corresponding Order will be Deleted?';
+          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this AWB. The corresponding Order will be deleted?';
+
+          this.dialogRef.afterClosed().subscribe(result => {
+              if ( result )
+              {
+                this._AWBService.deleteAWB(this.selected[0].awb_id).subscribe((data) => {
+                  this.toastyService.success(data['message']);
+                  setTimeout(
+                    () => {
+                      this.getList();
+                      this.selected = [];
+                    },
+                    700
+                  );
+                });
+              } else {
+              }
+              this.dialogRef = null;
+          });
+      }
+    }
+
+    cancel() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to cancel this AWB. The corresponding Order will be canceled?';
 
           this.dialogRef.afterClosed().subscribe(result => {
               if ( result )
@@ -230,4 +263,63 @@ export class AWBComponent implements OnInit {
       }
     }
 
+    pending() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to pend this AWB. The corresponding Order will be pended too?';
+
+          this.dialogRef.afterClosed().subscribe(result => {
+              if ( result )
+              {
+                  // this.contactsService.deleteSelectedContacts();
+              } else {
+              }
+              this.dialogRef = null;
+          });
+      }
+    }
+
+    complete() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to complete this AWB. The corresponding Order will be packing?';
+
+          this.dialogRef.afterClosed().subscribe(result => {
+              if ( result )
+              {
+                  // this.contactsService.deleteSelectedContacts();
+              } else {
+              }
+              this.dialogRef = null;
+          });
+      }
+    }
+
+    remove() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+          this.dialogRef.componentInstance.confirmMessage = `Are you sure you want to remove this AWB out of WavePick ${this.selected[0].awb_code}?`;
+
+          this.dialogRef.afterClosed().subscribe(result => {
+              if ( result )
+              {
+                  // this.contactsService.deleteSelectedContacts();
+              } else {
+              }
+              this.dialogRef = null;
+          });
+      }
+    }
 }

@@ -25,6 +25,8 @@ import { AWBDetailForCusComponent } from './awb-for-customer/awb-detail-for-cust
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AWBDetailForCusComponentV1 } from './awb-for-customer-v1/awb-for-customer-v1.component';
 import { AWBDetailForCusServiceV1 } from './awb-for-customer-v1/awb-for-customer-v1.service';
+import { WavePickService } from './wave-pick/wave-pick-list/wave-pick-list.service';
+import { WavePickListComponent } from './wave-pick/wave-pick-list/wave-pick-list.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +34,8 @@ import { AWBDetailForCusServiceV1 } from './awb-for-customer-v1/awb-for-customer
         AWBDetailComponent,
         ContextMenuComponent,
         AWBDetailForCusComponentV1,
-        AWBDetailForCusComponent
+        AWBDetailForCusComponent,
+        WavePickListComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -55,7 +58,8 @@ import { AWBDetailForCusServiceV1 } from './awb-for-customer-v1/awb-for-customer
         AWBService,
         AWBDetailService,
         AWBDetailForCusServiceV1,
-        AWBDetailForCusService
+        AWBDetailForCusService,
+        WavePickService
     ]
 })
 export class FuseInboundModule {

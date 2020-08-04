@@ -98,6 +98,13 @@ export const navigation = [
                         'url'  : '/apps/inbound/awb',
                         'exactMatch': true
                     },
+                    {
+                        'id'   : 'WavePickList',
+                        'title': 'Wave Pick',
+                        'type' : 'item',
+                        'url'  : '/apps/inbound/wave-pick',
+                        'exactMatch': true
+                    },
                     // {
                     //     'id'   : 'AWBListForCus',
                     //     'title': 'AWB Customer',

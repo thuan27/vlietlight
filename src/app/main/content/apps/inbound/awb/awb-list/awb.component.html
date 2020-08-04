@@ -34,19 +34,19 @@
           <mat-icon>delete_forever</mat-icon>
           <span>Delete AWB</span>
         </button>
-        <button *ngIf="hasCancelUserPermission" mat-menu-item (click)="delete()">
+        <button *ngIf="hasCancelUserPermission" mat-menu-item (click)="cancel()">
           <mat-icon>cancel</mat-icon>
           <span>Cancel AWB</span>
         </button>
-        <button *ngIf="pendingAWB" mat-menu-item (click)="delete()">
+        <button *ngIf="pendingAWB" mat-menu-item (click)="pending()">
           <mat-icon>short_text</mat-icon>
           <span>Pending AWB</span>
         </button>
-        <button *ngIf="completeAWB" mat-menu-item (click)="delete()">
+        <button *ngIf="completeAWB" mat-menu-item (click)="complete()">
           <mat-icon>send</mat-icon>
           <span>Complete AWB</span>
         </button>
-        <button *ngIf="removeAWB" mat-menu-item (click)="create()">
+        <button *ngIf="removeAWB" mat-menu-item (click)="remove()">
           <mat-icon>remove_circle_outline</mat-icon>
           <span>Remove AWB out of WavePick</span>
         </button>

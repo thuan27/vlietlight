@@ -23,6 +23,10 @@ export class AWBService
       // return this.http.put(this.apiConfig.OPTION_AWB + '/' + id + '/' + 'cancel-awb')
     }
 
+    deleteAWB(id) {
+      return this.http.delete(this.apiConfig.OPTION_AWB + '/' + id, { headers: this._Func.AuthHeader() });
+    }
+
     getStatus() {
         return this.http.get(this.apiConfig.GET_STATUS, { headers: this._Func.AuthHeader()});
     }
