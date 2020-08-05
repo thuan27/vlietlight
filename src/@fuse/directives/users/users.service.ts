@@ -30,7 +30,7 @@ export class UserService {
   {
     let ListPermissionUser=null;
 
-    return this.http.get(this._API.API_USER_Permission, { headers: this._Func.AuthHeader() })
+    return this.http.get(this._API.API_USER_Permission)
     .map(res => res['data']);
   }
 
@@ -53,7 +53,7 @@ export class UserService {
   }
 
   checkAuthentication() {
-    return this.http.get(this._API.API_User_Token, { headers: this._Func.AuthHeader() })
+    return this.http.get(this._API.API_User_Token)
   }
 
   hasAuthenticationError(err) {

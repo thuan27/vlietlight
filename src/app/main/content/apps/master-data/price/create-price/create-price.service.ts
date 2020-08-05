@@ -15,18 +15,18 @@ export class CreatePriceService
     }
 
     createPrice(param) {
-        return this.http.post(this.apiConfig.PRICE_LIST + '/store', param, { headers: this._Func.AuthHeader() });
+        return this.http.post(this.apiConfig.PRICE_LIST + '/store', param);
     }
 
     getPriceDetail(params) {
-        return this.http.get(this.apiConfig.PRICE_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.PRICE_LIST + '/show/' + params);
     }
 
     updatePrice(id, param) {
-        return this.http.put(this.apiConfig.PRICE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
+        return this.http.put(this.apiConfig.PRICE_LIST + '/update/' + id, param);
     }
 
     serviceList() {
-      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.SERVICE_LIST);
     }
 }

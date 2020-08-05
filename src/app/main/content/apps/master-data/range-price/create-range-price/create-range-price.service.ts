@@ -15,18 +15,18 @@ export class CreateRangePriceService
     }
 
     createRangePrice(param) {
-        return this.http.post(this.apiConfig.RANGE_PRICE_LIST + '/store', param, { headers: this._Func.AuthHeader() });
+        return this.http.post(this.apiConfig.RANGE_PRICE_LIST + '/store', param);
     }
 
     getRangePriceDetail(params) {
-        return this.http.get(this.apiConfig.RANGE_PRICE_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.RANGE_PRICE_LIST + '/show/' + params);
     }
 
     updateRangePrice(id, param) {
-        return this.http.put(this.apiConfig.RANGE_PRICE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
+        return this.http.put(this.apiConfig.RANGE_PRICE_LIST + '/update/' + id, param);
     }
 
     serviceList() {
-      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.SERVICE_LIST);
     }
 }

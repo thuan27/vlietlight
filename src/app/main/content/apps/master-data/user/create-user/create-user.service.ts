@@ -15,6 +15,6 @@ export class CreateUserService
     }
 
     createAWB(param) {
-        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param, { headers: this._Func.AuthHeader() });
+        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param);
     }
 }

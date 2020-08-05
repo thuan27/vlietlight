@@ -1,0 +1,93 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">{{ title }}</span>
+            </div>
+            <div class="h2 mt-16">{{ title }}</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="p-24">
+
+        <form [formGroup]="CustomerForm" autocomplete="off" class="form" (submit)="onSubmit()">
+            <div class="background-title mat-cyan-200-bg margin-top-10">
+                <h2 class="title">{{ titleGroup }}</h2>
+            </div>
+            <div class="box-shadow-form margin-top-10">
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="50">
+                        <input formControlName="loginname" matInput placeholder="Login Name">
+                        <mat-error *ngIf="CustomerForm.controls.loginname.hasError('required')">
+                            Login Name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" class="margin-left-10">
+                        <input formControlName="customer_name" matInput placeholder="Customer Name">
+                        <mat-error *ngIf="CustomerForm.controls.customer_name.hasError('required')">
+                            Customer Name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" class="margin-left-10">
+                        <input formControlName="tax_number" matInput placeholder="Tax Number">
+                        <mat-error *ngIf="CustomerForm.controls.tax_number.hasError('required')">
+                            Tax Number is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="50">
+                        <input formControlName="customer_address" matInput placeholder="Customer Address">
+                        <mat-error *ngIf="CustomerForm.controls.customer_address.hasError('required')">
+                            Customer Address is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" class="margin-left-10">
+                        <input formControlName="zip_code" matInput placeholder="Zip Code">
+                        <mat-error *ngIf="CustomerForm.controls.zip_code.hasError('required')">
+                            Zip Code is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" class="margin-left-10">
+                        <input formControlName="city" matInput placeholder="City">
+                        <mat-error *ngIf="CustomerForm.controls.city.hasError('required')">
+                            City is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="50">
+                        <input formControlName="province" matInput placeholder="Province">
+                        <mat-error *ngIf="CustomerForm.controls.province.hasError('required')">
+                            Province is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" class="margin-left-10">
+                        <input formControlName="customer_email" matInput placeholder="Customer Email">
+                        <mat-error *ngIf="CustomerForm.controls.customer_email.hasError('required')">
+                            Customer Email is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" class="margin-left-10">
+                        <input formControlName="customer_phone" matInput placeholder="Customer Phone">
+                        <mat-error *ngIf="CustomerForm.controls.customer_phone.hasError('required')">
+                            Customer Phone is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button class="button-cancel" mat-raised-button (click)="cancel()">Cancel</button>
+            <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent" type="submit">
+                {{ buttonType }}</button>
+        </form>
+    </div>
+</div>

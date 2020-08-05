@@ -15,18 +15,18 @@ export class CreateCustomerService
     }
 
     createCustomerServiceList(param) {
-        return this.http.post(this.apiConfig.CUSTOMER_SERVICE_LIST + '/store', param, { headers: this._Func.AuthHeader() });
+        return this.http.post(this.apiConfig.CUSTOMER_SERVICE_LIST + '/store', param);
     }
 
     getCustomerServiceDetail(params) {
-        return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + '/show/' + params);
     }
 
     updateCustomerService(id, param) {
-        return this.http.put(this.apiConfig.CUSTOMER_SERVICE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
+        return this.http.put(this.apiConfig.CUSTOMER_SERVICE_LIST + '/update/' + id, param);
     }
 
     getCustomerList() {
-      return this.http.get(this.apiConfig.CUSTOMER_LIST, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.CUSTOMER_LIST);
     }
 }

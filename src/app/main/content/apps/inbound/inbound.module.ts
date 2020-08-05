@@ -27,6 +27,8 @@ import { AWBDetailForCusComponentV1 } from './awb-for-customer-v1/awb-for-custom
 import { AWBDetailForCusServiceV1 } from './awb-for-customer-v1/awb-for-customer-v1.service';
 import { WavePickService } from './wave-pick/wave-pick-list/wave-pick-list.service';
 import { WavePickListComponent } from './wave-pick/wave-pick-list/wave-pick-list.component';
+import { CreateWavePickomponent } from './wave-pick/create-wave-pick/create-wave-pick.component';
+import { CreateWavePickService } from './wave-pick/create-wave-pick/create-wave-pick.service';
 
 @NgModule({
     declarations: [
@@ -35,7 +37,8 @@ import { WavePickListComponent } from './wave-pick/wave-pick-list/wave-pick-list
         ContextMenuComponent,
         AWBDetailForCusComponentV1,
         AWBDetailForCusComponent,
-        WavePickListComponent
+        WavePickListComponent,
+        CreateWavePickomponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -59,7 +62,8 @@ import { WavePickListComponent } from './wave-pick/wave-pick-list/wave-pick-list
         AWBDetailService,
         AWBDetailForCusServiceV1,
         AWBDetailForCusService,
-        WavePickService
+        WavePickService,
+        CreateWavePickService
     ]
 })
 export class FuseInboundModule {

@@ -14,14 +14,18 @@ export class WavePickService {
   }
 
   getList(params) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params, { headers: this._Func.AuthHeader() });
+    return this.http.get(this.apiConfig.WAVE_PICK + params);
   }
 
   deleteCountry(id) {
-    return this.http.delete(this.apiConfig.COUNTRY_LIST + '/delete/' + id, { headers: this._Func.AuthHeader() });
+    return this.http.delete(this.apiConfig.WAVE_PICK + '/delete/' + id);
   }
 
   getReport(params: string = '') {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { headers: this._Func.AuthHeader(), responseType: 'blob' });
+    return this.http.get(this.apiConfig.WAVE_PICK + params + '&export=1', { responseType: 'blob' });
+  }
+
+  getStatus() {
+    return this.http.get(this.apiConfig.WAVE_PICK_STATUS);
   }
 }

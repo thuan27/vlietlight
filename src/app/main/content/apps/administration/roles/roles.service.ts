@@ -15,15 +15,15 @@ export class RolesService
     }
 
     getRoles() {
-        return this.http.get(this.apiConfig.ROLES + '?limit=10000&sort[code]=asc', { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.ROLES + '?limit=10000&sort[code]=asc');
     }
 
     getPermissionsByRoleName(roleName) {
-      return this.http.get(this.apiConfig.ROLES + '/' + roleName, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.ROLES + '/' + roleName);
     }
 
     getPermission() {
-      return this.http.get(this.apiConfig.ROLES_PERMISSION, { headers: this._Func.AuthHeader() })
+      return this.http.get(this.apiConfig.ROLES_PERMISSION)
     }
 
     updateRole(roleName:string = '', stringData) {

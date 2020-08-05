@@ -17,6 +17,6 @@ export class UserListService
     }
 
     getList() {
-        return this.http.get(this.apiConfig.GET_USER, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.GET_USER);
     }
 }

@@ -15,6 +15,6 @@ export class QuickSearchService
     }
 
     getList() {
-        return this.http.get(environment.API.apiAdminBase + '/index.php?r=searchings', { headers: this._Func.AuthHeader() });
+        return this.http.get(environment.API.apiAdminBase + '/index.php?r=searchings');
     }
 }

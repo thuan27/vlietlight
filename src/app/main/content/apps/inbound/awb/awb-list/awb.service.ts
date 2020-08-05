@@ -16,7 +16,7 @@ export class AWBService
     }
 
     getList(params) {
-        return this.http.get(this.apiConfig.LIST_AWB + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.LIST_AWB + params);
     }
 
     cancelAWB() {
@@ -24,14 +24,14 @@ export class AWBService
     }
 
     deleteAWB(id) {
-      return this.http.delete(this.apiConfig.OPTION_AWB + '/' + id, { headers: this._Func.AuthHeader() });
+      return this.http.delete(this.apiConfig.OPTION_AWB + '/' + id);
     }
 
     getStatus() {
-        return this.http.get(this.apiConfig.GET_STATUS, { headers: this._Func.AuthHeader()});
+        return this.http.get(this.apiConfig.GET_STATUS);
     }
 
     getService(data) {
-      return this.http.get(this.apiConfig.SERVICE_LIST + data, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.SERVICE_LIST + data);
     }
 }

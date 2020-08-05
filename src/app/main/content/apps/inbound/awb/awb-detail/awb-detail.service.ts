@@ -14,10 +14,10 @@ export class AWBDetailService {
   }
 
   createAWB(param) {
-    return this.http.post(this.apiConfig.CREATE_AWB, param, { headers: this._Func.AuthHeader() });
+    return this.http.post(this.apiConfig.CREATE_AWB, param);
   }
 
   getCountry(data) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data, { headers: this._Func.AuthHeader() });
+    return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data);
   }
 }

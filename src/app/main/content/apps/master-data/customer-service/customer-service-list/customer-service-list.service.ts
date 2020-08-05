@@ -17,18 +17,18 @@ export class CustomerServiceList
     }
 
     getList(params) {
-        return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + params);
     }
 
     delete(id) {
-        return this.http.delete(this.apiConfig.CUSTOMER_SERVICE_LIST  + '/delete/' + id, { headers: this._Func.AuthHeader() });
+        return this.http.delete(this.apiConfig.CUSTOMER_SERVICE_LIST  + '/delete/' + id);
     }
 
     getCustomerService(data) {
-      return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + data, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + data);
     }
 
     getReport(params: string = '') {
-      return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + params + '&export=1', { headers: this._Func.AuthHeader(), responseType: 'blob' });
+      return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + params + '&export=1', { responseType: 'blob' });
     }
 }

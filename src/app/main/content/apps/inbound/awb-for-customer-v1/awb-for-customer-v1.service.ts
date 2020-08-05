@@ -15,10 +15,10 @@ export class AWBDetailForCusServiceV1
     }
 
     createAWB(param) {
-        return this.http.post(this.apiConfig.CREATE_AWB, param, { headers: this._Func.AuthHeader() });
+        return this.http.post(this.apiConfig.CREATE_AWB, param);
     }
 
     getCountry() {
-        return this.http.get(this.apiConfig.GET_COUNTRY, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.GET_COUNTRY);
     }
 }

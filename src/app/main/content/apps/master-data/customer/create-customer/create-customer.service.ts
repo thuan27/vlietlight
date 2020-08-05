@@ -17,10 +17,10 @@ export class CreateCustomerService
     }
 
     createCustomer(param) {
-        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param, { headers: this._Func.AuthHeader() });
+        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param);
     }
 
     getCusDetail(id) {
-        return this.http.get(this.apiConfig.CUSTOMER + 's/' + id, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.CUSTOMER + 's/' + id);
     }
 }

@@ -14,18 +14,18 @@ export class PriceListService {
   }
 
   getList(params) {
-    return this.http.get(this.apiConfig.PRICE_LIST + params, { headers: this._Func.AuthHeader() });
+    return this.http.get(this.apiConfig.PRICE_LIST + params);
   }
 
   deletePrice(id) {
-    return this.http.delete(this.apiConfig.PRICE_LIST + '/delete/' + id, { headers: this._Func.AuthHeader() });
+    return this.http.delete(this.apiConfig.PRICE_LIST + '/delete/' + id);
   }
 
   serviceList() {
-    return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+    return this.http.get(this.apiConfig.SERVICE_LIST);
   }
 
   getReport(params: string = '') {
-    return this.http.get(this.apiConfig.PRICE_LIST + params + '&export=1', { headers: this._Func.AuthHeader(), responseType: 'blob' });
+    return this.http.get(this.apiConfig.PRICE_LIST + params + '&export=1', { responseType: 'blob' });
   }
 }

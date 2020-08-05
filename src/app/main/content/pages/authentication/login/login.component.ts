@@ -59,7 +59,7 @@ export class FuseLoginComponent implements OnInit {
         const token = localStorage.getItem(environment.token);
 
         if (!this.jwtHelper.isTokenExpired(token)) {
-          // this.http.get(this.api.API_User_Token, { headers: this._Func.AuthHeader() })
+          // this.http.get(this.api.API_User_Token)
           // .subscribe((response) => {
           //   console.log(response)
           // })

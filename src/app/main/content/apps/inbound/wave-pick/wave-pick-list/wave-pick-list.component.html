@@ -31,16 +31,46 @@
   <div class="p-24">
 
     <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <!-- <mat-form-field class="mr-2 custom-selection">
-        <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text"
-          aria-label="Number" matInput [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option (click)="selectedOption(option.country_id)" style="top:0 !important"
-            *ngFor="let option of country" [value]="option.country_name">
-            {{ option.country_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field> -->
+        <mat-form-field class="mr-2">
+            <input formControlName="wv_hdr_num" matInput placeholder="Wave Pick #">
+        </mat-form-field>
+        <mat-form-field class="mr-2 custom-selection">
+            <mat-select formControlName="wv_sts" placeholder="Status">
+              <mat-option [value]="">
+                Please select option
+              </mat-option>
+              <mat-option *ngFor="let item of status" [value]="item.key">
+                {{ item.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="customer_name" matInput placeholder="Customer Name">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="awb_qty" matInput placeholder="Awb Quanlity">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="pick_up_address" matInput placeholder="Address">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="sales_note" matInput placeholder="Sales Note">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="pre_alert" matInput placeholder="Pre Alert">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="pre_alert_note_for_sales" matInput placeholder="Pre Alert Note For Slaes">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="picker" matInput placeholder="Pick up">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="picker_note" matInput placeholder="Pick Up Note">
+        </mat-form-field>
+        <mat-form-field class="mr-2">
+            <input formControlName="area" matInput placeholder="Area">
+        </mat-form-field>
 
       <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
       <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
@@ -48,7 +78,7 @@
 
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
       [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
-      [selectionType]="'checkbox'" [count]="total" [selected]="selected"
+      [selectionType]="'checkbox'" [count]="total" [selected]="selected" [scrollbarH]="true"
       [externalPaging]="true" [offset]="current_page" [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
 
       <ngx-datatable-column [width]="48" [canAutoResize]="true" [resizeable]="true" [sortable]="false">
@@ -63,11 +93,38 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Country Name"
-        prop="country_name"></ngx-datatable-column>
-
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Country Code"
-        prop="country_id"></ngx-datatable-column>
+      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Wave Pick #"
+        prop="wv_hdr_num"></ngx-datatable-column>
+        <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Wave Pick Status"
+        prop="wv_sts"></ngx-datatable-column>
+        <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Customer"
+        prop="customer_name"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Awb Quanlity"
+        prop="awb_qty"></ngx-datatable-column>
+        <ngx-datatable-column [width]="350" [canAutoResize]="true" [resizeable]="true" name="Pick Up Address"
+        prop="pick_up_address"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Pick Up Date"
+        prop="pick_up_date"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Sales Note"
+        prop="sales_note"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Pre Alert"
+        prop="pre_alert"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Area"
+        prop="area"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Pre Alert Note For Sales"
+        prop="pre_alert_note_for_sales"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Pre Alert Note For Pickup"
+        prop="pre_alert_note"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Pick Up"
+        prop="picker"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Pick Up Note"
+        prop="picker_note"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Created At"
+        prop="created_at"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Update At"
+        prop="updated_at"></ngx-datatable-column>
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Created By"
+        prop="created_by"></ngx-datatable-column>
     </ngx-datatable>
 
     <div class="export margin-top-10">

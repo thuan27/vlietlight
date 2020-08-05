@@ -18,12 +18,12 @@ export class WavePickListComponent implements OnInit {
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  countryList;
+  wavePickList;
   total;
   current_page;
   selected: any[] = [];
   searchForm: FormGroup;
-  country;
+  status;
   sortData = '';
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
@@ -46,6 +46,7 @@ export class WavePickListComponent implements OnInit {
   ngOnInit() {
     this.checkPermission();
     this.buildForm();
+    this.getStatus();
   }
 
   // Check permission for user using this function page
@@ -72,7 +73,17 @@ export class WavePickListComponent implements OnInit {
 
   private buildForm() {
     this.searchForm = this.formBuilder.group({
-      country_name: ''
+      wv_hdr_num: '',
+      wv_sts: '',
+      customer_name: '',
+      awb_qty: '',
+      pick_up_address: '',
+      sales_note: '',
+      pre_alert: '',
+      pre_alert_note_for_sales: '',
+      picker: '',
+      picker_note: '',
+      area: ''
     });
   }
 
@@ -81,13 +92,16 @@ export class WavePickListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    params += `&country_name=${this.searchForm.value['country_name']}`;
-    this.countryList = this.wavePickService.getList(params);
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+    }
+    this.wavePickList = this.wavePickService.getList(params);
 
-    this.countryList.subscribe((dataList: any[]) => {
+    this.wavePickList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['country_id_temp'] = data['country_id'];
-        data['country_id'] = `<a href="#/apps/master-data/countries/${data['country_id']}">${data['country_code']}</a>`;
+        data['wv_hdr_num_temp'] = data['wv_hdr_num'];
+        data['wv_hdr_num'] = `<a href="#/apps/inbound/wave-pick/${data['wv_hdr_id']}">${data['wv_hdr_num']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -144,7 +158,10 @@ export class WavePickListComponent implements OnInit {
   }
 
   reset() {
-    this.searchForm.controls['country_name'].setValue('');
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      this.searchForm.controls[arrayItem[i]].setValue('');
+    }
     this.sortData = '';
     this.getList();
   }
@@ -161,5 +178,11 @@ export class WavePickListComponent implements OnInit {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);
     })
+  }
+
+  getStatus() {
+    this.wavePickService.getStatus().subscribe((response) => {
+      this.status = response['data'];
+    });
   }
 }

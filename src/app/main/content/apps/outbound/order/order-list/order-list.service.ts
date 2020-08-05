@@ -17,14 +17,14 @@ export class OrderListService
     }
 
     getList(params) {
-        return this.http.get(this.apiConfig.ORDER_LIST + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.ORDER_LIST + params);
     }
 
     deleteCountry(id) {
-        return this.http.delete(this.apiConfig.ORDER_LIST + '/delete/' + id, { headers: this._Func.AuthHeader() });
+        return this.http.delete(this.apiConfig.ORDER_LIST + '/delete/' + id);
     }
 
     getStatus() {
-      return this.http.get(this.apiConfig.GET_STATUS, { headers: this._Func.AuthHeader()});
+      return this.http.get(this.apiConfig.GET_STATUS);
   }
 }

@@ -4,7 +4,7 @@ import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class CreateCountryService
+export class CreateWavePickService
 {
     constructor(
         private http: HttpClient,
@@ -14,15 +14,11 @@ export class CreateCountryService
     {
     }
 
-    createCountry(param) {
-        return this.http.post(this.apiConfig.COUNTRY_LIST + '/store', param);
+    createCustomer(param) {
+        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param);
     }
 
-    getCountryDetail(params) {
-        return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params);
-    }
-
-    updateCountry(id, param) {
-        return this.http.put(this.apiConfig.COUNTRY_LIST + '/update/' + id, param);
+    getCusDetail(id) {
+        return this.http.get(this.apiConfig.CUSTOMER + 's/' + id);
     }
 }

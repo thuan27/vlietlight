@@ -71,6 +71,7 @@ export class FuseLoginFormDialogComponent
                         localStorage.setItem(environment.password, this.loginForm.value['password']);
                         localStorage.setItem(environment.token, res['data'].token);
                         this.dialog.closeAll();
+                        location.reload();
                     } else {
                         this.toastyService.error('No Token Found.');
                     }

@@ -15,22 +15,22 @@ export class CreateService
     }
 
     createCountryList(param) {
-        return this.http.post(this.apiConfig.SERVICE_LIST + '/store', param, { headers: this._Func.AuthHeader() });
+        return this.http.post(this.apiConfig.SERVICE_LIST + '/store', param);
     }
 
     getCountryDetail(params) {
-        return this.http.get(this.apiConfig.SERVICE_LIST + '/show/' + params, { headers: this._Func.AuthHeader() });
+        return this.http.get(this.apiConfig.SERVICE_LIST + '/show/' + params);
     }
 
     updateCountry(id, param) {
-        return this.http.put(this.apiConfig.SERVICE_LIST + '/update/' + id, param, { headers: this._Func.AuthHeader() });
+        return this.http.put(this.apiConfig.SERVICE_LIST + '/update/' + id, param);
     }
 
     countryList() {
-      return this.http.get(this.apiConfig.COUNTRY_LIST, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.COUNTRY_LIST);
     }
 
     serviceList() {
-      return this.http.get(this.apiConfig.SERVICE_LIST, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.SERVICE_LIST);
     }
 }
