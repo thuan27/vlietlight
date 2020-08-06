@@ -6,6 +6,7 @@ import { AWBDetailForCusComponentV1 } from './awb-for-customer-v1/awb-for-custom
 import { AuthGuard, AdminGuard } from '../../guards';
 import { WavePickListComponent } from './wave-pick/wave-pick-list/wave-pick-list.component';
 import { CreateWavePickomponent } from './wave-pick/create-wave-pick/create-wave-pick.component';
+import { AWBDetailV1Component } from './awb/awb-detai-v1/awb-detail-v1.component';
 
 export const listRoutes: Routes = [
     {
@@ -20,6 +21,16 @@ export const listRoutes: Routes = [
     },
     {
         path: 'awb/:id',
+        component: AWBDetailV1Component,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path: 'awb1/create',
+        component: AWBDetailV1Component,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path: 'awb1/:id',
         component: AWBDetailComponent,
         canActivate: [AuthGuard, AdminGuard]
     },

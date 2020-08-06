@@ -11,7 +11,8 @@ import { MatButtonModule,
          MatMenuModule,
          MatTableModule,
          MatRadioModule,
-         MatAutocompleteModule
+         MatAutocompleteModule,
+         MatTabsModule
         } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -29,6 +30,8 @@ import { WavePickService } from './wave-pick/wave-pick-list/wave-pick-list.servi
 import { WavePickListComponent } from './wave-pick/wave-pick-list/wave-pick-list.component';
 import { CreateWavePickomponent } from './wave-pick/create-wave-pick/create-wave-pick.component';
 import { CreateWavePickService } from './wave-pick/create-wave-pick/create-wave-pick.service';
+import { AWBDetailV1Component } from './awb/awb-detai-v1/awb-detail-v1.component';
+import { AWBDetailV1Service } from './awb/awb-detai-v1/awb-detail-v1.service';
 
 @NgModule({
     declarations: [
@@ -38,7 +41,8 @@ import { CreateWavePickService } from './wave-pick/create-wave-pick/create-wave-
         AWBDetailForCusComponentV1,
         AWBDetailForCusComponent,
         WavePickListComponent,
-        CreateWavePickomponent
+        CreateWavePickomponent,
+        AWBDetailV1Component
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -55,7 +59,8 @@ import { CreateWavePickService } from './wave-pick/create-wave-pick/create-wave-
         MatMenuModule,
         MatRadioModule,
         MatTableModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatTabsModule
     ],
     providers: [
         AWBService,
@@ -63,7 +68,8 @@ import { CreateWavePickService } from './wave-pick/create-wave-pick/create-wave-
         AWBDetailForCusServiceV1,
         AWBDetailForCusService,
         WavePickService,
-        CreateWavePickService
+        CreateWavePickService,
+        AWBDetailV1Service
     ]
 })
 export class FuseInboundModule {

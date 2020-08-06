@@ -157,7 +157,7 @@ export class AWBComponent implements OnInit {
     }
 
     create() {
-        this.router.navigate(['apps/inbound/awb/create']);
+        this.router.navigate(['apps/inbound/awb1/create']);
     }
 
     onSelect(e) {
