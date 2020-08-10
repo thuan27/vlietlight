@@ -32,6 +32,7 @@ import { CreateWavePickomponent } from './wave-pick/create-wave-pick/create-wave
 import { CreateWavePickService } from './wave-pick/create-wave-pick/create-wave-pick.service';
 import { AWBDetailV1Component } from './awb/awb-detai-v1/awb-detail-v1.component';
 import { AWBDetailV1Service } from './awb/awb-detai-v1/awb-detail-v1.service';
+import { FuseDirectivesModule } from '@fuse/directives/directives';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,7 @@ import { AWBDetailV1Service } from './awb/awb-detai-v1/awb-detail-v1.service';
         AWBDetailForCusComponent,
         WavePickListComponent,
         CreateWavePickomponent,
-        AWBDetailV1Component
+        AWBDetailV1Component,
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -60,7 +61,8 @@ import { AWBDetailV1Service } from './awb/awb-detai-v1/awb-detail-v1.service';
         MatRadioModule,
         MatTableModule,
         MatAutocompleteModule,
-        MatTabsModule
+        MatTabsModule,
+        FuseDirectivesModule
     ],
     providers: [
         AWBService,
