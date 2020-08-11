@@ -33,6 +33,7 @@ export class APIConfig {
   public RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/range-price';
   public ROLES = this.API_BASE + '/master-service/v1/roles';
   public WAVE_PICK = this.API_BASE + '/awbs/v1/wv-pick-search';
+  public WAVE_PICK_DETAIL = this.API_BASE + '/awbs/v1/wv-pick';
   public WAVE_PICK_STATUS = this.API_BASE + '/awbs/v1/wv-pick-statuses';
   public ROLES_PERMISSION = this.API_BASE + '/master-service/v1/permissions/groups';
   public USER = this.API_BASE + '/master-service/v1/users';

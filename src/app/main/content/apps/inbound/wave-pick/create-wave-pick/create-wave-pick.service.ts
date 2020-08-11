@@ -14,11 +14,15 @@ export class CreateWavePickService
     {
     }
 
-    createCustomer(param) {
-        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param);
+    // createCustomer(param) {
+    //     return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param);
+    // }
+
+    getWPdetail(id) {
+        return this.http.get(this.apiConfig.WAVE_PICK_DETAIL + '/' + id);
     }
 
-    getCusDetail(id) {
-        return this.http.get(this.apiConfig.CUSTOMER + 's/' + id);
+    getStatus() {
+      return this.http.get(this.apiConfig.WAVE_PICK_STATUS);
     }
 }
