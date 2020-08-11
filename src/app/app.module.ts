@@ -26,6 +26,7 @@ import { AuthService } from '@fuse/services/auth.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {APP_BASE_HREF} from '@angular/common';
 import { ShareService } from '@fuse/services/share.service';
+import { DragDropDirective } from '@fuse/directives/drag-drop/drag-drop.directive';
 
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
+        DragDropDirective,
         AppComponent
     ],
     imports     : [
