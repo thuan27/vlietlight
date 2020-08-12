@@ -1,0 +1,41 @@
+<div class="title">Update Pre Alert</div>
+
+<div class="page-layout simple fullwidth">
+  <form class="form" name="form" [formGroup]="form" novalidate (ngSubmit)="onSubmit(form.value)">
+
+    <!-- <div>
+      <input class="input" matInput placeholder="Pre Alert" formControlName="pre_alert" autocomplete="off">
+      <div class="text-error" *ngIf="form.controls.pre_alert.hasError('required')">
+        Pre Alert is required
+      </div>
+    </div> -->
+
+    <div class="mt-3">
+        <input class="input" matInput placeholder="Pick Up Address" formControlName="pick_up_address" autocomplete="off">
+        <div class="text-error" *ngIf="form.controls.pick_up_address.hasError('required')">
+          Pick Up Address is required
+        </div>
+      </div>
+
+      <div class="mt-3">
+          <input class="input" matInput placeholder="Pick Up Date" formControlName="pick_up_date" autocomplete="off">
+          <div class="text-error" *ngIf="form.controls.pick_up_date.hasError('required')">
+            Pick Up Date is required
+          </div>
+        </div>
+
+        <div class="mt-3">
+            <input class="input" matInput placeholder="Sales Note" formControlName="sales_note" autocomplete="off">
+            <div class="text-error" *ngIf="form.controls.sales_note.hasError('required')">
+              Sales Note is required
+            </div>
+          </div>
+
+    <div>
+      <button mat-raised-button color="accent" class="submit-button" [disabled]="form.invalid">
+        Update
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import { FuseUpdatePreAlertComponent } from '@fuse/components/update-pre-alert/update-pre-alert.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'wave-pick-list',
@@ -15,6 +17,7 @@ import { Functions } from '@fuse/core/function';
 })
 export class WavePickListComponent implements OnInit {
   rows: any;
+  dialogRef;
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
@@ -32,6 +35,7 @@ export class WavePickListComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public dialog: MatDialog,
     private wavePickService: WavePickService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
@@ -184,5 +188,20 @@ export class WavePickListComponent implements OnInit {
     this.wavePickService.getStatus().subscribe((response) => {
       this.status = response['data'];
     });
+  }
+
+  updatePreAlert() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.dialogRef = this.dialog.open(FuseUpdatePreAlertComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.selected
+        }
+      });
+    }
   }
 }

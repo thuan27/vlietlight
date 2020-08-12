@@ -266,7 +266,7 @@ export class CreateOrderComponent implements OnInit {
       // pick_up_time: '10:30',
       items: this.detailChildGroup(data.items)
     });
-
+    console.log(this.OrderForm)
   }
 
   detailChildGroup(data = []) {

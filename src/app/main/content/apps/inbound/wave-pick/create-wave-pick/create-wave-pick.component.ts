@@ -26,6 +26,7 @@ export class CreateWavePickomponent implements OnInit {
   disabledForm;
   titleGroup;
   status;
+  buttonCancel;
 
   constructor(
     private _createWavePickService: CreateWavePickService,
@@ -41,6 +42,7 @@ export class CreateWavePickomponent implements OnInit {
     this.title = 'Create Wave Pick';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
+    this.buttonCancel = 'Cancel';
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update') {
@@ -52,6 +54,7 @@ export class CreateWavePickomponent implements OnInit {
           this.buttonType = 'Update';
           this.title = 'Update Wave Pick';
           this.titleGroup = 'Update';
+          this.buttonCancel = 'Cancel';
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
@@ -60,6 +63,7 @@ export class CreateWavePickomponent implements OnInit {
           this.disabledForm = true;
           this.title = 'Wave Pick Detail';
           this.titleGroup = 'Detail';
+          this.buttonCancel = 'Back';
         }
       }
       else {
@@ -68,6 +72,7 @@ export class CreateWavePickomponent implements OnInit {
         this.buildForm();
         this.title = 'Create Wave Pick';
         this.buttonType = 'Create';
+        this.buttonCancel = 'Cancel';
         this.disabledForm = false;
       }
     });
@@ -82,20 +87,12 @@ export class CreateWavePickomponent implements OnInit {
       pick_up_address: ['', [Validators.required]],
       pick_up_date: ['', [Validators.required]],
       pre_alert: ['', [Validators.required]],
+      pre_alert_name: ['', [Validators.required]],
       pre_alert_note_for_sales: ['', [Validators.required]],
-      pre_alert_note: ['', [Validators.required]],
       picker: ['', [Validators.required]],
       picker_name: ['', [Validators.required]],
       picker_note: ['', [Validators.required]],
-      pre_alert_removed: ['', [Validators.required]],
-      created_at: ['', [Validators.required]],
-      updated_at: ['', [Validators.required]],
-      created_by: ['', [Validators.required]],
-      updated_by: ['', [Validators.required]],
-      deleted: ['', [Validators.required]],
-      deleted_at: ['', [Validators.required]],
       area: ['', [Validators.required]],
-      sales_note: ['', [Validators.required]],
       details: this.formBuilder.array([this.buildChildGroup()])
     });
   }
@@ -110,7 +107,7 @@ export class CreateWavePickomponent implements OnInit {
     });
   }
 
-  buildChildGroupDetail(data) {
+  buildChildGroupDetail(data = []) {
     const itemDetail = this.WavePickForm.get('details') as FormArray;
     itemDetail.removeAt(0);
     for (let i = 0; i < data.length; i++) {
@@ -135,23 +132,15 @@ export class CreateWavePickomponent implements OnInit {
       pick_up_address: [data['pick_up_address'], [Validators.required]],
       pick_up_date: [data['pick_up_date'], [Validators.required]],
       pre_alert: [data['pre_alert'], [Validators.required]],
+      pre_alert_name: [data['pre_alert_name'], [Validators.required]],
       pre_alert_note_for_sales: [data['pre_alert_note_for_sales'], [Validators.required]],
-      pre_alert_note: [data['pre_alert_note'], [Validators.required]],
       picker: [data['picker'], [Validators.required]],
       picker_name: [data['picker_name'], [Validators.required]],
       picker_note: [data['picker_note'], [Validators.required]],
-      pre_alert_removed: [data['pre_alert_removed'], [Validators.required]],
-      created_at: [data['created_at'], [Validators.required]],
-      updated_at: [data['updated_at'], [Validators.required]],
-      created_by: [data['created_by'], [Validators.required]],
-      updated_by: [data['updated_by'], [Validators.required]],
-      deleted: [data['deleted'], [Validators.required]],
-      deleted_at: [data['deleted_at'], [Validators.required]],
       area: [data['area'], [Validators.required]],
-      sales_note: [data['sales_note'], [Validators.required]],
-      // details: this.formBuilder.array([this.buildChildGroup()])
-      details: this.formBuilder.array([this.buildChildGroupDetail(data['wv_details'])])
+      details: this.buildChildGroupDetail(data['wv_details'])
     });
+    console.log(this.WavePickForm);
   }
 
   detail(id) {
@@ -183,4 +172,5 @@ export class CreateWavePickomponent implements OnInit {
       this.status = response['data'];
     });
   }
+
 }

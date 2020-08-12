@@ -24,26 +24,26 @@
       <div class="box-shadow-form margin-top-10">
         <div fxLayout="row">
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="wv_hdr_num" matInput placeholder="Wave Pick Number">
+            <input [readonly]="true" formControlName="wv_hdr_num" matInput placeholder="Wave Pick Number">
             <mat-error *ngIf="WavePickForm.controls.wv_hdr_num.hasError('required')">
               Wave Pick Number is required
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="mr-3">
-            <mat-select formControlName="wv_sts" placeholder="Status">
+            <mat-select [disabled]="true" formControlName="wv_sts" placeholder="Status">
               <mat-option *ngFor="let item of status" [value]="item.key">
                 {{ item.value }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="customer_name" matInput placeholder="Customer Name">
+            <input [readonly]="true" formControlName="customer_name" matInput placeholder="Customer Name">
             <mat-error *ngIf="WavePickForm.controls.customer_name.hasError('required')">
               Customer Name is required
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25">
-            <input formControlName="awb_qty" matInput placeholder="AWB quantity">
+            <input [readonly]="true" formControlName="awb_qty" matInput placeholder="AWB quantity">
             <mat-error *ngIf="WavePickForm.controls.awb_qty.hasError('required')">
               AWB quantity is required
             </mat-error>
@@ -52,122 +52,69 @@
 
         <div fxLayout="row">
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="pick_up_address" matInput placeholder="Customer Address">
+            <input [readonly]="true" formControlName="pick_up_address" matInput placeholder="Customer Address">
             <mat-error *ngIf="WavePickForm.controls.pick_up_address.hasError('required')">
               Customer Address is required
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="pick_up_date" matInput placeholder="Pick Up Date">
+            <input [readonly]="true" matInput formControlName="pick_up_date" [matDatepicker]="pick_up_date"
+              placeholder="Received At">
+            <mat-datepicker-toggle matSuffix [for]="pick_up_date"></mat-datepicker-toggle>
+            <mat-datepicker #pick_up_date disabled="false"></mat-datepicker>
             <mat-error *ngIf="WavePickForm.controls.pick_up_date.hasError('required')">
-              Pick Up Date is required
+                Pick Up Date is required
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="sales_note" matInput placeholder="Sales Note">
-            <mat-error *ngIf="WavePickForm.controls.sales_note.hasError('required')">
-              Sales Note is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="pre_alert" matInput placeholder="Pre Alert">
+            <input [readonly]="true" formControlName="pre_alert" matInput placeholder="Pre Alert">
             <mat-error *ngIf="WavePickForm.controls.pre_alert.hasError('required')">
               Pre Alert is required
             </mat-error>
           </mat-form-field>
-        </div>
-
-        <div fxLayout="row">
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="pre_alert_note_for_sales" matInput placeholder="Pre Alert Note For Sales">
+            <input [readonly]="true" formControlName="pre_alert_note_for_sales" matInput placeholder="Pre Alert Note For Sales">
             <mat-error *ngIf="WavePickForm.controls.pre_alert_note_for_sales.hasError('required')">
               Pre Alert Note For Sales is required
             </mat-error>
           </mat-form-field>
+        </div>
+        <div fxLayout="row">
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="pre_alert_note" matInput placeholder="Pre Alert Note">
-            <mat-error *ngIf="WavePickForm.controls.pre_alert_note.hasError('required')">
-              Pre Alert Note is required
+            <input [readonly]="true" formControlName="pre_alert_name" matInput placeholder="Pre Alert Note">
+            <mat-error *ngIf="WavePickForm.controls.pre_alert_name.hasError('required')">
+              Pre Alert Name is required
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="picker" matInput placeholder="Picker">
+            <input [readonly]="true" formControlName="picker" matInput placeholder="Picker">
             <mat-error *ngIf="WavePickForm.controls.picker.hasError('required')">
               Picker is required
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="picker_name" matInput placeholder="Picker Name">
+            <input [readonly]="true" formControlName="picker_name" matInput placeholder="Picker Name">
             <mat-error *ngIf="WavePickForm.controls.picker_name.hasError('required')">
               Picker Name is required
             </mat-error>
           </mat-form-field>
-        </div>
-
-        <div fxLayout="row">
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="picker_note" matInput placeholder="Picker Note">
+            <input [readonly]="true" formControlName="picker_note" matInput placeholder="Picker Note">
             <mat-error *ngIf="WavePickForm.controls.picker_note.hasError('required')">
               Picker Note is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="pre_alert_removed" matInput placeholder="Pre Alert Removed">
-            <mat-error *ngIf="WavePickForm.controls.pre_alert_removed.hasError('required')">
-              Pre Alert Removed is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="created_at" matInput placeholder="Create At">
-            <mat-error *ngIf="WavePickForm.controls.created_at.hasError('required')">
-              Create At is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="updated_at" matInput placeholder="Updated At">
-            <mat-error *ngIf="WavePickForm.controls.updated_at.hasError('required')">
-              Updated At is required
-            </mat-error>
-          </mat-form-field>
         </div>
 
         <div fxLayout="row">
           <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="created_by" matInput placeholder="Created By">
-            <mat-error *ngIf="WavePickForm.controls.created_by.hasError('required')">
-              Created By is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="updated_by" matInput placeholder="Updated By">
-            <mat-error *ngIf="WavePickForm.controls.updated_by.hasError('required')">
-              Updated By is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="deleted" matInput placeholder="Deleted">
-            <mat-error *ngIf="WavePickForm.controls.deleted.hasError('required')">
-              Deleted is required
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="deleted_at" matInput placeholder="Deleted At">
-            <mat-error *ngIf="WavePickForm.controls.deleted_at.hasError('required')">
-              Deleted At is required
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div fxLayout="row">
-          <mat-form-field fxFlex="25" class="mr-3">
-            <input formControlName="area" matInput placeholder="Area">
+            <input [readonly]="true" formControlName="area" matInput placeholder="Area">
             <mat-error *ngIf="WavePickForm.controls.area.hasError('required')">
               Area is required
             </mat-error>
           </mat-form-field>
         </div>
       </div>
-
       <mat-tab-group class="demo-tab-group">
         <mat-tab label="Package Details">
           <table class="table table-striped table-bordered mat-cyan-50-bg">
@@ -183,40 +130,40 @@
             <tbody formArrayName="details">
               <tr *ngFor="let item of WavePickForm.get('details')['controls']; let i = index" [formGroupName]="i">
                 <td class="border-table">
-                  <input formControlName="wv_dtl_id" matInput>
-                  <!-- <mat-error
+                  <input [readonly]="true" formControlName="wv_dtl_id" matInput>
+                  <mat-error
                     *ngIf="WavePickForm.controls.details['controls'][i].controls.wv_dtl_id.hasError('required') && WavePickForm.controls.details['controls'][i].controls.wv_dtl_id.touched">
                     Wave Pick Detail ID is required
-                  </mat-error> -->
+                  </mat-error>
                 </td>
-                <!-- <td class="border-table">
-                  <input formControlName="wv_hdr_id" matInput>
+                <td class="border-table">
+                  <input [readonly]="true" formControlName="wv_hdr_id" matInput>
                   <mat-error
                     *ngIf="WavePickForm.controls.details['controls'][i].controls.wv_hdr_id.hasError('required') && WavePickForm.controls.details['controls'][i].controls.wv_hdr_id.touched">
                     Hdr ID is required
                   </mat-error>
                 </td>
                 <td class="border-table">
-                  <input formControlName="awb_id" matInput>
+                  <input [readonly]="true" formControlName="awb_id" matInput>
                   <mat-error
                     *ngIf="WavePickForm.controls.details['controls'][i].controls.awb_id.hasError('required') && WavePickForm.controls.details['controls'][i].controls.awb_id.touched">
                     AWB ID is required
                   </mat-error>
                 </td>
                 <td class="border-table">
-                  <input formControlName="wv_dtl_sts" matInput>
+                  <input [readonly]="true" formControlName="wv_dtl_sts" matInput>
                   <mat-error
                     *ngIf="WavePickForm.controls.details['controls'][i].controls.wv_dtl_sts.hasError('required') && WavePickForm.controls.details['controls'][i].controls.wv_dtl_sts.touched">
                     Wave Pick Status is required
                   </mat-error>
                 </td>
                 <td class="border-table">
-                  <input formControlName="awb_code" matInput>
+                  <input [readonly]="true" formControlName="awb_code" matInput>
                   <mat-error
                     *ngIf="WavePickForm.controls.details['controls'][i].controls.awb_code.hasError('required') && WavePickForm.controls.details['controls'][i].controls.awb_code.touched">
                     AWB Code is required
                   </mat-error>
-                </td> -->
+                </td>
               </tr>
             </tbody>
           </table>
@@ -224,7 +171,7 @@
         <mat-tab label="Event Tracking">
         </mat-tab>
       </mat-tab-group>
-      <button class="button-cancel" mat-raised-button (click)="cancel()">Cancel</button>
+      <button class="button-cancel" mat-raised-button (click)="cancel()">{{ buttonCancel }}</button>
       <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent" type="submit">
         {{ buttonType }}</button>
     </form>

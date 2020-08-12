@@ -18,12 +18,14 @@ import { Functions } from '@fuse/core/function';
 import { DatePipe } from '@angular/common';
 import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-form.component';
 import { FuseSubmitRolesComponent } from '@fuse/components/submit-roles/submit-roles.component';
+import { FuseUpdatePreAlertComponent } from '@fuse/components/update-pre-alert/update-pre-alert.component';
 
 @NgModule({
     declarations: [
         FuseMainComponent,
         FuseLoginFormDialogComponent,
-        FuseSubmitRolesComponent
+        FuseSubmitRolesComponent,
+        FuseUpdatePreAlertComponent
     ],
     imports     : [
         RouterModule,
@@ -55,7 +57,7 @@ import { FuseSubmitRolesComponent } from '@fuse/components/submit-roles/submit-r
         DatePipe,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    entryComponents: [FuseLoginFormDialogComponent, FuseSubmitRolesComponent]
+    entryComponents: [FuseUpdatePreAlertComponent, FuseLoginFormDialogComponent, FuseSubmitRolesComponent]
 })
 export class FuseMainModule
 {
