@@ -1,41 +1,84 @@
 <div class="title">Update Pre Alert</div>
 
-<div class="page-layout simple fullwidth">
-  <form class="form" name="form" [formGroup]="form" novalidate (ngSubmit)="onSubmit(form.value)">
+<div class="page-layout simple fullwidth" style="width: 600px">
+  <form name="form" [formGroup]="form" novalidate>
 
-    <!-- <div>
-      <input class="input" matInput placeholder="Pre Alert" formControlName="pre_alert" autocomplete="off">
-      <div class="text-error" *ngIf="form.controls.pre_alert.hasError('required')">
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="Pre Alert" formControlName="pre_alert" autocomplete="off">
+      <mat-error class="text-error" *ngIf="form.controls.pre_alert.hasError('required')">
         Pre Alert is required
-      </div>
-    </div> -->
+      </mat-error>
+    </mat-form-field>
 
-    <div class="mt-3">
-        <input class="input" matInput placeholder="Pick Up Address" formControlName="pick_up_address" autocomplete="off">
-        <div class="text-error" *ngIf="form.controls.pick_up_address.hasError('required')">
-          Pick Up Address is required
-        </div>
-      </div>
+    <mat-form-field class="mt-3" style="width: 100%">
+      <input matInput placeholder="Pick Up Address" formControlName="pick_up_address" autocomplete="off">
+      <mat-error class="text-error" *ngIf="form.controls.pick_up_address.hasError('required')">
+        Pick Up Address is required
+      </mat-error>
+    </mat-form-field>
 
-      <div class="mt-3">
-          <input class="input" matInput placeholder="Pick Up Date" formControlName="pick_up_date" autocomplete="off">
-          <div class="text-error" *ngIf="form.controls.pick_up_date.hasError('required')">
-            Pick Up Date is required
-          </div>
-        </div>
+    <mat-form-field class="mt-3" style="width: 100%">
+      <input matInput placeholder="Pick Up Date" formControlName="pick_up_date" autocomplete="off">
+      <mat-error class="text-error" *ngIf="form.controls.pick_up_date.hasError('required')">
+        Pick Up Date is required
+      </mat-error>
+    </mat-form-field>
 
-        <div class="mt-3">
-            <input class="input" matInput placeholder="Sales Note" formControlName="sales_note" autocomplete="off">
-            <div class="text-error" *ngIf="form.controls.sales_note.hasError('required')">
-              Sales Note is required
-            </div>
-          </div>
-
-    <div>
-      <button mat-raised-button color="accent" class="submit-button" [disabled]="form.invalid">
-        Update
-      </button>
-    </div>
+    <mat-form-field class="mt-3" style="width: 100%">
+      <input matInput placeholder="Sales Note" formControlName="sales_note" autocomplete="off">
+      <mat-error class="text-error" *ngIf="form.controls.sales_note.hasError('required')">
+        Sales Note is required
+      </mat-error>
+    </mat-form-field>
 
   </form>
+  <form name="formSearch" [formGroup]="formSearch" novalidate>
+    <div fxLayout="row" class="mt-3">
+      <mat-form-field fxFlex="25" class="mr-3">
+        <input (keyup)="onSuggest()" formControlName="first_name" matInput placeholder="First Name" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="mr-3">
+        <input (keyup)="onSuggest()" formControlName="last_name" matInput placeholder="Last Name" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field fxFlex="25" class="mr-3">
+        <input (keyup)="onSuggest()" formControlName="email" matInput placeholder="Email" autocomplete="off">
+      </mat-form-field>
+      <button (click)="reset()" fxFlex="25" class="mt-3 mr-1" style="height: 40px" mat-raised-button>
+        Reset
+      </button>
+    </div>
+    <table class="table table-striped table-bordered mat-cyan-50-bg">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listSuggest">
+          <td class="border-table">
+            {{ item.user_id }}
+          </td>
+          <td class="border-table">
+            {{ item.first_name }}
+          </td>
+          <td class="border-table">
+            {{ item.last_name }}
+          </td>
+          <td class="border-table">
+            {{ item.email }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <div>
+    <button mat-raised-button color="accent" class="submit-button" (click)="onSubmit(form.value)"
+      [disabled]="form.invalid">
+      Update
+    </button>
+  </div>
 </div>

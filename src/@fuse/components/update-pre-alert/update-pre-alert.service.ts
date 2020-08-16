@@ -14,7 +14,11 @@ export class UpadtePreAlertService
     }
 
     updatePreAlert(id, value) {
-        return this.http.put(this.apiConfig.WAVE_PICK_DETAIL + '/' + id + 'assign-prealert', value);
+        return this.http.put(this.apiConfig.WAVE_PICK_DETAIL + '/' + id + 'assign-pickup', value);
+    }
+
+    getsugesstion(control) {
+      return this.http.get(this.apiConfig.WAVE_PICK_DETAIL + '/suggest-prealert' + control);
     }
 
 }

@@ -8,6 +8,7 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 import { FuseUpdatePreAlertComponent } from '@fuse/components/update-pre-alert/update-pre-alert.component';
 import { MatDialog } from '@angular/material';
+import { FuseUpdatePickUpComponent } from '@fuse/components/update-pick-up/update-pick-up.component';
 
 @Component({
   selector: 'wave-pick-list',
@@ -197,6 +198,21 @@ export class WavePickListComponent implements OnInit {
       this.toastyService.error('Please select one item.');
     } else {
       this.dialogRef = this.dialog.open(FuseUpdatePreAlertComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.selected
+        }
+      });
+    }
+  }
+
+  updatePickUp() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.dialogRef = this.dialog.open(FuseUpdatePickUpComponent, {
         panelClass: 'contact-form-dialog',
         data      : {
             data: this.selected

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Functions } from '@fuse/core/function';
 import { MatDialog } from '@angular/material';
 import { UpadtePreAlertService } from './update-pre-alert.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
@@ -11,13 +10,15 @@ import { ToastyService } from '@fuse/directives/ng2-toasty';
     selector     : 'fuse-update-pre-alert-dialog',
     templateUrl  : './update-pre-alert.component.html',
     styleUrls    : ['./update-pre-alert.component.scss'],
-    providers: [UpadtePreAlertService]
+    providers: [UpadtePreAlertService],
 })
 
 export class FuseUpdatePreAlertComponent
 {
     form: FormGroup;
+    formSearch: FormGroup;
     dialogRef: any;
+    listSuggest;
 
     constructor(
       @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,6 +32,7 @@ export class FuseUpdatePreAlertComponent
 
     ngOnInit() {
       this.buildFrom();
+      this.buildSearchForm();
     }
 
     private buildFrom() {
@@ -42,6 +44,14 @@ export class FuseUpdatePreAlertComponent
         });
   }
 
+  private buildSearchForm() {
+    this.formSearch = this.formBuilder.group({
+      first_name: [''],
+      last_name: [''],
+      email: [''],
+    });
+}
+
   onSubmit(value) {
     this.upadtePreAlertService.updatePreAlert(this.data['data'][0]['wv_hdr_id'], value).subscribe(
       (res) => {
@@ -51,6 +61,23 @@ export class FuseUpdatePreAlertComponent
         this.toastyService.warning(err.errors.message);
       }
     )
+  }
+
+  onSuggest() {
+    let params = '';
+    params = params + '?first_name=' + this.formSearch.controls['first_name'].value
+    + '&last_name=' + this.formSearch.controls['last_name'].value
+    + '&email=' + this.formSearch.controls['email'].value;
+    this.upadtePreAlertService.getsugesstion(params).subscribe((res) => {
+      this.listSuggest = res['data'];
+    })
+  }
+
+  reset() {
+    this.formSearch.controls['first_name'].setValue('');
+    this.formSearch.controls['last_name'].setValue('');
+    this.formSearch.controls['email'].setValue('');
+    this.listSuggest = [];
   }
 
 }
