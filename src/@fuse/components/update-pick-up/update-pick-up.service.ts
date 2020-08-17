@@ -13,7 +13,7 @@ export class UpadtePickUpService
     }
 
     updatePickUp(id, value) {
-        return this.http.put(this.apiConfig.WAVE_PICK_DETAIL + '/' + id + 'assign-prealert', value);
+        return this.http.put(this.apiConfig.WAVE_PICK_DETAIL + '/' + id + '/assign-pickup', value);
     }
 
     getsugesstion(control) {
