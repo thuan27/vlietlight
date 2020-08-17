@@ -29,7 +29,7 @@ export class WavePickListComponent implements OnInit {
   searchForm: FormGroup;
   status;
   sortData = '';
-  hasEditUserPermission = false;
+  hasCancelUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
@@ -58,17 +58,16 @@ export class WavePickListComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
       data => {
-        this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountry');
-        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountry');
-        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountry');
-        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCountry');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createWavePick');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteWavePick');
+        this.hasCancelUserPermission = this._user.RequestPermission(data, 'cancelWavePick');
         /* Check orther permission if View allow */
-        if (!this.hasViewUserPermission) {
-          this.router.navigateByUrl('pages/landing');
-        }
-        else {
+        // if (!this.hasViewUserPermission) {
+        //   this.router.navigateByUrl('pages/landing');
+        // }
+        // else {
           this.getList();
-        }
+        // }
       },
       err => {
         this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
@@ -122,16 +121,6 @@ export class WavePickListComponent implements OnInit {
 
   create() {
     this.router.navigate(['apps/master-data/countries/create']);
-  }
-
-  update() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.router.navigateByUrl(`apps/master-data/countries/${this.selected[0]['country_id_temp']}/update`);
-    }
   }
 
   delete() {
@@ -220,4 +209,5 @@ export class WavePickListComponent implements OnInit {
       });
     }
   }
+
 }
