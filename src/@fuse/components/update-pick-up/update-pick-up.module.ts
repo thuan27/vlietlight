@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule, MatDialogModule, MatInputModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
-import { FuseUpdatePreAlertComponent } from './update-pre-alert.component';
+import { FuseUpdatePickUpComponent } from './update-pick-up.component';
 
 @NgModule({
   declarations: [
-    FuseUpdatePreAlertComponent
+    FuseUpdatePickUpComponent
   ],
   imports: [
     MatDialogModule,
@@ -15,8 +15,8 @@ import { FuseUpdatePreAlertComponent } from './update-pre-alert.component';
     MatButtonModule
   ],
   entryComponents: [
-    FuseUpdatePreAlertComponent
+    FuseUpdatePickUpComponent
   ],
 })
-export class FuseUpdatePreAlertModule {
+export class FuseUpdatePickUpModule {
 }

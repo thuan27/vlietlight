@@ -18,16 +18,14 @@ import { Functions } from '@fuse/core/function';
 import { DatePipe } from '@angular/common';
 import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-form.component';
 import { FuseSubmitRolesComponent } from '@fuse/components/submit-roles/submit-roles.component';
-import { FuseUpdatePreAlertComponent } from '@fuse/components/update-pre-alert/update-pre-alert.component';
-import { FuseUpdatePickUpComponent } from '@fuse/components/update-pick-up/update-pick-up.component';
 import { FuseUpdatePreAlertModule } from '@fuse/components/update-pre-alert/update-pre-alert.module';
+import { FuseUpdatePickUpModule } from '@fuse/components/update-pick-up/update-pick-up.module';
 
 @NgModule({
     declarations: [
         FuseMainComponent,
         FuseLoginFormDialogComponent,
         FuseSubmitRolesComponent,
-        FuseUpdatePickUpComponent
     ],
     imports     : [
         RouterModule,
@@ -49,6 +47,7 @@ import { FuseUpdatePreAlertModule } from '@fuse/components/update-pre-alert/upda
         FuseDirectivesModule,
         FuseConfirmDialogModule,
         FuseUpdatePreAlertModule,
+        FuseUpdatePickUpModule,
         ToastyModule.forRoot()
     ],
     exports     : [
@@ -63,7 +62,6 @@ import { FuseUpdatePreAlertModule } from '@fuse/components/update-pre-alert/upda
     entryComponents: [
       FuseLoginFormDialogComponent,
       FuseSubmitRolesComponent,
-      FuseUpdatePickUpComponent
       ]
 })
 export class FuseMainModule

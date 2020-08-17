@@ -16,4 +16,7 @@ export class UpadtePickUpService
         return this.http.put(this.apiConfig.WAVE_PICK_DETAIL + '/' + id + 'assign-prealert', value);
     }
 
+    getsugesstion(control) {
+      return this.http.get(this.apiConfig.WAVE_PICK_DETAIL + '/suggest-pickup' + control);
+    }
 }
