@@ -1,3 +1,4 @@
+import { CreateUserAdminComponent } from './user/create-user/create-user.component';
 import { Routes } from '@angular/router';
 import { AuthGuard, AdminGuard } from '../../guards';
 import { RolesComponent } from './roles/roles.component';
@@ -13,7 +14,22 @@ export const listRoutes: Routes = [
         path     : 'users',
         component: UserAdminListComponent,
         canActivate: [AuthGuard, AdminGuard]
-  }
+    },
+    {
+        path     : 'users/:id',
+        component: CreateUserAdminComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'users/create',
+        component: CreateUserAdminComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path: 'users/:id/:update',
+        component: CreateUserAdminComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    }
 ];
 
 

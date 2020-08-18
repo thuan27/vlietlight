@@ -23,7 +23,7 @@ import { SearchPipe } from './roles/search.pipe';
 import { UppercaseToSpaceLowerPipe } from './roles/string.pipe';
 import { UserAdminListComponent } from './user/user-list/user-list.component';
 import { UserAdminListService } from './user/user-list/user-list.service';
-import { CreateServiceComponent } from './user/create-service/create-service.component';
+import { CreateUserAdminComponent } from './user/create-user/create-user.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +31,7 @@ import { CreateServiceComponent } from './user/create-service/create-service.com
         UserAdminListComponent,
         SearchPipe,
         UppercaseToSpaceLowerPipe,
-        CreateServiceComponent
+        CreateUserAdminComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),

@@ -20,11 +20,11 @@ export class UserAdminListService
         return this.http.get(this.apiConfig.USER + params);
     }
 
-    delete(id) {
-        return this.http.delete(this.apiConfig.SERVICE_LIST  + '/delete/' + id);
+    delete(data) {
+        return this.http.post(this.apiConfig.USER_DELETE, data);
     }
 
     getReport(params: string = '') {
-      return this.http.get(this.apiConfig.SERVICE_LIST + params + '&export=1', { responseType: 'blob' });
+      return this.http.get(this.apiConfig.USER + params + '&export=1', { responseType: 'blob' });
     }
 }

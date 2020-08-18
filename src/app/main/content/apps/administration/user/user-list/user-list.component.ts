@@ -6,6 +6,8 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import * as FileSaver from 'file-saver';
 import { Functions } from '@fuse/core/function';
 import { UserService } from '@fuse/directives/users/users.service';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'user-list',
@@ -33,6 +35,7 @@ export class UserAdminListComponent implements OnInit {
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   constructor(
     private router: Router,
@@ -41,6 +44,7 @@ export class UserAdminListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _user: UserService,
     private _Func: Functions,
+    public dialog: MatDialog,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -94,7 +98,7 @@ export class UserAdminListComponent implements OnInit {
   }
 
   getList(page = 1) {
-    let params = '?page=' + page ;
+    let params = '?page=' + page;
     const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
@@ -108,14 +112,12 @@ export class UserAdminListComponent implements OnInit {
       dataList['data'].forEach((data) => {
         data['status_temp'] = data['status'];
         data['status'] = data['status'] == 'AC' ? 'Active' : 'Inactive';
-        data['user_name_temp'] = data['user_name'];
-        data['user_name'] = `<a href="#/apps/administration/users/${data['user_id']}">${data['user_name_temp']}</a>`;
+        data['username_temp'] = data['username'];
+        data['username'] = `<a href="#/apps/administration/users/${data['user_id']}">${data['username_temp']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['totalCount'];
-      // this.total = dataList['meta']['pagination']['total'];
-      // this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
-      this.current_page = parseInt(dataList['meta']['currentPage']) - 1;
+      this.current_page = parseInt(dataList['meta']['currentPage']);
       this.loadingIndicator = false;
     });
   }
@@ -129,7 +131,7 @@ export class UserAdminListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/master-data/service/create']);
+    this.router.navigate(['apps/administration/users/create']);
   }
 
   update() {
@@ -138,7 +140,7 @@ export class UserAdminListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/service/${this.selected[0]['service_id']}/update`);
+      this.router.navigateByUrl(`apps/administration/users/${this.selected[0]['user_id']}/update`);
     }
   }
 
@@ -148,15 +150,27 @@ export class UserAdminListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.userAdminListService.delete(this.selected[0]['service_id']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this User?';
+
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          let data = {
+            user_ids: this.selected[0].user_id
+          };
+          this.userAdminListService.delete(data).subscribe((data) => {
+            this.toastyService.success('Deleted Successfully');
+            setTimeout(
+              () => {
+                this.getList();
+                this.selected = [];
+              },
+              700
+            );
+          });
+        } else {
+        }
+        this.dialogRef = null;
       });
     }
   }
@@ -167,11 +181,12 @@ export class UserAdminListComponent implements OnInit {
   }
 
   exportCsv() {
-    let fileName = 'Service';
+    let fileName = 'User Admin';
     let fileType = '.csv';
-    let params = '?status=' + this.searchForm.controls['status'].value;
-    if (this.searchForm.controls['service_name'].value != '') {
-      params = params + '&service_name=' + this.searchForm.controls['service_name'].value;
+    let params = '?page=' + this.current_page;
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     if (this.sortData !== '') {
       params += this.sortData;

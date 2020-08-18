@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreateService } from './create-service.service';
+import { CreateUserAdminService } from './create-user.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -12,13 +12,13 @@ import { Functions } from '@fuse/core/function';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'create-service',
-  templateUrl: './create-service.component.html',
-  styleUrls: ['./create-service.component.scss'],
-  providers: [UserService, ValidationService, ToastyService, CreateService]
+  selector: 'create-user',
+  templateUrl: './create-user.component.html',
+  styleUrls: ['./create-user.component.scss'],
+  providers: [UserService, ValidationService, ToastyService, CreateUserAdminService]
 })
 // tslint:disable-next-line:component-class-suffix
-export class CreateServiceComponent implements OnInit {
+export class CreateUserAdminComponent implements OnInit {
 
   items: FormArray;
   CountryForm: FormGroup;
@@ -33,8 +33,8 @@ export class CreateServiceComponent implements OnInit {
   country;
   service;
   status = [
-    {value: 'Active'},
-    {value: 'Inactive'}
+    {value: 'AC', name: 'ACtive'},
+    {value: 'IC', name: 'Inactive'}
   ];
   buttonCancel;
   hasEditUserPermission = false;
@@ -43,7 +43,7 @@ export class CreateServiceComponent implements OnInit {
   private hasViewUserPermission = false;
 
   constructor(
-    private _createService: CreateService,
+    private _CreateUserAdmin: CreateUserAdminService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -70,9 +70,21 @@ export class CreateServiceComponent implements OnInit {
 
   private buildForm() {
     this.CountryForm = this.formBuilder.group({
-      service_name: ['', [Validators.required]],
-      service_name2: [''],
-      status: ['Active']
+      username: ['', [Validators.required]],
+      first_name: ['', [Validators.required]],
+      last_name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      emp_code: ['', [Validators.required]],
+      status: ['AC'],
+      phone: [null, [Validators.required]],
+      phone_extend: [null, [Validators.required]],
+      mobile: [null, [Validators.required]],
+      off_loc: ['', [Validators.required]],
+      usr_dpm_id: ['', [Validators.required]],
+      area: ['', [Validators.required]],
+      setup_password_url: ['http://vietlight.vietlight.info/#/setup-password', [Validators.required]],
+      user_roles: ['', [Validators.required]],
+
     });
   }
 
@@ -80,10 +92,10 @@ export class CreateServiceComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
       data => {
-        this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
-        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
-        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
-        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewService');
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editUser');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'CreateUser');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteUser');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewUser');
         /* Check orther permission if View allow */
         if (!this.hasViewUserPermission) {
           this.router.navigateByUrl('pages/landing');
@@ -106,21 +118,21 @@ export class CreateServiceComponent implements OnInit {
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonType = 'Update';
-          this.title = 'Update Service';
+          this.title = 'Update User';
           this.titleGroup = 'Update';
         } else {
           this.idCountry = params['id'];
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Service Detail';
+          this.title = 'User Detail';
           this.titleGroup = 'Detail';
         }
       }
       else {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.title = 'Create Service';
+        this.title = 'Create User';
         this.buttonType = 'Create';
         this.disabledForm = false;
         this.buttonCancel = 'Back'
@@ -139,11 +151,11 @@ export class CreateServiceComponent implements OnInit {
   onSubmit() {
     if (this.CountryForm.valid) {
       if (this.action === 'create') {
-        this._createService.createCountryList(this.CountryForm.value).subscribe((data) => {
+        this._CreateUserAdmin.createCountryList(this.CountryForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/service']);
+              this.router.navigate(['apps/administration/users']);
             },
             700
           );
@@ -151,11 +163,11 @@ export class CreateServiceComponent implements OnInit {
           this.toastyService.error(err['error']['errors']['message']);
         });
       } else if (this.action === 'update') {
-        this._createService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+        this._CreateUserAdmin.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/service']);
+              this.router.navigate(['apps/administration/users']);
             },
             700
           );
@@ -168,7 +180,7 @@ export class CreateServiceComponent implements OnInit {
   }
 
   detail(id) {
-    this._createService.getCountryDetail(id).subscribe((data) => {
+    this._CreateUserAdmin.getCountryDetail(id).subscribe((data) => {
       this.countryDetail = data['service'];
       this.detailForm(data['service']);
     });
@@ -179,13 +191,13 @@ export class CreateServiceComponent implements OnInit {
   }
 
   countryList() {
-    this._createService.countryList().subscribe((data) => {
+    this._CreateUserAdmin.countryList().subscribe((data) => {
       this.country = data['data'];
     });
   }
 
   serviceList() {
-    this._createService.serviceList().subscribe((data) => {
+    this._CreateUserAdmin.serviceList().subscribe((data) => {
       this.service = data['data'];
     });
   }

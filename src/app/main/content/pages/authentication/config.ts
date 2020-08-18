@@ -37,6 +37,7 @@ export class APIConfig {
   public WAVE_PICK_STATUS = this.API_BASE + '/awbs/v1/wv-pick-statuses';
   public ROLES_PERMISSION = this.API_BASE + '/master-service/v1/permissions/groups';
   public USER = this.API_BASE + '/master-service/v1/users';
+  public USER_DELETE = this.API_BASE + '/master-service/v1/delete-multi-user';
 
   public RESET_PASS = this.API_MASTER + '/reset-password';
   public FORGOT_PASS = this.API_MASTER + '/forgot-password';

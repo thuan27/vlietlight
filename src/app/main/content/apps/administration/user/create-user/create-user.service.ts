@@ -4,7 +4,7 @@ import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class CreateService
+export class CreateUserAdminService
 {
     constructor(
         private http: HttpClient,
