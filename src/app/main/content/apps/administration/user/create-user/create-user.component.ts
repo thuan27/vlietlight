@@ -21,9 +21,9 @@ import { Functions } from '@fuse/core/function';
 export class CreateUserAdminComponent implements OnInit {
 
   items: FormArray;
-  CountryForm: FormGroup;
+  UserAdminForm: FormGroup;
   idCountry;
-  countryDetail;
+  userDetail;
   private routeSub: Subscription;
   disabledForm;
   title;
@@ -33,14 +33,18 @@ export class CreateUserAdminComponent implements OnInit {
   country;
   service;
   status = [
-    {value: 'AC', name: 'ACtive'},
+    {value: 'AC', name: 'Active'},
     {value: 'IC', name: 'Inactive'}
   ];
+  rows: any;
   buttonCancel;
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
+  loadingIndicator = true;
+  reorderable = true;
+  selected: any[] = [];
 
   constructor(
     private _CreateUserAdmin: CreateUserAdminService,
@@ -69,7 +73,7 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   private buildForm() {
-    this.CountryForm = this.formBuilder.group({
+    this.UserAdminForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
@@ -84,7 +88,7 @@ export class CreateUserAdminComponent implements OnInit {
       area: ['', [Validators.required]],
       setup_password_url: ['http://vietlight.vietlight.info/#/setup-password', [Validators.required]],
       user_roles: ['', [Validators.required]],
-
+      dept: ['', [Validators.required]],
     });
   }
 
@@ -141,17 +145,29 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   private detailForm(data) {
-    this.CountryForm = this.formBuilder.group({
-      service_name: [data['service_name'], [Validators.required]],
-      service_name2: [data['service_name2']],
+    this.UserAdminForm = this.formBuilder.group({
+      username: [data['username'], [Validators.required]],
+      first_name: [data['first_name'], [Validators.required]],
+      last_name: [data['last_name'], [Validators.required]],
+      email: [data['email'], [Validators.required]],
+      emp_code: [data['emp_code'], [Validators.required]],
       status: [data['status']],
+      phone: [data['phone'], [Validators.required]],
+      phone_extend: [data['phone_extend'], [Validators.required]],
+      mobile: [data['mobile'], [Validators.required]],
+      off_loc: [data['off_loc'], [Validators.required]],
+      usr_dpm_id: [data['usr_dpm_id'], [Validators.required]],
+      area: [data['area'], [Validators.required]],
+      setup_password_url: [data['setup_password_url'], [Validators.required]],
+      user_roles: [data['user_roles'], [Validators.required]],
+      dept: [data['dept'], [Validators.required]],
     });
   }
 
   onSubmit() {
-    if (this.CountryForm.valid) {
+    if (this.UserAdminForm.valid) {
       if (this.action === 'create') {
-        this._CreateUserAdmin.createCountryList(this.CountryForm.value).subscribe((data) => {
+        this._CreateUserAdmin.createCountryList(this.UserAdminForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -163,7 +179,7 @@ export class CreateUserAdminComponent implements OnInit {
           this.toastyService.error(err['error']['errors']['message']);
         });
       } else if (this.action === 'update') {
-        this._CreateUserAdmin.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+        this._CreateUserAdmin.updateCountry(this.idCountry, this.UserAdminForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -180,9 +196,11 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   detail(id) {
-    this._CreateUserAdmin.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['service'];
-      this.detailForm(data['service']);
+    this._CreateUserAdmin.getuserDetail(id).subscribe((data) => {
+      this.userDetail = data['data'];
+      this.detailForm(data['data']);
+      this.rows = data['data']['user_roles'];
+      this.loadingIndicator = false;
     });
   }
 

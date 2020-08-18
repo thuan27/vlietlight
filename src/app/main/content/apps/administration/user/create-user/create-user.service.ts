@@ -18,8 +18,8 @@ export class CreateUserAdminService
         return this.http.post(this.apiConfig.SERVICE_LIST + '/store', param);
     }
 
-    getCountryDetail(params) {
-        return this.http.get(this.apiConfig.SERVICE_LIST + '/show/' + params);
+    getuserDetail(params) {
+        return this.http.get(this.apiConfig.USER_DETAIL + params);
     }
 
     updateCountry(id, param) {
