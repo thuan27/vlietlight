@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { CreateUserAdminService } from './create-user.service';
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { Location } from '@angular/common';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import { FuseAddRoleComponent } from '@fuse/components/add-role/add-role.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -45,8 +46,10 @@ export class CreateUserAdminComponent implements OnInit {
   loadingIndicator = true;
   reorderable = true;
   selected: any[] = [];
+  dialogRef;
 
   constructor(
+    public dialog: MatDialog,
     private _CreateUserAdmin: CreateUserAdminService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -115,6 +118,7 @@ export class CreateUserAdminComponent implements OnInit {
 
   defaultPage() {
     this.routeSub = this.activeRoute.params.subscribe(params => {
+      console.log(params)
       if (params['id'] !== undefined) {
         if (params['update']  === 'update') {
           this.action = 'update';
@@ -139,7 +143,7 @@ export class CreateUserAdminComponent implements OnInit {
         this.title = 'Create User';
         this.buttonType = 'Create';
         this.disabledForm = false;
-        this.buttonCancel = 'Back'
+        this.buttonCancel = 'Back';
       }
     });
   }
@@ -222,5 +226,14 @@ export class CreateUserAdminComponent implements OnInit {
 
   cancel() {
     this.location.back();
+  }
+
+  addRole() {
+    this.dialogRef = this.dialog.open(FuseAddRoleComponent, {
+      panelClass: 'contact-form-dialog',
+      data      : {
+          data: this.selected
+      }
+    });
   }
 }

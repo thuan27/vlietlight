@@ -20,6 +20,7 @@ import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-
 import { FuseSubmitRolesComponent } from '@fuse/components/submit-roles/submit-roles.component';
 import { FuseUpdatePreAlertModule } from '@fuse/components/update-pre-alert/update-pre-alert.module';
 import { FuseUpdatePickUpModule } from '@fuse/components/update-pick-up/update-pick-up.module';
+import { FuseAddRoleModule } from '@fuse/components/add-role/add-role.module';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { FuseUpdatePickUpModule } from '@fuse/components/update-pick-up/update-p
         FuseDirectivesModule,
         FuseConfirmDialogModule,
         FuseUpdatePreAlertModule,
+        FuseAddRoleModule,
         FuseUpdatePickUpModule,
         ToastyModule.forRoot()
     ],

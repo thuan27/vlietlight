@@ -16,17 +16,17 @@ export const listRoutes: Routes = [
         canActivate: [AuthGuard, AdminGuard]
     },
     {
-        path     : 'users/:id',
-        component: CreateUserAdminComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
-    {
         path     : 'users/create',
         component: CreateUserAdminComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
     {
-        path: 'users/:id/:update',
+        path     : 'users/:id',
+        component: CreateUserAdminComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'users/:id/:update',
         component: CreateUserAdminComponent,
         canActivate: [AuthGuard, AdminGuard]
     }
