@@ -37,7 +37,7 @@ export class CreateUserAdminComponent implements OnInit {
     {value: 'AC', name: 'Active'},
     {value: 'IC', name: 'Inactive'}
   ];
-  rows: any;
+  rows = [];
   buttonCancel;
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
@@ -47,6 +47,8 @@ export class CreateUserAdminComponent implements OnInit {
   reorderable = true;
   selected: any[] = [];
   dialogRef;
+  allRoles= [];
+  dataRole;
 
   constructor(
     public dialog: MatDialog,
@@ -73,6 +75,7 @@ export class CreateUserAdminComponent implements OnInit {
     this.buildForm();
     this.countryList();
     this.serviceList();
+    this.getLogedUserRoles();
   }
 
   private buildForm() {
@@ -118,7 +121,6 @@ export class CreateUserAdminComponent implements OnInit {
 
   defaultPage() {
     this.routeSub = this.activeRoute.params.subscribe(params => {
-      console.log(params)
       if (params['id'] !== undefined) {
         if (params['update']  === 'update') {
           this.action = 'update';
@@ -228,12 +230,29 @@ export class CreateUserAdminComponent implements OnInit {
     this.location.back();
   }
 
+  getLogedUserRoles() {
+    this._CreateUserAdmin.getLogedUserRoles().subscribe(res => {
+      this.dataRole = res['data'];
+    });
+  }
+
   addRole() {
+    let dataUncheck = [];
+    dataUncheck = this.dataRole.filter(f => !this.rows.includes(f));
     this.dialogRef = this.dialog.open(FuseAddRoleComponent, {
       panelClass: 'contact-form-dialog',
       data      : {
-          data: this.selected
+          data: dataUncheck
       }
     });
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) { return }
+        let data = [...this.rows];
+        for (let i=0; i< response.length; i++) {
+          data.push(response[i])
+        }
+        this.rows = data;
+      });
   }
 }

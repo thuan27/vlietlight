@@ -33,4 +33,10 @@ export class CreateUserAdminService
     serviceList() {
       return this.http.get(this.apiConfig.SERVICE_LIST);
     }
+
+
+
+    getLogedUserRoles() {
+      return this.http.get(this.apiConfig.ROLES + '?limit=50&sort[code]=asc');
+    }
 }
