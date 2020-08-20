@@ -73,8 +73,6 @@ export class CreateUserAdminComponent implements OnInit {
     this.buttonCancel = 'Cancel'
     this.checkPermission();
     this.buildForm();
-    this.countryList();
-    this.serviceList();
     this.getLogedUserRoles();
   }
 
@@ -171,31 +169,35 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.rows.length === 0) {
+      this.toastyService.error('Please select at least one role');
+    }
+    this.UserAdminForm.controls['user_roles'].setValue(this.rows)
     if (this.UserAdminForm.valid) {
       if (this.action === 'create') {
-        this._CreateUserAdmin.createCountryList(this.UserAdminForm.value).subscribe((data) => {
-          this.toastyService.success(data['message']);
-          setTimeout(
-            () => {
-              this.router.navigate(['apps/administration/users']);
-            },
-            700
-          );
-        }, err => {
-          this.toastyService.error(err['error']['errors']['message']);
-        });
-      } else if (this.action === 'update') {
-        this._CreateUserAdmin.updateCountry(this.idCountry, this.UserAdminForm.value).subscribe((data) => {
-          this.toastyService.success(data['message']);
-          setTimeout(
-            () => {
-              this.router.navigate(['apps/administration/users']);
-            },
-            700
-          );
-        }, err => {
-          this.toastyService.error(err['error']['errors']['message']);
-        });
+      //   this._CreateUserAdmin.createCountryList(this.UserAdminForm.value).subscribe((data) => {
+      //     this.toastyService.success(data['message']);
+      //     setTimeout(
+      //       () => {
+      //         this.router.navigate(['apps/administration/users']);
+      //       },
+      //       700
+      //     );
+      //   }, err => {
+      //     this.toastyService.error(err['error']['errors']['message']);
+      //   });
+      // } else if (this.action === 'update') {
+      //   this._CreateUserAdmin.updateCountry(this.idCountry, this.UserAdminForm.value).subscribe((data) => {
+      //     this.toastyService.success(data['message']);
+      //     setTimeout(
+      //       () => {
+      //         this.router.navigate(['apps/administration/users']);
+      //       },
+      //       700
+      //     );
+      //   }, err => {
+      //     this.toastyService.error(err['error']['errors']['message']);
+      //   });
       }
 
     }
@@ -212,18 +214,6 @@ export class CreateUserAdminComponent implements OnInit {
 
   checkInputNumber($event, int) {
     this._Valid.isNumber($event, int);
-  }
-
-  countryList() {
-    this._CreateUserAdmin.countryList().subscribe((data) => {
-      this.country = data['data'];
-    });
-  }
-
-  serviceList() {
-    this._CreateUserAdmin.serviceList().subscribe((data) => {
-      this.service = data['data'];
-    });
   }
 
   cancel() {
