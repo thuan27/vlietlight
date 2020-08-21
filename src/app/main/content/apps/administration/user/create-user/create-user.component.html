@@ -19,7 +19,7 @@
   <!-- CONTENT -->
   <div class="p-24">
 
-    <form [formGroup]="UserAdminForm" autocomplete="off" class="form" (submit)="onSubmit()">
+    <form [formGroup]="UserAdminForm" autocomplete="off" class="form">
       <div class="background-title mat-cyan-200-bg margin-top-10">
         <h2 class="title">{{ titleGroup }}</h2>
       </div>
@@ -47,6 +47,9 @@
             <input [readonly]="disabledForm" formControlName="email" matInput placeholder="Email">
             <mat-error *ngIf="UserAdminForm.controls.email.hasError('required')">
               Email is required
+            </mat-error>
+            <mat-error *ngIf="UserAdminForm.controls.email.hasError('invalidEmailAddress')">
+              Email is invalid
             </mat-error>
           </mat-form-field>
         </div>
@@ -91,7 +94,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="25" class="mr-3">
-              <input [readonly]="disabledForm" formControlName="usr_dpm_id" matInput placeholder="User Name">
+              <input [readonly]="disabledForm" formControlName="usr_dpm_id" matInput placeholder="User DPM ID">
               <mat-error *ngIf="UserAdminForm.controls.usr_dpm_id.hasError('required')">
                 User Name is required
               </mat-error>
@@ -114,11 +117,17 @@
           <div class="box-shadow-form">
           <mat-tab-group class="demo-tab-group">
             <mat-tab label="Roles">
-                <button (click)="addRole()" class="mt-3 mb-3" *ngIf="!disabledForm" mat-raised-button color="accent">
-                    <mat-icon style="color: white">add_circle_outline</mat-icon>
-                    <span>Add Roles</span>
+              <div style="display: block; text-align: right;">
+                  <button (click)="addRole()" class="mt-3 mb-3" *ngIf="!disabledForm" mat-raised-button color="accent">
+                      <mat-icon style="color: white">add_circle_outline</mat-icon>
+                      <span>Add Roles</span>
+                  </button>
+                  <button (click)="deleteRole()" class="mt-3 mb-3" *ngIf="!disabledForm" mat-raised-button color="accent">
+                    <mat-icon style="color: white">delete_forever</mat-icon>
+                    <span>Delete Roles</span>
                 </button>
-                <ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
+              </div>
+                <ngx-datatable class="material" [rows]="rows"
                 [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
                 [selectionType]="'checkbox'" [selected]="selected">
 
@@ -141,7 +150,7 @@
       </div>
       <button class="button-cancel" mat-raised-button (click)="cancel()">{{ buttonCancel }}</button>
       <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent"
-        type="submit">{{ buttonType }}</button>
+       (click)="onSubmit()">{{ buttonType }}</button>
     </form>
   </div>
 </div>

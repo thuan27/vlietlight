@@ -14,29 +14,15 @@ export class CreateUserAdminService
     {
     }
 
-    createCountryList(param) {
-        return this.http.post(this.apiConfig.SERVICE_LIST + '/store', param);
-    }
-
     getuserDetail(params) {
         return this.http.get(this.apiConfig.USER_DETAIL + params);
     }
 
-    updateCountry(id, param) {
-        return this.http.put(this.apiConfig.SERVICE_LIST + '/update/' + id, param);
-    }
-
-    countryList() {
-      return this.http.get(this.apiConfig.COUNTRY_LIST);
-    }
-
-    serviceList() {
-      return this.http.get(this.apiConfig.SERVICE_LIST);
-    }
-
-
-
     getLogedUserRoles() {
       return this.http.get(this.apiConfig.ROLES + '?limit=50&sort[code]=asc');
+    }
+
+    createUser(data) {
+      return this.http.post(this.apiConfig.USER, data);
     }
 }

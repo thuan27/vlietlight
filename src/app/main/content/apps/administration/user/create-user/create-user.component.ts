@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CreateUserAdminService } from './create-user.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
@@ -81,18 +81,18 @@ export class CreateUserAdminComponent implements OnInit {
       username: ['', [Validators.required]],
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      emp_code: ['', [Validators.required]],
+      email: ['', [Validators.required, this.seldatEmailValidator]],
+      emp_code: [''],
       status: ['AC'],
-      phone: [null, [Validators.required]],
-      phone_extend: [null, [Validators.required]],
-      mobile: [null, [Validators.required]],
-      off_loc: ['', [Validators.required]],
-      usr_dpm_id: ['', [Validators.required]],
-      area: ['', [Validators.required]],
-      setup_password_url: ['http://vietlight.vietlight.info/#/setup-password', [Validators.required]],
-      user_roles: ['', [Validators.required]],
-      dept: ['', [Validators.required]],
+      phone: [null],
+      phone_extend: [null],
+      mobile: [null],
+      off_loc: [''],
+      usr_dpm_id: [''],
+      area: [''],
+      setup_password_url: ['http://vietlight.vietlight.info/#/setup-password'],
+      user_roles: [''],
+      dept: [''],
     });
   }
 
@@ -153,18 +153,18 @@ export class CreateUserAdminComponent implements OnInit {
       username: [data['username'], [Validators.required]],
       first_name: [data['first_name'], [Validators.required]],
       last_name: [data['last_name'], [Validators.required]],
-      email: [data['email'], [Validators.required]],
-      emp_code: [data['emp_code'], [Validators.required]],
+      email: [data['email'], [Validators.required, this.seldatEmailValidator]],
+      emp_code: [data['emp_code']],
       status: [data['status']],
-      phone: [data['phone'], [Validators.required]],
-      phone_extend: [data['phone_extend'], [Validators.required]],
-      mobile: [data['mobile'], [Validators.required]],
-      off_loc: [data['off_loc'], [Validators.required]],
-      usr_dpm_id: [data['usr_dpm_id'], [Validators.required]],
-      area: [data['area'], [Validators.required]],
-      setup_password_url: [data['setup_password_url'], [Validators.required]],
-      user_roles: [data['user_roles'], [Validators.required]],
-      dept: [data['dept'], [Validators.required]],
+      phone: [data['phone']],
+      phone_extend: [data['phone_extend']],
+      mobile: [data['mobile']],
+      off_loc: [data['off_loc']],
+      usr_dpm_id: [data['usr_dpm_id']],
+      area: [data['area']],
+      setup_password_url: [data['setup_password_url']],
+      user_roles: [data['user_roles']],
+      dept: [data['dept']],
     });
   }
 
@@ -175,17 +175,17 @@ export class CreateUserAdminComponent implements OnInit {
     this.UserAdminForm.controls['user_roles'].setValue(this.rows)
     if (this.UserAdminForm.valid) {
       if (this.action === 'create') {
-      //   this._CreateUserAdmin.createCountryList(this.UserAdminForm.value).subscribe((data) => {
-      //     this.toastyService.success(data['message']);
-      //     setTimeout(
-      //       () => {
-      //         this.router.navigate(['apps/administration/users']);
-      //       },
-      //       700
-      //     );
-      //   }, err => {
-      //     this.toastyService.error(err['error']['errors']['message']);
-      //   });
+        this._CreateUserAdmin.createUser(this.UserAdminForm.value).subscribe((data) => {
+          this.toastyService.success('Successfully!');
+          setTimeout(
+            () => {
+              this.router.navigate(['apps/administration/users']);
+            },
+            700
+          );
+        }, err => {
+          this.toastyService.error('Created failed');
+        });
       // } else if (this.action === 'update') {
       //   this._CreateUserAdmin.updateCountry(this.idCountry, this.UserAdminForm.value).subscribe((data) => {
       //     this.toastyService.success(data['message']);
@@ -227,8 +227,11 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   addRole() {
+    console.log(this.rows)
     let dataUncheck = [];
     dataUncheck = this.dataRole.filter(f => !this.rows.includes(f));
+    console.log(this.dataRole)
+    console.log(dataUncheck)
     this.dialogRef = this.dialog.open(FuseAddRoleComponent, {
       panelClass: 'contact-form-dialog',
       data      : {
@@ -244,5 +247,27 @@ export class CreateUserAdminComponent implements OnInit {
         }
         this.rows = data;
       });
+  }
+
+  private seldatEmailValidator(control:FormControl):{[key:string]:any} {
+    // RFC 2822 compliant regex
+    var val = control.value;
+    if (val && val.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      return null;
+    } else {
+      if (val != '') {
+        return {'invalidEmailAddress': true};
+      }
+    }
+  }
+
+  deleteRole() {
+    if (this.selected.length === 0) {
+      this.toastyService.error('Please select at least one role');
+    } else {
+      let dataDelete = [...this.rows];
+      dataDelete = this.rows.filter(item => !this.selected.includes(item));
+      this.rows = dataDelete;
+    }
   }
 }
