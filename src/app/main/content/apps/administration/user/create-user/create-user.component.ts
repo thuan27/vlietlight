@@ -23,7 +23,7 @@ export class CreateUserAdminComponent implements OnInit {
 
   items: FormArray;
   UserAdminForm: FormGroup;
-  idCountry;
+  idUser;
   userDetail;
   private routeSub: Subscription;
   disabledForm;
@@ -88,7 +88,7 @@ export class CreateUserAdminComponent implements OnInit {
       phone_extend: [null],
       mobile: [null],
       off_loc: [''],
-      usr_dpm_id: [''],
+      usr_dpm_id: ['', [Validators.required]],
       area: [''],
       setup_password_url: ['http://vietlight.vietlight.info/#/setup-password'],
       user_roles: [''],
@@ -122,14 +122,14 @@ export class CreateUserAdminComponent implements OnInit {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update') {
           this.action = 'update';
-          this.idCountry = params['id'];
+          this.idUser = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonType = 'Update';
           this.title = 'Update User';
           this.titleGroup = 'Update';
         } else {
-          this.idCountry = params['id'];
+          this.idUser = params['id'];
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
@@ -160,7 +160,7 @@ export class CreateUserAdminComponent implements OnInit {
       phone_extend: [data['phone_extend']],
       mobile: [data['mobile']],
       off_loc: [data['off_loc']],
-      usr_dpm_id: [data['usr_dpm_id']],
+      usr_dpm_id: [data['usr_dpm_id'], [Validators.required]],
       area: [data['area']],
       setup_password_url: [data['setup_password_url']],
       user_roles: [data['user_roles']],
@@ -186,18 +186,18 @@ export class CreateUserAdminComponent implements OnInit {
         }, err => {
           this.toastyService.error('Created failed');
         });
-      // } else if (this.action === 'update') {
-      //   this._CreateUserAdmin.updateCountry(this.idCountry, this.UserAdminForm.value).subscribe((data) => {
-      //     this.toastyService.success(data['message']);
-      //     setTimeout(
-      //       () => {
-      //         this.router.navigate(['apps/administration/users']);
-      //       },
-      //       700
-      //     );
-      //   }, err => {
-      //     this.toastyService.error(err['error']['errors']['message']);
-      //   });
+      } else if (this.action === 'update') {
+        this._CreateUserAdmin.updateUser(this.idUser, this.UserAdminForm.value).subscribe((data) => {
+          this.toastyService.success(data['message']);
+          setTimeout(
+            () => {
+              this.router.navigate(['apps/administration/users']);
+            },
+            700
+          );
+        }, err => {
+          this.toastyService.error(err['error']['errors']['message']);
+        });
       }
 
     }
@@ -227,11 +227,18 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   addRole() {
-    console.log(this.rows)
     let dataUncheck = [];
-    dataUncheck = this.dataRole.filter(f => !this.rows.includes(f));
-    console.log(this.dataRole)
-    console.log(dataUncheck)
+    if (this.action === 'create') {
+      dataUncheck = this.dataRole.filter(f => !this.rows.includes(f));
+    } else {
+      dataUncheck = this.dataRole.filter((x, i) => {
+        for (let i=0; i < this.rows.length; i++) {
+          if (x.code !== this.rows[i].code) {
+            return x
+          }
+        }
+      });
+    }
     this.dialogRef = this.dialog.open(FuseAddRoleComponent, {
       panelClass: 'contact-form-dialog',
       data      : {

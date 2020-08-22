@@ -25,4 +25,8 @@ export class CreateUserAdminService
     createUser(data) {
       return this.http.post(this.apiConfig.USER, data);
     }
+
+    updateUser(id, data) {
+      return this.http.put(this.apiConfig.USER + '/' + id, data);
+    }
 }

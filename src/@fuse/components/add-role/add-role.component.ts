@@ -38,7 +38,7 @@ export class FuseAddRoleComponent {
     this.rows = this.data['data'];
   }
 
-  onSubmit(value) {
+  onSubmit() {
     this.dialogRef.close(this.selected)
   }
 
