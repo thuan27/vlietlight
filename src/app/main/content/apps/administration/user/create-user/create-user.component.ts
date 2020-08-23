@@ -169,10 +169,16 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   onSubmit() {
+    let roles = [];
     if (this.rows.length === 0) {
       this.toastyService.error('Please select at least one role');
+    } else {
+      for (let i=0; i<this.rows.length; i++) {
+        roles.push(this.rows[i].code);
+      }
     }
-    this.UserAdminForm.controls['user_roles'].setValue(this.rows)
+
+    this.UserAdminForm.controls['user_roles'].setValue(roles.toString());
     if (this.UserAdminForm.valid) {
       if (this.action === 'create') {
         this._CreateUserAdmin.createUser(this.UserAdminForm.value).subscribe((data) => {
