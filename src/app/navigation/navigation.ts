@@ -150,6 +150,13 @@ export const navigation = [
                         'type' : 'item',
                         'url'  : '/apps/utility/calculate-money',
                         'exactMatch': true
+                    },
+                    {
+                        'id'   : 'assignment',
+                        'title': 'Assignment',
+                        'type' : 'item',
+                        'url'  : '/apps/utility/assignment',
+                        'exactMatch': true
                     }
                 ]
             },
@@ -243,92 +250,92 @@ export const navigation = [
             //         }
             //     ]
             // },
-        //     {
-        //         'id'       : 'academy',
-        //         'title'    : 'Academy',
-        //         'translate': 'NAV.ACADEMY',
-        //         'type'     : 'item',
-        //         'icon'     : 'school',
-        //         'url'      : '/apps/academy'
-        //     },
-        //     {
-        //         'id'       : 'mail',
-        //         'title'    : 'Mail',
-        //         'translate': 'NAV.MAIL.TITLE',
-        //         'type'     : 'item',
-        //         'icon'     : 'email',
-        //         'url'      : '/apps/mail',
-        //         'badge'    : {
-        //             'title'    : 25,
-        //             'translate': 'NAV.MAIL.BADGE',
-        //             'bg'       : '#F44336',
-        //             'fg'       : '#FFFFFF'
-        //         }
-        //     },
-        //     {
-        //         'id'       : 'mail-ngrx',
-        //         'title'    : 'Mail Ngrx',
-        //         'translate': 'NAV.MAIL_NGRX.TITLE',
-        //         'type'     : 'item',
-        //         'icon'     : 'email',
-        //         'url'      : '/apps/mail-ngrx',
-        //         'badge'    : {
-        //             'title'    : 13,
-        //             'translate': 'NAV.MAIL_NGRX.BADGE',
-        //             'bg'       : '#EC0C8E',
-        //             'fg'       : '#FFFFFF'
-        //         }
-        //     },
-        //     {
-        //         'id'       : 'chat',
-        //         'title'    : 'Chat',
-        //         'translate': 'NAV.CHAT',
-        //         'type'     : 'item',
-        //         'icon'     : 'chat',
-        //         'url'      : '/apps/chat',
-        //         'badge'    : {
-        //             'title': 13,
-        //             'bg'   : '#09d261',
-        //             'fg'   : '#FFFFFF'
-        //         }
-        //     },
-        //     {
-        //         'id'       : 'file-manager',
-        //         'title'    : 'File Manager',
-        //         'translate': 'NAV.FILE_MANAGER',
-        //         'type'     : 'item',
-        //         'icon'     : 'folder',
-        //         'url'      : '/apps/file-manager'
-        //     },
-        //     {
-        //         'id'       : 'contacts',
-        //         'title'    : 'Contacts',
-        //         'translate': 'NAV.CONTACTS',
-        //         'type'     : 'item',
-        //         'icon'     : 'account_box',
-        //         'url'      : '/apps/contacts'
-        //     },
-        //     {
-        //         'id'       : 'to-do',
-        //         'title'    : 'To-Do',
-        //         'translate': 'NAV.TODO',
-        //         'type'     : 'item',
-        //         'icon'     : 'check_box',
-        //         'url'      : '/apps/todo',
-        //         'badge'    : {
-        //             'title': 3,
-        //             'bg'   : '#FF6F00',
-        //             'fg'   : '#FFFFFF'
-        //         }
-        //     },
-        //     {
-        //         'id'       : 'scrumboard',
-        //         'title'    : 'Scrumboard',
-        //         'translate': 'NAV.SCRUMBOARD',
-        //         'type'     : 'item',
-        //         'icon'     : 'assessment',
-        //         'url'      : '/apps/scrumboard'
-        //     }
+            // {
+            //     'id'       : 'academy',
+            //     'title'    : 'Academy',
+            //     'translate': 'NAV.ACADEMY',
+            //     'type'     : 'item',
+            //     'icon'     : 'school',
+            //     'url'      : '/apps/academy'
+            // },
+            // {
+            //     'id'       : 'mail',
+            //     'title'    : 'Mail',
+            //     'translate': 'NAV.MAIL.TITLE',
+            //     'type'     : 'item',
+            //     'icon'     : 'email',
+            //     'url'      : '/apps/mail',
+            //     'badge'    : {
+            //         'title'    : 25,
+            //         'translate': 'NAV.MAIL.BADGE',
+            //         'bg'       : '#F44336',
+            //         'fg'       : '#FFFFFF'
+            //     }
+            // },
+            // {
+            //     'id'       : 'mail-ngrx',
+            //     'title'    : 'Mail Ngrx',
+            //     'translate': 'NAV.MAIL_NGRX.TITLE',
+            //     'type'     : 'item',
+            //     'icon'     : 'email',
+            //     'url'      : '/apps/mail-ngrx',
+            //     'badge'    : {
+            //         'title'    : 13,
+            //         'translate': 'NAV.MAIL_NGRX.BADGE',
+            //         'bg'       : '#EC0C8E',
+            //         'fg'       : '#FFFFFF'
+            //     }
+            // },
+            // {
+            //     'id'       : 'chat',
+            //     'title'    : 'Chat',
+            //     'translate': 'NAV.CHAT',
+            //     'type'     : 'item',
+            //     'icon'     : 'chat',
+            //     'url'      : '/apps/chat',
+            //     'badge'    : {
+            //         'title': 13,
+            //         'bg'   : '#09d261',
+            //         'fg'   : '#FFFFFF'
+            //     }
+            // },
+            // {
+            //     'id'       : 'file-manager',
+            //     'title'    : 'File Manager',
+            //     'translate': 'NAV.FILE_MANAGER',
+            //     'type'     : 'item',
+            //     'icon'     : 'folder',
+            //     'url'      : '/apps/file-manager'
+            // },
+            // {
+            //     'id'       : 'contacts',
+            //     'title'    : 'Contacts',
+            //     'translate': 'NAV.CONTACTS',
+            //     'type'     : 'item',
+            //     'icon'     : 'account_box',
+            //     'url'      : '/apps/contacts'
+            // },
+            // {
+            //     'id'       : 'to-do',
+            //     'title'    : 'To-Do',
+            //     'translate': 'NAV.TODO',
+            //     'type'     : 'item',
+            //     'icon'     : 'check_box',
+            //     'url'      : '/apps/todo',
+            //     'badge'    : {
+            //         'title': 3,
+            //         'bg'   : '#FF6F00',
+            //         'fg'   : '#FFFFFF'
+            //     }
+            // },
+            // {
+            //     'id'       : 'scrumboard',
+            //     'title'    : 'Scrumboard',
+            //     'translate': 'NAV.SCRUMBOARD',
+            //     'type'     : 'item',
+            //     'icon'     : 'assessment',
+            //     'url'      : '/apps/scrumboard'
+            // }
         ]
     },
     // {

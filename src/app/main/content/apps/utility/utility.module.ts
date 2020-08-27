@@ -9,11 +9,14 @@ import { listRoutes } from './utility';
 import { QuickSearchComponent } from './quick-search/quick-search.component';
 import { QuickSearchService } from './quick-search/quick-search.service';
 import { CalculateMoneyComponent } from './calculate-money/calculate-money.component';
+import { AssignmentComponent } from './\bassignment/assignment.component';
+import { AssignmentService } from './\bassignment/assignment.service';
 
 @NgModule({
     declarations: [
         QuickSearchComponent,
-        CalculateMoneyComponent
+        CalculateMoneyComponent,
+        AssignmentComponent,
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -27,12 +30,14 @@ import { CalculateMoneyComponent } from './calculate-money/calculate-money.compo
         MatInputModule,
         MatDatepickerModule,
         MatMenuModule,
-        MatTableModule
+        MatTableModule,
+
     ],
     providers   : [
         QuickSearchService,
-        CalculateMoneyService
-    ]
+        CalculateMoneyService,
+        AssignmentService
+    ],
 })
 export class FuseUtilityModule {
 }
