@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Functions } from '@fuse/core/function';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { UpadtePickUpService } from './update-pick-up.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 import { ToastyService } from '@fuse/directives/ng2-toasty';
+import { FuseAddRoleComponent } from '../add-role/add-role.component';
 
 @Component({
   selector: 'fuse-update-pick-up-dialog',
@@ -16,13 +17,17 @@ import { ToastyService } from '@fuse/directives/ng2-toasty';
 export class FuseUpdatePickUpComponent {
   formUpdate: FormGroup;
   formSearch: FormGroup;
-  dialogRef: any;
+  selected: any[] = [];
   listSuggest;
+  loadingIndicator = false;
+  reorderable = true;
+  validateID = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<FuseAddRoleComponent>,
     private toastyService: ToastyService,
     private upadtePickUpService: UpadtePickUpService
   ) {}
@@ -30,6 +35,7 @@ export class FuseUpdatePickUpComponent {
   ngOnInit() {
     this.buildFrom();
     this.buildSearchForm();
+    this.onSuggest();
   }
 
   private buildFrom() {
@@ -42,21 +48,26 @@ export class FuseUpdatePickUpComponent {
       pre_alert_note_for_sales: [
         this.data['data'][0]['pre_alert_note_for_sales'],
         [Validators.required]
-      ]
+      ],
+      id: ['']
     });
   }
 
-  onSubmit(value) {
-    this.upadtePickUpService
-      .updatePickUp(this.data['data'][0]['wv_hdr_id'], value)
-      .subscribe(
-        res => {
-          this.toastyService.success('Successfully');
-        },
-        err => {
-          this.toastyService.warning(err.errors.message);
-        }
-      );
+  onSubmit() {
+    this.validateID = false;
+    if (this.selected.length === 1) {
+      this.formUpdate.controls['id'].setValue(this.selected[0].user_id);
+      this.validateID = false;
+      this.upadtePickUpService
+        .updatePickUp(this.data['data'][0]['wv_hdr_id'], this.formUpdate.value)
+        .subscribe(
+          res => {
+            this.dialogRef.close(this.selected)
+          },
+        );
+    } else {
+      this.validateID = true;
+    }
   }
 
   private buildSearchForm() {
@@ -68,6 +79,7 @@ export class FuseUpdatePickUpComponent {
   }
 
   onSuggest() {
+    this.selected = [];
     let params = '';
     params =
       params +

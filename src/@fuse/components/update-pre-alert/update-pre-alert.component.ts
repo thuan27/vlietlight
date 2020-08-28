@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { UpadtePreAlertService } from './update-pre-alert.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
-import { ToastyService } from '@fuse/directives/ng2-toasty';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { FuseAddRoleComponent } from '../add-role/add-role.component';
 
 @Component({
   selector: 'fuse-update-pre-alert-dialog',
@@ -15,20 +16,29 @@ import { ToastyService } from '@fuse/directives/ng2-toasty';
 export class FuseUpdatePreAlertComponent {
   form: FormGroup;
   formSearch: FormGroup;
-  dialogRef: any;
   listSuggest;
+  selected: any[] = [];
+  allRoles = [];
+  loadingIndicator = false;
+  reorderable = true;
+  validateID = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private toastyService: ToastyService,
-    private upadtePreAlertService: UpadtePreAlertService
-  ) {}
+    public dialogRef: MatDialogRef<FuseAddRoleComponent>,
+    private upadtePreAlertService: UpadtePreAlertService,
+    private toastyConfig: ToastyConfig
+  ) {
+    this.toastyConfig.position = 'top-right';
+  }
 
   ngOnInit() {
     this.buildFrom();
     this.buildSearchForm();
+    this.onSuggest();
   }
 
   private buildFrom() {
@@ -42,7 +52,8 @@ export class FuseUpdatePreAlertComponent {
         this.data['data'][0]['pick_up_date'],
         [Validators.required]
       ],
-      sales_note: [this.data['data'][0]['sales_note'], [Validators.required]]
+      sales_note: [this.data['data'][0]['sales_note']],
+      id: ['']
     });
   }
 
@@ -54,20 +65,25 @@ export class FuseUpdatePreAlertComponent {
     });
   }
 
-  onSubmit(value) {
-    this.upadtePreAlertService
-      .updatePreAlert(this.data['data'][0]['wv_hdr_id'], value)
+  onSubmit() {
+    this.validateID = false;
+    if (this.selected.length === 1) {
+      this.form.controls['id'].setValue(this.selected[0].user_id);
+      this.validateID = false;
+      this.upadtePreAlertService
+      .updatePreAlert(this.data['data'][0]['wv_hdr_id'], this.form.value)
       .subscribe(
         res => {
-          this.toastyService.success('Successfully');
+          this.dialogRef.close(this.selected)
         },
-        err => {
-          this.toastyService.warning(err.errors.message);
-        }
       );
+    } else {
+      this.validateID = true;
+    }
   }
 
   onSuggest() {
+    this.selected = [];
     let params = '';
     params =
       params +
@@ -77,7 +93,7 @@ export class FuseUpdatePreAlertComponent {
       this.formSearch.controls['last_name'].value +
       '&email=' +
       this.formSearch.controls['email'].value;
-    this.upadtePreAlertService.getsugesstion(params).subscribe(res => {
+      this.upadtePreAlertService.getsugesstion(params).subscribe(res => {
       this.listSuggest = res['data'];
     });
   }
@@ -86,6 +102,6 @@ export class FuseUpdatePreAlertComponent {
     this.formSearch.controls['first_name'].setValue('');
     this.formSearch.controls['last_name'].setValue('');
     this.formSearch.controls['email'].setValue('');
-    this.listSuggest = [];
+    this.onSuggest();
   }
 }

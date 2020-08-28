@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatDialogModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatInputModule, MatCheckboxModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseUpdatePickUpComponent } from './update-pick-up.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,9 @@ import { FuseUpdatePickUpComponent } from './update-pick-up.component';
     MatDialogModule,
     MatInputModule,
     FuseSharedModule,
-    MatButtonModule
+    NgxDatatableModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     FuseUpdatePickUpComponent
