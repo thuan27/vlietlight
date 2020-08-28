@@ -4,9 +4,7 @@ import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ScrumboardService } from '../../scrumboard/scrumboard.service';
-import { List } from '../../scrumboard/list.model';
 import { Location } from '@angular/common';
-import { Board } from '../../scrumboard/board.model';
 @Component({
   selector: 'assignment',
   templateUrl: './assignment.component.html',

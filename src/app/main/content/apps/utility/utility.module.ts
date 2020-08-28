@@ -9,8 +9,8 @@ import { listRoutes } from './utility';
 import { QuickSearchComponent } from './quick-search/quick-search.component';
 import { QuickSearchService } from './quick-search/quick-search.service';
 import { CalculateMoneyComponent } from './calculate-money/calculate-money.component';
-import { AssignmentComponent } from './\bassignment/assignment.component';
-import { AssignmentService } from './\bassignment/assignment.service';
+import { AssignmentComponent } from './assignment/assignment.component';
+import { AssignmentService } from './assignment/assignment.service';
 
 @NgModule({
     declarations: [
