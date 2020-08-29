@@ -117,7 +117,7 @@ export class UserAdminListComponent implements OnInit {
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['totalCount'];
-      this.current_page = parseInt(dataList['meta']['currentPage']);
+      this.current_page = parseInt(dataList['meta']['currentPage']) - 1;
       this.loadingIndicator = false;
     });
   }

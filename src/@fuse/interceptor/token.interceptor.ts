@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -8,33 +8,40 @@ import {
 import { AuthService } from '@fuse/services/auth.service';
 import { MatDialog } from '@angular/material';
 import { FuseLoginFormDialogComponent } from '@fuse/components/login-form/login-form.component';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   public static currentTeamId : any;
   dialogRef: any;
-  constructor(public dialog: MatDialog, public auth: AuthService) {
-   }
+  urlCurrent;
+  constructor(@Inject(DOCUMENT) document: any,public dialog: MatDialog, public auth: AuthService) {
+    this.urlCurrent = document.location.href;
+  }
 
    intercept(request: HttpRequest<any>, next: HttpHandler) {
-    let requestOption:any = {};
-    const token = this.auth.getToken();
-    if (token != null) {
-      if(this.auth.isAuthenticated()) {
-        requestOption.setHeaders = {
-          Authorization: `Bearer ${this.auth.getToken()}`
-        }
-      } else {
-        this.dialogRef = this.dialog.open(FuseLoginFormDialogComponent, {
-          panelClass: 'contact-form-dialog',
-          data      : {
-              action: 'new'
+     console.log(this.urlCurrent)
+     console.log(this.urlCurrent.includes('pages/landing'))
+     let check = this.urlCurrent.includes('pages/landing') || this.urlCurrent.includes('pages/auth/login');
+     if (!check) {
+      let requestOption:any = {};
+      const token = this.auth.getToken();
+      if (token != null) {
+        if(this.auth.isAuthenticated()) {
+          requestOption.setHeaders = {
+            Authorization: `Bearer ${this.auth.getToken()}`
           }
-      });
+        } else {
+          this.dialogRef = this.dialog.open(FuseLoginFormDialogComponent, {
+            panelClass: 'contact-form-dialog',
+            data      : {
+                action: 'new'
+            }
+        });
+        }
       }
-    }
-
-    request = request.clone(requestOption);
+      request = request.clone(requestOption);
+     }
     return next.handle(request)
   }
 }
