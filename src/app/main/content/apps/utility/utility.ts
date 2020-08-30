@@ -15,6 +15,10 @@ export const listRoutes: Routes = [
     {
         path     : 'assignment',
         component: AssignmentComponent
+    },
+    {
+      path      : '**',
+      redirectTo: 'apps/dashboards/analytics'
     }
 ];
 

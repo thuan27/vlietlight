@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
     selector   : 'fuse-footer',
@@ -7,8 +8,11 @@ import { Component } from '@angular/core';
 })
 export class FuseFooterComponent
 {
+  check;
 
-    constructor()
+    constructor(
+    )
     {
+      this.check = localStorage.getItem(environment.token) != null;
     }
 }

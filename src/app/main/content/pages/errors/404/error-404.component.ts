@@ -13,12 +13,12 @@ export class FuseError404Component
         private fuseConfig: FuseConfigService
     )
     {
-        this.fuseConfig.setConfig({
-            layout: {
-                navigation: 'none',
-                toolbar   : 'none',
-                footer    : 'none'
-            }
-        });
+        // this.fuseConfig.setConfig({
+        //     layout: {
+        //         navigation: 'none',
+        //         toolbar   : 'none',
+        //         footer    : 'none'
+        //     }
+        // });
     }
 }

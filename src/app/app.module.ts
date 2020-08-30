@@ -27,6 +27,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {APP_BASE_HREF} from '@angular/common';
 import { ShareService } from '@fuse/services/share.service';
 import { DragDropDirective } from '@fuse/directives/drag-drop/drag-drop.directive';
+import { FuseError404Component } from './main/content/pages/errors/404/error-404.component';
+import { Error404Module } from './main/content/pages/errors/404/error-404.module';
 
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
@@ -34,12 +36,18 @@ export function tokenGetter() {
 
 const appRoutes: Routes = [
     {
+        path      : '',
+        redirectTo: 'pages/landing',
+        pathMatch: 'full',
+    },
+    {
         path        : 'apps',
-        loadChildren: './main/content/apps/apps.module#FuseAppsModule'
+        loadChildren: './main/content/apps/apps.module#FuseAppsModule',
+        canActivate: [AuthGuard]
     },
     {
         path        : 'pages',
-        loadChildren: './main/content/pages/pages.module#FusePagesModule'
+        loadChildren: './main/content/pages/pages.module#FusePagesModule',
     },
     {
         path        : 'ui',
@@ -59,9 +67,9 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'pages/landing',
-        pathMatch: 'full'
-    }
+        component: FuseError404Component,
+        pathMatch: 'full',
+    },
 ];
 
 @NgModule({
@@ -73,6 +81,7 @@ const appRoutes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        Error404Module,
         RouterModule.forRoot(appRoutes
         // ,{ enableTracing: true } // <-- debugging purposes only
 

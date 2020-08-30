@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { Functions } from '@fuse/core/function';
 import { APIConfig } from '../content/pages/authentication/config';
 import * as moment from 'moment';
+import { DOCUMENT } from '@angular/platform-browser';
 @Component({
     selector   : 'fuse-toolbar',
     templateUrl: './toolbar.component.html',
@@ -28,6 +29,8 @@ export class FuseToolbarComponent
     showLoadingBar: boolean;
     horizontalNav: boolean;
     noNav: boolean;
+    check;
+    urlCurrent;
 
     constructor(
         private router: Router,
@@ -37,12 +40,14 @@ export class FuseToolbarComponent
         private jwtHelper: JwtHelperService,
         private translate: TranslateService,
         private _Func: Functions,
+        @Inject(DOCUMENT) document: any,
         private apiConfig: APIConfig
     )
     {
+      this.urlCurrent = document.location.href;
+      this.check = localStorage.getItem(environment.token) != null;
         if (!this.jwtHelper.isTokenExpired(this.getToken())) {
             this.profile = this.jwtHelper.decodeToken(localStorage.getItem(environment.token));
-            console.log(this.profile)
         }
         else {
             this.profile['fullname'] = '';

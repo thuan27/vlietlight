@@ -6,6 +6,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
+import { environment } from 'environments/environment';
 
 @Component({
     selector     : 'fuse-navbar',
@@ -15,6 +16,7 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 })
 export class FuseNavbarComponent implements OnDestroy
 {
+  check;
     private fusePerfectScrollbar: FusePerfectScrollbarDirective;
 
     @ViewChild(FusePerfectScrollbarDirective) set directive(theDirective: FusePerfectScrollbarDirective)
@@ -44,6 +46,8 @@ export class FuseNavbarComponent implements OnDestroy
         private navigationService: FuseNavigationService
     )
     {
+      this.check = localStorage.getItem(environment.token) != null;
+
         // Navigation data
         this.navigation = navigation;
 

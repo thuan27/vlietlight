@@ -79,6 +79,10 @@ const routes = [
         path        : 'import',
         loadChildren: './import/import.module#FuseImportModule'
     },
+    {
+        path      : '**',
+        redirectTo: 'apps/dashboards/analytics'
+    }
 ];
 
 @NgModule({
