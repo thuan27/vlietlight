@@ -42,6 +42,7 @@ export class APIConfig {
 
   //import
   public IMPORT_SERVICE = this.API_BASE + '/migration/v1/service/import';
+  public IMPORT_COUNTRY = this.API_BASE + '/migration/v1/country/import';
 
   public RESET_PASS = this.API_MASTER + '/reset-password';
   public FORGOT_PASS = this.API_MASTER + '/forgot-password';

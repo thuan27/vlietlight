@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
-import { ImportServiceService } from './import-service.service';
 import { Functions } from '@fuse/core/function';
 import { MatDialog } from '@angular/material';
 import { FileManagerService } from '../../file-manager/file-manager.service';
@@ -10,22 +8,21 @@ import { APIConfig } from 'app/main/content/pages/authentication/config';
 import * as FileSaver from 'file-saver';
 
 @Component({
-  selector: 'import-service',
-  templateUrl: './import-service.component.html',
-  styleUrls: ['./import-service.component.scss'],
+  selector: 'import-country',
+  templateUrl: './import-country.component.html',
+  styleUrls: ['./import-country.component.scss'],
   animations   : fuseAnimations,
   encapsulation: ViewEncapsulation.None,
-  providers: [ImportServiceService, ToastyService, FileManagerService],
+  providers: [ToastyService, FileManagerService],
 
 })
-export class ImportServiceComponent implements OnInit {
+export class ImportCountryComponent implements OnInit {
   selected: any;
   pathArr: string[];
   private itemFile:any;
 
   constructor(
     public dialog: MatDialog,
-    private importServiceService: ImportServiceService,
     private _Func: Functions,
     private apiConfig: APIConfig,
     private toastyService: ToastyService,
@@ -35,12 +32,6 @@ export class ImportServiceComponent implements OnInit {
   }
 
   ngOnInit() {
-  //   this.fileManagerService.onFileSelected.subscribe(selected => {
-  //     this.selected = selected;
-  //     this.pathArr = selected.location.split('>');
-  //     console.log(this.selected)
-  //     console.log(this.pathArr)
-  // });
   }
 
   changeItemFile(event) {
@@ -61,17 +52,9 @@ export class ImportServiceComponent implements OnInit {
       that.toastyService.error('Only upload file extend .xlsx !!!')
 			return;
     }
-    // that.importServiceService.importFile(that.itemFile.name).subscribe(
-    //   (response) => {
-    //     console.log(response);
-    //   },
-    //   err => {
-    //     console.log(err)
-    //   }
-    // );
 		formData.append("file", that.itemFile, that.itemFile.name);
 
-		xhr.open("POST", `${that.apiConfig.IMPORT_SERVICE}`, true);
+		xhr.open("POST", `${that.apiConfig.IMPORT_COUNTRY}`, true);
 		xhr.setRequestHeader("Authorization", 'Bearer ' + that._Func.getToken());
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 2) {
@@ -86,7 +69,7 @@ export class ImportServiceComponent implements OnInit {
 				if (xhr.status === 200) {
           that.toastyService.error('Import file has some errors.')
 					var blob = new Blob([this.response], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-					FileSaver.saveAs(blob, 'Service_Error.xlsx');
+					FileSaver.saveAs(blob, 'Country_Error.xlsx');
 				} else {
 					let msg = '';
 
@@ -110,14 +93,10 @@ export class ImportServiceComponent implements OnInit {
 					if (xhr.status === 201) {
             that.toastyService.success('Successfully!')
 
-						// that.messages = that.funcs.Messages('success', msg);
-						// that.cusFile.nativeElement.value = '';
 					} else {
             that.toastyService.error(msg)
 
-						// that.messages = that.funcs.Messages('danger', msg);
 					}
-					// that.showLoadingOverlay = false;
 				}
 			}
 		};

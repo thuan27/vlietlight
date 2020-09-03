@@ -18,11 +18,14 @@ import { listRoutes } from './import.routers';
 import { ImportServiceService } from './import-service/import-service.service';
 import { ImportServiceComponent } from './import-service/import-service.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ImportCountryComponent } from './import-country/import-country.component';
 
 
 @NgModule({
     declarations: [
-      ImportServiceComponent
+      ImportServiceComponent,
+      ImportCountryComponent
+
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -42,7 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MatAutocompleteModule
     ],
     providers: [
-      ImportServiceService
+      ImportServiceService,
     ]
 })
 export class FuseImportModule {

@@ -197,6 +197,13 @@ export const navigation = [
                       'url'  : '/apps/import/service',
                       'exactMatch': true
                   },
+                  {
+                    'id'   : 'country',
+                    'title': 'Import Country',
+                    'type' : 'item',
+                    'url'  : '/apps/import/country',
+                    'exactMatch': true
+                },
               ]
             },
             {
