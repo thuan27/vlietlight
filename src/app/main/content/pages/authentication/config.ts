@@ -40,6 +40,9 @@ export class APIConfig {
   public USER_DELETE = this.API_BASE + '/master-service/v1/delete-multi-user';
   public USER_DETAIL = this.API_BASE + '/authentication/users/info/';
 
+  //import
+  public IMPORT_SERVICE = this.API_BASE + '/migration/v1/service/import';
+
   public RESET_PASS = this.API_MASTER + '/reset-password';
   public FORGOT_PASS = this.API_MASTER + '/forgot-password';
   public RESET_PASS_TOKEN = this.API_MASTER + '/check-reset-password-token';

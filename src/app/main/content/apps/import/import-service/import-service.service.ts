@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 import { Functions } from '@fuse/core/function';
 
@@ -14,4 +14,10 @@ export class ImportServiceService
     {
     }
 
+    importFile(dataFile) {
+      const headers = new HttpHeaders().set('Content-Type', 'boundary=----WebKitFormBoundary9Qk8fvHjSTloabrw');
+      return this.http.post(this.apiConfig.IMPORT_SERVICE, dataFile, {
+        headers: headers
+      });
+    }
 }
