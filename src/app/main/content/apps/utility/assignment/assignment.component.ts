@@ -1,25 +1,32 @@
 import { AssignmentService } from './assignment.service';
 import { Component, OnInit } from '@angular/core';
-import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ScrumboardService } from '../../scrumboard/scrumboard.service';
 import { Location } from '@angular/common';
 @Component({
   selector: 'assignment',
   templateUrl: './assignment.component.html',
   styleUrls: ['./assignment.component.scss'],
-  providers: [ValidationService]
+  providers: [AssignmentService]
 })
 export class AssignmentComponent implements OnInit {
 
-  board: any;
-  onBoardChanged: Subscription;
+  list1 = [
+    {value:0, name: 'name 0'},
+    {value:1, name: 'name 1'},
+    {value:2, name: 'name 2'},
+    {value:3, name: 'name 3'},
+  ]
+
+  list2 = [
+    {value:0, name: 'name 0'},
+    {value:1, name: 'name 1'},
+  ]
 
     constructor(
         private route: ActivatedRoute,
         private location: Location,
-        private scrumboardService: ScrumboardService
+        private assignmentService: AssignmentService
     )
     {
     }
@@ -34,30 +41,21 @@ export class AssignmentComponent implements OnInit {
         //         });
     }
 
-    // ngOnDestroy()
-    // {
-    //     this.onBoardChanged.unsubscribe();
-    // }
+    drop(ev) {
+      ev.preventDefault();
+      console.log('--1--', ev.target)
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+      console.log(data)
+      console.log('--2--', ev.target)
+    }
 
-    // onListAdd(newListName)
-    // {
-    //     if ( newListName === '' )
-    //     {
-    //         return;
-    //     }
+    allowDrop(ev) {
+      ev.preventDefault();
+    }
 
-    //     this.scrumboardService.addList(new List({name: newListName}));
-    // }
-
-    // onBoardNameChanged(newName)
-    // {
-    //     this.scrumboardService.updateBoard();
-    //     this.location.go('/apps/scrumboard/boards/' + this.board.id + '/' + this.board.uri);
-    // }
-
-    // onDrop(ev)
-    // {
-    //     this.scrumboardService.updateBoard();
-    // }
+    drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
 
 }

@@ -34,4 +34,42 @@
       </div>
   </div> -->
   <!-- primary content -->
+  <div fxLayout="row" class="form ml-3 mr-3 mt-3">
+    <div fxFlex="25">
+      <div class="background-title mat-cyan-200-bg margin-top-10">
+        <h2 class="title">hihi</h2>
+      </div>
+      <div  id="div1"
+        (drop)="drop($event)"
+        (dragover)="allowDrop($event)">
+        <div  draggable="true" (dragstart)="drag($event)" *ngFor="let item of list1">
+          <div>{{ item.name }}</div>
+        </div>
+        <img
+        src="https://images.pexels.com/photos/658687/pexels-photo-658687.jpeg?auto=compress&cs=tinysrgb&h=350"
+        draggable="true"
+        (dragstart)="drag($event)"
+        id="drag1"
+        width="88"
+        height="31">
+        <div draggable="true"
+        (dragstart)="drag($event)">texxttttt</div>
+      </div>
+    </div>
+    <div fxFlex="75" class="ml-3">
+      <div class="background-title mat-cyan-200-bg margin-top-10">
+        <h2 class="title">hihi</h2>
+      </div>
+      <div id="div2"
+        (drop)="drop($event)"
+        (dragover)="allowDrop($event)">
+        <div draggable="true" (dragstart)="drag($event)" *ngFor="let item of list2">
+          <div>{{ item.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 </div>
