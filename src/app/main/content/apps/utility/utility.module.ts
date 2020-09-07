@@ -2,7 +2,7 @@ import { CalculateMoneyService } from './calculate-money/calculate-money.service
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatMenuModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatMenuModule, MatTableModule, MatRippleModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './utility';
@@ -11,6 +11,7 @@ import { QuickSearchService } from './quick-search/quick-search.service';
 import { CalculateMoneyComponent } from './calculate-money/calculate-money.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { AssignmentService } from './assignment/assignment.service';
+import { NgxDnDModule } from '@swimlane/ngx-dnd';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { AssignmentService } from './assignment/assignment.service';
         MatDatepickerModule,
         MatMenuModule,
         MatTableModule,
-
+        NgxDnDModule,
+        MatRippleModule
     ],
     providers   : [
         QuickSearchService,

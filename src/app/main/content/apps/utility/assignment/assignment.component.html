@@ -1,75 +1,38 @@
 <div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
 
-    <!-- HEADER -->
-    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
-        fxLayoutAlign.gt-xs="space-between center">
-        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
-            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="secondary-text s-16">home</mat-icon>
-                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Calculate Money</span>
-            </div>
-            <div class="h2 mt-16">Calculate Money</div>
-        </div>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Calculate Money</span>
+      </div>
+      <div class="h2 mt-16">Calculate Money</div>
     </div>
-    <!-- / HEADER -->
+  </div>
+  <!-- / HEADER -->
 
-    <!-- CONTENT -->
-    <!-- <div fxFlex class="board-content-wrapper p-16 p-mat-24" [ngClass]="board.settings.color+'-100-bg'">
+  <!-- CONTENT -->
 
-      <div class="board-content ngx-dnd-container p-16 p-mat-24" fxLayout="row"
-           ngxDroppable="list" [model]="board.lists" (out)="onDrop($event)"
-           *fuseIfOnDom [@animateStagger]="{value:'50'}">
-
-          <fuse-scrumboard-board-list
-              class="scrumboard-board-list list-wrapper ngx-dnd-item"
-              ngxDraggable
-              *ngFor="let list of board.lists"
-              [model]="list"
-              [list]="list"
-              [@animate]="{value:'*',params:{duration:'350ms',x:'100%'}}">
-          </fuse-scrumboard-board-list>
-
-
-      </div>
-  </div> -->
-  <!-- primary content -->
-  <div fxLayout="row" class="form ml-3 mr-3 mt-3">
-    <div fxFlex="25">
-      <div class="background-title mat-cyan-200-bg margin-top-10">
-        <h2 class="title">hihi</h2>
-      </div>
-      <div  id="div1"
-        (drop)="drop($event)"
-        (dragover)="allowDrop($event)">
-        <div  draggable="true" (dragstart)="drag($event)" *ngFor="let item of list1">
-          <div>{{ item.name }}</div>
+  <div class="form ml-3 mr-3 mt-3">
+    <div ngxDroppable class="list-cards ngx-dnd-container" fxLayout="row">
+      <div ngxDroppable="example-target" [model]="list1" (over)="over($event)" (drop)=drop($event) (out)="onDrop($event)" fxFlex="25">
+        <div [ngxDraggable]="['example-target']"  [model]="item"  *ngFor="let item of list1" class="todo-list-item has-handle col-sm-8 item-list">
+          <h5>{{ item.name }}</h5>
         </div>
-        <img
-        src="https://images.pexels.com/photos/658687/pexels-photo-658687.jpeg?auto=compress&cs=tinysrgb&h=350"
-        draggable="true"
-        (dragstart)="drag($event)"
-        id="drag1"
-        width="88"
-        height="31">
-        <div draggable="true"
-        (dragstart)="drag($event)">texxttttt</div>
       </div>
-    </div>
-    <div fxFlex="75" class="ml-3">
-      <div class="background-title mat-cyan-200-bg margin-top-10">
-        <h2 class="title">hihi</h2>
-      </div>
-      <div id="div2"
-        (drop)="drop($event)"
-        (dragover)="allowDrop($event)">
-        <div draggable="true" (dragstart)="drag($event)" *ngFor="let item of list2">
-          <div>{{ item.name }}</div>
+
+      <div class="row" fxFlex="75">
+        <div class="form-right" ngxDroppable="example-target" [model]="list2" (out)="onDrop($event)" >
+          <div [ngxDraggable]="['example-target']" [model]="item1" class="item-right col-sm-3 todo-list-item has-handle item-list" *ngFor="let item1 of list2">
+            <h5>title</h5>
+            <h5>{{ item1.name }}</h5>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
 
 </div>
