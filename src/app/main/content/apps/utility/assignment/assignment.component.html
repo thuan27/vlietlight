@@ -24,14 +24,21 @@
         </div>
       </div>
 
-      <div class="row" fxFlex="75">
+      <!-- <div class="row" fxFlex="75">
         <div class="form-right" ngxDroppable="example-target" [model]="list2" (out)="onDrop($event)" >
           <div [ngxDraggable]="['example-target']" [model]="item1" class="item-right col-sm-3 todo-list-item has-handle item-list" *ngFor="let item1 of list2">
             <h5>title</h5>
             <h5>{{ item1.name }}</h5>
           </div>
         </div>
-      </div>
+      </div> -->
+      <div class="row" fxFlex="75">
+          <div class="form-right" >
+            <div ngxDroppable="example-target" class="item-right col-sm-3 todo-list-item has-handle item-list" *ngFor="let item1 of list2">
+                <h5>{{ item1.name }}</h5>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 

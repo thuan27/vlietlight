@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
-import { ImportServiceService } from './import-service.service';
 import { Functions } from '@fuse/core/function';
 import { MatDialog } from '@angular/material';
 import { FileManagerService } from '../../file-manager/file-manager.service';
@@ -9,28 +7,28 @@ import { fuseAnimations } from '@fuse/animations';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'import-service',
-  templateUrl: './import-service.component.html',
-  styleUrls: ['./import-service.component.scss'],
+  selector: 'import-fees-rate',
+  templateUrl: './import-fees-rate.component.html',
+  styleUrls: ['./import-fees-rate.component.scss'],
   animations   : fuseAnimations,
   encapsulation: ViewEncapsulation.None,
-  providers: [UserService, ImportServiceService, ToastyService, FileManagerService],
+  providers: [UserService, ToastyService, FileManagerService],
 
 })
-export class ImportServiceComponent implements OnInit {
+export class ImportFeesRateComponent implements OnInit {
   selected: any;
   pathArr: string[];
-  hasImportService;
+  hasImportFeesRate;
   private itemFile:any;
 
   constructor(
     public dialog: MatDialog,
-    private importServiceService: ImportServiceService,
-    private _Func: Functions,
     private router: Router,
     private _user: UserService,
+    private _Func: Functions,
     private apiConfig: APIConfig,
     private toastyService: ToastyService,
     private toastyConfig: ToastyConfig
@@ -45,9 +43,9 @@ export class ImportServiceComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
       data => {
-        this.hasImportService = this._user.RequestPermission(data, 'importService');
+        this.hasImportFeesRate = this._user.RequestPermission(data, 'importFeesRate');
         /* Check orther permission if View allow */
-        if (!this.hasImportService) {
+        if (!this.hasImportFeesRate) {
           this.router.navigateByUrl('pages/landing');
         }
       },
@@ -75,17 +73,9 @@ export class ImportServiceComponent implements OnInit {
       that.toastyService.error('Only upload file extend .xlsx !!!')
 			return;
     }
-    // that.importServiceService.importFile(that.itemFile.name).subscribe(
-    //   (response) => {
-    //     console.log(response);
-    //   },
-    //   err => {
-    //     console.log(err)
-    //   }
-    // );
 		formData.append("file", that.itemFile, that.itemFile.name);
 
-		xhr.open("POST", `${that.apiConfig.IMPORT_SERVICE}`, true);
+		xhr.open("POST", `${that.apiConfig.IMPORT_FEES_RATE}`, true);
 		xhr.setRequestHeader("Authorization", 'Bearer ' + that._Func.getToken());
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 2) {
@@ -100,7 +90,7 @@ export class ImportServiceComponent implements OnInit {
 				if (xhr.status === 200) {
           that.toastyService.error('Import file has some errors.')
 					var blob = new Blob([this.response], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-					FileSaver.saveAs(blob, 'Service_Error.xlsx');
+					FileSaver.saveAs(blob, 'Fees_Rate_Error.xlsx');
 				} else {
 					let msg = '';
 
@@ -124,14 +114,10 @@ export class ImportServiceComponent implements OnInit {
 					if (xhr.status === 201) {
             that.toastyService.success('Successfully!')
 
-						// that.messages = that.funcs.Messages('success', msg);
-						// that.cusFile.nativeElement.value = '';
 					} else {
             that.toastyService.error(msg)
 
-						// that.messages = that.funcs.Messages('danger', msg);
 					}
-					// that.showLoadingOverlay = false;
 				}
 			}
 		};

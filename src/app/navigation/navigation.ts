@@ -203,7 +203,28 @@ export const navigation = [
                     'type' : 'item',
                     'url'  : '/apps/import/country',
                     'exactMatch': true
-                },
+                  },
+                  {
+                    'id'   : 'country-zone',
+                    'title': 'Import Country Zone',
+                    'type' : 'item',
+                    'url'  : '/apps/import/country-zone',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'price',
+                    'title': 'Import Price',
+                    'type' : 'item',
+                    'url'  : '/apps/import/price',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'fees-rate',
+                    'title': 'Import Fees Rate',
+                    'type' : 'item',
+                    'url'  : '/apps/import/fees-rate',
+                    'exactMatch': true
+                  },
               ]
             },
             {

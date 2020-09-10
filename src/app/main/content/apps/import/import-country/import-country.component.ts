@@ -6,6 +6,8 @@ import { FileManagerService } from '../../file-manager/file-manager.service';
 import { fuseAnimations } from '@fuse/animations';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 import * as FileSaver from 'file-saver';
+import { UserService } from '@fuse/directives/users/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'import-country',
@@ -13,16 +15,19 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./import-country.component.scss'],
   animations   : fuseAnimations,
   encapsulation: ViewEncapsulation.None,
-  providers: [ToastyService, FileManagerService],
+  providers: [UserService, ToastyService, FileManagerService],
 
 })
 export class ImportCountryComponent implements OnInit {
   selected: any;
   pathArr: string[];
+  hasImportCountry;
   private itemFile:any;
 
   constructor(
     public dialog: MatDialog,
+    private router: Router,
+    private _user: UserService,
     private _Func: Functions,
     private apiConfig: APIConfig,
     private toastyService: ToastyService,
@@ -32,6 +37,22 @@ export class ImportCountryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkPermission();
+  }
+
+  private checkPermission() {
+    this._user.GetPermissionUser().subscribe(
+      data => {
+        this.hasImportCountry = this._user.RequestPermission(data, 'importCountry');
+        /* Check orther permission if View allow */
+        if (!this.hasImportCountry) {
+          this.router.navigateByUrl('pages/landing');
+        }
+      },
+      err => {
+        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+      }
+    );
   }
 
   changeItemFile(event) {

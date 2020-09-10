@@ -1,0 +1,32 @@
+<ng2-toasty></ng2-toasty>
+
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Import Fees Rate</span>
+            </div>
+            <div class="h2 mt-16">Import Fees Rate</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+    <div class="p-24 row">
+        <div class="file-uploader" style="margin: auto">
+            <span (click)="fileInput.click()" class="h4 mr-3">File input (maximum 100 customers)</span>
+            <input hidden type="file" #fileInput (change)="changeItemFile($event)"/>
+            <button mat-fab
+                    class="add-file-button mr-3 accent-200-bg"
+                    (click)="fileInput.click()"
+                    aria-label="Add file"
+                    *fuseIfOnDom [@animate]="{value:'*', params:{delay:'300ms',scale:'0.2'}}">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button mat-raised-button color="accent" (click)="importFile()" class="mr-3">Import</button>
+            <span class="h4 accent-400-fg"><a target="_blank" href="/assets/doc/Fees_Rate_template_v2.xlsx?v=1.0">Download Template</a></span>
+        </div>
+    </div>
+</div>

@@ -19,13 +19,18 @@ import { ImportServiceService } from './import-service/import-service.service';
 import { ImportServiceComponent } from './import-service/import-service.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImportCountryComponent } from './import-country/import-country.component';
+import { ImportCountryZoneComponent } from './import-country-zone/import-country-zone.component';
+import { ImportFeesRateComponent } from './import-fees-rate/import-fees-rate.component';
+import { ImportPriceComponent } from './import-price/import-price.component';
 
 
 @NgModule({
     declarations: [
       ImportServiceComponent,
-      ImportCountryComponent
-
+      ImportCountryComponent,
+      ImportCountryZoneComponent,
+      ImportFeesRateComponent,
+      ImportPriceComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
