@@ -9,9 +9,10 @@
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-        <span class="secondary-text">AWB List</span>
+        <span class="secondary-text">{{'INBOUND.AWB_LIST' | translate}}</span>
       </div>
-      <div class="h2 mt-16">AWB List</div>
+      <div class="h2 mt-16">{{'INBOUND.AWB_LIST' | translate}}</div>
+
     </div>
     <div *ngIf="isOption" class="reference-button mat-white-bg">
       <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -20,35 +21,35 @@
       <mat-menu #menu="matMenu">
         <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
           <mat-icon>add_circle_outline</mat-icon>
-          <span>Create AWB</span>
+          <span>{{'INBOUND.CREATE_AWB' | translate}}</span>
         </button>
         <button *ngIf="createWavePick" mat-menu-item (click)="doCreateWavePick()">
           <mat-icon>add_circle_outline</mat-icon>
-          <span>Create WavePick</span>
+          <span>{{'INBOUND.CREATE_WAVE_PICK' | translate}}</span>
         </button>
         <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
           <mat-icon>system_update_alt</mat-icon>
-          <span>Update AWB</span>
+          <span>{{'INBOUND.UPDATE_AWB' | translate}}</span>
         </button>
         <button *ngIf="hasDeleteUserPermission" mat-menu-item (click)="delete()">
           <mat-icon>delete_forever</mat-icon>
-          <span>Delete AWB</span>
+          <span>{{'INBOUND.DELETE_AWB' | translate}}</span>
         </button>
         <button *ngIf="hasCancelUserPermission" mat-menu-item (click)="cancel()">
           <mat-icon>cancel</mat-icon>
-          <span>Cancel AWB</span>
+          <span>{{'INBOUND.CANCEL_AWB' | translate}}</span>
         </button>
         <button *ngIf="pendingAWB" mat-menu-item (click)="pending()">
           <mat-icon>short_text</mat-icon>
-          <span>Pending AWB</span>
+          <span>{{'INBOUND.PENDING_AWB' | translate}}</span>
         </button>
         <button *ngIf="completeAWB" mat-menu-item (click)="complete()">
           <mat-icon>send</mat-icon>
-          <span>Complete AWB</span>
+          <span>{{'INBOUND.COMPLETE_AWB' | translate}}</span>
         </button>
         <button *ngIf="removeAWB" mat-menu-item (click)="remove()">
           <mat-icon>remove_circle_outline</mat-icon>
-          <span>Remove AWB out of WavePick</span>
+          <span>{{'INBOUND.REMOVE_AWB' | translate}}</span>
         </button>
       </mat-menu>
     </div>

@@ -8,6 +8,9 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { UserService } from '@fuse/directives/users/users.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
+import { locale as english } from '../../../../i18n/en';
+import { locale as vietnam } from '../../../../i18n/vn';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -53,9 +56,14 @@ export class AWBComponent implements OnInit {
         private _Func: Functions,
         private toastyConfig: ToastyConfig,
         public dialog: MatDialog,
+        private fuseTranslationLoader: FuseTranslationLoaderService
+
     ) {
+
         this.toastyConfig.position = 'top-right';
+        this.fuseTranslationLoader.loadTranslations(english, vietnam);
         this.total = 0;
+
     }
 
     ngOnInit() {

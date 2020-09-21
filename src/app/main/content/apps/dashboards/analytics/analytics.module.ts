@@ -42,7 +42,6 @@ const routes: Routes = [
         }),
         ChartsModule,
         NgxChartsModule,
-
         FuseSharedModule,
         FuseWidgetModule
     ],

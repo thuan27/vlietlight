@@ -1,6 +1,7 @@
 export const locale = {
     lang: 'en',
     data: {
+      'hihi': 'kakakaka',
         'MAIL': {
             'COMPOSE'                 : 'COMPOSE',
             'FOLDERS'                 : 'FOLDERS',

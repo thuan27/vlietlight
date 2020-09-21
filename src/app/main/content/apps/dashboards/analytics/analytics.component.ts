@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AnalyticsDashboardService } from './analytics.service';
 import { fuseAnimations } from '@fuse/animations';
-
+import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 @Component({
     selector     : 'fuse-analytics-dashboard',
     templateUrl  : './analytics.component.html',
@@ -17,7 +17,9 @@ export class FuseAnalyticsDashboardComponent
     widget5SelectedDay = 'today';
 
     constructor(
-        private analyticsDashboardService: AnalyticsDashboardService
+        private analyticsDashboardService: AnalyticsDashboardService,
+        private translationLoader: FuseTranslationLoaderService,
+
     )
     {
         // Get the widgets from the service

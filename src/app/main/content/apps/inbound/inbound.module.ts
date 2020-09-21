@@ -1,6 +1,8 @@
 import { AWBDetailService } from './awb/awb-detail/awb-detail.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
-import { FuseSharedModule } from '../../../../../@fuse/shared.module';
+// import { FuseSharedModule } from '../../../../../@fuse/shared.module';
+import { FuseSharedModule } from '@fuse/shared.module';
+
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatButtonModule,
          MatCheckboxModule,
@@ -33,6 +35,7 @@ import { CreateWavePickService } from './wave-pick/create-wave-pick/create-wave-
 import { AWBDetailV1Component } from './awb/awb-detai-v1/awb-detail-v1.component';
 import { AWBDetailV1Service } from './awb/awb-detai-v1/awb-detail-v1.service';
 import { FuseDirectivesModule } from '@fuse/directives/directives';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -62,7 +65,8 @@ import { FuseDirectivesModule } from '@fuse/directives/directives';
         MatTableModule,
         MatAutocompleteModule,
         MatTabsModule,
-        FuseDirectivesModule
+        TranslateModule,
+        FuseDirectivesModule,
     ],
     providers: [
         AWBService,

@@ -37,7 +37,6 @@
     "@ngrx/store": "5.2.0",
     "@ngrx/store-devtools": "5.2.0",
     "@ngx-translate/core": "9.1.1",
-    "@ngx-translate/http-loader": "4.0.0",
     "@swimlane/ngx-charts": "7.1.1",
     "@swimlane/ngx-datatable": "11.2.0",
     "@swimlane/ngx-dnd": "3.1.0",

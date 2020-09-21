@@ -11,9 +11,10 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { MailNgrxService } from './mail.service';
 import { Mail } from './mail.model';
 import * as fromStore from './store';
-import { locale as english } from './i18n/en';
-import { locale as turkish } from './i18n/tr';
-
+// import { locale as english } from './i18n/en';
+// import { locale as turkish } from './i18n/tr';
+import { locale as english } from './../../../../navigation/i18n/en';
+import { locale as turkish } from './../../../../navigation/i18n/tr';
 @Component({
     selector       : 'fuse-mail',
     templateUrl    : './mail.component.html',
