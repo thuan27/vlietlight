@@ -82,7 +82,10 @@ export class CreateCustomeromponent implements OnInit {
       city: ['', [Validators.required]],
       province: ['', [Validators.required]],
       customer_email: ['', [Validators.required, Validators.email]],
-      customer_phone: ['', [Validators.required]]
+      customer_phone: ['', [Validators.required]],
+      customer_fax: ['', [Validators.required]],
+      contact_name: ['', [Validators.required]],
+      contact_phone: ['', [Validators.required]],
     });
   }
 
@@ -99,7 +102,7 @@ export class CreateCustomeromponent implements OnInit {
 
     }
     this._createCustomerService.createCustomer(this.CustomerForm.value).subscribe((data) => {
-      this.router.navigate(['apps/master-date/users']);
+      this.router.navigate(['apps/master-date/customers']);
     });
   }
 

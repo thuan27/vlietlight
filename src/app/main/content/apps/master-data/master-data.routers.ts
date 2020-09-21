@@ -34,12 +34,17 @@ export const listRoutes: Routes = [
         canActivate: [AuthGuard, AdminGuard]
     },
     {
+        path: 'customers/create',
+        component: CreateCustomeromponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
         path    : 'customers/:id',
         component: CreateCustomeromponent,
         canActivate: [AuthGuard, AdminGuard]
     },
     {
-        path: 'customers/create',
+        path    : 'customers/:id/:update',
         component: CreateCustomeromponent,
         canActivate: [AuthGuard, AdminGuard]
     },

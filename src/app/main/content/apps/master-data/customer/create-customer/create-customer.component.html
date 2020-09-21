@@ -84,6 +84,26 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="50">
+                        <input formControlName="customer_fax" matInput placeholder="Customer Fax">
+                        <mat-error *ngIf="CustomerForm.controls.customer_fax.hasError('required')">
+                            Customer Fax is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50">
+                      <input formControlName="contact_name" matInput placeholder="contact Name">
+                      <mat-error *ngIf="CustomerForm.controls.contact_name.hasError('required')">
+                          contact Name is required
+                      </mat-error>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="50">
+                    <input formControlName="contact_phone" matInput placeholder="Contact Phone">
+                    <mat-error *ngIf="CustomerForm.controls.contact_phone.hasError('required')">
+                        Customer Fax is required
+                    </mat-error>
+                </mat-form-field>
+                </div>
             </div>
             <button class="button-cancel" mat-raised-button (click)="cancel()">Cancel</button>
             <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent" type="submit">

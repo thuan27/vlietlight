@@ -104,6 +104,7 @@ export class CustomerListComponent implements OnInit
             this.rows = data['data'];
             this.total = data['meta']['totalCount'];
             this.current_page = parseInt(data['meta']['currentPage']) - 1;
+            this.loadingIndicator = false;
         });
     }
 

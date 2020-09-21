@@ -17,7 +17,7 @@ export class CreateCustomerService
     }
 
     createCustomer(param) {
-        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param);
+        return this.http.post(this.apiConfig.CREATE_CUSTOMER, param);
     }
 
     getCusDetail(id) {
