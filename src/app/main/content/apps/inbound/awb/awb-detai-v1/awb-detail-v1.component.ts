@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@ang
 import { ValidationService } from '@fuse/core/validator';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { environment } from '../../../../../../../environments/environment';
+import * as AWS from 'aws-sdk/global';
+import * as S3 from 'aws-sdk/clients/s3';
 
 @Component({
   selector: 'awb-detail-v1',
@@ -343,13 +346,19 @@ export class AWBDetailV1Component implements OnInit {
   }
 
   files: any = [];
-
-  uploadFile(event) {
-    for (let index = 0; index < event.length; index++) {
-      const element = event[index];
-      this.files.push(element.name)
-    }
+  selectedFiles: FileList;
+  itemFile = [];
+  uploadFile(file) {
+    this.selectedFiles = file;
   }
+
+  saveFile() {
+    const file = this.selectedFiles.item(0);
+
+
+    this._AWBDetailV1Service.uploadfile(file);
+  }
+
   deleteAttachment(index) {
     this.files.splice(index, 1)
   }

@@ -15,6 +15,10 @@ const USERTYPE = '';
 export const environment = {
     production: false,
     hmr       : false,
+    pool_id: '',
+    aws_cognito_region: '',
+    aws_project_region: '',
+    bucket: '',
     API: {
         'apiBase': API_URL,
         'apiAdminBase': API_ADMIN_URL,
