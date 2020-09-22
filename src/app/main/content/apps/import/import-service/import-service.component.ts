@@ -23,7 +23,7 @@ export class ImportServiceComponent implements OnInit {
   selected: any;
   pathArr: string[];
   hasImportService;
-  private itemFile:any;
+  itemFile:any;
 
   constructor(
     public dialog: MatDialog,

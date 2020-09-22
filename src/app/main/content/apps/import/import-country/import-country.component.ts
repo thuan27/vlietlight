@@ -22,7 +22,7 @@ export class ImportCountryComponent implements OnInit {
   selected: any;
   pathArr: string[];
   hasImportCountry;
-  private itemFile:any;
+  itemFile:any;
 
   constructor(
     public dialog: MatDialog,

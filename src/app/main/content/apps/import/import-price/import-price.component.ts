@@ -22,7 +22,7 @@ export class ImportPriceComponent implements OnInit {
   selected: any;
   pathArr: string[];
   hasImportPrice;
-  private itemFile:any;
+  itemFile:any;
 
   constructor(
     public dialog: MatDialog,
