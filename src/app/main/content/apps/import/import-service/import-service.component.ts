@@ -9,7 +9,6 @@ import { fuseAnimations } from '@fuse/animations';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
-
 @Component({
   selector: 'import-service',
   templateUrl: './import-service.component.html',
@@ -65,7 +64,7 @@ export class ImportServiceComponent implements OnInit {
 		const that = this;
 		if(!this.itemFile) {
 			return;
-		}
+    }
 		let formData:any = new FormData();
 		let xhr = new XMLHttpRequest();
 

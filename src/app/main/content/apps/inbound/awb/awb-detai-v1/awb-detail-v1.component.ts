@@ -347,19 +347,29 @@ export class AWBDetailV1Component implements OnInit {
 
   files: any = [];
   selectedFiles: FileList;
-  itemFile = [];
+  itemFile;
   uploadFile(file) {
     this.selectedFiles = file;
+    this.itemFile = <Array<File>> file[0];
+    // this.itemFile = <Array<File>> event.target.files[0];
+
+    // this.selectedFiles = event.target.files;
+    // for (let index = 0; index < file.length; index++) {
+    //   const element = file[index];
+    //   this.files.push(element.name)
+    // }
   }
 
   saveFile() {
     const file = this.selectedFiles.item(0);
-
-
-    this._AWBDetailV1Service.uploadfile(file);
+    this._AWBDetailV1Service.uploadfile(file).subscribe((res) => {
+      console.log('aaaaaaa')
+    })
   }
 
   deleteAttachment(index) {
-    this.files.splice(index, 1)
+    // this.files.splice(index, 1)
+    this.itemFile = undefined;
+    // this.selectedFiles.splice(index, 1)
   }
 }
