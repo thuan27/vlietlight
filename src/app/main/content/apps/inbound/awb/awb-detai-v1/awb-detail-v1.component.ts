@@ -359,7 +359,6 @@ export class AWBDetailV1Component implements OnInit {
       this.files.push(element)
       // formarray.append("fileToUpload[]", element);
     }
-    // console.log(formarray)
   }
 
   saveFile() {
@@ -368,6 +367,9 @@ export class AWBDetailV1Component implements OnInit {
     for (let i = 0; i < this.files.length; i++) {
       formarray.append("files[]", this.files[i]);
     }
+    formarray.append("transaction", "test");
+    formarray.append("doc_type", "png");
+
     this._AWBDetailV1Service.uploadfile(formarray).subscribe((res) => {
     })
   }
