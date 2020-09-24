@@ -299,14 +299,14 @@
                     <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
                   </div>
                   <!-- <div  class="files-list" *ngFor="let file of files;let i= index"> -->
-                  <div class="files-list" *ngIf="itemFile">
-                    <p> {{ itemFile ? itemFile.name : '' }} </p>
+                  <div class="files-list" *ngFor="let item of files">
+                    <p> {{ item.name }} </p>
                     <button class="delete-file" (click)="deleteAttachment(i)">
                       <img src="../../../../../../../assets/images/common/Recycle_Bin_Full.png">
                     </button>
                   </div>
                   <div class="d-flex justify-content-center mb-3">
-                    <button [disabled]="!selectedFiles" mat-raised-button color="accent" (click)="saveFile()">Save</button>
+                    <button [disabled]="!selectedFiles" mat-raised-button color="accent" (click)="saveFile(); $event.preventDefault()">Save</button>
                   </div>
                   <master-pallet-list-directive></master-pallet-list-directive>
             </div>
