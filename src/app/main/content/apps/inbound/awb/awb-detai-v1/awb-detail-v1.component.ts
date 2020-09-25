@@ -7,13 +7,14 @@ import { Location } from '@angular/common';
 import { environment } from '../../../../../../../environments/environment';
 import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
   selector: 'awb-detail-v1',
   templateUrl: './awb-detail-v1.component.html',
   styleUrls: ['./awb-detail-v1.component.scss'],
   providers: [
-    ValidationService
+    ValidationService, ToastyService
   ],
 })
 export class AWBDetailV1Component implements OnInit {
@@ -25,6 +26,8 @@ export class AWBDetailV1Component implements OnInit {
   isENVELOP = false;
   status;
   numberShow = 0;
+  doc_type = '';
+  doc_type_cus = '';
   showList = [
     {
       value: 0,
@@ -61,10 +64,15 @@ export class AWBDetailV1Component implements OnInit {
   constructor(
     private _AWBDetailV1Service: AWBDetailV1Service,
     private formBuilder: FormBuilder,
+    private toastyService: ToastyService,
     private router: Router,
     private _Valid: ValidationService,
-    private location: Location
-  ) { }
+    private location: Location,
+    private toastyConfig: ToastyConfig
+
+  ) {
+    this.toastyConfig.position = 'top-right';
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -362,21 +370,65 @@ export class AWBDetailV1Component implements OnInit {
   }
 
   saveFile() {
-    // const file = this.selectedFiles.item(0);
-    const formarray = new FormData();
-    for (let i = 0; i < this.files.length; i++) {
-      formarray.append("files[]", this.files[i]);
-    }
-    formarray.append("transaction", "test");
-    formarray.append("doc_type", "png");
+    if (this.doc_type != '') {
+      if (this.AWBForm.value['awb_code'] != '') {
+        const formarray = new FormData();
+        for (let i = 0; i < this.files.length; i++) {
+          formarray.append("files[]", this.files[i]);
+        }
+        formarray.append("transaction", this.AWBForm.value['awb_code']);
+        formarray.append("doc_type", this.doc_type);
 
-    this._AWBDetailV1Service.uploadfile(formarray).subscribe((res) => {
-    })
+        this._AWBDetailV1Service.uploadfile(formarray).subscribe((res) => {
+          this.toastyService.success('Imported document Successfully');
+        })
+      } else {
+        this.toastyService.error('Please enter the AWB Code value');
+      }
+    } else {
+      this.toastyService.error('Please enter the Document Type');
+    }
   }
 
   deleteAttachment(index) {
     this.files.splice(index, 1)
-    // this.itemFile = undefined;
-    // this.selectedFiles.splice(index, 1)
+  }
+
+  filesCus: any = [];
+  selectedFilesCus: FileList;
+  itemFileCus = [];
+  uploadFileCus(file) {
+    this.selectedFilesCus = file;
+    this.itemFile = <Array<File>> file[0];
+    // this.selectedFiles = event.target.files;
+    for (let index = 0; index < file.length; index++) {
+      const element = file[index];
+      this.filesCus.push(element)
+    }
+  }
+
+  saveFileCus() {
+    if (this.doc_type_cus != '') {
+      if (this.AWBForm.value['awb_code'] != '') {
+        const formarray = new FormData();
+        for (let i = 0; i < this.files.length; i++) {
+          formarray.append("files[]", this.filesCus[i]);
+        }
+        formarray.append("transaction", this.AWBForm.value['awb_code']);
+        formarray.append("doc_type", this.doc_type_cus);
+
+        this._AWBDetailV1Service.uploadfile(formarray).subscribe((res) => {
+          this.toastyService.success('Imported document Successfully');
+        })
+      } else {
+        this.toastyService.error('Please enter the AWB Code value');
+      }
+    } else {
+      this.toastyService.error('Please enter the Document Type');
+    }
+  }
+
+  deleteAttachmentCus(index) {
+    this.filesCus.splice(index, 1)
   }
 }
