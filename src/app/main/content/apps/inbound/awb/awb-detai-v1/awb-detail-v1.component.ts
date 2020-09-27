@@ -1,13 +1,15 @@
+import { transition } from '@angular/animations';
 import { AWBDetailV1Service } from './awb-detail-v1.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { environment } from '../../../../../../../environments/environment';
 import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'awb-detail-v1',
@@ -19,15 +21,26 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 })
 export class AWBDetailV1Component implements OnInit {
 
-  details: FormArray;
+  awb_details: FormArray;
   AWBForm: FormGroup;
   ChildAWBFrom: FormGroup;
+  private routeSub: Subscription;
   country;
   isENVELOP = false;
   status;
   numberShow = 0;
   doc_type = '';
   doc_type_cus = '';
+  action;
+  rows = [];
+  private idAWB;
+  buttonCancel;
+  disabledForm;
+  buttonType;
+  title;
+  awbDetail;
+  loadingIndicator= true;
+  filesDetail;
   showList = [
     {
       value: 0,
@@ -67,6 +80,7 @@ export class AWBDetailV1Component implements OnInit {
     private toastyService: ToastyService,
     private router: Router,
     private _Valid: ValidationService,
+    private activeRoute: ActivatedRoute,
     private location: Location,
     private toastyConfig: ToastyConfig
 
@@ -77,13 +91,104 @@ export class AWBDetailV1Component implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.getStatus();
+    this.defaultPage();
+  }
+
+  defaultPage() {
+    this.routeSub = this.activeRoute.params.subscribe(params => {
+      if (params['id'] !== undefined) {
+        if (params['update']  === 'update') {
+          this.action = 'update';
+          this.idAWB = params['id'];
+          this.detail(params['id']);
+          this.disabledForm = false;
+          this.buttonType = 'Update';
+          this.title = 'Update AWB';
+          this.buttonCancel = 'Cancel'
+          // this.titleGroup = 'Update';
+        } else {
+          this.idAWB = params['id'];
+          this.action = 'detail';
+          this.detail(params['id']);
+          this.disabledForm = true;
+          this.title = 'AWB Detail';
+          this.buttonCancel = 'Cancel'
+          // this.titleGroup = 'Detail';
+        }
+      }
+      else {
+        this.action = 'create';
+        // this.titleGroup = 'Registration';
+        this.title = 'Create AWB';
+        this.buttonType = 'Create';
+        this.disabledForm = false;
+        this.buttonCancel = 'Back';
+      }
+    });
+  }
+
+  async detail(id) {
+    await this._AWBDetailV1Service.getAWB(id).subscribe((data) => {
+      this.awbDetail = data['data'];
+      this.detailForm(data['data']);
+      this.rows = data['data']['user_roles'];
+      this.loadingIndicator = false;
+    });
+    this.getUploadFile(this.AWBForm.value['awb_code'], 'png');
+  }
+
+  private detailForm(data) {
+    this.doc_type = 'png';
+    this.AWBForm = this.formBuilder.group({
+      awb_code: [data['awb_code'], [Validators.required]],
+      out_awb_num: [data['out_awb_num'], [Validators.required]],
+      awb_sts: [data['awb_sts'], [Validators.required]],
+      account_number: [data['account_number'], [Validators.required]],
+      from_contact_name: [data['from_contact_name'], [Validators.required]],
+      to_contact_name: [data['to_contact_name'], [Validators.required]],
+      to_email: [data['to_email'], [Validators.required]],
+      to_phone: [data['to_phone'], [Validators.required]],
+      to_postcode: [data['to_postcode'], [Validators.required]],
+      pick_up_address: [data['pick_up_address'], [Validators.required]],
+      pick_up_address_unsigned_word: [data['pick_up_address_unsigned_word'], [Validators.required]],
+      to_company_name: [data['to_company_name'], [Validators.required]],
+      to_address: [data['to_address'], [Validators.required]],
+      to_country_name: [data['to_country_name'], [Validators.required]],
+      to_country_id: [data['to_country_id'], [Validators.required]],
+      awb_details: this.buildDetailChildGroup(data['awb_details'])
+    });
+  }
+
+  buildDetailChildGroup(data = []) {
+    const itemDetail = this.AWBForm.get('awb_details') as FormArray;
+    itemDetail.removeAt(0);
+    for (let i = 0; i < data.length; i++) {
+      const detail = this.formBuilder.group({
+        type: [0, [Validators.required]],
+        length: [data[i]['length'], [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+        original_weight: [data[i]['original_weight'], [Validators.required]],
+        weight: [data[i]['weight'], [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],
+        original_length: [data[i]['original_length'], [Validators.required]],
+        width: [data[i]['width'], [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+        original_height: [data[i]['original_height'], [Validators.required]],
+        height: [data[i]['height'], [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+        max_weight: [data[i]['max_weight'], [Validators.required]],
+        awb_dtl_weight_up: [data[i]['awb_dtl_weight_up'], [Validators.required]],
+        deleted: [data[i]['deleted'], [Validators.required]],
+        volume: [data[i]['volume'], [Validators.required]],
+        original_width: [data[i]['original_width'], [Validators.required]],
+        new: [data[i]['new'], [Validators.required]],
+      });
+      itemDetail.push(detail);
+    }
+    return itemDetail;
   }
 
   private buildForm() {
     this.AWBForm = this.formBuilder.group({
       awb_code: ['', [Validators.required]],
       out_awb_num: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      awb_sts: ['', [Validators.required]],
       account_number: ['', [Validators.required]],
       from_contact_name: ['', [Validators.required]],
       to_contact_name: ['', [Validators.required]],
@@ -96,38 +201,7 @@ export class AWBDetailV1Component implements OnInit {
       to_address: ['', [Validators.required]],
       to_country_name: ['', [Validators.required]],
       to_country_id: [null, [Validators.required]],
-
-
-      // from_country_id: [null, [Validators.required]],
-      // from_country_name: ['Thuan222', [Validators.required]],
-      // from_address: ['132 132', [Validators.required]],
-      // from_postcode: ['ABC', [Validators.required]],
-      // from_phone: ['090909', [Validators.required]],
-      // from_fax: ['ABAB', [Validators.required]],
-      // from_email: ['lequangthuan@gmail.com', [Validators.required]],
-      // // from_contact_name: ['THON', [Validators.required]],
-      // from_company_name: ['THON', [Validators.required]],
-      // to_country_id: [null, [Validators.required]],
-      // to_country_name: ['', [Validators.required]],
-      // // to_contact_name: ['', [Validators.required]],
-      // to_company_name: ['', [Validators.required]],
-      // to_address: ['', [Validators.required]],
-      // // to_postcode: ['', [Validators.required]],
-      // // to_phone: [null, [Validators.required]],
-      // to_fax: [null, [Validators.required]],
-      // // to_email: ['', [Validators.required]],
-      // received_at: [null, [Validators.required]],
-      // ship_date: [null, [Validators.required]],
-      // service_id: 0,
-      // price: [null, [Validators.required]],
-      // // pick_up_address: ['', [Validators.required]],
-      // pick_up_date: [null, [Validators.required]],
-      // description: '',
-      // weight: 0,
-      // volume: 0,
-      // user_id: 1,
-      // pick_up_time: '10:30',
-      details: this.formBuilder.array([this.buildChildGroup()])
+      awb_details: this.formBuilder.array([this.buildChildGroup()])
     });
   }
 
@@ -147,19 +221,13 @@ export class AWBDetailV1Component implements OnInit {
       volume: [0, [Validators.required]],
       original_width: [null, [Validators.required]],
       new: [null, [Validators.required]],
-
-
-      // item_id: [0, [Validators.required]],
-      // pack_num: 0,
-      // quantity: 1,
-      // weight: [null, [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],
-      // length: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
-      // width: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
-      // height: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
-      // volume: [0, [Validators.required]],
-      // max_weight: 1,
-      // awb_dtl_weight_up: 1
     });
+  }
+
+  getUploadFile(transaction, doc_type) {
+    this._AWBDetailV1Service.getUploadFile(transaction, doc_type).subscribe((response) => {
+      this.filesDetail = response['data'];
+    })
   }
 
   onSubmit() {
@@ -222,40 +290,26 @@ export class AWBDetailV1Component implements OnInit {
   }
 
   addMoreItem(event) {
-    this.details = this.AWBForm.get('details') as FormArray;
-    const lengthItems = this.details.length;
+    this.awb_details = this.AWBForm.get('awb_details') as FormArray;
+    const lengthItems = this.awb_details.length;
     const form = this.formBuilder.group({
-      // type: ['', [Validators.required]],
-      // length: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
-      // original_weight: [''],
-      // weight: [null, [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],
-      // original_length: [''],
-      // width: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
-      // original_height: [''],
-      // height: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
-      // max_weight: [1],
-      // awb_dtl_weight_up: [1],
-      // deleted: [0],
-      // volume: [0, [Validators.required]],
-      // original_width: [null],
-      // new: [0]
-      type: [this.details.controls[lengthItems - 1].value.type, [Validators.required]],
-      length: [this.details.controls[lengthItems - 1].value.length, [Validators.required]],
-      original_weight: [this.details.controls[lengthItems - 1].value.original_weight, [Validators.required]],
-      weight: [this.details.controls[lengthItems - 1].value.weight, [Validators.required]],
-      original_length: [this.details.controls[lengthItems - 1].value.original_length, [Validators.required]],
-      height: [this.details.controls[lengthItems - 1].value.height, [Validators.required]],
-      pack_num: [this.details.controls[lengthItems - 1].value.pack_num, [Validators.required]],
-      max_weight: [this.details.controls[lengthItems - 1].value.max_weight, [Validators.required]],
-      deleted: [this.details.controls[lengthItems - 1].value.deleted, [Validators.required]],
-      awb_dtl_weight_up: [this.details.controls[lengthItems - 1].value.awb_dtl_weight_up, [Validators.required]],
-      volume: [this.details.controls[lengthItems - 1].value.volume, [Validators.required]],
-      original_width: [this.details.controls[lengthItems - 1].value.original_width, [Validators.required]],
-      new: [this.details.controls[lengthItems - 1].value.new, [Validators.required]],
-      width: [this.details.controls[lengthItems - 1].value.width, [Validators.required]],
-      original_height: [this.details.controls[lengthItems - 1].value.original_height, [Validators.required]],
+      type: [this.awb_details.controls[lengthItems - 1].value.type, [Validators.required]],
+      length: [this.awb_details.controls[lengthItems - 1].value.length, [Validators.required]],
+      original_weight: [this.awb_details.controls[lengthItems - 1].value.original_weight, [Validators.required]],
+      weight: [this.awb_details.controls[lengthItems - 1].value.weight, [Validators.required]],
+      original_length: [this.awb_details.controls[lengthItems - 1].value.original_length, [Validators.required]],
+      height: [this.awb_details.controls[lengthItems - 1].value.height, [Validators.required]],
+      pack_num: [this.awb_details.controls[lengthItems - 1].value.pack_num, [Validators.required]],
+      max_weight: [this.awb_details.controls[lengthItems - 1].value.max_weight, [Validators.required]],
+      deleted: [this.awb_details.controls[lengthItems - 1].value.deleted, [Validators.required]],
+      awb_dtl_weight_up: [this.awb_details.controls[lengthItems - 1].value.awb_dtl_weight_up, [Validators.required]],
+      volume: [this.awb_details.controls[lengthItems - 1].value.volume, [Validators.required]],
+      original_width: [this.awb_details.controls[lengthItems - 1].value.original_width, [Validators.required]],
+      new: [this.awb_details.controls[lengthItems - 1].value.new, [Validators.required]],
+      width: [this.awb_details.controls[lengthItems - 1].value.width, [Validators.required]],
+      original_height: [this.awb_details.controls[lengthItems - 1].value.original_height, [Validators.required]],
     });
-    this.details.push(form);
+    this.awb_details.push(form);
   }
 
   checkInputNumber($event, int) {
@@ -264,22 +318,22 @@ export class AWBDetailV1Component implements OnInit {
 
   CalculateTheVoulume(i) {
     let sumVolume = 0;
-    const length = this.AWBForm.value['details'][i]['length'];
-    const width = this.AWBForm.value['details'][i]['width'];
-    const height = this.AWBForm.value['details'][i]['height'];
-    this.AWBForm.controls['details']['controls'][i]['controls']['volume'].setValue(length * width * height / 5000);
-    for (let x = 0; x < this.AWBForm.value['details'].length ; x++) {
+    const length = this.AWBForm.value['awb_details'][i]['length'];
+    const width = this.AWBForm.value['awb_details'][i]['width'];
+    const height = this.AWBForm.value['awb_details'][i]['height'];
+    this.AWBForm.controls['awb_details']['controls'][i]['controls']['volume'].setValue(length * width * height / 5000);
+    for (let x = 0; x < this.AWBForm.value['awb_details'].length ; x++) {
       // tslint:disable-next-line:radix
-      sumVolume = sumVolume + this.AWBForm.value['details'][x]['volume'];
+      sumVolume = sumVolume + this.AWBForm.value['awb_details'][x]['volume'];
     }
     this.AWBForm.controls['volume'].setValue(sumVolume);
   }
 
   CalculateTotalWeight() {
     let sumWeight = 0;
-    for (let i = 0; i < this.AWBForm.value['details'].length; i++) {
+    for (let i = 0; i < this.AWBForm.value['awb_details'].length; i++) {
       // tslint:disable-next-line:radix
-      sumWeight = sumWeight + parseInt(this.AWBForm.value['details'][i]['weight']);
+      sumWeight = sumWeight + parseInt(this.AWBForm.value['awb_details'][i]['weight']);
     }
     this.AWBForm.controls['weight'].setValue(sumWeight);
   }
@@ -287,27 +341,27 @@ export class AWBDetailV1Component implements OnInit {
   deleteMoreItem(i) {
     let sumVolume = 0;
     let sumWeight = 0;
-    this.details = this.AWBForm.get('details') as FormArray;
-    if (this.details.length === 1) {
-      this.AWBForm.controls['details']['controls'][i]['controls']['item_id'].setValue(0);
-      this.AWBForm.controls['details']['controls'][i]['controls']['weight'].setValue(0);
-      this.AWBForm.controls['details']['controls'][i]['controls']['length'].setValue(0);
-      this.AWBForm.controls['details']['controls'][i]['controls']['width'].setValue(0);
-      this.AWBForm.controls['details']['controls'][i]['controls']['height'].setValue(0);
-      this.AWBForm.controls['details']['controls'][i]['controls']['volume'].setValue(0);
+    this.awb_details = this.AWBForm.get('awb_details') as FormArray;
+    if (this.awb_details.length === 1) {
+      this.AWBForm.controls['awb_details']['controls'][i]['controls']['item_id'].setValue(0);
+      this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setValue(0);
+      this.AWBForm.controls['awb_details']['controls'][i]['controls']['length'].setValue(0);
+      this.AWBForm.controls['awb_details']['controls'][i]['controls']['width'].setValue(0);
+      this.AWBForm.controls['awb_details']['controls'][i]['controls']['height'].setValue(0);
+      this.AWBForm.controls['awb_details']['controls'][i]['controls']['volume'].setValue(0);
       this.AWBForm.controls['weight'].setValue(0);
       this.AWBForm.controls['volume'].setValue(0);
     } else {
-      this.details.removeAt(i);
+      this.awb_details.removeAt(i);
       this.CalculateTotalWeight();
-      for (let y = 0; y < this.AWBForm.value['details'].length; y++) {
+      for (let y = 0; y < this.AWBForm.value['awb_details'].length; y++) {
         // tslint:disable-next-line:radix
-        sumWeight = sumWeight + parseInt(this.AWBForm.value['details'][y]['weight']);
+        sumWeight = sumWeight + parseInt(this.AWBForm.value['awb_details'][y]['weight']);
       }
       this.AWBForm.controls['weight'].setValue(sumWeight);
-      for (let x = 0; x < this.AWBForm.value['details'].length ; x++) {
+      for (let x = 0; x < this.AWBForm.value['awb_details'].length ; x++) {
         // tslint:disable-next-line:radix
-        sumVolume = sumVolume + this.AWBForm.value['details'][x]['volume'];
+        sumVolume = sumVolume + this.AWBForm.value['awb_details'][x]['volume'];
       }
       this.AWBForm.controls['volume'].setValue(sumVolume);
     }
@@ -329,18 +383,6 @@ export class AWBDetailV1Component implements OnInit {
   addEvent(event: any) {}
 
   changeItem(event: any, i) {
-    // this.AWBForm.controls['details']['controls'][i]['controls']['weight'].setValue(0);
-    // this.AWBForm.controls['details']['controls'][i]['controls']['length'].setValue(0);
-    // this.AWBForm.controls['details']['controls'][i]['controls']['width'].setValue(0);
-    // this.AWBForm.controls['details']['controls'][i]['controls']['height'].setValue(0);
-    // this.AWBForm.controls['details']['controls'][i]['controls']['volume'].setValue(0);
-    // this.AWBForm.controls['weight'].setValue(0);
-    // this.AWBForm.controls['volume'].setValue(0);
-    // if (event.value === 2) {
-    //   this.isENVELOP = true;
-    // } else {
-    //   this.isENVELOP = false;
-    // }
   }
 
   cancel() {

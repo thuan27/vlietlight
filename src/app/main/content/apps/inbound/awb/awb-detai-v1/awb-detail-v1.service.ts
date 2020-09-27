@@ -38,30 +38,14 @@ export class AWBDetailV1Service {
       reportProgress: true,
       withCredentials: true,
   }
-    // const bucket = new S3(
-    //   {
-    //     accessKeyId: 'YOUR-ACCESS-KEY-ID',
-    //     secretAccessKey: 'YOUR-SECRET-ACCESS-KEY',
-    //     region: 'us-east-1'
-    //   }
-    // );
-
-    // const params = {
-    //   Bucket: 'jsa-angular4-bucket',
-    //   Key: this.FOLDER + file.name,
-    //   Body: file
-    // };
-
-    // bucket.upload(params, function (err, data) {
-    //   if (err) {
-    //     console.log('There was an error uploading your file: ', err);
-    //     return false;
-    //   }
-
-    //   console.log('Successfully uploaded file.', data);
-    //   return true;
-    // });
     return this.http.post(this.apiConfig.AWB_FILE, file, options);
+  }
 
+  getAWB(id) {
+    return this.http.get(`${this.apiConfig.CREATE_AWB}/${id}`);
+  }
+
+  getUploadFile(transaction, doc_type) {
+    return this.http.get(`${this.apiConfig.AWB_FILE}?transaction=${transaction}&doc_type=${doc_type}`)
   }
 }

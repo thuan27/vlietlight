@@ -330,4 +330,14 @@ export class AWBComponent implements OnInit {
           });
       }
     }
+
+    update() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.router.navigateByUrl(`apps/inbound/awb1/${this.selected[0]['awb_id']}/update`);
+      }
+    }
 }
