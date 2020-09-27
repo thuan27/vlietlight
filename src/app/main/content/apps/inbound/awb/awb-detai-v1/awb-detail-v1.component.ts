@@ -232,12 +232,18 @@ export class AWBDetailV1Component implements OnInit {
 
   onSubmit() {
     if (this.AWBForm.valid) {
-      this.AWBForm.value.received_at = this.AWBForm.value.received_at.format('YYYY/MM/DD');
-      this.AWBForm.value.ship_date = this.AWBForm.value.ship_date.format('YYYY/MM/DD');
-      this.AWBForm.value.pick_up_date = this.AWBForm.value.pick_up_date.format('YYYY/MM/DD');
-      this._AWBDetailV1Service.createAWB(this.AWBForm.value).subscribe((data) => {
-        this.router.navigate(['apps/inbound/awb']);
-      });
+      if (this.action === 'create') {
+        this.AWBForm.value.received_at = this.AWBForm.value.received_at.format('YYYY/MM/DD');
+        this.AWBForm.value.ship_date = this.AWBForm.value.ship_date.format('YYYY/MM/DD');
+        this.AWBForm.value.pick_up_date = this.AWBForm.value.pick_up_date.format('YYYY/MM/DD');
+        this._AWBDetailV1Service.createAWB(this.AWBForm.value).subscribe((data) => {
+          this.router.navigate(['apps/inbound/awb']);
+        });
+      } else if (this.action === 'update') {
+        this._AWBDetailV1Service.updateAWB(this.AWBForm.value, this.idAWB).subscribe((data) => {
+          this.router.navigate(['apps/inbound/awb']);
+        });
+      }
     }
   }
 

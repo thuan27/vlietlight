@@ -21,6 +21,10 @@ export class AWBDetailV1Service {
     return this.http.post(this.apiConfig.CREATE_AWB, param);
   }
 
+  updateAWB(param, id) {
+    return this.http.put(`${this.apiConfig.CREATE_AWB}/${id}`, param);
+  }
+
   getCountry(data) {
     return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data);
   }
