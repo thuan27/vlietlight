@@ -127,14 +127,14 @@ export class AWBDetailV1Component implements OnInit {
     });
   }
 
-  async detail(id) {
-    await this._AWBDetailV1Service.getAWB(id).subscribe((data) => {
+  detail(id) {
+    this._AWBDetailV1Service.getAWB(id).subscribe((data) => {
       this.awbDetail = data['data'];
       this.detailForm(data['data']);
       this.rows = data['data']['user_roles'];
       this.loadingIndicator = false;
+      this.getUploadFile(data['data']['awb_code'], 'png');
     });
-    this.getUploadFile(this.AWBForm.value['awb_code'], 'png');
   }
 
   private detailForm(data) {
@@ -226,7 +226,21 @@ export class AWBDetailV1Component implements OnInit {
 
   getUploadFile(transaction, doc_type) {
     this._AWBDetailV1Service.getUploadFile(transaction, doc_type).subscribe((response) => {
-      this.filesDetail = response['data'];
+      // this.filesDetail = response['data'];
+      this.filesDetail = [
+        {
+          created_at: "2020-09-22 02:43:50",
+          created_by: 202,
+          doc_date: "2020-09-22 02:43:50",
+          doc_type: "png",
+          file_id: 2,
+          filename: "My-AWB-list-05.png",
+          fullname: "xang Vo",
+          key: "aHR0cHM6Ly92aWV0bGlnaHQtMS5zMy5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tL015LUFXQi1saXN0LTA1LnBuZw==",
+          mime: "png",
+          transaction: "test"
+        }
+      ]
     })
   }
 

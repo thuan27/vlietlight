@@ -320,12 +320,12 @@
                 <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
                   <input [disabled]="disabledForm" hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
                 </div>
-                <div class="files-list" *ngFor="let item of filesDetail">
+                <!-- <div class="files-list" *ngFor="let item of filesDetail">
                     <p> {{ item.filename }} </p>
                     <button class="delete-file" (click)="deleteAttachment(i)">
                       <img src="../../../../../../../assets/images/common/Recycle_Bin_Full.png">
                     </button>
-                  </div>
+                  </div> -->
                 <div class="files-list" *ngFor="let item of files">
                   <p> {{ item.name }} </p>
                   <button class="delete-file" (click)="deleteAttachment(i)">
@@ -335,7 +335,43 @@
                 <div class="d-flex justify-content-center mb-3">
                   <button [disabled]="!selectedFiles" mat-raised-button color="accent" (click)="saveFile(); $event.preventDefault()">Save</button>
                 </div>
-                <master-pallet-list-directive></master-pallet-list-directive>
+                <div class="table-style1">
+                    <table class="table table-striped table-bordered mat-cyan-50-bg">
+                        <thead>
+                          <tr>
+                            <th>Transaction (*)</th>
+                            <th>Doc Type (*)</th>
+                            <th>Doc Date</th>
+                            <th>File Name (*)</th>
+                            <th>Created</th>
+                            <th>Full Name</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                          *ngFor="let item of filesDetail">
+                            <td class="border-table">
+                              {{ item.transaction }}
+                            </td>
+                            <td class="border-table">
+                              {{ item.doc_type }}
+                            </td>
+                            <td class="border-table">
+                              {{ item.doc_date }}
+                            </td>
+                            <td class="border-table">
+                              {{ item.filename }}
+                            </td>
+                            <td class="border-table">
+                              {{ item.created_at }}
+                            </td>
+                            <td class="border-table">
+                              {{ item.fullname }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
             </div>
           </mat-tab>
           <mat-tab label="Customer Attachment">
@@ -355,7 +391,37 @@
                  <div class="d-flex justify-content-center mb-3">
                     <button [disabled]="!selectedFilesCus" mat-raised-button color="accent" (click)="saveFileCus(); $event.preventDefault()">Save</button>
                   </div>
-                 <master-pallet-customer-list-directive></master-pallet-customer-list-directive>
+                  <div class="table-style1">
+                      <table class="table table-striped table-bordered mat-cyan-50-bg">
+                          <thead>
+                            <tr>
+                              <th>Transaction (*)</th>
+                              <th>Doc Type (*)</th>
+                              <th>Doc Date</th>
+                              <th>File Name (*)</th>
+                              <th>Created</th>
+                              <th>Full Name</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="border-table">
+                              </td>
+                              <td class="border-table">
+                              </td>
+                              <td class="border-table">
+                              </td>
+                              <td class="border-table">
+                              </td>
+                              <td class="border-table">
+                              </td>
+                              <td class="border-table">
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                  </div>
+                 <!-- <master-pallet-customer-list-directive></master-pallet-customer-list-directive> -->
           </div>
           </mat-tab>
         </mat-tab-group>

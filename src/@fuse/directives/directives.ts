@@ -4,8 +4,8 @@ import { FuseIfOnDomDirective } from '@fuse/directives/fuse-if-on-dom/fuse-if-on
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 import { FuseMatSidenavHelperDirective, FuseMatSidenavTogglerDirective } from '@fuse/directives/fuse-mat-sidenav/fuse-mat-sidenav.directive';
 import { ToastyModule } from '@fuse/directives/ng2-toasty';
-import { MasterPalletListDirective } from './master-pallet-list/master-pallet';
 import { MasterPalletCustomerListDirective } from './master-pallet-list-customer/master-pallet-customer';
+import { MasterPalletListDirective } from './master-pallet-list/master-pallet';
 
 @NgModule({
     declarations: [

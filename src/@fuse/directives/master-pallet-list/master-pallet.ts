@@ -16,14 +16,16 @@ import {masterPalletServices} from "./master-pallet-service";
 
 export class MasterPalletListDirective {
 
+  @Input() filesDetail = [];                      // input
+  @Output('filesDetail') change = new EventEmitter<any>();
   private _bolID = '';
   private masterPalletList = [];
 
   @Input('bolID') set bolID(value: string) {
-    this._bolID=value;
-    if (value) {
-      this.getMasterPalletList(1);
-    }
+    // this._bolID=value;
+    // if (value) {
+    //   this.getMasterPalletList(1);
+    // }
   }
 
   @Output() messages=  new EventEmitter();
@@ -32,7 +34,11 @@ export class MasterPalletListDirective {
   constructor(
               // private _Func: Functions,
               // private _API: API_Config,
-              private _masterPalletServices:masterPalletServices) {}
+              private _masterPalletServices:masterPalletServices) {
+              }
+
+  ngOnInit(): void {
+  }
 
   private getMasterPalletList(page: any = ''){
 
