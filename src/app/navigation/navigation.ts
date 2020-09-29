@@ -184,6 +184,22 @@ export const navigation = [
               ]
             },
             {
+              'id'       : 'event-tracking',
+              'title'    : 'Event Tracking',
+              'translate': 'NAV.EVENTTRACKING',
+              'type'     : 'collapse',
+              'icon'     : 'event_note',
+              'children' : [
+                  {
+                      'id'   : 'awb-event-tracking',
+                      'title': 'AWB Event Tracking',
+                      'type' : 'item',
+                      'url'  : '/apps/event-tracking/awb-event-tracking',
+                      'exactMatch': true
+                  },
+              ]
+            },
+            {
               'id'       : 'import',
               'title'    : 'Import',
               'translate': 'NAV.IMPORT',

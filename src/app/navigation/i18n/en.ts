@@ -25,7 +25,8 @@ export const locale = {
             'UTILITY'     : 'Utility',
             'OUTBOUND'    : 'Outbound',
             'ADMINISTRATION': 'Administration',
-            'IMPORT'      : 'Import'
+            'IMPORT'      : 'Import',
+            'EVENTTRACKING': 'Event Tracking'
         }
     }
 };

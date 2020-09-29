@@ -1,0 +1,59 @@
+<ng2-toasty></ng2-toasty>
+
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">AWB Event Tracking</span>
+      </div>
+      <div class="h2 mt-16">AWB Event Tracking</div>
+    </div>
+
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+
+    <form id="form-control" [formGroup]="searchForm" autocomplete="off">
+      <mat-form-field class="mr-2">
+          <input formControlName="owner" matInput placeholder="Owner">
+      </mat-form-field>
+      <span>
+          <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+          <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+      </span>
+
+    </form>
+
+    <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
+      [selectionType]="'checkbox'" [count]="total" [selected]="selected" [scrollbarH]="true"
+      [externalPaging]="true" [offset]="current_page" [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
+
+      <ngx-datatable-column [width]="200" name="Owner" prop="owner"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" name="Trans #" prop="trans_num"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" name="User" prop="user"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="400" name="Information" prop="info"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="400" name="Created At" prop="created_at"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" name="Event Code" prop="evt_code"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" name="Event Type" prop="evt_type"></ngx-datatable-column>
+
+      <ngx-datatable-column [width]="200" name="Description" prop="description"></ngx-datatable-column>
+    </ngx-datatable>
+    <div class="export margin-top-10">
+      <label class="label-export">Export to:</label>
+      <a (click)="exportCsv()" class="csv"></a>
+    </div>
+  </div>
+</div>

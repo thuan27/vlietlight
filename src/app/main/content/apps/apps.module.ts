@@ -80,6 +80,10 @@ const routes = [
         loadChildren: './import/import.module#FuseImportModule'
     },
     {
+        path        : 'event-tracking',
+        loadChildren: './event-tracking/event-tracking.module#FuseEventTrackingModule'
+    },
+    {
         path      : '**',
         redirectTo: 'apps/dashboards/analytics'
     }

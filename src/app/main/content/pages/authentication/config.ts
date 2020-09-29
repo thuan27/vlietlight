@@ -41,6 +41,7 @@ export class APIConfig {
   public USER = this.API_BASE + '/master-service/v1/users';
   public USER_DELETE = this.API_BASE + '/master-service/v1/delete-multi-user';
   public USER_DETAIL = this.API_BASE + '/authentication/users/info/';
+  public AWB_EVENT_TRACKING = this.API_BASE + '/awbs/v1/event-tracking';
 
   //import
   public IMPORT_SERVICE = this.API_BASE + '/migration/v1/service/import';
