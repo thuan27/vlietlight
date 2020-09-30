@@ -252,7 +252,7 @@
               <div fxLayout="row">
                 <span style="margin-top: auto; margin-bottom: auto; margin-right: 20px">Show :</span>
                 <mat-form-field class="mr-3" style="width: 100px;">
-                  <mat-select [(ngModel)]="numberShow" [ngModelOptions]="{standalone: true}">
+                  <mat-select [(ngModel)]="numberShow" [ngModelOptions]="{standalone: true}" (change)=changeList($event)>
                     <mat-option *ngFor="let item of showList" [value]="item.value">
                       {{ item.name }}
                     </mat-option>

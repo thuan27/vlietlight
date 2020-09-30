@@ -28,7 +28,7 @@ export class AWBDetailV1Component implements OnInit {
   country;
   isENVELOP = false;
   status;
-  numberShow = 0;
+  numberShow = 20;
   doc_type = '';
   doc_type_cus = '';
   action;
@@ -42,21 +42,22 @@ export class AWBDetailV1Component implements OnInit {
   eventTracking;
   loadingIndicator= true;
   filesDetail;
+  limitEvent = 20;
   showList = [
     {
-      value: 0,
+      value: 20,
       name: 20,
     },
     {
-      value: 1,
+      value: 30,
       name: 30,
     },
     {
-      value: 2,
+      value: 40,
       name: 40,
     },
     {
-      value: 3,
+      value: 50,
       name: 50,
     },
   ]
@@ -135,7 +136,7 @@ export class AWBDetailV1Component implements OnInit {
       this.rows = data['data']['user_roles'];
       this.loadingIndicator = false;
       this.getUploadFile(data['data']['awb_code'], 'png');
-      this.getEventTracking(this.awbDetail);
+      this.getEventTracking();
     });
   }
 
@@ -496,11 +497,16 @@ export class AWBDetailV1Component implements OnInit {
     this.filesCus.splice(index, 1)
   }
 
-  getEventTracking(awbDetail) {
-    let param = '?owner=' + awbDetail['awb_code'];
+  getEventTracking() {
+    let param = '?owner=' + this.awbDetail['awb_code'] + '&limit=' + this.limitEvent;
     this._AWBDetailV1Service.getEventTracking(param).subscribe((response) => {
       this.eventTracking = response['data'];
     })
+  }
+
+  changeList(event) {
+    this.limitEvent = event.value;
+    this.getEventTracking();
   }
 
 }
