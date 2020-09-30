@@ -52,4 +52,8 @@ export class AWBDetailV1Service {
   getUploadFile(transaction, doc_type) {
     return this.http.get(`${this.apiConfig.AWB_FILE}?transaction=${transaction}&doc_type=${doc_type}`)
   }
+
+  getEventTracking(params) {
+    return this.http.get(this.apiConfig.AWB_EVENT_TRACKING + params);
+  }
 }

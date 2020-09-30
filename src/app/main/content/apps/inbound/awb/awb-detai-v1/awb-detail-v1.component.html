@@ -273,20 +273,27 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr *ngFor="let item of eventTracking">
                       <td class="border-table">
+                        {{ item.owner }}
                       </td>
                       <td class="border-table">
+                        {{ item.trans_num }}
                       </td>
                       <td class="border-table">
+                        {{ item.description }}
                       </td>
                       <td class="border-table">
+                        {{ item.evt_code }}
                       </td>
                       <td class="border-table">
+                        {{ item.info }}
                       </td>
                       <td class="border-table">
+                        {{ item.created_at }}
                       </td>
                       <td class="border-table">
+                        {{ item.user }}
                       </td>
                     </tr>
                   </tbody>

@@ -39,6 +39,7 @@ export class AWBDetailV1Component implements OnInit {
   buttonType;
   title;
   awbDetail;
+  eventTracking;
   loadingIndicator= true;
   filesDetail;
   showList = [
@@ -127,13 +128,14 @@ export class AWBDetailV1Component implements OnInit {
     });
   }
 
-  detail(id) {
-    this._AWBDetailV1Service.getAWB(id).subscribe((data) => {
+  async detail(id) {
+    await this._AWBDetailV1Service.getAWB(id).subscribe((data) => {
       this.awbDetail = data['data'];
       this.detailForm(data['data']);
       this.rows = data['data']['user_roles'];
       this.loadingIndicator = false;
       this.getUploadFile(data['data']['awb_code'], 'png');
+      this.getEventTracking(this.awbDetail);
     });
   }
 
@@ -493,4 +495,12 @@ export class AWBDetailV1Component implements OnInit {
   deleteAttachmentCus(index) {
     this.filesCus.splice(index, 1)
   }
+
+  getEventTracking(awbDetail) {
+    let param = '?owner=' + awbDetail['awb_code'];
+    this._AWBDetailV1Service.getEventTracking(param).subscribe((response) => {
+      this.eventTracking = response['data'];
+    })
+  }
+
 }
