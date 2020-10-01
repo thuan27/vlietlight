@@ -98,6 +98,7 @@ export class AWBDetailV1Component implements OnInit {
 
   defaultPage() {
     this.routeSub = this.activeRoute.params.subscribe(params => {
+      console.log(params)
       if (params['id'] !== undefined) {
         if (params['update']  === 'update') {
           this.action = 'update';
@@ -229,21 +230,7 @@ export class AWBDetailV1Component implements OnInit {
 
   getUploadFile(transaction, doc_type) {
     this._AWBDetailV1Service.getUploadFile(transaction, doc_type).subscribe((response) => {
-      // this.filesDetail = response['data'];
-      this.filesDetail = [
-        {
-          created_at: "2020-09-22 02:43:50",
-          created_by: 202,
-          doc_date: "2020-09-22 02:43:50",
-          doc_type: "png",
-          file_id: 2,
-          filename: "My-AWB-list-05.png",
-          fullname: "xang Vo",
-          key: "aHR0cHM6Ly92aWV0bGlnaHQtMS5zMy5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tL015LUFXQi1saXN0LTA1LnBuZw==",
-          mime: "png",
-          transaction: "test"
-        }
-      ]
+      this.filesDetail = response['data'];
     })
   }
 
@@ -435,7 +422,7 @@ export class AWBDetailV1Component implements OnInit {
   }
 
   saveFile() {
-    if (this.doc_type != '') {
+    if (this.doc_type != '' && this.files.length > 0) {
       if (this.AWBForm.value['awb_code'] != '') {
         const formarray = new FormData();
         for (let i = 0; i < this.files.length; i++) {
@@ -443,7 +430,6 @@ export class AWBDetailV1Component implements OnInit {
         }
         formarray.append("transaction", this.AWBForm.value['awb_code']);
         formarray.append("doc_type", this.doc_type);
-
         this._AWBDetailV1Service.uploadfile(formarray).subscribe((res) => {
           this.toastyService.success('Imported document Successfully');
         })
@@ -451,7 +437,7 @@ export class AWBDetailV1Component implements OnInit {
         this.toastyService.error('Please enter the AWB Code value');
       }
     } else {
-      this.toastyService.error('Please enter the Document Type');
+      this.toastyService.error('Please enter the Document Type and import at least one item');
     }
   }
 
@@ -509,4 +495,12 @@ export class AWBDetailV1Component implements OnInit {
     this.getEventTracking();
   }
 
+  deleteFiled(item) {
+    if (!this.disabledForm) {
+      this._AWBDetailV1Service.deleteFiled(item.file_id).subscribe((response) => {
+        this.toastyService.success('Deleted file Successfully');
+        this.getEventTracking();
+      });
+    }
+  }
 }

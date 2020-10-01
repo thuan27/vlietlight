@@ -56,4 +56,8 @@ export class AWBDetailV1Service {
   getEventTracking(params) {
     return this.http.get(this.apiConfig.AWB_EVENT_TRACKING + params);
   }
+
+  deleteFiled(idFile) {
+    return this.http.delete(this.apiConfig.AWB_EVENT_TRACKING_DELETE + '/' + idFile);
+  }
 }

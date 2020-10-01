@@ -106,7 +106,7 @@ const appRoutes: Routes = [
                 whitelistedDomains: environment.whitelistedDomains,
                 // skipWhenExpired: true
             }
-        })
+        }),
     ],
     bootstrap   : [
         AppComponent

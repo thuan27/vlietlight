@@ -318,7 +318,7 @@
                 <div class="d-flex justify-content-center mb-3">
                   <button [disabled]="!selectedFiles" mat-raised-button color="accent" (click)="saveFile(); $event.preventDefault()">Save</button>
                 </div>
-                <master-pallet-list-directive></master-pallet-list-directive>
+                <!-- <master-pallet-list-directive></master-pallet-list-directive> -->
             </div>
             <div class="demo-tab-content" *ngIf="action !== 'create'">
                 <mat-form-field class="ml-3 mt-3">
@@ -352,6 +352,7 @@
                             <th>File Name (*)</th>
                             <th>Created</th>
                             <th>Full Name</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -374,6 +375,11 @@
                             </td>
                             <td class="border-table">
                               {{ item.fullname }}
+                            </td>
+                            <td>
+                              <div (click)="deleteFiled(item)">
+                                  <mat-icon style="margin-left: 10px; cursor: pointer; color: red">delete_sweep</mat-icon>
+                              </div>
                             </td>
                           </tr>
                         </tbody>
