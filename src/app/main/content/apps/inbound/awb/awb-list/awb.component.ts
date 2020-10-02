@@ -134,7 +134,7 @@ export class AWBComponent implements OnInit {
         this._AWBService.getList(params).subscribe((data) => {
             data['data'].forEach((data) => {
               data['awb_code_temp'] = data['awb_code'];
-              data['awb_code'] = `<a href="#/apps/inbound/awb/${data['awb_id']}">${data['awb_code']}</a>`;
+              data['awb_code'] = `<a href="#/apps/inbound/awb1/${data['awb_id']}">${data['awb_code']}</a>`;
             });
             this.rows = data['data'];
             this.total = data['meta']['pagination']['total'];
