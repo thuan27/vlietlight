@@ -31,7 +31,7 @@ export const listRoutes: Routes = [
     },
     {
         path: 'awb1/:id',
-        component: AWBDetailComponent,
+        component: AWBDetailV1Component,
         canActivate: [AuthGuard, AdminGuard]
     },
     {
