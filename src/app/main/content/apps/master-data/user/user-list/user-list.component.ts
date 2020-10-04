@@ -43,7 +43,6 @@ export class UserListComponent implements OnInit
     }
 
     pageCallback(e) {
-        console.log(e);
         this.perPage = e['offset'];
 
     }

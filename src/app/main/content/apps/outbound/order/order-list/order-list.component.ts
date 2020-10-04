@@ -104,6 +104,7 @@ export class OrderListComponent implements OnInit {
   pageCallback(e) {
     // tslint:disable-next-line:radix
     this.getList(parseInt(e['offset']) + 1);
+    this.selected = [];
   }
 
   create() {

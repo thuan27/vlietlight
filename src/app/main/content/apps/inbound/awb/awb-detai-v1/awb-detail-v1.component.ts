@@ -10,6 +10,8 @@ import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { Subscription } from 'rxjs';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'awb-detail-v1',
@@ -43,6 +45,7 @@ export class AWBDetailV1Component implements OnInit {
   loadingIndicator= true;
   filesDetail;
   limitEvent = 20;
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   showList = [
     {
       value: 20,
@@ -83,6 +86,7 @@ export class AWBDetailV1Component implements OnInit {
     private router: Router,
     private _Valid: ValidationService,
     private activeRoute: ActivatedRoute,
+    public dialog: MatDialog,
     private location: Location,
     private toastyConfig: ToastyConfig
 
@@ -497,9 +501,19 @@ export class AWBDetailV1Component implements OnInit {
 
   deleteFiled(item) {
     if (!this.disabledForm) {
-      this._AWBDetailV1Service.deleteFiled(item.file_id).subscribe((response) => {
-        this.toastyService.success('Deleted file Successfully');
-        this.getEventTracking();
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this file?';
+
+      this.dialogRef.afterClosed().subscribe(result => {
+          if ( result )
+          {
+            this._AWBDetailV1Service.deleteFiled(item.file_id).subscribe((response) => {
+              this.toastyService.success('Deleted file Successfully');
+              this.getEventTracking();
+            });
+          } else {
+          }
+          this.dialogRef = null;
       });
     }
   }

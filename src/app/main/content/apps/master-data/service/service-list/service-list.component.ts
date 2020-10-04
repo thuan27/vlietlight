@@ -125,6 +125,7 @@ export class ServiceListComponent implements OnInit {
 
   pageCallback(e) {
     this.getList(parseInt(e['offset']) + 1);
+    this.selected = [];
   }
 
   create() {

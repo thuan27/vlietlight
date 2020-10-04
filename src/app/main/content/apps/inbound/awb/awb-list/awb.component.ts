@@ -152,6 +152,7 @@ export class AWBComponent implements OnInit {
 
     pageCallback(e) {
         this.getList(e['offset'] + 1);
+        this.selected = [];
     }
 
     onCheck(isSelected, row) {
