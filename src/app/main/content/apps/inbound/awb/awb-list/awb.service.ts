@@ -34,4 +34,12 @@ export class AWBService
     getService(data) {
       return this.http.get(this.apiConfig.SERVICE_LIST + data);
     }
+
+    createWavepick(data) {
+      return this.http.post(this.apiConfig.CREATE_WAVE_PICK, data);
+    }
+
+    getCountry(data) {
+      return this.http.get(this.apiConfig.GET_COUNTRY + '?limit=300' + data, { headers: this._Func.AuthHeader() });
+    }
 }

@@ -243,7 +243,7 @@
                 </div>
               </div>
             </div>
-            <button class="mt-5" mat-raised-button (click)="addMoreItem($event)">
+            <button [disabled]="action == 'detail'" class="mt-5" mat-raised-button (click)="addMoreItem($event)">
               <mat-icon class="button-in-table">add_circle</mat-icon>
             </button>
           </mat-tab>

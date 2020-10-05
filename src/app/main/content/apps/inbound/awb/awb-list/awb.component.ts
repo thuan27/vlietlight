@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AWBService } from './awb.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -43,6 +43,7 @@ export class AWBComponent implements OnInit {
     private hasViewUserPermission = false;
     status;
     serviceName;
+    country;
     dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
 
@@ -71,6 +72,7 @@ export class AWBComponent implements OnInit {
         this.buildForm();
         this.getList();
         this.getStatus();
+        // this.getCountry();
     }
 
     // Check permission for user using this function page
@@ -110,9 +112,12 @@ export class AWBComponent implements OnInit {
             service_id: '',
             user_id: '',
             awb_sts: '',
-            ship_date: '',
+            from_date: '',
+            to_date: '',
             service_name: '',
-            // sales_price: '',
+            to_company_name: '',
+            to_contact_name: '',
+            to_country_id: ['',[this.validateCountry]],
             pre_alert: '',
             pick_up_address: '',
             cs_id: '',
@@ -126,6 +131,8 @@ export class AWBComponent implements OnInit {
         let params = `?limit=15` + `&page=` + page;
         if (this.sortData !== '') {
           params += this.sortData;
+        } else {
+          params += '&sort[awb_id]=desc'
         }
         const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
         for (let i = 0; i < arrayItem.length; i++) {
@@ -212,6 +219,22 @@ export class AWBComponent implements OnInit {
           this.dialogRef.afterClosed().subscribe(result => {
               if ( result )
               {
+                let awb_list = [];
+                for (let i = 0; i < this.selected.length; i++) {
+                  let item = {
+                    awb_id: this.selected[i]['awb_id']
+                  }
+                  awb_list.push(item);
+                };
+                const data = {
+                    customer_id: this.rows['cs_id'],
+                    pick_up_address: this.rows['pick_up_address'],
+                    awb_ids: awb_list
+                  };
+                console.log(data)
+                this._AWBService.createWavepick(data).subscribe((response) => {
+                  this.toastyService.success(data['message']);
+                });
                   // this.contactsService.deleteSelectedContacts();
               } else {
               }
@@ -339,6 +362,30 @@ export class AWBComponent implements OnInit {
         this.toastyService.error('Please select one item.');
       } else {
         this.router.navigateByUrl(`apps/inbound/awb1/${this.selected[0]['awb_id']}/update`);
+      }
+    }
+
+    getCountry(event) {
+      let data = '';
+      if (event.target.value) {
+        data = data + '&country_name=' + event.target.value;
+      }
+      this._AWBService.getCountry(data).subscribe((data) => {
+        this.country = data['data'];
+      });
+    }
+
+    displayCountry(id) {
+      if (this.country) {
+        return this.country.find(country => country.country_id === id).country_name;
+      }
+    }
+
+    validateCountry(control: FormControl) {
+      if (typeof control.value == 'number') {
+        return null;
+      } else {
+        return { 'hasnotCountry': true };
       }
     }
 }

@@ -34,12 +34,12 @@ export const navigation = [
                 'type'     : 'collapse',
                 'icon'     : 'border_all',
                 'children' : [
-                    {
-                        'id'   : 'UsersList',
-                        'title': 'Users',
-                        'type' : 'item',
-                        'url'  : '/apps/master-data/users'
-                    },
+                    // {
+                    //     'id'   : 'UsersList',
+                    //     'title': 'Users',
+                    //     'type' : 'item',
+                    //     'url'  : '/apps/master-data/users'
+                    // },
                     {
                         'id'   : 'CustomersList',
                         'title': 'Customers',
