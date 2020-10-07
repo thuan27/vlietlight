@@ -11,6 +11,7 @@ import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/conf
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 import { locale as english } from '../../../../i18n/en';
 import { locale as vietnam } from '../../../../i18n/vn';
+import * as FileSaver from 'file-saver';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -44,7 +45,17 @@ export class AWBComponent implements OnInit {
     status;
     serviceName;
     country;
+    sales;
+    dataCS;
     dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+    retain = [
+      { value: 0, name: 'No' },
+      { value: 1, name: 'Yes' }
+    ];
+    exact = [
+      { value: 0, name: 'No' },
+      { value: 1, name: 'Yes' }
+    ];
 
 
     constructor(
@@ -121,7 +132,8 @@ export class AWBComponent implements OnInit {
             pre_alert: '',
             pick_up_address: '',
             cs_id: '',
-
+            is_retain: '',
+            is_exact: ''
             // created_at: '',
             // updated_at: ''
         });
@@ -142,6 +154,11 @@ export class AWBComponent implements OnInit {
             data['data'].forEach((data) => {
               data['awb_code_temp'] = data['awb_code'];
               data['awb_code'] = `<a href="#/apps/inbound/awb1/${data['awb_id']}">${data['awb_code']}</a>`;
+              // data['sales_price'] =`${data['sales_price']}`
+              if (data['sales_price'] == 0) {
+                data['sales_price'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['sales_price']}`
+                data['freight'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['freight']}`
+              }
             });
             this.rows = data['data'];
             this.total = data['meta']['pagination']['total'];
@@ -149,6 +166,33 @@ export class AWBComponent implements OnInit {
             this.current_page = parseInt(data['meta']['pagination']['current_page']) - 1;
             this.loadingIndicator = false;
         });
+    }
+
+    exportCsv() {
+      let fileName = 'AWB';
+      let fileType = '.csv';
+      let params = '?limit=15';
+      if (this.sortData !== '') {
+        params += this.sortData;
+      } else {
+        params += '&sort[awb_id]=desc'
+      }
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+      }
+      // let params = '?status=' + this.searchForm.controls['status'].value;
+      if (this.searchForm.controls['service_name'].value != '') {
+        params = params + '&service_name=' + this.searchForm.controls['service_name'].value;
+      }
+      if (this.sortData !== '') {
+        params += this.sortData;
+      }
+      let getReport = this._AWBService.getReport(params);
+      getReport.subscribe((data) => {
+        var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        FileSaver.saveAs.saveAs(blob, fileName + fileType);
+      })
     }
 
     getStatus() {
@@ -375,14 +419,46 @@ export class AWBComponent implements OnInit {
       });
     }
 
+    getSale(event) {
+      let data = '';
+      if (event.target.value) {
+        data = data + '?full_name=' + event.target.value;
+      }
+      this._AWBService.getSale(data).subscribe((data) => {
+        this.sales = data['data'];
+      });
+    }
+
+    getCS(event) {
+      let data = '';
+      if (event.target.value) {
+        data = data + '?full_name=' + event.target.value;
+      }
+      this._AWBService.getCS(data).subscribe((data) => {
+        this.dataCS = data['data'];
+      });
+    }
+
     displayCountry(id) {
       if (this.country) {
         return this.country.find(country => country.country_id === id).country_name;
       }
     }
 
+    displaySale(id) {
+      if (this.sales) {
+        return this.sales.find(sales => sales.user_id === id).full_name;
+      }
+    }
+
+    displayCS(id) {
+      if (this.dataCS) {
+        return this.dataCS.find(dataCS => dataCS.user_id === id).full_name;
+      }
+    }
+
     validateCountry(control: FormControl) {
-      if (typeof control.value == 'number') {
+      if (typeof control.value == 'number' || control.value === '') {
         return null;
       } else {
         return { 'hasnotCountry': true };

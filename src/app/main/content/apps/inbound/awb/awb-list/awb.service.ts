@@ -19,6 +19,10 @@ export class AWBService
         return this.http.get(this.apiConfig.LIST_AWB + params);
     }
 
+    getReport(params) {
+      return this.http.get(this.apiConfig.LIST_AWB + params + '&export=1', { responseType: 'blob' });
+    }
+
     cancelAWB() {
       // return this.http.put(this.apiConfig.OPTION_AWB + '/' + id + '/' + 'cancel-awb')
     }
@@ -40,6 +44,14 @@ export class AWBService
     }
 
     getCountry(data) {
-      return this.http.get(this.apiConfig.GET_COUNTRY + '?limit=300' + data, { headers: this._Func.AuthHeader() });
+      return this.http.get(this.apiConfig.GET_COUNTRY + '?limit=300' + data);
+    }
+
+    getSale(data) {
+      return this.http.get(this.apiConfig.GET_SALE + data);
+    }
+
+    getCS(data) {
+      return this.http.get(this.apiConfig.GET_CS + data);
     }
 }

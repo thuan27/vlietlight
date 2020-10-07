@@ -44,6 +44,8 @@ export class APIConfig {
   public AWB_EVENT_TRACKING = this.API_BASE + '/awbs/v1/event-tracking';
   public AWB_EVENT_TRACKING_DELETE = this.API_BASE + '/upload/v1/file';
   public CREATE_WAVE_PICK = this.API_BASE + '/awbs/v1/awb-wavepick';
+  public GET_SALE = this.API_BASE + '/awbs/v1/suggest-sales';
+  public GET_CS = this.API_BASE + '/awbs/v1/suggest-cs';
 
   //import
   public IMPORT_SERVICE = this.API_BASE + '/migration/v1/service/import';

@@ -79,8 +79,17 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <!-- <mat-form-field class="mr-2">
         <input formControlName="user_id" matInput placeholder="Sales">
+      </mat-form-field> -->
+      <mat-form-field class="mr-2 custom-selection">
+        <input placeholder="Sales" formControlName="user_id" (keyup)="getSale($event)" type="text"
+          aria-label="Number" matInput [matAutocomplete]="autoSale">
+        <mat-autocomplete [displayWith]="displaySale.bind(this)" autoActiveFirstOption #autoSale="matAutocomplete">
+          <mat-option *ngFor="let item of sales" [value]="item.user_id">
+            {{ item.full_name }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
       <mat-form-field class="mr-2">
         <input formControlName="to_company_name" matInput placeholder="To Company Name">
@@ -128,10 +137,38 @@
       <mat-form-field class="mr-2">
         <input formControlName="pick_up_address" matInput placeholder="Pick Up">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <!-- <mat-form-field class="mr-2">
         <input formControlName="cs_id" matInput placeholder="Assigned CS">
+      </mat-form-field> -->
+      <mat-form-field class="mr-2 custom-selection">
+          <input placeholder="Assigned CS" formControlName="cs_id" (keyup)="getCS($event)" type="text"
+            aria-label="Number" matInput [matAutocomplete]="autoCS">
+          <mat-autocomplete [displayWith]="displayCS.bind(this)" autoActiveFirstOption #autoCS="matAutocomplete">
+            <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
+              {{ item.full_name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      <mat-form-field class="mr-2 custom-selection">
+        <mat-select formControlName="is_retain" placeholder="Is Retained">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of retain" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-
+      <mat-form-field class="mr-2 custom-selection">
+        <mat-select formControlName="is_exact" placeholder="Exact">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of exact" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <!-- <mat-form-field class="mr-2 custom-selection">
         <mat-select formControlName="service_id" placeholder="Service">
           <mat-option [value]="">
@@ -162,9 +199,9 @@
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
       [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
       [selectionType]="'checkbox'" [count]="total" [selected]="selected" [externalPaging]="true" [offset]="current_page"
-      [limit]="15" (sort)="onSort($event)" (select)="onSelect($event)" [externalSorting]="true" [scrollbarH]="true">
+      [limit]="15" (sort)="onSort($event)" (select)="onSelect($event)" [externalSorting]="true" [scrollbarH]="true" [rowClass]="getRowClass">
 
-      <ngx-datatable-column [width]="80" [canAutoResize]="false" [sortable]="false">
+      <ngx-datatable-column [frozenLeft]="true" [width]="80" [canAutoResize]="false" [sortable]="false">
         <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
           let-selectFn="selectFn">
           <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
@@ -177,15 +214,19 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="130" name="Code" prop="awb_code"></ngx-datatable-column>
+      <ngx-datatable-column [frozenLeft]="true" [width]="130" name="Code" prop="awb_code"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="130" name="Out AWB #" prop="out_awb_num"></ngx-datatable-column>
+      <ngx-datatable-column [frozenLeft]="true" [width]="130" name="Out AWB #" prop="out_awb_num"></ngx-datatable-column>
 
       <ngx-datatable-column [width]="130" name="Account #" prop="account_number"></ngx-datatable-column>
 
+      <ngx-datatable-column name="Is Retain" prop="is_retain"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Is Exact" prop="is_exact"></ngx-datatable-column>
+
       <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
 
-      <ngx-datatable-column name="Sales" prop="user_id"></ngx-datatable-column>
+      <ngx-datatable-column name="Sales" prop="userName"></ngx-datatable-column>
 
       <ngx-datatable-column name="From Contact Name" prop="from_contact_name"></ngx-datatable-column>
 
@@ -193,7 +234,7 @@
 
       <ngx-datatable-column [width]="200" name="To Address" prop="to_address"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Service ID" prop="service_id"></ngx-datatable-column>
+      <ngx-datatable-column [width]="200" name="Service" prop="service_name"></ngx-datatable-column>
 
       <ngx-datatable-column [width]="200" name="Net Weight" prop="ttl_weight"></ngx-datatable-column>
 
@@ -203,9 +244,9 @@
 
       <ngx-datatable-column [width]="200" name="Freight ($)" prop="freight"></ngx-datatable-column>
 
-      <!-- <ngx-datatable-column [width]="200" name="Sales Prices ($)" prop="sales_price"></ngx-datatable-column>
+      <ngx-datatable-column class="" [width]="200" name="Sales Prices ($)" prop="sales_price"></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Pre Alert" prop="pre_alert"></ngx-datatable-column> -->
+      <!-- <ngx-datatable-column [width]="200" name="Pre Alert" prop="pre_alert"></ngx-datatable-column> -->
 
       <ngx-datatable-column [width]="200" name="Pick Up" prop="pick_up_address"></ngx-datatable-column>
 
@@ -237,9 +278,10 @@
 
 
             <ngx-datatable-column name="Description" prop="description  "></ngx-datatable-column> -->
-
     </ngx-datatable>
-
+    <div class="export margin-top-10">
+        <label class="label-export">Export to:</label>
+        <a (click)="exportCsv()" class="csv"></a>
+      </div>
   </div>
-
 </div>
