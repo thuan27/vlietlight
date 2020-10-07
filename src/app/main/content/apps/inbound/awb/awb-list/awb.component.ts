@@ -252,11 +252,18 @@ export class AWBComponent implements OnInit {
     }
 
     doCreateWavePick() {
+      let checkTheSame = false;
+      for (let i = 0; i < this.selected.length; i++) {
+        checkTheSame = this.selected[0]['cs_id'] == this.selected[i]['cs_id'] ? true : false;
+      }
+      console.log(checkTheSame)
       if (this.selected.length < 1) {
         this.toastyService.error('Please select at least one item.');
       } else {
         const result = this.selected.filter(item => {return item.awb_sts === 'New'});
-        if (result.length === this.selected.length) {
+        if (result.length !== this.selected.length) {
+          this.toastyService.error('Please select new AWB.');
+        } else if (checkTheSame) {
           this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
           this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to create Wave Pick?';
 
@@ -270,22 +277,24 @@ export class AWBComponent implements OnInit {
                   }
                   awb_list.push(item);
                 };
+                console.log(this.rows)
+                console.log(this.selected)
                 const data = {
-                    customer_id: this.rows['cs_id'],
-                    pick_up_address: this.rows['pick_up_address'],
+                    customer_id: this.selected[0]['cs_id'],
+                    pick_up_address: this.selected[0]['pick_up_address'],
                     awb_ids: awb_list
                   };
                 console.log(data)
-                this._AWBService.createWavepick(data).subscribe((response) => {
-                  this.toastyService.success(data['message']);
+                this._AWBService.createWavepick(data).subscribe((data) => {
+                  this.toastyService.success('Created Wave Pick successfully!');
+                  this.getList();
                 });
-                  // this.contactsService.deleteSelectedContacts();
               } else {
               }
               this.dialogRef = null;
           });
         } else {
-          this.toastyService.error('Please select new AWB.');
+          this.toastyService.error('Please select the same Customer');
         }
       }
     }
