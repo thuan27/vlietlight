@@ -199,7 +199,7 @@
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
       [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
       [selectionType]="'checkbox'" [count]="total" [selected]="selected" [externalPaging]="true" [offset]="current_page"
-      [limit]="15" (sort)="onSort($event)" (select)="onSelect($event)" [externalSorting]="true" [scrollbarH]="true" [rowClass]="getRowClass">
+      [limit]="15" (sort)="onSort($event)" (select)="onSelect($event)" [externalSorting]="true" [scrollbarH]="true">
 
       <ngx-datatable-column [frozenLeft]="true" [width]="80" [canAutoResize]="false" [sortable]="false">
         <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
