@@ -30,7 +30,6 @@
 
 .form-right {
   display: inline-block;
-  width: 100%;
 }
 
 .item-right {
@@ -38,14 +37,23 @@
   display: inline-block !important;
 }
 
+.group-drag {
+  display: inline-block;
+  width: 100%;
+  border: 1px solid #7888d8;
+  border-radius: 7px;
+  box-shadow: inset -1px -1px 20px 9px #94eff5;
+}
+
 .todo-list-item {
   display: block;
   position: relative;
-  padding: 16px 16px 16px 24px;
+  padding: 16px 28px 16px 20px;
   text-transform: none;
   cursor: pointer;
   flex-shrink: 0;
   background: #FFFFFF;
+
 
   .handle {
       height: 48px;

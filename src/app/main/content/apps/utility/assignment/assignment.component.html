@@ -17,12 +17,19 @@
   <!-- CONTENT -->
 
   <div class="form ml-3 mr-3 mt-3">
-    <div ngxDroppable class="list-cards ngx-dnd-container" fxLayout="row">
-      <div ngxDroppable="example-target" [model]="list1" (over)="over($event)" (drop)=drop($event) (out)="onDrop($event)" fxFlex="25">
-        <div [ngxDraggable]="['example-target']"  [model]="item"  *ngFor="let item of list1" class="todo-list-item has-handle col-sm-8 item-list">
+    <!-- <div ngxDroppable class="list-cards ngx-dnd-container" fxLayout="row">
+      <div ngxDroppable="example-target" [model]="list1" (over)="over($event)" (drop)=drop($event) (out)="onDrop($event)" fxFlex="25" class="pr-2">
+        <div [ngxDraggable]="['example-target']"  [model]="item"  *ngFor="let item of list1" class="todo-list-item has-handle col-sm-12 item-list">
           <h5>{{ item.name }}</h5>
         </div>
-      </div>
+      </div> -->
+
+      <div ngxDroppable class="list-cards ngx-dnd-container" fxLayout="row">
+          <div (onDropSuccess)="test($event)" ngxDroppable="example-target" (over)="over($event)" (drop)=drop($event) (out)="onDrop($event)" fxFlex="25" class="pr-2">
+            <div [ngxDraggable]="['example-target']"  [model]="item"  *ngFor="let item of listSuggest" class="todo-list-item has-handle col-sm-12 item-list">
+              <h5>{{ item.full_name }}</h5>
+            </div>
+          </div>
 
       <!-- <div class="row" fxFlex="75">
         <div class="form-right" ngxDroppable="example-target" [model]="list2" (out)="onDrop($event)" >
@@ -32,10 +39,14 @@
           </div>
         </div>
       </div> -->
-      <div class="row" fxFlex="75">
-          <div class="form-right" >
-            <div ngxDroppable="example-target" class="item-right col-sm-3 todo-list-item has-handle item-list" *ngFor="let item1 of list2">
-                <h5>{{ item1.name }}</h5>
+      <div class="row ml-2" fxFlex="75">
+          <div class="form-right col-sm-4"  *ngFor="let assignment of listAssignment">
+            <div class="group-drag">
+                <h5 style="text-align: center;">{{ assignment.wv_hdr_num }}</h5>
+                <div (onDropSuccess)="test($event)" (drop)=drop($event) style="width: 95%;" ngxDroppable="example-target" class="item-right todo-list-item has-handle item-list">
+
+                </div>
+                <h5 style="text-align: center;">{{ assignment.customer_name }}</h5>
             </div>
           </div>
         </div>

@@ -17,7 +17,6 @@ export class FuseTranslationLoaderService
     public loadTranslations(...args: Locale[]): void
     {
         const locales = [...args];
-        console.log('locales', locales)
         locales.forEach((locale) => {
 
             // use setTranslation() with the third argument set to true

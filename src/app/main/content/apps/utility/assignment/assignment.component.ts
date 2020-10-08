@@ -20,14 +20,16 @@ export class AssignmentComponent implements OnInit {
     {value:3, name: 'name 3'},
   ]
 
-  list2 = [
-    {value:4, name: 'name 4', title: 'test'},
-    {value:5, name: 'name 5', title: 'test'},
-    {value:6, name: 'name 6', title: 'test'},
-    {value:7, name: 'name 7', title: 'test'},
-    {value:8, name: 'name 8', title: 'test'},
-    {value:9, name: 'name 9', title: 'test'},
-  ]
+  // list2 = [
+  //   {value:4, name: 'name 4', title: 'test'},
+  //   {value:5, name: 'name 5', title: 'test'},
+  //   {value:6, name: 'name 6', title: 'test'},
+  //   {value:7, name: 'name 7', title: 'test'},
+  //   {value:8, name: 'name 8', title: 'test'},
+  //   {value:9, name: 'name 9', title: 'test'},
+  // ]
+  listAssignment;
+  listSuggest;
 
     constructor(
         private route: ActivatedRoute,
@@ -39,12 +41,28 @@ export class AssignmentComponent implements OnInit {
 
     ngOnInit()
     {
+      this.getList();
+      this.getListName();
         // this.onBoardChanged =
         //     this.scrumboardService.onBoardChanged
         //         .subscribe(board => {
         //             this.board = board;
         //             console.log(board)
         //         });
+    }
+
+    getList() {
+      let param = '';
+      this.assignmentService.getList(param).subscribe((data) => {
+        this.listAssignment = data['data'];
+      })
+    }
+
+    getListName() {
+      let param = '';
+      this.assignmentService.getListName(param).subscribe((data) => {
+        this.listSuggest = data['data'];
+      })
     }
 
     // drop(ev) {
@@ -66,20 +84,19 @@ export class AssignmentComponent implements OnInit {
     // }
 
     onDrop(ev) {
-      console.log(ev)
-      console.log(this.list1)
-      console.log(this.list2)
+      console.log('--drop--',ev)
+      // console.log('list2',this.list2)
     }
 
     over(ev) {
       console.log('--over---',ev)
-      console.log(this.list1)
     }
 
     drop(ev) {
       console.log('--drop---',ev)
-      console.log(this.list1)
     }
 
-
+    test(ev) {
+      console.log('--success--', ev)
+    }
 }

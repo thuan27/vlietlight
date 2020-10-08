@@ -277,14 +277,11 @@ export class AWBComponent implements OnInit {
                   }
                   awb_list.push(item);
                 };
-                console.log(this.rows)
-                console.log(this.selected)
                 const data = {
                     customer_id: this.selected[0]['cs_id'],
                     pick_up_address: this.selected[0]['pick_up_address'],
                     awb_ids: awb_list
                   };
-                console.log(data)
                 this._AWBService.createWavepick(data).subscribe((data) => {
                   this.toastyService.success('Created Wave Pick successfully!');
                   this.getList();

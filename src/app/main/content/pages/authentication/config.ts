@@ -47,6 +47,10 @@ export class APIConfig {
   public GET_SALE = this.API_BASE + '/awbs/v1/suggest-sales';
   public GET_CS = this.API_BASE + '/awbs/v1/suggest-cs';
 
+  //utility
+  public GET_LIST_ASSIGNMENT = this.API_BASE + '/awbs/v1/wv-pick/assignment-list';
+  public GET_LIST_NAME_SUGGEST = this.API_BASE + '/awbs/v1/wv-pick/suggest-pickup';
+
   //import
   public IMPORT_SERVICE = this.API_BASE + '/migration/v1/service/import';
   public IMPORT_COUNTRY = this.API_BASE + '/migration/v1/country/import';
