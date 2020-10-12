@@ -3,7 +3,7 @@
 .item-list {
   text-align: center;
   padding: 10px 0;
-  margin: 5px 5px;
+  margin: 0 5px 5px 5px;
   border-radius: 7px;
   border: 0.5px solid #94eff5;
 }
@@ -39,15 +39,31 @@
 
 .custom-name-picker {
   text-align: center;
-  height: 15px;
-  margin-top: 12px;
+  height: 30px;
+  padding-top: 10px;
+  margin-bottom: 0 !important;
+}
+
+.background-list-pick-up {
+  background-image: linear-gradient(-42deg, #eefbfb 0%, #a5f9f9 47%, #6bf1b3 100%) !important;
+  border-radius: 14px;
+  -webkit-filter: drop-shadow(2px 4px 6px #e9f3da);
+  filter: drop-shadow(2px 4px 6px #e9f3da);
+  margin: 5px 5px;
+}
+
+.background-name-picker {
+  background-image: linear-gradient(-42deg, #CF77F3 0%, #009BFF 47%, #2AC9DB 100%);
+  border-radius: 14px;
+  filter: drop-shadow(2px 4px 6px #CF77F3);
+  margin: 5px 5px;
 }
 
 .group-drag {
   display: inline-block;
   width: 100%;
-  border: 1px solid #7888d8;
-  border-radius: 7px;
+  border: 1px solid #9ca6dc;
+  border-radius: 5px;
   box-shadow: inset -1px -1px 20px 9px #94eff5;
 }
 
