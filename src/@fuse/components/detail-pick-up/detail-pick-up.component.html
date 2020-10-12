@@ -1,0 +1,15 @@
+<div class="title">Wave Pick Lists</div>
+
+<div class="page-layout simple fullwidth" style="width: 600px">
+    <ngx-datatable
+        class="material" [rows]="listDetail"
+        [loadingIndicator]="loadingIndicator" [columnMode]="'force'"
+        [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'"
+        [scrollbarH]="true" [reorderable]="reorderable">
+
+        <ngx-datatable-column [width]="150" name="Pick Up Info" prop="wv_hdr_num"></ngx-datatable-column>
+
+        <ngx-datatable-column [width]="150" name="{{ data.name }}" prop="wv_sts"></ngx-datatable-column>
+
+      </ngx-datatable>
+</div>

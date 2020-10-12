@@ -7,50 +7,67 @@
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-        <span class="secondary-text">Calculate Money</span>
+        <span class="secondary-text">Assignment</span>
       </div>
-      <div class="h2 mt-16">Calculate Money</div>
+      <div class="h2 mt-16">Assignment</div>
     </div>
   </div>
   <!-- / HEADER -->
 
   <!-- CONTENT -->
+  <!-- CONTENT -->
+  <div class="p-24">
+    <form id="form-control" [formGroup]="searchForm" autocomplete="off">
+      <mat-form-field class="mr-2">
+        <input formControlName="awb_code" matInput placeholder="AWB Code">
+      </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input formControlName="customer_name" matInput placeholder="Customer Name">
+      </mat-form-field>
+      <mat-form-field class="mr-2">
+        <input matInput formControlName="from_date" [matDatepicker]="fromDate"
+          placeholder="From Date">
+        <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+        <mat-datepicker #fromDate disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="mr-2">
+          <input matInput formControlName="to_date" [matDatepicker]="toDate"
+            placeholder="To Date">
+          <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+          <mat-datepicker #toDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+      <span>
+          <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+          <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+      </span>
+    </form>
 
-  <div class="form ml-3 mr-3 mt-3">
-    <!-- <div ngxDroppable class="list-cards ngx-dnd-container" fxLayout="row">
-      <div ngxDroppable="example-target" [model]="list1" (over)="over($event)" (drop)=drop($event) (out)="onDrop($event)" fxFlex="25" class="pr-2">
-        <div [ngxDraggable]="['example-target']"  [model]="item"  *ngFor="let item of list1" class="todo-list-item has-handle col-sm-12 item-list">
-          <h5>{{ item.name }}</h5>
-        </div>
-      </div> -->
+    <div class="form mt-3">
 
-      <div ngxDroppable class="list-cards ngx-dnd-container" fxLayout="row">
-          <div (onDropSuccess)="test($event)" ngxDroppable="example-target" (over)="over($event)" (drop)=drop($event) (out)="onDrop($event)" fxFlex="25" class="pr-2">
-            <div [ngxDraggable]="['example-target']"  [model]="item"  *ngFor="let item of listSuggest" class="todo-list-item has-handle col-sm-12 item-list">
+        <div class="list-cards ngx-dnd-container" fxLayout="row">
+          <div ngxDroppable="assignment" fxFlex="25" class="pr-2">
+            <div (click)="viewDetailAssignment(item)" [ngxDraggable]="['assignment']" [model]="item"  *ngFor="let item of listSuggest" class="todo-list-item has-handle col-sm-12 item-list">
               <h5>{{ item.full_name }}</h5>
             </div>
           </div>
-
-      <!-- <div class="row" fxFlex="75">
-        <div class="form-right" ngxDroppable="example-target" [model]="list2" (out)="onDrop($event)" >
-          <div [ngxDraggable]="['example-target']" [model]="item1" class="item-right col-sm-3 todo-list-item has-handle item-list" *ngFor="let item1 of list2">
-            <h5>title</h5>
-            <h5>{{ item1.name }}</h5>
-          </div>
-        </div>
-      </div> -->
-      <div class="row ml-2" fxFlex="75">
+        <div class="row ml-2" fxFlex="75">
           <div class="form-right col-sm-4"  *ngFor="let assignment of listAssignment">
             <div class="group-drag">
                 <h5 style="text-align: center;">{{ assignment.wv_hdr_num }}</h5>
-                <div (onDropSuccess)="test($event)" (drop)=drop($event) style="width: 95%;" ngxDroppable="example-target" class="item-right todo-list-item has-handle item-list">
-
+                <div [removeOnSpill]="false"
+                  (drop)="addAssignment($event, assignment)"
+                  style="width: 95%;" ngxDroppable="assignment"
+                  class="item-right todo-list-item has-handle item-list"
+                >
+                  <div *ngIf="assignment.picker_name != ''" class="todo-list-item has-handle col-sm-12 item-list">
+                    <h5>{{ assignment.picker_name }}</h5>
+                  </div>
                 </div>
                 <h5 style="text-align: center;">{{ assignment.customer_name }}</h5>
             </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
-
 </div>

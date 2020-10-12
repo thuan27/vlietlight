@@ -4,6 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 import { fuseAnimations } from '@fuse/animations';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseDetailPickUpComponent } from '@fuse/components/detail-pick-up/detail-pick-up.component';
 @Component({
   selector: 'assignment',
   templateUrl: './assignment.component.html',
@@ -13,27 +16,16 @@ import { fuseAnimations } from '@fuse/animations';
 })
 export class AssignmentComponent implements OnInit {
 
-  list1 = [
-    {value:0, name: 'name 0'},
-    {value:1, name: 'name 1'},
-    {value:2, name: 'name 2'},
-    {value:3, name: 'name 3'},
-  ]
-
-  // list2 = [
-  //   {value:4, name: 'name 4', title: 'test'},
-  //   {value:5, name: 'name 5', title: 'test'},
-  //   {value:6, name: 'name 6', title: 'test'},
-  //   {value:7, name: 'name 7', title: 'test'},
-  //   {value:8, name: 'name 8', title: 'test'},
-  //   {value:9, name: 'name 9', title: 'test'},
-  // ]
+  searchForm: FormGroup;
   listAssignment;
   listSuggest;
+  dialogRef;
 
     constructor(
         private route: ActivatedRoute,
         private location: Location,
+        public dialog: MatDialog,
+        private formBuilder: FormBuilder,
         private assignmentService: AssignmentService
     )
     {
@@ -41,6 +33,7 @@ export class AssignmentComponent implements OnInit {
 
     ngOnInit()
     {
+      this.buildForm();
       this.getList();
       this.getListName();
         // this.onBoardChanged =
@@ -51,8 +44,31 @@ export class AssignmentComponent implements OnInit {
         //         });
     }
 
+    private buildForm() {
+      this.searchForm = this.formBuilder.group({
+        awb_code: '',
+        customer_name: '',
+        from_date: '',
+        to_date: ''
+      });
+    }
+
+    reset() {
+      this.searchForm.controls['awb_code'].setValue('');
+      this.searchForm.controls['customer_name'].setValue('');
+      this.getList();
+    }
+
     getList() {
       let param = '';
+      param = '?' + 'awb_code=' + this.searchForm.value['awb_code']
+        + '&' + 'customer_name=' + this.searchForm.value['customer_name'];
+      if (this.searchForm.value['from_date'] != '') {
+        param  = param + '&' + 'from_date=' + new Date(this.searchForm.value['from_date']).getTime();
+      }
+      if (this.searchForm.value['to_date'] != '') {
+        param  = param + '&' + 'to_date=' + new Date(this.searchForm.value['to_date']).getTime();
+      }
       this.assignmentService.getList(param).subscribe((data) => {
         this.listAssignment = data['data'];
       })
@@ -65,38 +81,20 @@ export class AssignmentComponent implements OnInit {
       })
     }
 
-    // drop(ev) {
-    //   ev.preventDefault();
-    //   var data = ev.dataTransfer.getData("text");
-    //   ev.target.appendChild(document.getElementById(data));
-    //   console.log('1',ev)
-
-    // }
-
-    // allowDrop(ev) {
-    //   ev.preventDefault();
-
-    // }
-
-    // drag(ev) {
-    //   ev.dataTransfer.setData("text", ev.target.id);
-    //   console.log('2',ev)
-    // }
-
-    onDrop(ev) {
-      console.log('--drop--',ev)
+    addAssignment(ev, item) {
+      console.log('-----2',ev.type,ev)
+      console.log('-----2',item)
       // console.log('list2',this.list2)
     }
 
-    over(ev) {
-      console.log('--over---',ev)
+    viewDetailAssignment(item) {
+      this.dialogRef = this.dialog.open(FuseDetailPickUpComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: item.user_id,
+            name: item.full_name
+        }
+      });
     }
 
-    drop(ev) {
-      console.log('--drop---',ev)
-    }
-
-    test(ev) {
-      console.log('--success--', ev)
-    }
 }
