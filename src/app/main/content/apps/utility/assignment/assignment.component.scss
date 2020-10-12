@@ -37,12 +37,23 @@
   display: inline-block !important;
 }
 
+.custom-name-picker {
+  text-align: center;
+  height: 15px;
+  margin-top: 12px;
+}
+
 .group-drag {
   display: inline-block;
   width: 100%;
   border: 1px solid #7888d8;
   border-radius: 7px;
   box-shadow: inset -1px -1px 20px 9px #94eff5;
+}
+
+.custom-icon {
+  color: #19d239;
+  font-size: 20px !important;
 }
 
 .todo-list-item {

@@ -45,27 +45,41 @@
     <div class="form mt-3">
 
         <div class="list-cards ngx-dnd-container" fxLayout="row">
-          <div ngxDroppable="assignment" fxFlex="25" class="pr-2">
-            <div (click)="viewDetailAssignment(item)" [ngxDraggable]="['assignment']" [model]="item"  *ngFor="let item of listSuggest" class="todo-list-item has-handle col-sm-12 item-list">
-              <h5>{{ item.full_name }}</h5>
+          <div fxFlex="25" class="pr-2">
+            <div class="background-title mat-cyan-200-bg" style="margin-top:10px">
+              <h2 class="title text-center">Pick Up List</h2>
+            </div>
+            <div ngxDroppable="assignment" style="margin-right: 10px">
+              <div (click)="viewDetailAssignment(item)" [ngxDraggable]="['assignment']" [model]="item"  *ngFor="let item of listSuggest" class="todo-list-item has-handle col-sm-12 item-list">
+                <h5>{{ item.full_name }}</h5>
+              </div>
             </div>
           </div>
-        <div class="row ml-2" fxFlex="75">
-          <div class="form-right col-sm-4"  *ngFor="let assignment of listAssignment">
-            <div class="group-drag">
-                <h5 style="text-align: center;">{{ assignment.wv_hdr_num }}</h5>
-                <div [removeOnSpill]="false"
-                  (drop)="addAssignment($event, assignment)"
-                  style="width: 95%;" ngxDroppable="assignment"
-                  class="item-right todo-list-item has-handle item-list"
-                >
-                  <div *ngIf="assignment.picker_name != ''" class="todo-list-item has-handle col-sm-12 item-list">
-                    <h5>{{ assignment.picker_name }}</h5>
+
+        <div  fxFlex="75">
+            <div class="ml-2 background-title mat-cyan-200-bg" style="margin-top:10px">
+                <h2 class="title text-center">Wave Pick Assignment</h2>
+              </div>
+              <div class="row ml-2 mt-2 mr-1">
+                  <div class="mb-2 form-right col-sm-4"  *ngFor="let assignment of listAssignment">
+                    <div class="group-drag">
+                        <h5 class="custom-name-picker">{{ assignment.wv_hdr_num }}</h5>
+                        <div [removeOnSpill]="false"
+                          (drop)="addAssignment($event, assignment)"
+                          style="width: 95%;" ngxDroppable="assignment"
+                          class="item-right todo-list-item has-handle item-list"
+                        >
+                          <div *ngIf="assignment.picker_name != ''" class="todo-list-item has-handle col-sm-12 item-list">
+                            <h5>{{ assignment.picker_name }}</h5>
+                          </div>
+                        </div>
+                        <div class="ml-4 mb-2">
+                          <mat-icon class="custom-icon secondary-text s-16 d-inline">assignment</mat-icon>
+                          <h5 class="d-inline ml-2">{{ assignment.customer_name }}</h5>
+                        </div>
+                    </div>
                   </div>
                 </div>
-                <h5 style="text-align: center;">{{ assignment.customer_name }}</h5>
-            </div>
-          </div>
         </div>
       </div>
     </div>
