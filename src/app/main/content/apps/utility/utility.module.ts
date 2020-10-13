@@ -2,8 +2,8 @@ import { CalculateMoneyService } from './calculate-money/calculate-money.service
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatMenuModule, MatTableModule, MatRippleModule } from '@angular/material';
-import { NgModule } from '@angular/core';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatMenuModule, MatTableModule, MatRippleModule, MatProgressBarModule } from '@angular/material';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './utility';
 import { QuickSearchComponent } from './quick-search/quick-search.component';
@@ -23,6 +23,7 @@ import { NgxDnDModule } from '@swimlane/ngx-dnd';
         RouterModule.forChild(listRoutes),
         MatButtonModule,
         MatCheckboxModule,
+        MatProgressBarModule,
         MatIconModule,
         NgxDatatableModule,
         FuseSharedModule,
@@ -40,6 +41,7 @@ import { NgxDnDModule } from '@swimlane/ngx-dnd';
         CalculateMoneyService,
         AssignmentService
     ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FuseUtilityModule {
 }

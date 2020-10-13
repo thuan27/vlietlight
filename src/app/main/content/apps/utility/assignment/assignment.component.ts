@@ -7,11 +7,13 @@ import { fuseAnimations } from '@fuse/animations';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FuseDetailPickUpComponent } from '@fuse/components/detail-pick-up/detail-pick-up.component';
+import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { FuseDetailAssignmentComponent } from '@fuse/components/detail-assignment/detail-assignment.component';
 @Component({
   selector: 'assignment',
   templateUrl: './assignment.component.html',
   styleUrls: ['./assignment.component.scss'],
-  providers: [AssignmentService],
+  providers: [AssignmentService, ToastyService],
   animations : fuseAnimations
 })
 export class AssignmentComponent implements OnInit {
@@ -20,15 +22,19 @@ export class AssignmentComponent implements OnInit {
   listAssignment;
   listSuggest;
   dialogRef;
+  showLoadingBar = false;
 
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         public dialog: MatDialog,
+        private toastyConfig: ToastyConfig,
+        private toastyService: ToastyService,
         private formBuilder: FormBuilder,
         private assignmentService: AssignmentService
     )
     {
+      this.toastyConfig.position = 'top-right';
     }
 
     ngOnInit()
@@ -60,6 +66,7 @@ export class AssignmentComponent implements OnInit {
     }
 
     getList() {
+      this.showLoadingBar = true;
       let param = '';
       param = '?' + 'awb_code=' + this.searchForm.value['awb_code']
         + '&' + 'customer_name=' + this.searchForm.value['customer_name'];
@@ -71,6 +78,7 @@ export class AssignmentComponent implements OnInit {
       }
       this.assignmentService.getList(param).subscribe((data) => {
         this.listAssignment = data['data'];
+        this.showLoadingBar = false;
       })
     }
 
@@ -82,9 +90,16 @@ export class AssignmentComponent implements OnInit {
     }
 
     addAssignment(ev, item) {
-      console.log('-----2',ev.type,ev)
-      console.log('-----2',item)
-      // console.log('list2',this.list2)
+      const data = {
+        picker: ev.value.user_id
+      }
+      if (item.wv_sts == 'COMPLETED') {
+        this.toastyService.error('Can not change picker when the status is COMPLETED');
+      } else {
+        this.assignmentService.saveAssignment(item.wv_hdr_id, data).subscribe((response) => {
+          this.getList();
+        })
+      }
     }
 
     viewDetailAssignment(item) {
@@ -93,6 +108,15 @@ export class AssignmentComponent implements OnInit {
         data      : {
             data: item.user_id,
             name: item.full_name
+        }
+      });
+    }
+
+    viewAssignmentDetail(item) {
+      this.dialogRef = this.dialog.open(FuseDetailAssignmentComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: item
         }
       });
     }

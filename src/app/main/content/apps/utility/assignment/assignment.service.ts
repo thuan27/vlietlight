@@ -23,4 +23,8 @@ export class AssignmentService
     getListName(param) {
       return this.http.get(this.apiConfig.GET_LIST_NAME_SUGGEST + param);
     }
+
+    saveAssignment(idWavePick, picker) {
+      return this.http.put(`${this.apiConfig.SAVE_ASSIGNMENT}/${idWavePick}/drop-drag-pickup`, picker);
+    }
 }

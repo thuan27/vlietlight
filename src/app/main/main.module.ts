@@ -22,6 +22,7 @@ import { FuseUpdatePreAlertModule } from '@fuse/components/update-pre-alert/upda
 import { FuseUpdatePickUpModule } from '@fuse/components/update-pick-up/update-pick-up.module';
 import { FuseDetailPickUpModule } from '@fuse/components/detail-pick-up/detail-pick-up.module';
 import { FuseAddRoleModule } from '@fuse/components/add-role/add-role.module';
+import { FuseDetailAssignmentModule } from '@fuse/components/detail-assignment/detail-assignment.module';
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import { FuseAddRoleModule } from '@fuse/components/add-role/add-role.module';
         FuseAddRoleModule,
         FuseUpdatePickUpModule,
         FuseDetailPickUpModule,
+        FuseDetailAssignmentModule,
         ToastyModule.forRoot()
     ],
     exports     : [

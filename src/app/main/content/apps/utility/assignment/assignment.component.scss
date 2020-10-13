@@ -55,14 +55,14 @@
 .background-name-picker {
   background-image: linear-gradient(-42deg, #4ddcf3 0%, #cbebff 47%, #2AC9DB 100%);
   border-radius: 14px;
-  // filter: drop-shadow(2px 4px 6px #CF77F3);
   margin: 5px 5px;
+  cursor: pointer;
 }
 
 .group-drag {
   display: inline-block;
   width: 100%;
-  border: 1px solid #9ca6dc;
+  border: 1px solid #cfd3ea;
   border-radius: 5px;
   box-shadow: inset -1px -1px 20px 9px #94eff5;
 }
