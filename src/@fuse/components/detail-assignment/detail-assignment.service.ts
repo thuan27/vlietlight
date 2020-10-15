@@ -12,7 +12,7 @@ export class DetailAssignmentService
     {
     }
 
-    getDetailAssignment(id) {
-      return this.http.get(this.apiConfig.ASSIGNMENT_DETAIL +'/' + id);
+    getDetail(id) {
+      return this.http.get(this.apiConfig.WAVE_PICK_ASSIGNMENT_DETAIL +'/' + id);
     }
 }

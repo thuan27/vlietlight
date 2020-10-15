@@ -16,9 +16,6 @@ import { FuseAddRoleComponent } from '../add-role/add-role.component';
 })
 export class FuseDetailAssignmentComponent {
   listDetail = [];
-  loadingIndicator = false;
-  reorderable = true;
-  validateID = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,6 +26,14 @@ export class FuseDetailAssignmentComponent {
   ) {}
 
   ngOnInit() {
-    console.log(this.data)
+    this.getDetail();
+  }
+
+  getDetail() {
+    this.detailAssignmentService.getDetail(this.data.data).subscribe((response) => {
+      this.listDetail = response['data'];
+      console.log(this.listDetail)
+
+    })
   }
 }

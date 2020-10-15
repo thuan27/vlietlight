@@ -116,7 +116,7 @@ export class AssignmentComponent implements OnInit {
       this.dialogRef = this.dialog.open(FuseDetailAssignmentComponent, {
         panelClass: 'contact-form-dialog',
         data      : {
-            data: item
+            data: item.wv_hdr_id
         }
       });
     }
