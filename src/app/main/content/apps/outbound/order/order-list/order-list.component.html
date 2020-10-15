@@ -66,7 +66,7 @@
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
             [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
-            [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
+            [selected]="selected" [scrollbarH]="true" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
             [limit]="15">
 
             <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">

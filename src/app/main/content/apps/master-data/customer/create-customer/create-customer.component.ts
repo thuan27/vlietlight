@@ -6,13 +6,15 @@ import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Location } from '@angular/common';
+import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { Functions } from '@fuse/core/function';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'create-customer',
   templateUrl: './create-customer.component.html',
   styleUrls: ['./create-customer.component.scss'],
-  providers: [ValidationService]
+  providers: [ValidationService, ToastyService]
 })
 // tslint:disable-next-line:component-class-suffix
 export class CreateCustomeromponent implements OnInit {
@@ -31,10 +33,15 @@ export class CreateCustomeromponent implements OnInit {
     private _createCustomerService: CreateCustomerService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private toastyService: ToastyService,
     private _Valid: ValidationService,
+    private toastyConfig: ToastyConfig,
+    private _Func: Functions,
     private activeRoute: ActivatedRoute,
     private location: Location
-  ) { }
+  ) {
+    this.toastyConfig.position = 'top-right';
+   }
 
   ngOnInit() {
     this.title = 'Create Customer';
@@ -99,11 +106,18 @@ export class CreateCustomeromponent implements OnInit {
 
   onSubmit() {
     if (this.CustomerForm.valid) {
-
+      this._createCustomerService.createCustomer(this.CustomerForm.value).subscribe((data) => {
+        this.toastyService.success('Created successfully!');
+        setTimeout(
+          () => {
+            this.router.navigate(['apps/master-date/customers']);
+          },
+          700
+        );
+      }, err => {
+        this.toastyService.error(err.error.errors.message);
+      });
     }
-    this._createCustomerService.createCustomer(this.CustomerForm.value).subscribe((data) => {
-      this.router.navigate(['apps/master-date/customers']);
-    });
   }
 
   checkInputNumber($event, int) {
