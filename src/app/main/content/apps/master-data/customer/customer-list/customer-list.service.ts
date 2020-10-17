@@ -19,4 +19,8 @@ export class CustomerListService
     getList(params) {
         return this.http.get(this.apiConfig.CUSTOMER + '/index' + params);
     }
+
+    deleteCus(id) {
+      return this.http.delete(this.apiConfig.CREATE_CUSTOMER + '/' + id);
+  }
 }

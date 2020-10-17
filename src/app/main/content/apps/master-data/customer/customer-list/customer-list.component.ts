@@ -124,4 +124,32 @@ export class CustomerListComponent implements OnInit
       this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
       this.getList(this.current_page);
     }
+
+    update() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.router.navigateByUrl(`apps/master-data/customers/${this.selected[0]['customer_id']}/update`);
+      }
+    }
+
+    delete() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.customerListService.deleteCus(this.selected[0]['customer_id']).subscribe((data) => {
+          this.toastyService.success(data['message']);
+          setTimeout(
+            () => {
+              this.getList();
+            },
+            700
+          );
+        });
+      }
+    }
 }

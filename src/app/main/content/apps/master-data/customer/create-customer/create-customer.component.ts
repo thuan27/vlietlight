@@ -25,9 +25,10 @@ export class CreateCustomeromponent implements OnInit {
   buttonType;
   private routeSub: Subscription;
   action;
-  idCountry;
+  idCus;
   disabledForm;
   titleGroup;
+  customerDetail;
 
   constructor(
     private _createCustomerService: CreateCustomerService,
@@ -48,10 +49,12 @@ export class CreateCustomeromponent implements OnInit {
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
     this.routeSub = this.activeRoute.params.subscribe(params => {
+      console.log(params)
+      console.log(params['update'])
       if (params['id'] !== undefined) {
         if (params['update']  === 'update') {
           this.action = 'update';
-          this.idCountry = params['id'];
+          this.idCus = params['id'];
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = false;
@@ -59,7 +62,7 @@ export class CreateCustomeromponent implements OnInit {
           this.title = 'Update Customer';
           this.titleGroup = 'Update';
         } else {
-          this.idCountry = params['id'];
+          this.idCus = params['id'];
           this.action = 'detail';
           this.buildForm();
           this.detail(params['id']);
@@ -96,27 +99,58 @@ export class CreateCustomeromponent implements OnInit {
     });
   }
 
+  private detailForm(data) {
+    this.CustomerForm = this.formBuilder.group({
+      loginname: [data['loginname'], [Validators.required]],
+      customer_name: [data['customer_name'], [Validators.required]],
+      tax_number: [data['tax_number'], [Validators.required]],
+      customer_address: [data['customer_address'], [Validators.required]],
+      zip_code: [data['zip_code'], [Validators.required]],
+      city: [data['city'], [Validators.required]],
+      province: [data['province'], [Validators.required]],
+      customer_email: [data['customer_email'], [Validators.required, Validators.email]],
+      customer_phone: [data['customer_phone'], [Validators.required]],
+      customer_fax: [data['customer_fax'], [Validators.required]],
+      contact_name: [data['contact_name'], [Validators.required]],
+      contact_phone: [data['contact_phone'], [Validators.required]],
+    });
+  }
+
   detail(id) {
     this._createCustomerService.getCusDetail(id).subscribe((data) => {
-      // this.countryDetail = data['country'];
-      // this.detailForm(data['country']);
-      console.log(data);
+      this.customerDetail = data['data'];
+      this.detailForm(data['data']);
     });
   }
 
   onSubmit() {
     if (this.CustomerForm.valid) {
-      this._createCustomerService.createCustomer(this.CustomerForm.value).subscribe((data) => {
-        this.toastyService.success('Created successfully!');
-        setTimeout(
-          () => {
-            this.router.navigate(['apps/master-date/customers']);
-          },
-          700
-        );
-      }, err => {
-        this.toastyService.error(err.error.errors.message);
-      });
+      if (this.action === 'create') {
+        this._createCustomerService.createCustomer(this.CustomerForm.value).subscribe((data) => {
+          this.toastyService.success('Created successfully!');
+          setTimeout(
+            () => {
+              this.router.navigate(['apps/master-date/customers']);
+            },
+            700
+          );
+        }, err => {
+          this.toastyService.error(err.error.errors.message);
+        });
+      }
+      else {
+        this._createCustomerService.updateCustomer(this.CustomerForm.value, this.idCus).subscribe((data) => {
+          this.toastyService.success('Updated successfully!');
+          setTimeout(
+            () => {
+              this.router.navigate(['apps/master-date/customers']);
+            },
+            700
+          );
+        }, err => {
+          this.toastyService.error(err.error.errors.message);
+        });
+      }
     }
   }
 

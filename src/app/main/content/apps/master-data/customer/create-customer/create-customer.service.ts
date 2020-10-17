@@ -20,7 +20,11 @@ export class CreateCustomerService
         return this.http.post(this.apiConfig.CREATE_CUSTOMER, param);
     }
 
+    updateCustomer(param, id) {
+      return this.http.put(this.apiConfig.CREATE_CUSTOMER + '/' + id, param);
+  }
+
     getCusDetail(id) {
-        return this.http.get(this.apiConfig.CUSTOMER + 's/' + id);
+        return this.http.get(this.apiConfig.CREATE_CUSTOMER + '/' + id);
     }
 }
