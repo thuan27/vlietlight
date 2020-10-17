@@ -67,7 +67,7 @@ export class CreateCustomeromponent implements OnInit {
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Customer Detail';
+          this.title = 'Customer Details';
           this.titleGroup = 'Detail';
         }
       }

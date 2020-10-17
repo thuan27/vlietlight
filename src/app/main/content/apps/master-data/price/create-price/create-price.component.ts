@@ -91,7 +91,7 @@ export class CreatePriceComponent implements OnInit {
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Price Detail';
+          this.title = 'Price Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }

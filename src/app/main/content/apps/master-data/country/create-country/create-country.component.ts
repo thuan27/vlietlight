@@ -73,7 +73,7 @@ export class CreateCountryComponent implements OnInit {
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Country Detail';
+          this.title = 'Country Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }

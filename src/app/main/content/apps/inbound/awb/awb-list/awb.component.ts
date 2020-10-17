@@ -254,7 +254,7 @@ export class AWBComponent implements OnInit {
     doCreateWavePick() {
       let checkTheSame = false;
       for (let i = 0; i < this.selected.length; i++) {
-        checkTheSame = this.selected[0]['cs_id'] == this.selected[i]['cs_id'] ? true : false;
+        checkTheSame = this.selected[0]['customer_id'] == this.selected[i]['customer_id'] ? true : false;
       }
       console.log(checkTheSame)
       if (this.selected.length < 1) {

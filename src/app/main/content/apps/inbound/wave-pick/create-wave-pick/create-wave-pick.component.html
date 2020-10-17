@@ -116,13 +116,13 @@
         </div>
       </div>
       <mat-tab-group class="demo-tab-group">
-        <mat-tab label="Package Details">
+        <mat-tab label="Wavepick Details">
           <table class="table table-striped table-bordered mat-cyan-50-bg">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Wave Pick ID</th>
-                <th>Hdr ID</th>
-                <th>Awb ID</th>
+                <!-- <th>Awb ID</th> -->
                 <th>Status</th>
                 <th>Code</th>
               </tr>
@@ -143,13 +143,13 @@
                     Hdr ID is required
                   </mat-error>
                 </td>
-                <td class="border-table">
+                <!-- <td class="border-table">
                   <input [readonly]="true" formControlName="awb_id" matInput>
                   <mat-error
                     *ngIf="WavePickForm.controls.details['controls'][i].controls.awb_id.hasError('required') && WavePickForm.controls.details['controls'][i].controls.awb_id.touched">
                     AWB ID is required
                   </mat-error>
-                </td>
+                </td> -->
                 <td class="border-table">
                   <input [readonly]="true" formControlName="wv_dtl_sts" matInput>
                   <mat-error

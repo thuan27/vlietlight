@@ -102,7 +102,7 @@ export class CreateCountryZoneComponent implements OnInit {
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Country Zone Detail';
+          this.title = 'Country Zone Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }

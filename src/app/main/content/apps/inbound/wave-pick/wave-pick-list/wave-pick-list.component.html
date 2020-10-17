@@ -60,7 +60,7 @@
             <input formControlName="customer_name" matInput placeholder="Customer Name">
         </mat-form-field>
         <mat-form-field class="mr-2">
-            <input formControlName="awb_qty" matInput placeholder="Awb Quanlity">
+            <input formControlName="awb_qty" matInput placeholder="Awb Quantity">
         </mat-form-field>
         <mat-form-field class="mr-2">
             <input formControlName="pick_up_address" matInput placeholder="Address">
@@ -105,13 +105,13 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Wave Pick #"
+      <ngx-datatable-column [frozenLeft]="true" [width]="200" [canAutoResize]="true" [resizeable]="true" name="Wave Pick #"
         prop="wv_hdr_num"></ngx-datatable-column>
         <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Wave Pick Status"
         prop="wv_sts"></ngx-datatable-column>
         <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Customer"
         prop="customer_name"></ngx-datatable-column>
-        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Awb Quanlity"
+        <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Awb Quantity"
         prop="awb_qty"></ngx-datatable-column>
         <ngx-datatable-column [width]="350" [canAutoResize]="true" [resizeable]="true" name="Pick Up Address"
         prop="pick_up_address"></ngx-datatable-column>

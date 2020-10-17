@@ -133,7 +133,7 @@ export class CreateUserAdminComponent implements OnInit {
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'User Detail';
+          this.title = 'User Details';
           this.titleGroup = 'Detail';
         }
       }

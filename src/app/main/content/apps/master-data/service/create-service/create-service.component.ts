@@ -113,7 +113,7 @@ export class CreateServiceComponent implements OnInit {
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Service Detail';
+          this.title = 'Service Details';
           this.titleGroup = 'Detail';
         }
       }

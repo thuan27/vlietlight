@@ -108,7 +108,7 @@ export class CreateCustomerServiceComponent implements OnInit {
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Customer Service Detail';
+          this.title = 'Customer Service Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }

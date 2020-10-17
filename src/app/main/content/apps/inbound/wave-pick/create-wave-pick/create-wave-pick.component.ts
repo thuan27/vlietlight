@@ -61,7 +61,7 @@ export class CreateWavePickomponent implements OnInit {
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Wave Pick Detail';
+          this.title = 'Wave Pick Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }
@@ -101,7 +101,7 @@ export class CreateWavePickomponent implements OnInit {
     return this.formBuilder.group({
       wv_dtl_id: [0, [Validators.required]],
       wv_hdr_id: [0, [Validators.required]],
-      awb_id: [0, [Validators.required]],
+      // awb_id: [0, [Validators.required]],
       wv_dtl_sts: [0, [Validators.required]],
       awb_code: [0, [Validators.required]],
     });
@@ -114,7 +114,7 @@ export class CreateWavePickomponent implements OnInit {
       const detail = this.formBuilder.group({
         wv_dtl_id: [data[i]['wv_dtl_id'], [Validators.required]],
         wv_hdr_id: [data[i]['wv_hdr_id'], [Validators.required]],
-        awb_id: [data[i]['awb_id'], [Validators.required]],
+        // awb_id: [data[i]['awb_id'], [Validators.required]],
         wv_dtl_sts: [data[i]['wv_dtl_sts'], [Validators.required]],
         awb_code: [data[i]['awb_code'], [Validators.required]],
       });

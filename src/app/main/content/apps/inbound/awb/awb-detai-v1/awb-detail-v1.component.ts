@@ -118,7 +118,7 @@ export class AWBDetailV1Component implements OnInit {
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'AWB Detail';
+          this.title = 'AWB Details';
           this.buttonCancel = 'Cancel'
           // this.titleGroup = 'Detail';
         }

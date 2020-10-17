@@ -77,7 +77,7 @@ export class CreateOrderComponent implements OnInit {
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Order Detail';
+          this.title = 'Order Details';
           this.titleGroup = 'Detail';
         }
       }

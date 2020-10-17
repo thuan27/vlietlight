@@ -75,7 +75,7 @@ export class CreateRangePriceComponent implements OnInit {
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Range Price Detail';
+          this.title = 'Range Price Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }
