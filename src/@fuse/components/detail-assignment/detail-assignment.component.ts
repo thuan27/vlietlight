@@ -15,7 +15,7 @@ import { FuseAddRoleComponent } from '../add-role/add-role.component';
   providers: [DetailAssignmentService]
 })
 export class FuseDetailAssignmentComponent {
-  listDetail = [];
+  listDetail;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -32,7 +32,6 @@ export class FuseDetailAssignmentComponent {
   getDetail() {
     this.detailAssignmentService.getDetail(this.data.data).subscribe((response) => {
       this.listDetail = response['data'];
-      console.log(this.listDetail)
 
     })
   }
