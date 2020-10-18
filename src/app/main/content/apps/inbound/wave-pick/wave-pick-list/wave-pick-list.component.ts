@@ -9,6 +9,7 @@ import { Functions } from '@fuse/core/function';
 import { FuseUpdatePreAlertComponent } from '@fuse/components/update-pre-alert/update-pre-alert.component';
 import { MatDialog } from '@angular/material';
 import { FuseUpdatePickUpComponent } from '@fuse/components/update-pick-up/update-pick-up.component';
+import { FuseUpdateWavePickComponent } from '@fuse/components/update-wave-pick/update-wave-pick.component';
 
 @Component({
   selector: 'wave-pick-list',
@@ -206,6 +207,30 @@ export class WavePickListComponent implements OnInit {
         panelClass: 'contact-form-dialog',
         data      : {
             data: this.selected
+        }
+      });
+    }
+  }
+
+  updateWavePick() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.dialogRef = this.dialog.open(FuseUpdateWavePickComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.selected
+        }
+      });
+      this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (response == 'Updated Successfully') {
+          this.toastyService.success(response);
+          this.getList();
+        } else {
+          this.toastyService.error(response);
         }
       });
     }

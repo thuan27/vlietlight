@@ -23,6 +23,7 @@ import { FuseUpdatePickUpModule } from '@fuse/components/update-pick-up/update-p
 import { FuseDetailPickUpModule } from '@fuse/components/detail-pick-up/detail-pick-up.module';
 import { FuseAddRoleModule } from '@fuse/components/add-role/add-role.module';
 import { FuseDetailAssignmentModule } from '@fuse/components/detail-assignment/detail-assignment.module';
+import { FuseUpdateWavePickModule } from '@fuse/components/update-wave-pick/update-wave-pick.module';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { FuseDetailAssignmentModule } from '@fuse/components/detail-assignment/d
         FuseDirectivesModule,
         FuseConfirmDialogModule,
         FuseUpdatePreAlertModule,
+        FuseUpdateWavePickModule,
         FuseAddRoleModule,
         FuseUpdatePickUpModule,
         FuseDetailPickUpModule,
