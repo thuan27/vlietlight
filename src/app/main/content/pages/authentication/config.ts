@@ -62,7 +62,7 @@ export class APIConfig {
   public IMPORT_FEES_RATE = this.API_BASE + '/migration/v1/fees-rate/import';
 
   public RESET_PASS = this.API_MASTER + '/reset-password';
-  public FORGOT_PASS = this.API_MASTER + '/forgot-password';
+  public FORGOT_PASS = this.API_BASE + '/master-service/v1/forgot-password';
   public RESET_PASS_TOKEN = this.API_MASTER + '/check-reset-password-token';
   public SETUP_PASS = this.API_MASTER + '/setup-password';
   public API_User_Token = this.API_AUTHEN + '/users/token';

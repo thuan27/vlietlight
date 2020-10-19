@@ -52,36 +52,40 @@ export class FuseForgotPasswordComponent implements OnInit
             username: ['', [Validators.required]]
         });
 
-        // this.forgotPasswordForm.valueChanges.subscribe(() => {
-        //     this.onForgotPasswordFormValuesChanged();
-        // });
+        this.forgotPasswordForm.valueChanges.subscribe(() => {
+            this.onForgotPasswordFormValuesChanged();
+        });
     }
 
-    // onForgotPasswordFormValuesChanged()
-    // {
-    //     for ( const field in this.forgotPasswordFormErrors )
-    //     {
-    //         if ( !this.forgotPasswordFormErrors.hasOwnProperty(field) )
-    //         {
-    //             continue;
-    //         }
+    onForgotPasswordFormValuesChanged()
+    {
+        for ( const field in this.forgotPasswordFormErrors )
+        {
+            if ( !this.forgotPasswordFormErrors.hasOwnProperty(field) )
+            {
+                continue;
+            }
 
-    //         // Clear previous errors
-    //         this.forgotPasswordFormErrors[field] = {};
+            // Clear previous errors
+            this.forgotPasswordFormErrors[field] = {};
 
-    //         // Get the control
-    //         const control = this.forgotPasswordForm.get(field);
+            // Get the control
+            const control = this.forgotPasswordForm.get(field);
 
-    //         if ( control && control.dirty && !control.valid )
-    //         {
-    //             this.forgotPasswordFormErrors[field] = control.errors;
-    //         }
-    //     }
-    // }
+            if ( control && control.dirty && !control.valid )
+            {
+                this.forgotPasswordFormErrors[field] = control.errors;
+            }
+        }
+    }
 
     onSubmit() {
         if (this.forgotPasswordForm.valid) {
-            this.http.post(this.api.FORGOT_PASS, this. forgotPasswordForm.value)
+          const data = {
+            email: this.forgotPasswordForm.value,
+            reset_password_url: "http://vietlight.vietlight.info/#/reset-password"
+          }
+            this.http.post(this.api.FORGOT_PASS, data)
             .subscribe(
                 (res) => {
                     this.submitted = true;
