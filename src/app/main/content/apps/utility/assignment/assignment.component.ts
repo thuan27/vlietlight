@@ -62,6 +62,8 @@ export class AssignmentComponent implements OnInit {
     reset() {
       this.searchForm.controls['awb_code'].setValue('');
       this.searchForm.controls['customer_name'].setValue('');
+      this.searchForm.controls['from_date'].setValue('');
+      this.searchForm.controls['to_date'].setValue('');
       this.getList();
     }
 

@@ -25,4 +25,8 @@ export class CreateWavePickService
     getStatus() {
       return this.http.get(this.apiConfig.WAVE_PICK_STATUS);
     }
+
+    getEventTracking(params) {
+      return this.http.get(this.apiConfig.AWB_EVENT_TRACKING + params);
+    }
 }

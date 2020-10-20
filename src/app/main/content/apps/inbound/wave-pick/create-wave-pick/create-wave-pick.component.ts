@@ -27,6 +27,27 @@ export class CreateWavePickomponent implements OnInit {
   titleGroup;
   status;
   buttonCancel;
+  numberShow = 20;
+  limitEvent = 20;
+  eventTracking;
+  showList = [
+    {
+      value: 20,
+      name: 20,
+    },
+    {
+      value: 30,
+      name: 30,
+    },
+    {
+      value: 40,
+      name: 40,
+    },
+    {
+      value: 50,
+      name: 50,
+    },
+  ]
 
   constructor(
     private _createWavePickService: CreateWavePickService,
@@ -145,6 +166,7 @@ export class CreateWavePickomponent implements OnInit {
     this._createWavePickService.getWPdetail(id).subscribe((data) => {
       this.detailForm(data['data']);
       this.wavePickDetail = data['data'];
+      this.getEventTracking();
     });
   }
 
@@ -169,6 +191,18 @@ export class CreateWavePickomponent implements OnInit {
     this._createWavePickService.getStatus().subscribe((response) => {
       this.status = response['data'];
     });
+  }
+
+  changeList(event) {
+    this.limitEvent = event.value;
+    this.getEventTracking();
+  }
+
+  getEventTracking() {
+    let param = '?owner=' + this.wavePickDetail['wv_hdr_num'] + '&limit=' + this.limitEvent;
+    this._createWavePickService.getEventTracking(param).subscribe((response) => {
+      this.eventTracking = response['data'];
+    })
   }
 
 }

@@ -7,3 +7,22 @@
 .custom-selection {
   width: 180px;
 }
+
+/deep/.ngx-datatable {
+  overflow: unset !important;
+  datatable-header {
+    position: sticky;
+    background: #fff;
+    top: 0;
+    z-index: 100;
+    &:before {
+      content: ' ';
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      background: #fff;
+    }
+  }
+}

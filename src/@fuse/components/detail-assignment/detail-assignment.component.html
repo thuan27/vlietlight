@@ -70,7 +70,7 @@
                 <th>Length</th>
                 <th>Width</th>
                 <th>Height</th>
-                <th>Measure</th>
+                <th>Temp measured</th>
                 <th>Is Retain</th>
                 <th>Note</th>
               </tr>
@@ -84,24 +84,24 @@
                   {{ item.wv_dtl_sts }}
                 </td>
                 <td class="border-table">
-                  {{ item.awb_code }}
+                  {{ item.packages }}
                 </td>
                 <td class="border-table">
-                  {{ item.awb_code }}
+                  {{ item.total_act_weight }}
                 </td>
                 <td class="border-table">
-                  {{ item.awb_code }}
+                  {{ item.length }}
                 </td>
                 <td class="border-table">
-                  {{ item.awb_code }}
+                  {{ item.width }}
                 </td>
                 <td class="border-table">
-                  {{ item.awb_code }}
+                  {{ item.height }}
                 </td>
-                <td class="border-table">
-                  {{ item.awb_code }}
+                <td class="border-table" [ngClass]="{'red-bg':item.is_exact == 1}">
+                  {{ item.is_exact }}
                 </td>
-                <td class="border-table">
+                <td class="border-table" [ngClass]="{'red-bg':item.is_retain == 1}">
                   {{ item.is_retain }}
                 </td>
                 <td class="border-table">
