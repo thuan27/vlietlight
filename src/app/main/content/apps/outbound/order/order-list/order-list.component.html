@@ -37,11 +37,11 @@
 
     <!-- CONTENT -->
     <div class="p-24">
-        <form id="form-control" [formGroup]="searchForm" (submit)="getList(1, searchForm.value)" autocomplete="off">
-          <mat-form-field fxFlex="20">
+        <form id="form-control" class="row" [formGroup]="searchForm" (submit)="getList(1, searchForm.value)" autocomplete="off">
+          <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <input formControlName="account_number" matInput placeholder="Code">
             </mat-form-field>
-            <mat-form-field fxFlex="20" class="margin-left-10">
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <mat-select formControlName="odr_status" placeholder="Status">
                     <mat-option style="top:0 !important" [value]="">
                         Please select option
@@ -51,13 +51,13 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex="20" class="margin-left-10">
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <input formControlName="awb_num" matInput placeholder="Code">
             </mat-form-field>
-            <mat-form-field fxFlex="20" class="margin-left-10">
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <input formControlName="cus_name" matInput placeholder="Code">
             </mat-form-field>
-            <span fxFlex="20" class="margin-left-10" style="border-top: 0.84375em solid transparent;">
+            <span class="format-line-height-button">
                 <button mat-raised-button color="accent" type="submit">Search</button>
                 <button mat-raised-button>Reset</button>
             </span>

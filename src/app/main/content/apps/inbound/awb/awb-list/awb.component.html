@@ -59,17 +59,17 @@
   <!-- CONTENT -->
   <div class="p-24">
 
-    <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="mr-2">
+    <form id="form-control" class="row" [formGroup]="searchForm" autocomplete="off">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="awb_code" matInput placeholder="AWB #">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="out_awb_num" matInput placeholder="Out AWB #">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="account_number" matInput placeholder="Account #">
       </mat-form-field>
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <mat-select formControlName="awb_sts" placeholder="Status">
           <mat-option [value]="">
             Please select option
@@ -82,7 +82,7 @@
       <!-- <mat-form-field class="mr-2">
         <input formControlName="user_id" matInput placeholder="Sales">
       </mat-form-field> -->
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input placeholder="Sales" formControlName="user_id" (keyup)="getSale($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="autoSale">
         <mat-autocomplete [displayWith]="displaySale.bind(this)" autoActiveFirstOption #autoSale="matAutocomplete">
@@ -91,13 +91,13 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="to_company_name" matInput placeholder="To Company Name">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="to_contact_name" matInput placeholder="To Contact Name">
       </mat-form-field>
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input placeholder="To Country" formControlName="to_country_id" (keyup)="getCountry($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="autoCountry">
         <mat-autocomplete [displayWith]="displayCountry.bind(this)" autoActiveFirstOption #autoCountry="matAutocomplete">
@@ -109,17 +109,17 @@
           This country does not exist
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input matInput formControlName="from_date" [matDatepicker]="dpCreatedFrom" placeholder="From Ship Date">
         <mat-datepicker-toggle matSuffix [for]="dpCreatedFrom"></mat-datepicker-toggle>
         <mat-datepicker #dpCreatedFrom disabled="false"></mat-datepicker>
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input matInput formControlName="to_date" [matDatepicker]="dpCreatedTo" placeholder="To Ship Date">
         <mat-datepicker-toggle matSuffix [for]="dpCreatedTo"></mat-datepicker-toggle>
         <mat-datepicker #dpCreatedTo disabled="false"></mat-datepicker>
       </mat-form-field>
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input placeholder="Service" formControlName="service_name" (keyup)="getService($event)" type="text"
           aria-label="Number" matInput [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -131,16 +131,16 @@
       <!-- <mat-form-field class="mr-2">
         <input formControlName="sales_price" matInput placeholder="Sale Prices ($)">
       </mat-form-field> -->
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="pre_alert" matInput placeholder="Pre Alert">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="pick_up_address" matInput placeholder="Pick Up">
       </mat-form-field>
       <!-- <mat-form-field class="mr-2">
         <input formControlName="cs_id" matInput placeholder="Assigned CS">
       </mat-form-field> -->
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
           <input placeholder="Assigned CS" formControlName="cs_id" (keyup)="getCS($event)" type="text"
             aria-label="Number" matInput [matAutocomplete]="autoCS">
           <mat-autocomplete [displayWith]="displayCS.bind(this)" autoActiveFirstOption #autoCS="matAutocomplete">
@@ -149,7 +149,7 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <mat-select formControlName="is_retain" placeholder="Is Retained">
           <mat-option [value]="">
             Please select option
@@ -159,7 +159,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <mat-select formControlName="is_exact" placeholder="Exact">
           <mat-option [value]="">
             Please select option
@@ -192,8 +192,10 @@
         <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
         <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
       </mat-form-field> -->
-      <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
-      <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+      <span class="format-line-height-button">
+        <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+        <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+      </span>
     </form>
 
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"

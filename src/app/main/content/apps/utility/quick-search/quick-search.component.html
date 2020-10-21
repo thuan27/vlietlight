@@ -27,18 +27,18 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <form id="form-control" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
-            <mat-form-field>
+        <form id="form-control" class="row" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <input formControlName="awb_code" matInput placeholder="Code">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <mat-select formControlName="awb_sts" placeholder="Status">
                     <mat-option *ngFor="let item of status" [value]="item.value">
                         {{ item.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date">
                 <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
                 <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
@@ -46,13 +46,15 @@
                     La date d'envoi n'est pas <strong>valide</strong>
                 </mat-error>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <input matInput formControlName="updated_at" [matDatepicker]="dpUpdated" placeholder="Updated Date">
                 <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
                 <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
             </mat-form-field>
-            <button mat-raised-button color="accent" type="submit">Search</button>
-            <button mat-raised-button>Reset</button>
+            <span class="format-line-height-button">
+              <button mat-raised-button color="accent" type="submit">Search</button>
+              <button mat-raised-button>Reset</button>
+            </span>
         </form>
 
         <ngx-datatable [scrollbarH]="true" id="example" (tableContextmenu)="onTableContextMenu($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable"

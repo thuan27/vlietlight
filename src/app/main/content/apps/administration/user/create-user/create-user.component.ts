@@ -182,7 +182,7 @@ export class CreateUserAdminComponent implements OnInit {
     if (this.UserAdminForm.valid) {
       if (this.action === 'create') {
         this._CreateUserAdmin.createUser(this.UserAdminForm.value).subscribe((data) => {
-          this.toastyService.success('Successfully!');
+          this.toastyService.success('Created uccessfully!');
           setTimeout(
             () => {
               this.router.navigate(['apps/administration/users']);
@@ -194,7 +194,7 @@ export class CreateUserAdminComponent implements OnInit {
         });
       } else if (this.action === 'update') {
         this._CreateUserAdmin.updateUser(this.idUser, this.UserAdminForm.value).subscribe((data) => {
-          this.toastyService.success(data['message']);
+          this.toastyService.success('Updated uccessfully!');
           setTimeout(
             () => {
               this.router.navigate(['apps/administration/users']);

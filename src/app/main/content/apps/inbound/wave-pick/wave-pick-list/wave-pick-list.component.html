@@ -46,11 +46,11 @@
   <!-- CONTENT -->
   <div class="p-24">
 
-    <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-        <mat-form-field class="mr-2">
+    <form id="form-control" class="row" [formGroup]="searchForm" autocomplete="off">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="wv_hdr_num" matInput placeholder="Wave Pick #">
         </mat-form-field>
-        <mat-form-field class="mr-2 custom-selection">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <mat-select formControlName="wv_sts" placeholder="Status">
               <mat-option [value]="">
                 Please select option
@@ -60,36 +60,37 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="customer_name" matInput placeholder="Customer Name">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="awb_qty" matInput placeholder="Awb Quantity">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="pick_up_address" matInput placeholder="Address">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="sales_note" matInput placeholder="Sales Note">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="pre_alert" matInput placeholder="Pre Alert">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="pre_alert_note_for_sales" matInput placeholder="Pre Alert Note For Slaes">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="picker" matInput placeholder="Pick up">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="picker_note" matInput placeholder="Pick Up Note">
         </mat-form-field>
-        <mat-form-field class="mr-2">
+        <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
             <input formControlName="area" matInput placeholder="Area">
         </mat-form-field>
-
-      <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
-      <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+        <span class="format-line-height-button">
+          <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
+          <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+        </span>
     </form>
 
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"

@@ -39,29 +39,29 @@
   <!-- CONTENT -->
   <div class="p-24">
 
-    <form id="form-control" [formGroup]="searchForm" autocomplete="off">
-      <mat-form-field class="mr-2">
+    <form class="row" id="form-control" [formGroup]="searchForm" autocomplete="off">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="user_name" matInput placeholder="User Name">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="first_name" matInput placeholder="First Name">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="last_name" matInput placeholder="Last Name">
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="email" matInput placeholder="Email">
       </mat-form-field>
-      <mat-form-field class="mr-2 custom-selection">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <mat-select formControlName="status" placeholder="Status">
           <mat-option *ngFor="let item of status" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <span>
-        <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
-        <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+      <span class="format-line-height-button">
+        <button mat-raised-button color="accent" (click)="getList()">Search</button>
+        <button mat-raised-button (click)="reset()">Reset</button>
       </span>
 
     </form>
