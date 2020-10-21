@@ -24,26 +24,26 @@
         <h2 class="title">{{ titleGroup }}</h2>
       </div>
       <div class="box-shadow-form margin-top-10">
-        <div fxLayout="row">
-          <mat-form-field fxFlex="25" class="mr-3">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="username" matInput placeholder="User Name">
             <mat-error *ngIf="UserAdminForm.controls.username.hasError('required')">
               User Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="first_name" matInput placeholder="First Name">
             <mat-error *ngIf="UserAdminForm.controls.first_name.hasError('required')">
               First Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="last_name" matInput placeholder="Last Name">
             <mat-error *ngIf="UserAdminForm.controls.last_name.hasError('required')">
               Last Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="email" matInput placeholder="Email">
             <mat-error *ngIf="UserAdminForm.controls.email.hasError('required')">
               Email is required
@@ -52,62 +52,56 @@
               Email is invalid
             </mat-error>
           </mat-form-field>
-        </div>
-          <div fxLayout="row">
-            <mat-form-field fxFlex="25" class="mr-3">
+            <mat-form-field class="col-sm-12 col-md-4">
               <mat-select [attr.disabled]="disabledForm" formControlName="status" placeholder="Status">
                 <mat-option *ngFor="let item of status" [value]="item.value">
                   {{ item.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex="25" class="mr-3">
+            <mat-form-field class="col-sm-12 col-md-4">
               <input [readonly]="disabledForm" formControlName="emp_code" matInput placeholder="EMP Code">
               <mat-error *ngIf="UserAdminForm.controls.emp_code.hasError('required')">
                 EMP Code is required
               </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="25" class="mr-3">
+            <mat-form-field class="col-sm-12 col-md-4">
               <input [readonly]="disabledForm" formControlName="phone" matInput placeholder="Phone">
               <mat-error *ngIf="UserAdminForm.controls.phone.hasError('required')">
                 Phone is required
               </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="25">
+            <mat-form-field class="col-sm-12 col-md-4">
               <input [readonly]="disabledForm" formControlName="phone_extend" matInput placeholder="Phone Extend">
               <mat-error *ngIf="UserAdminForm.controls.phone_extend.hasError('required')">
                 Phone Extend is required
               </mat-error>
             </mat-form-field>
-          </div>
-          <div fxLayout="row">
-            <mat-form-field fxFlex="25" class="mr-3">
+            <mat-form-field class="col-sm-12 col-md-4">
               <input [readonly]="disabledForm" formControlName="mobile" matInput placeholder="Mobile">
               <mat-error *ngIf="UserAdminForm.controls.mobile.hasError('required')">
                 Mobile is required
               </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="25" class="mr-3">
+            <mat-form-field class="col-sm-12 col-md-4">
               <input [readonly]="disabledForm" formControlName="off_loc" matInput placeholder="Off Loc">
               <mat-error *ngIf="UserAdminForm.controls.off_loc.hasError('required')">
                 Off Loc is required
               </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="25" class="mr-3">
+            <mat-form-field class="col-sm-12 col-md-4">
               <input [readonly]="disabledForm" formControlName="usr_dpm_id" matInput placeholder="User DPM ID">
               <mat-error *ngIf="UserAdminForm.controls.usr_dpm_id.hasError('required')">
                 User Name is required
               </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex="25">
+            <mat-form-field class="col-sm-12 col-md-4">
               <input [readonly]="disabledForm" formControlName="area" matInput placeholder="Area">
               <mat-error *ngIf="UserAdminForm.controls.area.hasError('required')">
                 Area is required
               </mat-error>
             </mat-form-field>
-        </div>
-        <div fxLayout="row">
-          <mat-form-field fxFlex="25">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="dept" matInput placeholder="Dept">
             <mat-error *ngIf="UserAdminForm.controls.dept.hasError('required')">
               Dept is required
