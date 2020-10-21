@@ -24,15 +24,15 @@
         <h2 class="title">{{ titleGroup }}</h2>
       </div>
       <div class="box-shadow-form margin-top-10">
-        <div fxLayout="row">
-          <mat-form-field fxFlex="33">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-md-4">
             <mat-select [disabled]="disabledForm" formControlName="service_id" placeholder="Service">
               <mat-option *ngFor="let item of service" [value]="item.service_id">
                 {{ item.service_name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field fxFlex="33" class="margin-left-10">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [disabled]="disabledForm"  placeholder="Country Name" formControlName="country_id" (keyup)="countryList($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
               <mat-option *ngFor="let option of country" [value]="option.country_id">
@@ -40,7 +40,7 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <mat-form-field fxFlex="33" class="margin-left-10">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="zone" matInput placeholder="Zone">
             <mat-error *ngIf="CountryForm.controls.zone.hasError('required')">
               Zone is required
@@ -49,15 +49,13 @@
               Zone must has 2 characters
             </mat-error>
           </mat-form-field>
-        </div>
-        <div fxLayout="row">
-          <mat-form-field fxFlex="50">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="state_code" matInput placeholder="State Code">
             <mat-error *ngIf="CountryForm.controls.state_code.hasError('required')">
               State Code is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="50" class="margin-left-10">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="state_name" matInput placeholder="State Name">
             <mat-error *ngIf="CountryForm.controls.state_name.hasError('required')">
               State Name is required

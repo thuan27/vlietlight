@@ -24,14 +24,14 @@
                 <h2 class="title">{{ titleGroup }}</h2>
             </div>
             <div class="box-shadow-form margin-top-10">
-                <div fxLayout="row">
-                    <mat-form-field fxFlex="50">
+                <div class="row">
+                    <mat-form-field class="col-sm-12 col-md-6">
                         <input [readonly]="disabledForm" formControlName="code" matInput placeholder="Country Code">
                         <mat-error *ngIf="CountryForm.controls.code.hasError('required')">
                             Country Code is required
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex="50" class="margin-left-10">
+                    <mat-form-field class="col-sm-12 col-md-6">
                         <input [readonly]="disabledForm" formControlName="name" matInput placeholder="Country Name">
                         <mat-error *ngIf="CountryForm.controls.name.hasError('required')">
                             Country Name is required

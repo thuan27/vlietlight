@@ -23,53 +23,51 @@
         <h2 class="title">Information</h2>
       </div>
       <div class="box-shadow-form mt-5">
-        <div fxLayout="row">
-          <mat-form-field fxFlex="25" class="mr-3">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="awb_code" matInput placeholder="AWB Code">
             <mat-error *ngIf="AWBForm.controls.awb_code.hasError('required')">
               AWB Code is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="out_awb_num" matInput placeholder="Out AWB Num">
             <mat-error *ngIf="AWBForm.controls.out_awb_num.hasError('required')">
               Out AWB Num is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <mat-select [disabled]="disabledForm" formControlName="awb_sts" placeholder="Status">
               <mat-option *ngFor="let item of status" [value]="item.key">
                 {{ item.key }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field fxFlex="25">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="account_number" matInput placeholder="Account #">
             <mat-error *ngIf="AWBForm.controls.account_number.hasError('required')">
               Account # is required
             </mat-error>
           </mat-form-field>
-        </div>
-        <div fxLayout="row">
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="from_contact_name" matInput placeholder="From Contact Name">
             <mat-error *ngIf="AWBForm.controls.from_contact_name.hasError('required')">
               From Contact Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="to_company_name" matInput placeholder="To Company Name">
             <mat-error *ngIf="AWBForm.controls.to_company_name.hasError('required')">
               To Company Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="to_address" matInput placeholder="To Address">
             <mat-error *ngIf="AWBForm.controls.to_address.hasError('required')">
               To Address is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" placeholder="To Country" formControlName="to_country_name"
               (keyup)="getCountry($event,'to_country_id','to_country_name')" type="text" aria-label="Number" matInput
               [matAutocomplete]="auto">
@@ -86,41 +84,37 @@
               To Country is required
             </mat-error>
           </mat-form-field>
-        </div>
-        <div fxLayout="row">
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="to_contact_name" matInput placeholder="To Contact Name">
             <mat-error *ngIf="AWBForm.controls.to_contact_name.hasError('required')">
               To Contact Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="to_email" matInput placeholder="To Email">
             <mat-error *ngIf="AWBForm.controls.to_email.hasError('required')">
               To Email is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="to_phone" matInput placeholder="To Phone">
             <mat-error *ngIf="AWBForm.controls.to_phone.hasError('required')">
               To Phone is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="25">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="to_postcode" matInput placeholder="To PostCode">
             <mat-error *ngIf="AWBForm.controls.to_postcode.hasError('required')">
               To PostCode is required
             </mat-error>
           </mat-form-field>
-        </div>
-        <div fxLayout="row">
-          <mat-form-field fxFlex="50" class="mr-3">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="pick_up_address" matInput placeholder="Pick Up Address">
             <mat-error *ngIf="AWBForm.controls.pick_up_address.hasError('required')">
               Pick Up Address is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="50">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="pick_up_address_unsigned_word" matInput placeholder="Pick Up Address Unsigned Word">
             <mat-error *ngIf="AWBForm.controls.pick_up_address_unsigned_word.hasError('required')">
               Pick Up Address is required
@@ -137,73 +131,71 @@
                 <h2 class="title">Package {{ i + 1 }}</h2>
               </div>
               <div class="box-shadow-form mt-5">
-                <div fxLayout="row">
-                  <mat-form-field fxFlex="20" class="mr-3">
+                <div class="row">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <mat-select [disabled]="disabledForm" (change)="changeItem($event, i)" placeholder="Type" formControlName="type">
                       <mat-option *ngFor="let item of itemType" [value]="item.value">
                         {{ item.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="original_weight" matInput placeholder="Measured Customer Weight">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.original_weight.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.original_weight.touched">
                       Measured customer weight is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="weight" matInput placeholder="Weight">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.weight.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.weight.touched">
                       Weight is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="original_length" matInput placeholder="Measured Customer Length">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.original_length.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.original_length.touched">
                       Measured Customer Length is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="length" matInput placeholder="Length">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.length.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.length.touched">
                       Length is required
                     </mat-error>
                   </mat-form-field>
-                </div>
-                <div fxLayout="row">
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="original_width" matInput placeholder="Measured Customer Width">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.original_width.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.original_width.touched">
                       Measured Customer Width is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="width" matInput placeholder="Width">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.width.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.width.touched">
                       Width is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="original_height" matInput placeholder="Measured Customer Height">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.original_height.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.original_height.touched">
                       Measured Customer Height is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="height" matInput placeholder="Height">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.height.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.height.touched">
                       Height is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="volume" matInput placeholder="Volume">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.volume.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.volume.touched">
@@ -212,28 +204,28 @@
                   </mat-form-field>
                 </div>
                 <div fxLayout="row">
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="max_weight" matInput placeholder="Max Weight">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.max_weight.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.max_weight.touched">
                       Max Weight is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="awb_dtl_weight_up" matInput placeholder="Round Weight Up">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.awb_dtl_weight_up.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.width.touched">
                       Round Weight Up is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20" class="mr-3">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="deleted" matInput placeholder="Deleted">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.deleted.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.original_height.touched">
                       Deleted is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20">
+                  <mat-form-field class="col-sm-12 col-md-4">
                     <input [readonly]="disabledForm" formControlName="new" matInput placeholder="New">
                     <mat-error
                       *ngIf="AWBForm.controls.awb_details['controls'][i].controls.new.hasError('required') && AWBForm.controls.awb_details['controls'][i].controls.new.touched">

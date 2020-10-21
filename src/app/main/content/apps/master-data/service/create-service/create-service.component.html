@@ -24,17 +24,17 @@
         <h2 class="title">{{ titleGroup }}</h2>
       </div>
       <div class="box-shadow-form margin-top-10">
-        <div fxLayout="row">
-          <mat-form-field fxFlex="33">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="service_name" matInput placeholder="Service Name">
             <mat-error *ngIf="CountryForm.controls.service_name.hasError('required')">
               Service Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="33" class="margin-left-10">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="service_name2" matInput placeholder="Service Name 2">
           </mat-form-field>
-          <mat-form-field fxFlex="33" class="margin-left-10">
+          <mat-form-field class="col-sm-12 col-md-4">
             <mat-select [attr.disabled]="disabledForm" formControlName="status" placeholder="Status">
               <mat-option *ngFor="let item of status" [value]="item.value">
                 {{ item.value }}

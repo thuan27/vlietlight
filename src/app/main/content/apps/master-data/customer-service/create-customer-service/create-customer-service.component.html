@@ -24,8 +24,8 @@
         <h2 class="title">{{ titleGroup }}</h2>
       </div>
       <div class="box-shadow-form margin-top-10">
-        <div fxLayout="row">
-          <mat-form-field fxFlex="33" class="mr-2">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-md-4">
             <mat-select [attr.disabled]="disabledForm" formControlName="customer_id" placeholder="Customer">
               <mat-option *ngFor="let item of customer" [value]="item.customer_id">
                 {{ item.customer_name }}
@@ -35,13 +35,13 @@
               Customer is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="33" class="mr-2">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="cus_service_code" matInput placeholder="Customer Service Code">
             <mat-error *ngIf="CustomerServiceForm.controls.cus_service_code.hasError('required')">
               Customer Service Code is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex="33" class="mr-2">
+          <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="cus_service_name" matInput placeholder="Customer Service Name">
             <mat-error *ngIf="CustomerServiceForm.controls.cus_service_name.hasError('required')">
               Customer Service Name is required
