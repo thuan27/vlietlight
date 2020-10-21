@@ -87,11 +87,6 @@ export class FuseToolbarComponent
                 'flag' : 'us'
             },
             {
-                'id'   : 'tr',
-                'title': 'Turkish',
-                'flag' : 'tr'
-            },
-            {
                 'id'   : 'vn',
                 'title': 'Việt Nam',
                 'flag' : 'vn'
