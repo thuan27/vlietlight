@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Functions } from '@fuse/core/function';
 import { UserService } from '@fuse/directives/users/users.service';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import * as FileSaver from 'file-saver';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -29,6 +30,10 @@ export class CustomerListComponent implements OnInit
     hasCreateUserPermission = false;
     hasDeleteUserPermission = false;
     private hasViewUserPermission = false;
+    status = [
+      { value: 'AC', name: 'Active' },
+      { value: 'IA', name: 'Inactive' }
+    ];
 
     constructor(
         private customerListService: CustomerListService,
@@ -76,19 +81,30 @@ export class CustomerListComponent implements OnInit
             login_name: '',
             customer_name: '',
             email: '',
-            phone: ''
+            phone: '',
+            account_number: '',
+            tax_number: '',
+            zip_code: '',
+            city: '',
+            province: '',
+            created_by: '',
+            status: '',
+            contact_name: '',
+            contact_phone: '',
         });
     }
 
     getList(pageNum: number = 1) {
-        let params = `?limit=15` + `&page=` + pageNum;
-        if (this.sortData !== '') {
-          params += this.sortData;
-        }
-        params = params + '&login_name=' + this.searchForm.controls['login_name'].value
-          + '&customer_name=' + this.searchForm.controls['customer_name'].value
-          + '&email=' + this.searchForm.controls['email'].value
-          + '&phone=' + this.searchForm.controls['phone'].value;
+      let params = `?limit=15` + `&page=` + pageNum;
+      if (this.sortData !== '') {
+        params += this.sortData;
+      } else {
+        params += '&sort[customer_id]=desc'
+      }
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+      }
         this.customerListService.getList(params).subscribe((data: any[]) => {
             data['data'].forEach((customer) => {
                 customer['customer_id_link'] = `<a href="#/apps/master-data/customers/${customer['customer_id']}">${customer['customer_id']}</a>`;
@@ -118,7 +134,14 @@ export class CustomerListComponent implements OnInit
     }
 
     onSelect(e) {}
-    reset() {}
+    reset() {
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        this.searchForm.controls[arrayItem[i]].setValue('');
+      }
+      this.sortData = '';
+      this.getList();
+    }
 
     onSort(event) {
       this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
@@ -151,5 +174,25 @@ export class CustomerListComponent implements OnInit
           );
         });
       }
+    }
+
+    exportCsv() {
+      let fileName = 'Customers';
+      let fileType = '.csv';
+      let params = '?limit=15';
+      if (this.sortData !== '') {
+        params += this.sortData;
+      } else {
+        params += '&sort[customer_id]=desc'
+      }
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+      }
+      let getReport = this.customerListService.getReport(params);
+      getReport.subscribe((data) => {
+        var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        FileSaver.saveAs.saveAs(blob, fileName + fileType);
+      })
     }
 }

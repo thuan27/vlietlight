@@ -20,6 +20,10 @@ export class CustomerListService
         return this.http.get(this.apiConfig.CUSTOMER + '/index' + params);
     }
 
+    getReport(params) {
+      return this.http.get(this.apiConfig.CUSTOMER + '/index' + params + '&export=1', { responseType: 'blob' });
+    }
+
     deleteCus(id) {
       return this.http.delete(this.apiConfig.CREATE_CUSTOMER + '/' + id);
   }

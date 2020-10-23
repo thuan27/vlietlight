@@ -187,13 +187,6 @@ export class AWBComponent implements OnInit {
       for (let i = 0; i < arrayItem.length; i++) {
         params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
       }
-      // let params = '?status=' + this.searchForm.controls['status'].value;
-      if (this.searchForm.controls['service_name'].value != '') {
-        params = params + '&service_name=' + this.searchForm.controls['service_name'].value;
-      }
-      if (this.sortData !== '') {
-        params += this.sortData;
-      }
       let getReport = this._AWBService.getReport(params);
       getReport.subscribe((data) => {
         var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

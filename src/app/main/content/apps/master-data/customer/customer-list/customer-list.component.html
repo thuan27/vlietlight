@@ -38,6 +38,9 @@
     <div class="p-24">
         <form id="form-control" class="row" [formGroup]="searchForm" autocomplete="off">
             <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="account_number" matInput placeholder="Account Number">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
                 <input formControlName="login_name" matInput placeholder="Login Name">
             </mat-form-field>
             <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
@@ -47,7 +50,35 @@
                 <input formControlName="email" matInput placeholder="Email">
             </mat-form-field>
             <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <input formControlName="phone" matInput placeholder="Phone">
+                <input formControlName="phone" matInput placeholder="Customer Phone">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="tax_number" matInput placeholder="Tax Number">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="zip_code" matInput placeholder="Zip Code">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="city" matInput placeholder="City">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="province" matInput placeholder="Province">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="created_by" matInput placeholder="Created By">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+              <mat-select formControlName="status" placeholder="Status">
+                <mat-option *ngFor="let item of status" [value]="item.value">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="contact_name" matInput placeholder="Contact Name">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+                <input formControlName="contact_phone" matInput placeholder="Contact Phone">
             </mat-form-field>
             <span class="format-line-height-button">
               <button mat-raised-button color="accent" (click)="getList()">Search</button>
@@ -61,18 +92,18 @@
             [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
             [limit]="15" [scrollbarH]="true" (sort)="onSort($event)" [externalSorting]="true">
 
-            <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
+            <ngx-datatable-column [frozenLeft]="true" [width]="48" [canAutoResize]="false" [sortable]="false">
                 <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
                     let-onCheckboxChangeFn="onCheckboxChangeFn">
                     <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
                 </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column [width]="200" name="Customer ID" prop="customer_id_link"></ngx-datatable-column>
+            <ngx-datatable-column [frozenLeft]="true" [width]="100" name="Customer ID" prop="customer_id_link"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="300" name="Account Number" prop="account_number"></ngx-datatable-column>
+            <ngx-datatable-column [frozenLeft]="true" [width]="150" name="Account Number" prop="account_number"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="200" name="Login Name" prop="loginname"></ngx-datatable-column>
+            <ngx-datatable-column [frozenLeft]="true" [width]="150" name="Login Name" prop="loginname"></ngx-datatable-column>
 
             <ngx-datatable-column [width]="200" name="Customer Name" prop="customer_name"></ngx-datatable-column>
 
@@ -92,7 +123,9 @@
 
             <ngx-datatable-column [width]="200" name="Status" prop="status"></ngx-datatable-column>
         </ngx-datatable>
-
+        <div class="export margin-top-10">
+          <label class="label-export">Export to:</label>
+          <a (click)="exportCsv()" class="csv"></a>
+        </div>
     </div>
-
 </div>
