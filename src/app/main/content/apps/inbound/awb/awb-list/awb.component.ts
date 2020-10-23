@@ -159,6 +159,12 @@ export class AWBComponent implements OnInit {
                 data['sales_price'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['sales_price']}`
                 data['freight'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['freight']}`
               }
+              if (data['is_retain'] == 1) {
+                data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_retain']}`
+              }
+              if (data['is_exact'] == 0) {
+                data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_exact']}`
+              }
             });
             this.rows = data['data'];
             this.total = data['meta']['pagination']['total'];
