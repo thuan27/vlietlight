@@ -125,7 +125,6 @@ export class AWBComponent implements OnInit {
             awb_sts: '',
             from_date: '',
             to_date: '',
-            service_name: '',
             to_company_name: '',
             to_contact_name: '',
             to_country_id: ['',[this.validateCountry]],
@@ -134,8 +133,6 @@ export class AWBComponent implements OnInit {
             cs_id: '',
             is_retain: '',
             is_exact: ''
-            // created_at: '',
-            // updated_at: ''
         });
     }
 
@@ -255,7 +252,6 @@ export class AWBComponent implements OnInit {
       for (let i = 0; i < this.selected.length; i++) {
         checkTheSame = this.selected[0]['customer_id'] == this.selected[i]['customer_id'] ? true : false;
       }
-      console.log(checkTheSame)
       if (this.selected.length < 1) {
         this.toastyService.error('Please select at least one item.');
       } else {
@@ -459,6 +455,12 @@ export class AWBComponent implements OnInit {
     displayCS(id) {
       if (this.dataCS) {
         return this.dataCS.find(dataCS => dataCS.user_id === id).full_name;
+      }
+    }
+
+    displayService(id) {
+      if (this.serviceName) {
+        return this.serviceName.find(service => service.service_id === id).service_name;
       }
     }
 

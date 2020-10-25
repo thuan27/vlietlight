@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { OrderListService } from './order-list.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FuseFilterOrderComponent } from '@fuse/components/filter-order/filter-order.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -22,14 +24,20 @@ export class OrderListComponent implements OnInit {
   current_page;
   selected: any[] = [];
   searchForm: FormGroup;
+  sortData = '';
   status;
+  country;
+  dataCS;
+  dialogRef;
+  serviceName;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private orderListService: OrderListService,
     private toastyService: ToastyService,
-    private datePipe: DatePipe,
+    public dialog: MatDialog,
+
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -48,33 +56,40 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  getList(page = 1, searchData = {}) {
-    let params = '?page=' + page;
-    if (searchData['account_number']) {
-      params = params + '&account_number=' + searchData['account_number'];
+  getList(page = 1) {
+    let params = `?limit=15` + `&page=` + page;
+    if (this.sortData !== '') {
+      params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
     }
-    if (searchData['awb_num']) {
-      params = params + '&account_number=' + searchData['awb_num'];
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    if (searchData['cus_name']) {
-      params = params + '&account_number=' + searchData['cus_name'];
-    }
-    if (searchData['odr_status']) {
-      params = params + '&account_number=' + searchData['odr_status'];
-    }
-
-    // if (searchData) {
-    //   params = params + '&account_number=' + searchData['account_number']
-    //     + '&awb_num=' + searchData['awb_num']
-    //     + '&cus_name=' + searchData['cus_name']
-    //     + '&odr_status=' + searchData['odr_status'];
-    // }
     this.orderList = this.orderListService.getList(params);
 
     this.orderList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['order_id_link'] = `<a href="#/apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
+        if (data['is_retain'] == 1) {
+          data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_retain']}`
+        } else {
+          data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot-green.jpg">${data['is_retain']}`
+        }
+        if (data['is_exact'] == 0) {
+          data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_exact']}`
+        } else {
+          data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot-green.jpg">${data['is_exact']}`
+        }
+        if (data['weight_discrepancy'] == 0) {
+          data['weight_discrepancy'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['weight_discrepancy']}`
+        }
+        if (data['volume_discrepancy'] == 0) {
+          data['volume_discrepancy'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['volume_discrepancy']}`
+        }
       });
+
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
       // tslint:disable-next-line:radix
@@ -83,19 +98,39 @@ export class OrderListComponent implements OnInit {
     });
   }
 
+  onSort(event){
+    this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+    this.getList(this.current_page);
+  }
+
+  reset() {
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      this.searchForm.controls[arrayItem[i]].setValue('');
+    }
+    this.sortData = '';
+    this.getList();
+  }
+
   private buildForm() {
     this.searchForm = this.formBuilder.group({
       account_number: '',
       odr_status: '',
       awb_num: '',
-      cus_name: ''
+      cus_name: '',
+      order_id_link: '',
+      out_awb_num: '',
+      cus_total_price: '',
+      to_country_id: ['',[this.validateCountry]],
+      picker: '',
+      user_id: '',
+      cs_id: '',
+      sales_note_for_cs: '',
+      service_id: '',
+      item_id: '',
+      zone_id: '',
     });
   }
-
-  //   search(data) {
-  //     console.log('this.searchForm.value',this.searchForm.value)
-  //     this.getList(this.searchForm.value);
-  // }
 
   onSelect(event) {
     console.log('this.selected', this.selected);
@@ -107,35 +142,80 @@ export class OrderListComponent implements OnInit {
     this.selected = [];
   }
 
-  create() {
-    this.router.navigate(['apps/master-data/countries/create']);
+  updateStatus() {
   }
 
-  update() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.router.navigateByUrl(`apps/master-data/countries/${this.selected[0]['country_id']}/update`);
+  updateFee() {
+  }
+
+  updateTrackingInfo() {
+  }
+
+  updateAgent() {
+  }
+
+  getCountry(event) {
+    let data = '';
+    if (event.target.value) {
+      data = data + '&country_name=' + event.target.value;
+    }
+    this.orderListService.getCountry(data).subscribe((data) => {
+      this.country = data['data'];
+    });
+  }
+
+  displayCountry(id) {
+    if (this.country) {
+      return this.country.find(country => country.country_id === id).country_name;
     }
   }
 
-  delete() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
+  validateCountry(control: FormControl) {
+    if (typeof control.value == 'number' || control.value === '') {
+      return null;
     } else {
-      this.orderListService.deleteCountry(this.selected[0]['country_id']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-          },
-          700
-        );
-      });
+      return { 'hasnotCountry': true };
     }
   }
+
+  getCS(event) {
+    let data = '';
+    if (event.target.value) {
+      data = data + '?full_name=' + event.target.value;
+    }
+    this.orderListService.getCS(data).subscribe((data) => {
+      this.dataCS = data['data'];
+    });
+  }
+
+  displayCS(id) {
+    if (this.dataCS) {
+      return this.dataCS.find(dataCS => dataCS.user_id === id).full_name;
+    }
+  }
+
+  getService(event) {
+    let data = '';
+    if (event.target.value) {
+      data = data + '?service_name=' + event.target.value;
+    }
+    this.orderListService.getService(data).subscribe((data) => {
+      this.serviceName = data['data'];
+    });
+  }
+
+  displayService(id) {
+    if (this.serviceName) {
+      return this.serviceName.find(service => service.service_id === id).service_name;
+    }
+  }
+
+  filter() {
+    this.dialogRef = this.dialog.open(FuseFilterOrderComponent, {
+      panelClass: 'contact-form-dialog',
+      data      : {
+          data: this.selected
+      }
+  })
+}
 }

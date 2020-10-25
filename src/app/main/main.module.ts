@@ -24,6 +24,7 @@ import { FuseDetailPickUpModule } from '@fuse/components/detail-pick-up/detail-p
 import { FuseAddRoleModule } from '@fuse/components/add-role/add-role.module';
 import { FuseDetailAssignmentModule } from '@fuse/components/detail-assignment/detail-assignment.module';
 import { FuseUpdateWavePickModule } from '@fuse/components/update-wave-pick/update-wave-pick.module';
+import { FuseFilterOrderModule } from '@fuse/components/filter-order/filter-order.module';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import { FuseUpdateWavePickModule } from '@fuse/components/update-wave-pick/upda
         FuseUpdatePickUpModule,
         FuseDetailPickUpModule,
         FuseDetailAssignmentModule,
+        FuseFilterOrderModule,
         ToastyModule.forRoot()
     ],
     exports     : [

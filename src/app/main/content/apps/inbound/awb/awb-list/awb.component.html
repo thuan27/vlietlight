@@ -1,18 +1,30 @@
 <ng2-toasty></ng2-toasty>
 
-<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
-
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
-    fxLayoutAlign.gt-xs="space-between center">
-    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-        <span class="secondary-text">{{'INBOUND.AWB_LIST' | translate}}</span>
+        <span class="secondary-text">{{ "INBOUND.AWB_LIST" | translate }}</span>
       </div>
-      <div class="h2 mt-16">{{'INBOUND.AWB_LIST' | translate}}</div>
-
+      <div class="h2 mt-16">{{ "INBOUND.AWB_LIST" | translate }}</div>
     </div>
     <div *ngIf="isOption" class="reference-button mat-white-bg">
       <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -23,33 +35,45 @@
           <mat-icon>add_circle_outline</mat-icon>
           <span>{{'INBOUND.CREATE_AWB' | translate}}</span>
         </button> -->
-        <button *ngIf="createWavePick" mat-menu-item (click)="doCreateWavePick()">
+        <button
+          *ngIf="createWavePick"
+          mat-menu-item
+          (click)="doCreateWavePick()"
+        >
           <mat-icon>add_circle_outline</mat-icon>
-          <span>{{'INBOUND.CREATE_WAVE_PICK' | translate}}</span>
+          <span>{{ "INBOUND.CREATE_WAVE_PICK" | translate }}</span>
         </button>
         <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
           <mat-icon>system_update_alt</mat-icon>
-          <span>{{'INBOUND.UPDATE_AWB' | translate}}</span>
+          <span>{{ "INBOUND.UPDATE_AWB" | translate }}</span>
         </button>
-        <button *ngIf="hasDeleteUserPermission" mat-menu-item (click)="delete()">
+        <button
+          *ngIf="hasDeleteUserPermission"
+          mat-menu-item
+          (click)="delete()"
+        >
           <mat-icon>delete_forever</mat-icon>
-          <span>{{'INBOUND.DELETE_AWB' | translate}}</span>
+          <span>{{ "INBOUND.DELETE_AWB" | translate }}</span>
         </button>
-        <button *ngIf="hasCancelUserPermission" mat-menu-item (click)="cancel()">
+        <button
+          *ngIf="hasCancelUserPermission"
+          mat-menu-item
+          (click)="cancel()"
+        >
           <mat-icon>cancel</mat-icon>
-          <span>{{'INBOUND.CANCEL_AWB' | translate}}</span>
+          <span>{{ "INBOUND.CANCEL_AWB" | translate }}</span>
         </button>
         <button *ngIf="pendingAWB" mat-menu-item (click)="pending()">
           <mat-icon>short_text</mat-icon>
-          <span>{{'INBOUND.PENDING_AWB' | translate}}</span>
+          <span>{{ "INBOUND.PENDING_AWB" | translate }}</span>
         </button>
         <button *ngIf="completeAWB" mat-menu-item (click)="complete()">
           <mat-icon>send</mat-icon>
-          <span>{{'INBOUND.COMPLETE_AWB' | translate}}</span>
+          <span>{{ "INBOUND.COMPLETE_AWB" | translate }}</span>
         </button>
         <button *ngIf="removeAWB" mat-menu-item (click)="remove()">
           <mat-icon>remove_circle_outline</mat-icon>
-          <span>{{'INBOUND.REMOVE_AWB' | translate}}</span>
+          <span>{{ "INBOUND.REMOVE_AWB" | translate }}</span>
         </button>
       </mat-menu>
     </div>
@@ -58,16 +82,24 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-
-    <form id="form-control" class="row" [formGroup]="searchForm" autocomplete="off">
+    <form
+      id="form-control"
+      class="row"
+      [formGroup]="searchForm"
+      autocomplete="off"
+    >
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="awb_code" matInput placeholder="AWB #">
+        <input formControlName="awb_code" matInput placeholder="AWB #" />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="out_awb_num" matInput placeholder="Out AWB #">
+        <input formControlName="out_awb_num" matInput placeholder="Out AWB #" />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="account_number" matInput placeholder="Account #">
+        <input
+          formControlName="account_number"
+          matInput
+          placeholder="Account #"
+        />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <mat-select formControlName="awb_sts" placeholder="Status">
@@ -79,51 +111,110 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <!-- <mat-form-field class="mr-2">
-        <input formControlName="user_id" matInput placeholder="Sales">
-      </mat-form-field> -->
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input placeholder="Sales" formControlName="user_id" (keyup)="getSale($event)" type="text"
-          aria-label="Number" matInput [matAutocomplete]="autoSale">
-        <mat-autocomplete [displayWith]="displaySale.bind(this)" autoActiveFirstOption #autoSale="matAutocomplete">
+        <input
+          placeholder="Sales"
+          formControlName="user_id"
+          (keyup)="getSale($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoSale"
+        />
+        <mat-autocomplete
+          [displayWith]="displaySale.bind(this)"
+          autoActiveFirstOption
+          #autoSale="matAutocomplete"
+        >
           <mat-option *ngFor="let item of sales" [value]="item.user_id">
             {{ item.full_name }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="to_company_name" matInput placeholder="To Company Name">
+        <input
+          formControlName="to_company_name"
+          matInput
+          placeholder="To Company Name"
+        />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="to_contact_name" matInput placeholder="To Contact Name">
+        <input
+          formControlName="to_contact_name"
+          matInput
+          placeholder="To Contact Name"
+        />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input placeholder="To Country" formControlName="to_country_id" (keyup)="getCountry($event)" type="text"
-          aria-label="Number" matInput [matAutocomplete]="autoCountry">
-        <mat-autocomplete [displayWith]="displayCountry.bind(this)" autoActiveFirstOption #autoCountry="matAutocomplete">
+        <input
+          placeholder="To Country"
+          formControlName="to_country_id"
+          (keyup)="getCountry($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoCountry"
+        />
+        <mat-autocomplete
+          [displayWith]="displayCountry.bind(this)"
+          autoActiveFirstOption
+          #autoCountry="matAutocomplete"
+        >
           <mat-option *ngFor="let item of country" [value]="item.country_id">
             {{ item.country_name }}
           </mat-option>
         </mat-autocomplete>
-        <mat-error *ngIf="searchForm.controls.to_country_id.hasError('hasnotCountry')">
+        <mat-error
+          *ngIf="searchForm.controls.to_country_id.hasError('hasnotCountry')"
+        >
           This country does not exist
         </mat-error>
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input matInput formControlName="from_date" [matDatepicker]="dpCreatedFrom" placeholder="From Ship Date">
-        <mat-datepicker-toggle matSuffix [for]="dpCreatedFrom"></mat-datepicker-toggle>
+        <input
+          matInput
+          formControlName="from_date"
+          [matDatepicker]="dpCreatedFrom"
+          placeholder="From Ship Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dpCreatedFrom"
+        ></mat-datepicker-toggle>
         <mat-datepicker #dpCreatedFrom disabled="false"></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input matInput formControlName="to_date" [matDatepicker]="dpCreatedTo" placeholder="To Ship Date">
-        <mat-datepicker-toggle matSuffix [for]="dpCreatedTo"></mat-datepicker-toggle>
+        <input
+          matInput
+          formControlName="to_date"
+          [matDatepicker]="dpCreatedTo"
+          placeholder="To Ship Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dpCreatedTo"
+        ></mat-datepicker-toggle>
         <mat-datepicker #dpCreatedTo disabled="false"></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input placeholder="Service" formControlName="service_name" (keyup)="getService($event)" type="text"
-          aria-label="Number" matInput [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of serviceName" [value]="option.service_name">
+        <input
+          placeholder="Service"
+          formControlName="service_id"
+          (keyup)="getService($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoService"
+        />
+        <mat-autocomplete
+          [displayWith]="displayService.bind(this)"
+          autoActiveFirstOption
+          #autoService="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let option of serviceName"
+            [value]="option.service_id"
+          >
             {{ option.service_name }}
           </mat-option>
         </mat-autocomplete>
@@ -132,23 +223,35 @@
         <input formControlName="sales_price" matInput placeholder="Sale Prices ($)">
       </mat-form-field> -->
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="pre_alert" matInput placeholder="Pre Alert">
+        <input formControlName="pre_alert" matInput placeholder="Pre Alert" />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="pick_up_address" matInput placeholder="Pick Up">
+        <input
+          formControlName="pick_up_address"
+          matInput
+          placeholder="Pick Up"
+        />
       </mat-form-field>
-      <!-- <mat-form-field class="mr-2">
-        <input formControlName="cs_id" matInput placeholder="Assigned CS">
-      </mat-form-field> -->
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-          <input placeholder="Assigned CS" formControlName="cs_id" (keyup)="getCS($event)" type="text"
-            aria-label="Number" matInput [matAutocomplete]="autoCS">
-          <mat-autocomplete [displayWith]="displayCS.bind(this)" autoActiveFirstOption #autoCS="matAutocomplete">
-            <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
-              {{ item.full_name }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
+        <input
+          placeholder="Assigned CS"
+          formControlName="cs_id"
+          (keyup)="getCS($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoCS"
+        />
+        <mat-autocomplete
+          [displayWith]="displayCS.bind(this)"
+          autoActiveFirstOption
+          #autoCS="matAutocomplete"
+        >
+          <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
+            {{ item.full_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <mat-select formControlName="is_retain" placeholder="Is Retained">
           <mat-option [value]="">
@@ -193,68 +296,177 @@
         <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
       </mat-form-field> -->
       <span class="format-line-height-button">
-        <button class="mr-2 mb-4" mat-raised-button color="accent" (click)="getList()">Search</button>
-        <button class="mr-2 mb-4" mat-raised-button (click)="reset()">Reset</button>
+        <button
+          class="mr-2 mb-4"
+          mat-raised-button
+          color="accent"
+          (click)="getList()"
+        >
+          Search
+        </button>
+        <button class="mr-2 mb-4" mat-raised-button (click)="reset()">
+          Reset
+        </button>
       </span>
     </form>
+    cus_total_price
 
-    <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
-      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
-      [selectionType]="'checkbox'" [count]="total" [selected]="selected" [externalPaging]="true" [offset]="current_page"
-      [limit]="15" (sort)="onSort($event)" (select)="onSelect($event)" [externalSorting]="true" [scrollbarH]="true">
-
-      <ngx-datatable-column [frozenLeft]="true" [width]="80" [canAutoResize]="false" [sortable]="false">
-        <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
-          let-selectFn="selectFn">
-          <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
+    <ngx-datatable
+      (page)="pageCallback($event)"
+      class="material"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'"
+      [headerHeight]="48"
+      [footerHeight]="56"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [selectionType]="'checkbox'"
+      [count]="total"
+      [selected]="selected"
+      [externalPaging]="true"
+      [offset]="current_page"
+      [limit]="15"
+      (sort)="onSort($event)"
+      (select)="onSelect($event)"
+      [externalSorting]="true"
+      [scrollbarH]="true"
+    >
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="80"
+        [canAutoResize]="false"
+        [sortable]="false"
+      >
+        <ng-template
+          ngx-datatable-header-template
+          let-value="value"
+          let-allRowsSelected="allRowsSelected"
+          let-selectFn="selectFn"
+        >
+          <mat-checkbox
+            [checked]="allRowsSelected"
+            (change)="selectFn(!allRowsSelected)"
+          ></mat-checkbox>
         </ng-template>
 
-        <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let- let-isSelected="isSelected"
-          let-onCheckboxChangeFn="onCheckboxChangeFn">
-          <mat-checkbox [checked]="isSelected" (click)="onCheck(isSelected, row)" (change)="onCheckboxChangeFn($event)">
+        <ng-template
+          ngx-datatable-cell-template
+          let-value="value"
+          let-row="row"
+          let-
+          let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn"
+        >
+          <mat-checkbox
+            [checked]="isSelected"
+            (click)="onCheck(isSelected, row)"
+            (change)="onCheckboxChangeFn($event)"
+          >
           </mat-checkbox>
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column [frozenLeft]="true" [width]="130" name="Code" prop="awb_code"></ngx-datatable-column>
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="130"
+        name="Code"
+        prop="awb_code"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [frozenLeft]="true" [width]="130" name="Out AWB #" prop="out_awb_num"></ngx-datatable-column>
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="130"
+        name="Out AWB #"
+        prop="out_awb_num"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="130" name="Account #" prop="account_number"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="130"
+        name="Account #"
+        prop="account_number"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column name="Is Retain" prop="is_retain"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Is Retain"
+        prop="is_retain"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column name="Is Exact" prop="is_exact"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Is Exact"
+        prop="is_exact"
+      ></ngx-datatable-column>
 
       <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
 
       <ngx-datatable-column name="Sales" prop="userName"></ngx-datatable-column>
 
-      <ngx-datatable-column name="From Contact Name" prop="from_contact_name"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="From Contact Name"
+        prop="from_contact_name"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column name="Ship Date" prop="ship_date"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Ship Date"
+        prop="ship_date"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="To Address" prop="to_address"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        name="To Address"
+        prop="to_address"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Service" prop="service_name"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        name="Service"
+        prop="service_name"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Net Weight" prop="ttl_weight"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        name="Net Weight"
+        prop="ttl_weight"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Dim Weight" prop="ttl_volume"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        name="Dim Weight"
+        prop="ttl_volume"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Charge Weight (Kg)" prop="weight"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        name="Charge Weight (Kg)"
+        prop="weight"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Freight ($)" prop="freight"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        name="Freight ($)"
+        prop="freight"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column class="" [width]="200" name="Sales Prices ($)" prop="sales_price"></ngx-datatable-column>
+      <ngx-datatable-column
+        class=""
+        [width]="200"
+        name="Sales Prices ($)"
+        prop="sales_price"
+      ></ngx-datatable-column>
 
       <!-- <ngx-datatable-column [width]="200" name="Pre Alert" prop="pre_alert"></ngx-datatable-column> -->
 
-      <ngx-datatable-column [width]="200" name="Pick Up" prop="pick_up_address"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        name="Pick Up"
+        prop="pick_up_address"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" name="Assigned CS" prop="cs_id"></ngx-datatable-column>
-
-
+      <ngx-datatable-column
+        [width]="200"
+        name="Assigned CS"
+        prop="cs_id"
+      ></ngx-datatable-column>
 
       <!-- <ngx-datatable-column [width]="120" name="From Phone" prop="from_phone"></ngx-datatable-column>
 
@@ -282,8 +494,8 @@
             <ngx-datatable-column name="Description" prop="description  "></ngx-datatable-column> -->
     </ngx-datatable>
     <div class="export margin-top-10">
-        <label class="label-export">Export to:</label>
-        <a (click)="exportCsv()" class="csv"></a>
-      </div>
+      <label class="label-export">Export to:</label>
+      <a (click)="exportCsv()" class="csv"></a>
+    </div>
   </div>
 </div>

@@ -1,103 +1,402 @@
 <ng2-toasty></ng2-toasty>
 
-<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
-    <!-- HEADER -->
-    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
-        fxLayoutAlign.gt-xs="space-between center">
-        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
-            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="secondary-text s-16">home</mat-icon>
-                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Order List</span>
-            </div>
-            <div class="h2 mt-16">Order List</div>
-        </div>
-
-        <div class="reference-button mat-white-bg">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="create()">
-                    <mat-icon>add_circle_outline</mat-icon>
-                    <span>Create</span>
-                </button>
-                <button mat-menu-item (click)="update()">
-                    <mat-icon>system_update_alt</mat-icon>
-                    <span>Update</span>
-                </button>
-                <button mat-menu-item (click)="delete()">
-                    <mat-icon>delete_forever</mat-icon>
-                    <span>Delete</span>
-                </button>
-            </mat-menu>
-        </div>
-    </div>
-    <!-- / HEADER -->
-
-    <!-- CONTENT -->
-    <div class="p-24">
-        <form id="form-control" class="row" [formGroup]="searchForm" (submit)="getList(1, searchForm.value)" autocomplete="off">
-          <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <input formControlName="account_number" matInput placeholder="Code">
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <mat-select formControlName="odr_status" placeholder="Status">
-                    <mat-option style="top:0 !important" [value]="">
-                        Please select option
-                  </mat-option>
-                    <mat-option style="top:0 !important" *ngFor="let item of status" [value]="item.value">
-                          {{ item.value }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <input formControlName="awb_num" matInput placeholder="Code">
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <input formControlName="cus_name" matInput placeholder="Code">
-            </mat-form-field>
-            <span class="format-line-height-button">
-                <button mat-raised-button color="accent" type="submit">Search</button>
-                <button mat-raised-button>Reset</button>
-            </span>
-        </form>
-
-        <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
-            [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
-            [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
-            [selected]="selected" [scrollbarH]="true" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"
-            [limit]="15">
-
-            <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
-                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
-                    let-selectFn="selectFn">
-                    <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
-                </ng-template>
-
-                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
-                    let-onCheckboxChangeFn="onCheckboxChangeFn">
-                    <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
-                </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Order Name" prop="order_id_link"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Customer Name" prop="cus_name"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Account Number" prop="account_number"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="To Country ID" prop="to_country_id"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="AWB Number" prop="awb_num"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Outbound AWB Number" prop="out_awb_num"></ngx-datatable-column>
-
-
-            <ngx-datatable-column [width]="200" name="Status" prop="odr_status"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Customer Total Price" prop="cus_total_price"></ngx-datatable-column>
-        </ngx-datatable>
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Order List</span>
+      </div>
+      <div class="h2 mt-16">Order List</div>
     </div>
 
+    <div class="reference-button d-flex">
+      <!-- <button class="mr-4" mat-raised-button color="orange-800-bg orange-800" (click)="filter()">
+            <mat-icon>filter_list</mat-icon>
+            <span>Filter</span>
+          </button> -->
+      <div class="mat-white-bg">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="updateStatus()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>Update Order Status</span>
+          </button>
+          <button mat-menu-item (click)="updateFee()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>Update Order Vielight Fee</span>
+          </button>
+          <button mat-menu-item (click)="updateTrackingInfo()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>Update Tracking Info</span>
+          </button>
+          <button mat-menu-item (click)="updateAgent()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>Update Agent Data</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+    <form
+      id="form-control"
+      class="row"
+      [formGroup]="searchForm"
+      (submit)="getList()"
+      autocomplete="off"
+    >
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="order_id_link" matInput placeholder="Order #" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="cus_name"
+          matInput
+          placeholder="Customer Name"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="account_number"
+          matInput
+          placeholder="Account #"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <mat-select formControlName="odr_status" placeholder="Status">
+          <mat-option style="top:0 !important" [value]="">
+            Please select option
+          </mat-option>
+          <mat-option
+            style="top:0 !important"
+            *ngFor="let item of status"
+            [value]="item.value"
+          >
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="awb_num" matInput placeholder="AWB #" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="out_awb_num" matInput placeholder="Out AWB #" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="cus_total_price"
+          matInput
+          placeholder="Customer Total Price"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          autocomplete="off"
+          placeholder="To Country"
+          formControlName="to_country_id"
+          (keyup)="getCountry($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoCountry"
+        />
+        <mat-autocomplete
+          [displayWith]="displayCountry.bind(this)"
+          autoActiveFirstOption
+          #autoCountry="matAutocomplete"
+        >
+          <mat-option *ngFor="let item of country" [value]="item.country_id">
+            {{ item.country_name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="searchForm.controls.to_country_id.hasError('hasnotCountry')"
+        >
+          This country does not exist
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="picker" matInput placeholder="Pick Up" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="user_id" matInput placeholder="User" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          placeholder="Assigned CS"
+          formControlName="cs_id"
+          (keyup)="getCS($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoCS"
+        />
+        <mat-autocomplete
+          [displayWith]="displayCS.bind(this)"
+          autoActiveFirstOption
+          #autoCS="matAutocomplete"
+        >
+          <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
+            {{ item.full_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="sales_note_for_cs"
+          matInput
+          placeholder="Sales Note For CS"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          placeholder="Service"
+          formControlName="service_id"
+          (keyup)="getService($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoService"
+        />
+        <mat-autocomplete
+          [displayWith]="displayService.bind(this)"
+          autoActiveFirstOption
+          #autoService="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let option of serviceName"
+            [value]="option.service_id"
+          >
+            {{ option.service_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="item_id" matInput placeholder="Item" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="zone_id" matInput placeholder="Zone" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="cus_total_price"
+          matInput
+          placeholder="Customer Total Price"
+        />
+      </mat-form-field>
+      <span class="format-line-height-button">
+        <button mat-raised-button color="accent" type="submit">Search</button>
+        <button mat-raised-button (click)="reset()">Reset</button>
+      </span>
+    </form>
+
+    <ngx-datatable
+      (page)="pageCallback($event)"
+      class="material"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'"
+      [headerHeight]="48"
+      [footerHeight]="56"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [selectionType]="'checkbox'"
+      [count]="total"
+      [selected]="selected"
+      [scrollbarH]="true"
+      (select)="onSelect($event)"
+      [externalPaging]="true"
+      [offset]="current_page"
+      [limit]="15"
+    >
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="48"
+        [canAutoResize]="false"
+        [sortable]="false"
+      >
+        <ng-template
+          ngx-datatable-header-template
+          let-value="value"
+          let-allRowsSelected="allRowsSelected"
+          let-selectFn="selectFn"
+        >
+          <mat-checkbox
+            [checked]="allRowsSelected"
+            (change)="selectFn(!allRowsSelected)"
+          ></mat-checkbox>
+        </ng-template>
+
+        <ng-template
+          ngx-datatable-cell-template
+          let-value="value"
+          let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn"
+        >
+          <mat-checkbox
+            [checked]="isSelected"
+            (change)="onCheckboxChangeFn($event)"
+          ></mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="200"
+        name="Order #"
+        prop="order_id_link"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="150"
+        name="Status"
+        prop="odr_status"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="120"
+        name="AWB #"
+        prop="awb_num"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Track Status Code"
+        prop="track_status_code"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Track Status Name"
+        prop="track_status_name"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Track Description"
+        prop="track_description"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Is Retain"
+        prop="is_retain"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Is Exact"
+        prop="is_exact"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="To Country"
+        prop="to_country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Out AWB #"
+        prop="out_awb_num"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Customer Total Price"
+        prop="cus_total_price"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column name="Pick Up" prop="picker"></ngx-datatable-column>
+
+      <ngx-datatable-column name="User Name" prop="user"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Assigned CS" prop="cs"></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Sales Note For CS"
+        prop="sales_note_for_cs"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Service"
+        prop="service"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column name="Item" prop="item"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Zone" prop="zone"></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Customer Name"
+        prop="cus_name"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Account #"
+        prop="account_number"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Receive Date"
+        prop="account_number"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Ship Date"
+        prop="account_number"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Changed Weight Time"
+        prop="account_number"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Weight In"
+        prop="weight_in"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Weight Out"
+        prop="weight_out"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Volume In"
+        prop="volume_in"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Volume Out"
+        prop="volume_out"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Weight Discrepancy"
+        prop="weight_discrepancy"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Volume Discrepancy"
+        prop="volume_discrepancy"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Pack Quantity"
+        prop="pack_quantity"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Created At"
+        prop="account_number"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Updated At"
+        prop="account_number"
+      ></ngx-datatable-column>
+    </ngx-datatable>
+  </div>
 </div>
