@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { FuseFilterOrderComponent } from '@fuse/components/filter-order/filter-order.component';
 import { MatDialog } from '@angular/material';
+import { FuseUpdateStatusOrderComponent } from '@fuse/components/update-status-order/update-status-order.component';
+import { FuseUpdateFeeOrderComponent } from '@fuse/components/update-fee-order/update-fee-order.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -143,9 +145,33 @@ export class OrderListComponent implements OnInit {
   }
 
   updateStatus() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.dialogRef = this.dialog.open(FuseUpdateStatusOrderComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.selected
+        }
+      })
+    }
   }
 
   updateFee() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.dialogRef = this.dialog.open(FuseUpdateFeeOrderComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.selected
+        }
+      })
+    }
   }
 
   updateTrackingInfo() {
@@ -216,6 +242,6 @@ export class OrderListComponent implements OnInit {
       data      : {
           data: this.selected
       }
-  })
-}
+    })
+  }
 }

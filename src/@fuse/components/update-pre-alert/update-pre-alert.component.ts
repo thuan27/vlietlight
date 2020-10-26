@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { UpadtePreAlertService } from './update-pre-alert.service';
+import { UpdatePreAlertService } from './update-pre-alert.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -11,7 +11,7 @@ import { FuseAddRoleComponent } from '../add-role/add-role.component';
   selector: 'fuse-update-pre-alert-dialog',
   templateUrl: './update-pre-alert.component.html',
   styleUrls: ['./update-pre-alert.component.scss'],
-  providers: [UpadtePreAlertService]
+  providers: [UpdatePreAlertService]
 })
 export class FuseUpdatePreAlertComponent {
   form: FormGroup;
@@ -29,7 +29,7 @@ export class FuseUpdatePreAlertComponent {
     public dialog: MatDialog,
     private toastyService: ToastyService,
     public dialogRef: MatDialogRef<FuseAddRoleComponent>,
-    private upadtePreAlertService: UpadtePreAlertService,
+    private updatePreAlertService: UpdatePreAlertService,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -70,7 +70,7 @@ export class FuseUpdatePreAlertComponent {
     if (this.selected.length === 1) {
       this.form.controls['id'].setValue(this.selected[0].user_id);
       this.validateID = false;
-      this.upadtePreAlertService
+      this.updatePreAlertService
       .updatePreAlert(this.data['data'][0]['wv_hdr_id'], this.form.value)
       .subscribe(
         res => {
@@ -93,7 +93,7 @@ export class FuseUpdatePreAlertComponent {
       this.formSearch.controls['last_name'].value +
       '&email=' +
       this.formSearch.controls['email'].value;
-      this.upadtePreAlertService.getsugesstion(params).subscribe(res => {
+      this.updatePreAlertService.getsugesstion(params).subscribe(res => {
       this.listSuggest = res['data'];
     });
   }

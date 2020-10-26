@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class UpdatePreAlertService
+export class UpdateStatusOrderService
 {
     constructor(
         private http: HttpClient,
@@ -13,12 +12,12 @@ export class UpdatePreAlertService
     {
     }
 
-    updatePreAlert(id, value) {
+    updateStatusOrder(id, value) {
         return this.http.put(this.apiConfig.WAVE_PICK_DETAIL + '/' + id + '/assign-prealert', value);
     }
 
-    getsugesstion(control) {
-      return this.http.get(this.apiConfig.WAVE_PICK_DETAIL + '/suggest-prealert' + control);
+    getStatus() {
+      return this.http.get(this.apiConfig.GET_STATUS);
     }
 
 }

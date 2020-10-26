@@ -25,6 +25,8 @@ import { FuseAddRoleModule } from '@fuse/components/add-role/add-role.module';
 import { FuseDetailAssignmentModule } from '@fuse/components/detail-assignment/detail-assignment.module';
 import { FuseUpdateWavePickModule } from '@fuse/components/update-wave-pick/update-wave-pick.module';
 import { FuseFilterOrderModule } from '@fuse/components/filter-order/filter-order.module';
+import { FuseUpdateStatusOrderModule } from '@fuse/components/update-status-order/update-status-order.module';
+import { FuseUpdateFeeOrderModule } from '@fuse/components/update-fee-order/update-fee-order.module';
 
 @NgModule({
     declarations: [
@@ -58,6 +60,8 @@ import { FuseFilterOrderModule } from '@fuse/components/filter-order/filter-orde
         FuseDetailPickUpModule,
         FuseDetailAssignmentModule,
         FuseFilterOrderModule,
+        FuseUpdateStatusOrderModule,
+        FuseUpdateFeeOrderModule,
         ToastyModule.forRoot()
     ],
     exports     : [
