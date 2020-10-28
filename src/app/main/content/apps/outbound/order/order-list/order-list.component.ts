@@ -7,7 +7,9 @@ import { DatePipe } from '@angular/common';
 import { FuseFilterOrderComponent } from '@fuse/components/filter-order/filter-order.component';
 import { MatDialog } from '@angular/material';
 import { FuseUpdateStatusOrderComponent } from '@fuse/components/update-status-order/update-status-order.component';
+import { FuseUpdateTrackingOrderComponent } from '@fuse/components/update-tracking-order/update-tracking-order.component';
 import { FuseUpdateFeeOrderComponent } from '@fuse/components/update-fee-order/update-fee-order.component';
+import * as FileSaver from 'file-saver';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -100,6 +102,26 @@ export class OrderListComponent implements OnInit {
     });
   }
 
+  exportCsv() {
+    let fileName = 'Order-List';
+    let fileType = '.csv';
+    let params = '?limit=15';
+    if (this.sortData !== '') {
+      params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+    }
+    let getReport = this.orderListService.getReport(params);
+    getReport.subscribe((data) => {
+      var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      FileSaver.saveAs.saveAs(blob, fileName + fileType);
+    })
+  }
+
   onSort(event){
     this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
     this.getList(this.current_page);
@@ -175,6 +197,18 @@ export class OrderListComponent implements OnInit {
   }
 
   updateTrackingInfo() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.dialogRef = this.dialog.open(FuseUpdateTrackingOrderComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.selected
+        }
+      })
+    }
   }
 
   updateAgent() {

@@ -20,6 +20,10 @@ export class OrderListService
         return this.http.get(this.apiConfig.ORDER_LIST + params);
     }
 
+    getReport(params) {
+      return this.http.get(this.apiConfig.ORDER_LIST + params + '&export=1', { responseType: 'blob' });
+  }
+
     deleteCountry(id) {
         return this.http.delete(this.apiConfig.ORDER_LIST + '/delete/' + id);
     }
