@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
       if (token != null) {
         if(this.auth.isAuthenticated()) {
           requestOption.setHeaders = {
-            Authorization: `Bearer ${this.auth.getToken()}`
+            Authorization: `Bearer ${token}`
           }
         } else {
           this.dialogRef = this.dialog.open(FuseLoginFormDialogComponent, {

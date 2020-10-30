@@ -1,0 +1,27 @@
+<ng2-toasty></ng2-toasty>
+<div class="title">Update Assign CS</div>
+
+<div class="page-layout simple fullwidth" style="width: 600px">
+  <form name="form" [formGroup]="form" novalidate>
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="CS" formControlName="cs_id" autocomplete="off">
+      <mat-error class="text-error" *ngIf="form.controls.cs_id.hasError('required')">
+        CS ID is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-3" style="width: 100%">
+      <input matInput placeholder="Sales Note For CS" formControlName="sales_note_for_cs" autocomplete="off">
+      <mat-error class="text-error" *ngIf="form.controls.sales_note_for_cs.hasError('required')">
+        Sales Note For CS is required
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div>
+    <button mat-raised-button color="accent" class="submit-button" (click)="onSubmit()"
+      [disabled]="form.invalid">
+      Update
+    </button>
+  </div>
+</div>

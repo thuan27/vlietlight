@@ -26,8 +26,9 @@ import { FuseDetailAssignmentModule } from '@fuse/components/detail-assignment/d
 import { FuseUpdateWavePickModule } from '@fuse/components/update-wave-pick/update-wave-pick.module';
 import { FuseFilterOrderModule } from '@fuse/components/filter-order/filter-order.module';
 import { FuseUpdateStatusOrderModule } from '@fuse/components/update-status-order/update-status-order.module';
-import { FuseUpdateTrackingOrderComponent } from '@fuse/components/update-tracking-order/update-tracking-order.component';
 import { FuseUpdateFeeOrderModule } from '@fuse/components/update-fee-order/update-fee-order.module';
+import { FuseUpdateTrackingOrderModule } from '@fuse/components/update-tracking-order/update-tracking-order.module';
+import { FuseUpdateAssignCSModule } from '@fuse/components/update-assign-cs/update-assign-cs.module';
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import { FuseUpdateFeeOrderModule } from '@fuse/components/update-fee-order/upda
         FuseFilterOrderModule,
         FuseUpdateStatusOrderModule,
         FuseUpdateFeeOrderModule,
-        FuseUpdateTrackingOrderComponent,
+        FuseUpdateTrackingOrderModule,
+        FuseUpdateAssignCSModule,
         ToastyModule.forRoot()
     ],
     exports     : [

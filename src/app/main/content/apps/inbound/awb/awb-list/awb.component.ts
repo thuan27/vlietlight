@@ -12,6 +12,7 @@ import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.
 import { locale as english } from '../../../../i18n/en';
 import { locale as vietnam } from '../../../../i18n/vn';
 import * as FileSaver from 'file-saver';
+import { FuseUpdateAssignCSComponent } from '@fuse/components/update-assign-cs/update-assign-cs.component';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -41,6 +42,7 @@ export class AWBComponent implements OnInit {
     pendingAWB = false;
     completeAWB = false;
     removeAWB = false;
+    assignCS = false;
     private hasViewUserPermission = false;
     status;
     serviceName;
@@ -48,6 +50,7 @@ export class AWBComponent implements OnInit {
     sales;
     dataCS;
     dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+    dialogRefUpdate;
     retain = [
       { value: 0, name: 'No' },
       { value: 1, name: 'Yes' }
@@ -55,6 +58,12 @@ export class AWBComponent implements OnInit {
     exact = [
       { value: 0, name: 'No' },
       { value: 1, name: 'Yes' }
+    ];
+    trackCode = [
+      { value: 0 },
+      { value: 1 },
+      { value: 2 },
+      { value: 3 }
     ];
 
 
@@ -100,6 +109,7 @@ export class AWBComponent implements OnInit {
         this.pendingAWB = this._user.RequestPermission(data, 'pendingAWB');
         this.completeAWB = this._user.RequestPermission(data, 'completeAWB');
         this.removeAWB = this._user.RequestPermission(data, 'removeAWB');
+        this.assignCS = this._user.RequestPermission(data, 'assignCS');
 
         /* Check orther permission if View allow */
         if (!this.hasViewUserPermission) {
@@ -125,8 +135,12 @@ export class AWBComponent implements OnInit {
             awb_sts: '',
             from_date: '',
             to_date: '',
+            from_company_name: '',
             to_company_name: '',
             to_contact_name: '',
+            track_status_code: '',
+            track_description: '',
+            sales_note_for_cs: '',
             to_country_id: ['',[this.validateCountry]],
             pre_alert: '',
             pick_up_address: '',
@@ -397,6 +411,29 @@ export class AWBComponent implements OnInit {
               }
               this.dialogRef = null;
           });
+      }
+    }
+
+    updateCS() {
+      if (this.selected.length < 1) {
+        this.toastyService.error('Please select at least one item.');
+      } else if (this.selected.length > 1) {
+        this.toastyService.error('Please select one item.');
+      } else {
+        this.dialogRefUpdate = this.dialog.open(FuseUpdateAssignCSComponent, {
+          panelClass: 'contact-form-dialog',
+          data      : {
+              data: this.selected
+          }
+        });
+        this.dialogRefUpdate.afterClosed().subscribe(result => {
+          if ( result )
+          {
+            this.getList();
+          } else {
+          }
+          this.dialogRefUpdate = null;
+      });
       }
     }
 
