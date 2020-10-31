@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatDialogModule, MatInputModule, MatCheckboxModule, MatDatepickerModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatSelectModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseUpdateAssignCSComponent } from './update-assign-cs.component';
@@ -14,11 +14,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatDialogModule,
     MatInputModule,
     FuseSharedModule,
-    NgxDatatableModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatMomentDateModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   entryComponents: [
     FuseUpdateAssignCSComponent

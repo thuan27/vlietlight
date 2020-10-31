@@ -49,6 +49,23 @@ export class CreateUserAdminComponent implements OnInit {
   dialogRef;
   allRoles= [];
   dataRole;
+  areaList = [
+    {
+      value: 0, name: ''
+    },
+    {
+      value: 1, name: 'Bình Dương'
+    },
+    {
+      value: 2, name: 'Đồng Nai'
+    },
+    {
+      value: 3, name: 'Sài Gòn'
+    },
+    {
+      value: 4, name: 'Bình Định'
+    }
+  ]
 
   constructor(
     public dialog: MatDialog,
@@ -89,7 +106,7 @@ export class CreateUserAdminComponent implements OnInit {
       mobile: [null],
       off_loc: [''],
       usr_dpm_id: ['', [Validators.required]],
-      area: [''],
+      area: [0],
       setup_password_url: ['http://vietlight.vietlight.info/#/setup-password'],
       user_roles: [''],
       dept: [''],

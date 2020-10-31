@@ -1,13 +1,14 @@
 <ng2-toasty></ng2-toasty>
-<div class="title">Update Assign CS</div>
+<div class="title">Assign/Update CS</div>
 
-<div class="page-layout simple fullwidth" style="width: 600px">
+<div class="page-layout simple fullwidth" style="max-width: 400px">
   <form name="form" [formGroup]="form" novalidate>
-    <mat-form-field style="width: 100%">
-      <input matInput placeholder="CS" formControlName="cs_id" autocomplete="off">
-      <mat-error class="text-error" *ngIf="form.controls.cs_id.hasError('required')">
-        CS ID is required
-      </mat-error>
+    <mat-form-field class="mt-3" style="width: 100%">
+      <mat-select formControlName="cs_id" placeholder="CS">
+        <mat-option *ngFor="let item of assignCS" [value]="item.user_id">
+          {{ item.full_name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="mt-3" style="width: 100%">

@@ -96,10 +96,11 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field class="col-sm-12 col-md-4">
-              <input [readonly]="disabledForm" formControlName="area" matInput placeholder="Area">
-              <mat-error *ngIf="UserAdminForm.controls.area.hasError('required')">
-                Area is required
-              </mat-error>
+              <mat-select [attr.disabled]="disabledForm" formControlName="area" placeholder="Area">
+                <mat-option *ngFor="let item of areaList" [value]="item.value">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="disabledForm" formControlName="dept" matInput placeholder="Dept">

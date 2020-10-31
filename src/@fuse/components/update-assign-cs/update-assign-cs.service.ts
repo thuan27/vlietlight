@@ -17,4 +17,8 @@ export class UpdateAssignCSService
         return this.http.put(this.apiConfig.OPTION_AWB + '/' + id + '/assign-cs', value);
     }
 
+    getSuggestCS() {
+      return this.http.get(this.apiConfig.GET_CS);
+    }
+
 }

@@ -15,6 +15,7 @@ import { FuseAddRoleComponent } from '../add-role/add-role.component';
 })
 export class FuseUpdateAssignCSComponent {
   form: FormGroup;
+  assignCS;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,6 +28,7 @@ export class FuseUpdateAssignCSComponent {
 
   ngOnInit() {
     this.buildFrom();
+    this.getSuggestCS();
   }
 
   private buildFrom() {
@@ -49,5 +51,11 @@ export class FuseUpdateAssignCSComponent {
         },
       );
     }
+  }
+
+  getSuggestCS() {
+    this.updateAssignCSService.getSuggestCS().subscribe((response) => {
+      this.assignCS = response['data'];
+    })
   }
 }
