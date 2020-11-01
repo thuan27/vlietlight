@@ -12,12 +12,12 @@ export class UpdateStatusOrderService
     {
     }
 
-    updateStatusOrder(id, value) {
-        return this.http.put(this.apiConfig.WAVE_PICK_DETAIL + '/' + id + '/assign-prealert', value);
+    updateStatusOrder(id, param) {
+        return this.http.put(this.apiConfig.ORDER_LIST + '/' + id + '/update-status', param);
     }
 
     getStatus() {
-      return this.http.get(this.apiConfig.GET_STATUS);
+      return this.http.get(this.apiConfig.GET_ORDER_STATUS);
     }
 
 }

@@ -19,6 +19,7 @@ export class CreateOrderComponent implements OnInit {
 
   idOrder;
   orderDetail;
+  numberShow = 20;
   private routeSub: Subscription;
   disabledForm;
   title;
@@ -29,6 +30,8 @@ export class CreateOrderComponent implements OnInit {
   OrderForm: FormGroup;
   ChildAWBFrom: FormGroup;
   country;
+  limitEvent = 20;
+  eventTracking;
   itemType = [
     {
       value: 0,
@@ -43,6 +46,24 @@ export class CreateOrderComponent implements OnInit {
       name: 'ENVELOP'
     }
   ];
+  showList = [
+    {
+      value: 20,
+      name: 20,
+    },
+    {
+      value: 30,
+      name: 30,
+    },
+    {
+      value: 40,
+      name: 40,
+    },
+    {
+      value: 50,
+      name: 50,
+    },
+  ]
 
   constructor(
     private _createOrderService: CreateOrderService,
@@ -378,7 +399,20 @@ export class CreateOrderComponent implements OnInit {
     this._createOrderService.getDetail(id).subscribe((data) => {
       this.orderDetail = data['data'];
       this.detailForm(data['data']);
+      this.getEventTracking();
     });
+  }
+
+  getEventTracking() {
+    let param = '?owner=' + this.orderDetail['odr_name'] + '&limit=' + this.limitEvent;
+    this._createOrderService.getEventTracking(param).subscribe((response) => {
+      this.eventTracking = response['data'];
+    })
+  }
+
+  changeList(event) {
+    this.limitEvent = event.value;
+    this.getEventTracking();
   }
 
   onSubmit() { }

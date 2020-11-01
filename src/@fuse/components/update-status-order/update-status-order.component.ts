@@ -44,12 +44,16 @@ export class FuseUpdateStatusOrderComponent {
   }
 
   save() {
-      // this.updateStatusOrderService
-      // .updateStatusOrder(this.data['data'][0]['wv_hdr_id'], this.form.value)
-      // .subscribe(
-      //   res => {
-      //     this.dialogRef.close()
-      //   },
-      // );
+    if (this.form.valid) {
+      this.updateStatusOrderService
+      .updateStatusOrder(this.data['data'][0]['order_id'], this.form.value)
+      .subscribe(
+        res => {
+          this.dialogRef.close({message: res['message'], status: 'success'})
+        }, err => {
+          this.dialogRef.close({message: err['message'], status: 'err'})
+        },
+      );
     }
+  }
 }

@@ -28,5 +28,9 @@ export class CreateOrderService
 
     getCountry() {
       return this.http.get(this.apiConfig.GET_COUNTRY);
-  }
+    }
+
+    getEventTracking(params) {
+      return this.http.get(this.apiConfig.ORDER_EVENT_TRACKING + params);
+    }
 }

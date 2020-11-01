@@ -523,13 +523,58 @@
                       </div>
                   </mat-tab>
                   <mat-tab label="Event Tracking">
-                      <div class="demo-tab-content">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                          Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-                          In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-                          feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-                          orci enim rutrum enim, vel tempor sapien arcu a tellus.
+                    <div class="demo-tab-content">
+                      <div fxLayout="row">
+                        <span style="margin-top: auto; margin-bottom: auto; margin-right: 20px">Show :</span>
+                        <mat-form-field class="mr-3" style="width: 100px;">
+                          <mat-select [(ngModel)]="numberShow" [ngModelOptions]="{standalone: true}" (change)=changeList($event)>
+                            <mat-option *ngFor="let item of showList" [value]="item.value">
+                              {{ item.name }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
                       </div>
+                      <div fxLayout="row">
+                        <table class="table table-striped table-bordered mat-cyan-50-bg">
+                          <thead>
+                            <tr>
+                              <th>Owner</th>
+                              <th>Transaction (*)</th>
+                              <th>Milestone</th>
+                              <th>Event</th>
+                              <th>Info</th>
+                              <th>Date Time</th>
+                              <th>User</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of eventTracking">
+                              <td class="border-table">
+                                {{ item.owner }}
+                              </td>
+                              <td class="border-table">
+                                {{ item.trans_num }}
+                              </td>
+                              <td class="border-table">
+                                {{ item.description }}
+                              </td>
+                              <td class="border-table">
+                                {{ item.evt_code }}
+                              </td>
+                              <td class="border-table">
+                                {{ item.info }}
+                              </td>
+                              <td class="border-table">
+                                {{ item.created_at }}
+                              </td>
+                              <td class="border-table">
+                                {{ item.user }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </mat-tab>
                   <mat-tab label="Documents">
                       <div class="demo-tab-content">

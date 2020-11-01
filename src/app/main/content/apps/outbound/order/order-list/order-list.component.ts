@@ -33,6 +33,7 @@ export class OrderListComponent implements OnInit {
   country;
   dataCS;
   dialogRef;
+  dialogRefStatus;
   serviceName;
 
   constructor(
@@ -172,12 +173,19 @@ export class OrderListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.dialogRef = this.dialog.open(FuseUpdateStatusOrderComponent, {
+      this.dialogRefStatus = this.dialog.open(FuseUpdateStatusOrderComponent, {
         panelClass: 'contact-form-dialog',
         data      : {
             data: this.selected
         }
-      })
+      }).afterClosed().subscribe((response) => {
+        if (response.status == 'success') {
+          this.toastyService.success(response.message);
+          this.getList();
+        } else {
+          this.toastyService.error(response.message);
+        }
+      });
     }
   }
 
@@ -191,6 +199,13 @@ export class OrderListComponent implements OnInit {
         panelClass: 'contact-form-dialog',
         data      : {
             data: this.selected
+        }
+      }).afterClosed().subscribe((response) => {
+        if (response.status == 'success') {
+          this.toastyService.success(response.message);
+          this.getList();
+        } else {
+          this.toastyService.error(response.message);
         }
       })
     }
@@ -206,6 +221,13 @@ export class OrderListComponent implements OnInit {
         panelClass: 'contact-form-dialog',
         data      : {
             data: this.selected
+        }
+      }).afterClosed().subscribe((response) => {
+        if (response.status == 'success') {
+          this.toastyService.success(response.message);
+          this.getList();
+        } else {
+          this.toastyService.error(response.message);
         }
       })
     }

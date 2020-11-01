@@ -27,11 +27,8 @@ export class FuseAddRoleComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<FuseAddRoleComponent>,
-    private toastyService: ToastyService,
-    private addRoleService: AddRoleService
   ) {}
 
   ngOnInit() {
