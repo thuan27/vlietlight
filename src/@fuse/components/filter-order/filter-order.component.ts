@@ -29,6 +29,7 @@ export class FuseFilterOrderComponent {
 
   ngOnInit() {
     this.buildForm();
+    this.getStatus();
   }
 
   private buildForm() {
