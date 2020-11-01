@@ -28,10 +28,10 @@
     </div>
 
     <div class="reference-button d-flex">
-      <!-- <button class="mr-4" mat-raised-button color="orange-800-bg orange-800" (click)="filter()">
+      <button class="mr-4" mat-raised-button color="orange-800-bg" (click)="filter()">
             <mat-icon>filter_list</mat-icon>
             <span>Filter</span>
-          </button> -->
+          </button>
       <div class="mat-white-bg">
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
@@ -61,7 +61,7 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-    <form
+    <!-- <form
       id="form-control"
       class="row"
       [formGroup]="searchForm"
@@ -204,7 +204,7 @@
         <button mat-raised-button color="accent" type="submit">Search</button>
         <button mat-raised-button (click)="reset()">Reset</button>
       </span>
-    </form>
+    </form> -->
 
     <ngx-datatable
       (page)="pageCallback($event)"

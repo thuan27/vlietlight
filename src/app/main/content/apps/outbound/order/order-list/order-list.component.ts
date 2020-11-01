@@ -143,7 +143,7 @@ export class OrderListComponent implements OnInit {
       odr_status: '',
       awb_num: '',
       cus_name: '',
-      order_id_link: '',
+      order_id: '',
       out_awb_num: '',
       cus_total_price: '',
       to_country_id: ['',[this.validateCountry]],
@@ -296,8 +296,11 @@ export class OrderListComponent implements OnInit {
     this.dialogRef = this.dialog.open(FuseFilterOrderComponent, {
       panelClass: 'contact-form-dialog',
       data      : {
-          data: this.selected
+          data: this.searchForm
       }
+    }).afterClosed().subscribe((response) => {
+      this.searchForm = response;
+      this.getList()
     })
   }
 }

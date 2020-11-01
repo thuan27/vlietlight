@@ -1,154 +1,152 @@
-<div class="title">Filter Order</div>
+<div class="title">Filter Order List</div>
 
 <div class="page-layout simple fullwidth" style="max-width: 700px">
-    <form
-      id="form-control"
-      class="row"
-      [formGroup]="searchForm"
-      autocomplete="off"
-    >
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input formControlName="order_id_link" matInput placeholder="Order #" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          formControlName="cus_name"
-          matInput
-          placeholder="Customer Name"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          formControlName="account_number"
-          matInput
-          placeholder="Account #"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <mat-select formControlName="odr_status" placeholder="Status">
-          <mat-option style="top:0 !important" [value]="">
-            Please select option
-          </mat-option>
-          <mat-option
-            style="top:0 !important"
-            *ngFor="let item of status"
-            [value]="item.value"
-          >
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input formControlName="awb_num" matInput placeholder="AWB #" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input formControlName="out_awb_num" matInput placeholder="Out AWB #" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          formControlName="cus_total_price"
-          matInput
-          placeholder="Customer Total Price"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          autocomplete="off"
-          placeholder="To Country"
-          formControlName="to_country_id"
-          (keyup)="getCountry($event)"
-          type="text"
-          aria-label="Number"
-          matInput
-          [matAutocomplete]="autoCountry"
-        />
-        <mat-autocomplete
-          [displayWith]="displayCountry.bind(this)"
-          autoActiveFirstOption
-          #autoCountry="matAutocomplete"
+  <form
+    id="form-control"
+    class="row"
+    style="margin:0 !important"
+    [formGroup]="searchForm"
+    autocomplete="off"
+    (submit)="search()"
+  >
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="order_id" matInput placeholder="Order #" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="cus_name" matInput placeholder="Customer Name" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        formControlName="account_number"
+        matInput
+        placeholder="Account #"
+      />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <mat-select formControlName="odr_status" placeholder="Status">
+        <mat-option style="top:0 !important" [value]="">
+          Please select option
+        </mat-option>
+        <mat-option
+          style="top:0 !important"
+          *ngFor="let item of status"
+          [value]="item.value"
         >
-          <mat-option *ngFor="let item of country" [value]="item.country_id">
-            {{ item.country_name }}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error
-          *ngIf="searchForm.controls.to_country_id.hasError('hasnotCountry')"
+          {{ item.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="awb_num" matInput placeholder="AWB #" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="out_awb_num" matInput placeholder="Out AWB #" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        formControlName="cus_total_price"
+        matInput
+        placeholder="Customer Total Price"
+      />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        autocomplete="off"
+        placeholder="To Country"
+        formControlName="to_country_id"
+        (keyup)="getCountry($event)"
+        type="text"
+        aria-label="Number"
+        matInput
+        [matAutocomplete]="autoCountry"
+      />
+      <mat-autocomplete
+        [displayWith]="displayCountry.bind(this)"
+        autoActiveFirstOption
+        #autoCountry="matAutocomplete"
+      >
+        <mat-option *ngFor="let item of country" [value]="item.country_id">
+          {{ item.country_name }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error
+        *ngIf="searchForm.controls.to_country_id.hasError('hasnotCountry')"
+      >
+        This country does not exist
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="picker" matInput placeholder="Pick Up" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="user_id" matInput placeholder="User" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        placeholder="Assigned CS"
+        formControlName="cs_id"
+        (keyup)="getCS($event)"
+        type="text"
+        aria-label="Number"
+        matInput
+        [matAutocomplete]="autoCS"
+      />
+      <mat-autocomplete
+        [displayWith]="displayCS.bind(this)"
+        autoActiveFirstOption
+        #autoCS="matAutocomplete"
+      >
+        <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
+          {{ item.full_name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        formControlName="sales_note_for_cs"
+        matInput
+        placeholder="Sales Note For CS"
+      />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        placeholder="Service"
+        formControlName="service_id"
+        (keyup)="getService($event)"
+        type="text"
+        aria-label="Number"
+        matInput
+        [matAutocomplete]="autoService"
+      />
+      <mat-autocomplete
+        [displayWith]="displayService.bind(this)"
+        autoActiveFirstOption
+        #autoService="matAutocomplete"
+      >
+        <mat-option
+          *ngFor="let option of serviceName"
+          [value]="option.service_id"
         >
-          This country does not exist
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input formControlName="picker" matInput placeholder="Pick Up" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input formControlName="user_id" matInput placeholder="User" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          placeholder="Assigned CS"
-          formControlName="cs_id"
-          (keyup)="getCS($event)"
-          type="text"
-          aria-label="Number"
-          matInput
-          [matAutocomplete]="autoCS"
-        />
-        <mat-autocomplete
-          [displayWith]="displayCS.bind(this)"
-          autoActiveFirstOption
-          #autoCS="matAutocomplete"
-        >
-          <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
-            {{ item.full_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          formControlName="sales_note_for_cs"
-          matInput
-          placeholder="Sales Note For CS"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          placeholder="Service"
-          formControlName="service_id"
-          (keyup)="getService($event)"
-          type="text"
-          aria-label="Number"
-          matInput
-          [matAutocomplete]="autoService"
-        />
-        <mat-autocomplete
-          [displayWith]="displayService.bind(this)"
-          autoActiveFirstOption
-          #autoService="matAutocomplete"
-        >
-          <mat-option
-            *ngFor="let option of serviceName"
-            [value]="option.service_id"
-          >
-            {{ option.service_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input formControlName="item_id" matInput placeholder="Item" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input formControlName="zone_id" matInput placeholder="Zone" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-6 col-md-3">
-        <input
-          formControlName="cus_total_price"
-          matInput
-          placeholder="Customer Total Price"
-        />
-      </mat-form-field>
-      <span class="format-line-height-button">
-        <button mat-raised-button color="accent" type="submit">Search</button>
-        <button mat-raised-button (click)="reset()">Reset</button>
-      </span>
-    </form>
+          {{ option.service_name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="item_id" matInput placeholder="Item" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input formControlName="zone_id" matInput placeholder="Zone" />
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        formControlName="cus_total_price"
+        matInput
+        placeholder="Customer Total Price"
+      />
+    </mat-form-field>
+    <span class="format-line-height-button" style="margin: auto">
+      <button mat-raised-button color="accent" type="submit">Search</button>
+      <button class="ml-3" mat-raised-button (click)="reset()">Reset</button>
+    </span>
+  </form>
 </div>

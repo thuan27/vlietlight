@@ -33,21 +33,21 @@ export class FuseFilterOrderComponent {
 
   private buildForm() {
     this.searchForm = this.formBuilder.group({
-      account_number: '',
-      odr_status: '',
-      awb_num: '',
-      cus_name: '',
-      order_id_link: '',
-      out_awb_num: '',
-      cus_total_price: '',
-      to_country_id: ['',[this.validateCountry]],
-      picker: '',
-      user_id: '',
-      cs_id: '',
-      sales_note_for_cs: '',
-      service_id: '',
-      item_id: '',
-      zone_id: '',
+      account_number: this.data.data.value['account_number'],
+      odr_status: this.data.data.value['odr_status'],
+      awb_num: this.data.data.value['awb_num'],
+      cus_name: this.data.data.value['cus_name'],
+      order_id: this.data.data.value['order_id'],
+      out_awb_num: this.data.data.value['out_awb_num'],
+      cus_total_price: this.data.data.value['cus_total_price'],
+      to_country_id: [this.data.data.value['to_country_id'],[this.validateCountry]],
+      picker: this.data.data.value['picker'],
+      user_id: this.data.data.value['user_id'],
+      cs_id: this.data.data.value['cs_id'],
+      sales_note_for_cs: this.data.data.value['sales_note_for_cs'],
+      service_id: this.data.data.value['service_id'],
+      item_id: this.data.data.value['item_id'],
+      zone_id: this.data.data.value['zone_id'],
     });
   }
 
@@ -119,6 +119,12 @@ export class FuseFilterOrderComponent {
     this.filterOrderService.getStatus().subscribe((data) => {
       this.status = data['data'];
     });
+  }
+
+  search() {
+    if (this.searchForm.valid) {
+      this.dialogRef.close(this.searchForm)
+    }
   }
 
 }
