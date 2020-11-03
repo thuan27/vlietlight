@@ -49,13 +49,13 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
-            <input [readonly]="true" formControlName="pick_up_address" matInput placeholder="Customer Address">
-            <mat-error *ngIf="WavePickForm.controls.pick_up_address.hasError('required')">
+            <input [readonly]="true" formControlName="customer_address" matInput placeholder="Customer Address">
+            <mat-error *ngIf="WavePickForm.controls.customer_address.hasError('required')">
               Customer Address is required
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
-            <input [readonly]="true" matInput formControlName="pick_up_date" [matDatepicker]="pick_up_date"
+            <input [readonly]="true" matInput formControlName="received_at" [matDatepicker]="pick_up_date"
               placeholder="Received At">
             <mat-datepicker-toggle matSuffix [for]="pick_up_date"></mat-datepicker-toggle>
             <mat-datepicker #pick_up_date disabled="false"></mat-datepicker>
@@ -63,12 +63,12 @@
                 Pick Up Date is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="col-sm-12 col-md-4">
+          <!-- <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="true" formControlName="pre_alert" matInput placeholder="Pre Alert">
             <mat-error *ngIf="WavePickForm.controls.pre_alert.hasError('required')">
               Pre Alert is required
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
           <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="true" formControlName="pre_alert_note_for_sales" matInput placeholder="Pre Alert Note For Sales">
             <mat-error *ngIf="WavePickForm.controls.pre_alert_note_for_sales.hasError('required')">
@@ -81,12 +81,12 @@
               Pre Alert Name is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="col-sm-12 col-md-4">
+          <!-- <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="true" formControlName="picker" matInput placeholder="Picker">
             <mat-error *ngIf="WavePickForm.controls.picker.hasError('required')">
               Picker is required
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
           <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="true" formControlName="picker_name" matInput placeholder="Picker Name">
             <mat-error *ngIf="WavePickForm.controls.picker_name.hasError('required')">
@@ -101,9 +101,21 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input [readonly]="true" formControlName="area" matInput placeholder="Area">
-            <mat-error *ngIf="WavePickForm.controls.area.hasError('required')">
-              Area is required
-            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input [readonly]="true" formControlName="sales_note" matInput placeholder="Sales Note For Pre-aler">
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input [readonly]="true" formControlName="sales_name" matInput placeholder="Sales Name">
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input [readonly]="true" formControlName="pick_up_address" matInput placeholder="Pick Up Address">
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input [readonly]="true" matInput formControlName="pick_up_date" [matDatepicker]="pick_up"
+              placeholder="Pick Up Date">
+            <mat-datepicker-toggle matSuffix [for]="pick_up"></mat-datepicker-toggle>
+            <mat-datepicker #pick_up disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
       </div>

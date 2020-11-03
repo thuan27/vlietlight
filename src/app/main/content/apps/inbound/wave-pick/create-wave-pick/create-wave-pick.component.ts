@@ -105,8 +105,8 @@ export class CreateWavePickomponent implements OnInit {
       wv_sts: ['', [Validators.required]],
       customer_name: ['', [Validators.required]],
       awb_qty: ['', [Validators.required]],
-      pick_up_address: ['', [Validators.required]],
-      pick_up_date: ['', [Validators.required]],
+      customer_address: ['', [Validators.required]],
+      received_at: ['', [Validators.required]],
       pre_alert: ['', [Validators.required]],
       pre_alert_name: ['', [Validators.required]],
       pre_alert_note_for_sales: ['', [Validators.required]],
@@ -114,6 +114,10 @@ export class CreateWavePickomponent implements OnInit {
       picker_name: ['', [Validators.required]],
       picker_note: ['', [Validators.required]],
       area: ['', [Validators.required]],
+      sales_note: [''],
+      sales_name: [''],
+      pick_up_address: [''],
+      pick_up_date: [''],
       details: this.formBuilder.array([this.buildChildGroup()])
     });
   }
@@ -148,8 +152,8 @@ export class CreateWavePickomponent implements OnInit {
       wv_sts: [data['wv_sts'], [Validators.required]],
       customer_name: [data['customer_name'], [Validators.required]],
       awb_qty: [data['awb_qty'], [Validators.required]],
-      pick_up_address: [data['pick_up_address'], [Validators.required]],
-      pick_up_date: [data['pick_up_date'], [Validators.required]],
+      customer_address: [data['customer_address'], [Validators.required]],
+      received_at: [data['pick_up_date'], [Validators.required]],
       pre_alert: [data['pre_alert'], [Validators.required]],
       pre_alert_name: [data['pre_alert_name'], [Validators.required]],
       pre_alert_note_for_sales: [data['pre_alert_note_for_sales'], [Validators.required]],
@@ -157,6 +161,10 @@ export class CreateWavePickomponent implements OnInit {
       picker_name: [data['picker_name'], [Validators.required]],
       picker_note: [data['picker_note'], [Validators.required]],
       area: [data['area'], [Validators.required]],
+      sales_note: [data['sales_note']],
+      sales_name: [data['sales_name']],
+      pick_up_address: [data['pick_up_address']],
+      pick_up_date: [data['pick_up_date']],
       details: this.buildChildGroupDetail(data['wv_details'])
     });
     console.log(this.WavePickForm);

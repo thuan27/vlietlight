@@ -17,7 +17,7 @@ export class WavePickService {
     return this.http.get(this.apiConfig.WAVE_PICK + params);
   }
 
-  deleteCountry(id) {
+  delete(id) {
     return this.http.delete(this.apiConfig.WAVE_PICK + '/delete/' + id);
   }
 

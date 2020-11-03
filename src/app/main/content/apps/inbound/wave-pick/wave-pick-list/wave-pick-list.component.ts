@@ -7,9 +7,10 @@ import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 import { FuseUpdatePreAlertComponent } from '@fuse/components/update-pre-alert/update-pre-alert.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { FuseUpdatePickUpComponent } from '@fuse/components/update-pick-up/update-pick-up.component';
 import { FuseUpdateWavePickComponent } from '@fuse/components/update-wave-pick/update-wave-pick.component';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'wave-pick-list',
@@ -30,6 +31,7 @@ export class WavePickListComponent implements OnInit {
   searchForm: FormGroup;
   status;
   sortData = '';
+  confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   hasCancelUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
@@ -131,16 +133,27 @@ export class WavePickListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.wavePickService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
+      this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
+        disableClose: false
       });
+
+      this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+
+      this.confirmDialogRef.afterClosed().subscribe(result => {
+        if ( result )
+        {
+          this.wavePickService.delete(this.selected[0]['wv_hdr_id']).subscribe((data) => {
+            this.toastyService.success(data['message']);
+            setTimeout(
+              () => {
+                this.getList();
+                this.selected = [];
+              },
+              700
+            );
+          });
+        }
+      })
     }
   }
 
