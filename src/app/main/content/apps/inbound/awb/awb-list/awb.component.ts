@@ -13,6 +13,7 @@ import { locale as english } from '../../../../i18n/en';
 import { locale as vietnam } from '../../../../i18n/vn';
 import * as FileSaver from 'file-saver';
 import { FuseUpdateAssignCSComponent } from '@fuse/components/update-assign-cs/update-assign-cs.component';
+import { FuseFilterAWBComponent } from '@fuse/components/filter-awb/filter-awb.component';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -49,6 +50,7 @@ export class AWBComponent implements OnInit {
     country;
     sales;
     dataCS;
+    dialogRefFilter;
     dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     dialogRefUpdate;
     retain = [
@@ -146,7 +148,9 @@ export class AWBComponent implements OnInit {
             pick_up_address: '',
             cs_id: '',
             is_retain: '',
-            is_exact: ''
+            is_exact: '',
+            to_phone: '',
+            to_address: ''
         });
     }
 
@@ -507,5 +511,17 @@ export class AWBComponent implements OnInit {
       } else {
         return { 'hasnotCountry': true };
       }
+    }
+
+    filter() {
+      this.dialogRefFilter = this.dialog.open(FuseFilterAWBComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.searchForm
+        }
+      }).afterClosed().subscribe((response) => {
+        this.searchForm = response;
+        this.getList()
+      })
     }
 }

@@ -29,6 +29,7 @@ import { FuseUpdateStatusOrderModule } from '@fuse/components/update-status-orde
 import { FuseUpdateFeeOrderModule } from '@fuse/components/update-fee-order/update-fee-order.module';
 import { FuseUpdateTrackingOrderModule } from '@fuse/components/update-tracking-order/update-tracking-order.module';
 import { FuseUpdateAssignCSModule } from '@fuse/components/update-assign-cs/update-assign-cs.module';
+import { FuseFilterAWBModule } from '@fuse/components/filter-awb/filter-awb.module';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import { FuseUpdateAssignCSModule } from '@fuse/components/update-assign-cs/upda
         FuseDetailPickUpModule,
         FuseDetailAssignmentModule,
         FuseFilterOrderModule,
+        FuseFilterAWBModule,
         FuseUpdateStatusOrderModule,
         FuseUpdateFeeOrderModule,
         FuseUpdateTrackingOrderModule,

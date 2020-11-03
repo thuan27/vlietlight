@@ -1,0 +1,243 @@
+<div class="title">Filter AWB List</div>
+
+<div class="page-layout simple fullwidth" style="max-width: 700px">
+  <form
+      id="form-control"
+      class="row"
+      style="margin:0 !important"
+      [formGroup]="searchForm"
+      autocomplete="off"
+      (submit)="search()"
+    >
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input formControlName="awb_code" matInput placeholder="AWB #" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input formControlName="out_awb_num" matInput placeholder="Out AWB #" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="account_number"
+          matInput
+          placeholder="Account #"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <mat-select formControlName="awb_sts" placeholder="Status">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of status" [value]="item.value">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          placeholder="Sales"
+          formControlName="user_id"
+          (keyup)="getSale($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoSale"
+        />
+        <mat-autocomplete
+          [displayWith]="displaySale.bind(this)"
+          autoActiveFirstOption
+          #autoSale="matAutocomplete"
+        >
+          <mat-option *ngFor="let item of sales" [value]="item.user_id">
+            {{ item.full_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="from_company_name"
+          matInput
+          placeholder="From Company Name"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="to_company_name"
+          matInput
+          placeholder="To Company Name"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="to_contact_name"
+          matInput
+          placeholder="To Contact Name"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          placeholder="To Country"
+          formControlName="to_country_id"
+          (keyup)="getCountry($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoCountry"
+        />
+        <mat-autocomplete
+          [displayWith]="displayCountry.bind(this)"
+          autoActiveFirstOption
+          #autoCountry="matAutocomplete"
+        >
+          <mat-option *ngFor="let item of country" [value]="item.country_id">
+            {{ item.country_name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="searchForm.controls.to_country_id.hasError('hasnotCountry')"
+        >
+          This country does not exist
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          matInput
+          formControlName="from_date"
+          [matDatepicker]="dpCreatedFrom"
+          placeholder="From Ship Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dpCreatedFrom"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dpCreatedFrom disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          matInput
+          formControlName="to_date"
+          [matDatepicker]="dpCreatedTo"
+          placeholder="To Ship Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dpCreatedTo"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dpCreatedTo disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          placeholder="Service"
+          formControlName="service_id"
+          (keyup)="getService($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoService"
+        />
+        <mat-autocomplete
+          [displayWith]="displayService.bind(this)"
+          autoActiveFirstOption
+          #autoService="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let option of serviceName"
+            [value]="option.service_id"
+          >
+            {{ option.service_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <mat-select formControlName="track_status_code" placeholder="Track Code">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of trackCode" [value]="item.value">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="track_description"
+          matInput
+          placeholder="Track Description"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input formControlName="pre_alert" matInput placeholder="Pre Alert" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="pick_up_address"
+          matInput
+          placeholder="Pick Up"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          placeholder="Assigned CS"
+          formControlName="cs_id"
+          (keyup)="getCS($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoCS"
+        />
+        <mat-autocomplete
+          [displayWith]="displayCS.bind(this)"
+          autoActiveFirstOption
+          #autoCS="matAutocomplete"
+        >
+          <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
+            {{ item.full_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <mat-select formControlName="is_retain" placeholder="Is Retained">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of retain" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <mat-select formControlName="is_exact" placeholder="Exact">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of exact" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="sales_note_for_cs"
+          matInput
+          placeholder="Sales Note For CS"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="to_address"
+          matInput
+          placeholder="To Address"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-6 col-md-3">
+        <input
+          formControlName="to_phone"
+          matInput
+          placeholder="To Phone"
+        />
+      </mat-form-field>
+    <span class="format-line-height-button" style="margin: auto">
+      <button mat-raised-button color="accent" type="submit">Search</button>
+      <button class="ml-3" mat-raised-button (click)="reset()">Reset</button>
+    </span>
+  </form>
+</div>

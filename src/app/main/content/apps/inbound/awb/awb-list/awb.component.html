@@ -26,298 +26,73 @@
       </div>
       <div class="h2 mt-16">{{ "INBOUND.AWB_LIST" | translate }}</div>
     </div>
-    <div *ngIf="isOption" class="reference-button mat-white-bg">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
+
+    <div class="reference-button d-flex">
+      <button class="mr-4" mat-raised-button color="orange-800-bg" (click)="filter()">
+        <mat-icon>filter_list</mat-icon>
+        <span>Filter</span>
       </button>
-      <mat-menu #menu="matMenu">
-        <!-- <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
-          <mat-icon>add_circle_outline</mat-icon>
-          <span>{{'INBOUND.CREATE_AWB' | translate}}</span>
-        </button> -->
-        <button
-          *ngIf="createWavePick"
-          mat-menu-item
-          (click)="doCreateWavePick()"
-        >
-          <mat-icon>add_circle_outline</mat-icon>
-          <span>{{ "INBOUND.CREATE_WAVE_PICK" | translate }}</span>
+      <div *ngIf="isOption" class="reference-button mat-white-bg">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
-          <mat-icon>system_update_alt</mat-icon>
-          <span>{{ "INBOUND.UPDATE_AWB" | translate }}</span>
-        </button>
-        <button
-          *ngIf="hasDeleteUserPermission"
-          mat-menu-item
-          (click)="delete()"
-        >
-          <mat-icon>delete_forever</mat-icon>
-          <span>{{ "INBOUND.DELETE_AWB" | translate }}</span>
-        </button>
-        <button
-          *ngIf="hasCancelUserPermission"
-          mat-menu-item
-          (click)="cancel()"
-        >
-          <mat-icon>cancel</mat-icon>
-          <span>{{ "INBOUND.CANCEL_AWB" | translate }}</span>
-        </button>
-        <button *ngIf="pendingAWB" mat-menu-item (click)="pending()">
-          <mat-icon>short_text</mat-icon>
-          <span>{{ "INBOUND.PENDING_AWB" | translate }}</span>
-        </button>
-        <button *ngIf="completeAWB" mat-menu-item (click)="complete()">
-          <mat-icon>send</mat-icon>
-          <span>{{ "INBOUND.COMPLETE_AWB" | translate }}</span>
-        </button>
-        <button *ngIf="removeAWB" mat-menu-item (click)="remove()">
-          <mat-icon>remove_circle_outline</mat-icon>
-          <span>{{ "INBOUND.REMOVE_AWB" | translate }}</span>
-        </button>
-        <button *ngIf="assignCS" mat-menu-item (click)="updateCS()">
-          <mat-icon>system_update_alt</mat-icon>
-          <span>Update CS</span>
-        </button>
-      </mat-menu>
+        <mat-menu #menu="matMenu">
+          <!-- <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>{{'INBOUND.CREATE_AWB' | translate}}</span>
+          </button> -->
+          <button
+            *ngIf="createWavePick"
+            mat-menu-item
+            (click)="doCreateWavePick()"
+          >
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>{{ "INBOUND.CREATE_WAVE_PICK" | translate }}</span>
+          </button>
+          <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>{{ "INBOUND.UPDATE_AWB" | translate }}</span>
+          </button>
+          <button
+            *ngIf="hasDeleteUserPermission"
+            mat-menu-item
+            (click)="delete()"
+          >
+            <mat-icon>delete_forever</mat-icon>
+            <span>{{ "INBOUND.DELETE_AWB" | translate }}</span>
+          </button>
+          <button
+            *ngIf="hasCancelUserPermission"
+            mat-menu-item
+            (click)="cancel()"
+          >
+            <mat-icon>cancel</mat-icon>
+            <span>{{ "INBOUND.CANCEL_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="pendingAWB" mat-menu-item (click)="pending()">
+            <mat-icon>short_text</mat-icon>
+            <span>{{ "INBOUND.PENDING_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="completeAWB" mat-menu-item (click)="complete()">
+            <mat-icon>send</mat-icon>
+            <span>{{ "INBOUND.COMPLETE_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="removeAWB" mat-menu-item (click)="remove()">
+            <mat-icon>remove_circle_outline</mat-icon>
+            <span>{{ "INBOUND.REMOVE_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="assignCS" mat-menu-item (click)="updateCS()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>Update CS</span>
+          </button>
+        </mat-menu>
+      </div>
     </div>
   </div>
   <!-- / HEADER -->
 
   <!-- CONTENT -->
   <div class="p-24">
-    <form
-      id="form-control"
-      class="row"
-      [formGroup]="searchForm"
-      autocomplete="off"
-    >
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="awb_code" matInput placeholder="AWB #" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="out_awb_num" matInput placeholder="Out AWB #" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          formControlName="account_number"
-          matInput
-          placeholder="Account #"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <mat-select formControlName="awb_sts" placeholder="Status">
-          <mat-option [value]="">
-            Please select option
-          </mat-option>
-          <mat-option *ngFor="let item of status" [value]="item.value">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          placeholder="Sales"
-          formControlName="user_id"
-          (keyup)="getSale($event)"
-          type="text"
-          aria-label="Number"
-          matInput
-          [matAutocomplete]="autoSale"
-        />
-        <mat-autocomplete
-          [displayWith]="displaySale.bind(this)"
-          autoActiveFirstOption
-          #autoSale="matAutocomplete"
-        >
-          <mat-option *ngFor="let item of sales" [value]="item.user_id">
-            {{ item.full_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          formControlName="from_company_name"
-          matInput
-          placeholder="From Company Name"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          formControlName="to_company_name"
-          matInput
-          placeholder="To Company Name"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          formControlName="to_contact_name"
-          matInput
-          placeholder="To Contact Name"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          placeholder="To Country"
-          formControlName="to_country_id"
-          (keyup)="getCountry($event)"
-          type="text"
-          aria-label="Number"
-          matInput
-          [matAutocomplete]="autoCountry"
-        />
-        <mat-autocomplete
-          [displayWith]="displayCountry.bind(this)"
-          autoActiveFirstOption
-          #autoCountry="matAutocomplete"
-        >
-          <mat-option *ngFor="let item of country" [value]="item.country_id">
-            {{ item.country_name }}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error
-          *ngIf="searchForm.controls.to_country_id.hasError('hasnotCountry')"
-        >
-          This country does not exist
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          matInput
-          formControlName="from_date"
-          [matDatepicker]="dpCreatedFrom"
-          placeholder="From Ship Date"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dpCreatedFrom"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #dpCreatedFrom disabled="false"></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          matInput
-          formControlName="to_date"
-          [matDatepicker]="dpCreatedTo"
-          placeholder="To Ship Date"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dpCreatedTo"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #dpCreatedTo disabled="false"></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          placeholder="Service"
-          formControlName="service_id"
-          (keyup)="getService($event)"
-          type="text"
-          aria-label="Number"
-          matInput
-          [matAutocomplete]="autoService"
-        />
-        <mat-autocomplete
-          [displayWith]="displayService.bind(this)"
-          autoActiveFirstOption
-          #autoService="matAutocomplete"
-        >
-          <mat-option
-            *ngFor="let option of serviceName"
-            [value]="option.service_id"
-          >
-            {{ option.service_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <mat-select formControlName="track_status_code" placeholder="Track Code">
-          <mat-option [value]="">
-            Please select option
-          </mat-option>
-          <mat-option *ngFor="let item of trackCode" [value]="item.value">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          formControlName="track_description"
-          matInput
-          placeholder="Track Description"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="pre_alert" matInput placeholder="Pre Alert" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          formControlName="pick_up_address"
-          matInput
-          placeholder="Pick Up"
-        />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          placeholder="Assigned CS"
-          formControlName="cs_id"
-          (keyup)="getCS($event)"
-          type="text"
-          aria-label="Number"
-          matInput
-          [matAutocomplete]="autoCS"
-        />
-        <mat-autocomplete
-          [displayWith]="displayCS.bind(this)"
-          autoActiveFirstOption
-          #autoCS="matAutocomplete"
-        >
-          <mat-option *ngFor="let item of dataCS" [value]="item.user_id">
-            {{ item.full_name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <mat-select formControlName="is_retain" placeholder="Is Retained">
-          <mat-option [value]="">
-            Please select option
-          </mat-option>
-          <mat-option *ngFor="let item of retain" [value]="item.value">
-            {{ item.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <mat-select formControlName="is_exact" placeholder="Exact">
-          <mat-option [value]="">
-            Please select option
-          </mat-option>
-          <mat-option *ngFor="let item of exact" [value]="item.value">
-            {{ item.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input
-          formControlName="sales_note_for_cs"
-          matInput
-          placeholder="Sales Note For CS"
-        />
-      </mat-form-field>
-      <span class="format-line-height-button">
-        <button
-          class="mr-2 mb-4"
-          mat-raised-button
-          color="accent"
-          (click)="getList()"
-        >
-          Search
-        </button>
-        <button class="mr-2 mb-4" mat-raised-button (click)="reset()">
-          Reset
-        </button>
-      </span>
-    </form>
 
     <ngx-datatable
       (page)="pageCallback($event)"
