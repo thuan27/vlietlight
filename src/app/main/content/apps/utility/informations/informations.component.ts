@@ -5,6 +5,8 @@ import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
 import { InformationsService } from './informations.service';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { MatDialog } from '@angular/material';
+import { FuseCreateInformationsComponent } from '@fuse/components/create-informations/create-informations.component';
 
 @Component({
     selector: 'informations',
@@ -24,6 +26,7 @@ export class InformationsComponent implements OnInit {
     examples: any;
     sortData = '';
     informationsList;
+    dialogRef;
     createdByList = [
       { value: 0, name: 'Exchange Surcharge' },
       { value: 1, name: 'Updated Price List' },
@@ -34,11 +37,9 @@ export class InformationsComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
+        public dialog: MatDialog,
         private informationsService: InformationsService,
-        private datePipe: DatePipe,
         private toastyService: ToastyService,
-        private func: Functions,
-        private router: Router,
         private toastyConfig: ToastyConfig
     ) {
       this.toastyConfig.position = 'top-right';
@@ -92,5 +93,14 @@ export class InformationsComponent implements OnInit {
       this.searchForm.controls['country_name'].setValue('');
       this.sortData = '';
       this.getList();
+    }
+
+    create() {
+      this.dialogRef = this.dialog.open(FuseCreateInformationsComponent, {
+        panelClass: 'contact-form-dialog',
+        data      : {
+            data: this.selected
+        }
+      });
     }
 }

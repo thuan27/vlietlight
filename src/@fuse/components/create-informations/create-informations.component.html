@@ -1,0 +1,25 @@
+<ng2-toasty></ng2-toasty>
+<div class="title">Create Informations</div>
+
+<div class="page-layout simple fullwidth" style="max-width: 400px">
+  <form name="form" [formGroup]="form" novalidate>
+    <mat-form-field class="mt-3" style="width: 100%">
+      <mat-select formControlName="category" placeholder="CS">
+        <mat-option *ngFor="let item of createdByList" [value]="item.value">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="mt-3" style="width: 100%">
+      <input matInput placeholder="Subject" formControlName="subject" autocomplete="off">
+    </mat-form-field>
+  </form>
+
+  <div>
+    <button mat-raised-button color="accent" class="submit-button" (click)="onSubmit()"
+      [disabled]="form.invalid">
+      Update
+    </button>
+  </div>
+</div>

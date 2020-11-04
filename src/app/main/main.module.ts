@@ -30,6 +30,7 @@ import { FuseUpdateFeeOrderModule } from '@fuse/components/update-fee-order/upda
 import { FuseUpdateTrackingOrderModule } from '@fuse/components/update-tracking-order/update-tracking-order.module';
 import { FuseUpdateAssignCSModule } from '@fuse/components/update-assign-cs/update-assign-cs.module';
 import { FuseFilterAWBModule } from '@fuse/components/filter-awb/filter-awb.module';
+import { FuseCreateInformationsModule } from '@fuse/components/create-informations/create-informations.module';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { FuseFilterAWBModule } from '@fuse/components/filter-awb/filter-awb.modu
         FuseUpdateFeeOrderModule,
         FuseUpdateTrackingOrderModule,
         FuseUpdateAssignCSModule,
+        FuseCreateInformationsModule,
         ToastyModule.forRoot()
     ],
     exports     : [

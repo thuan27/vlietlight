@@ -118,25 +118,6 @@
       [externalSorting]="true"
     >
       <ngx-datatable-column
-        [width]="48"
-        [canAutoResize]="true"
-        [resizeable]="true"
-        [sortable]="false"
-      >
-        <ng-template
-          ngx-datatable-cell-template
-          let-value="value"
-          let-isSelected="isSelected"
-          let-onCheckboxChangeFn="onCheckboxChangeFn"
-        >
-          <mat-checkbox
-            [checked]="isSelected"
-            (change)="onCheckboxChangeFn($event)"
-          ></mat-checkbox>
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column
         [canAutoResize]="true"
         [resizeable]="true"
         name="Info ID"
