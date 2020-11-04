@@ -12,12 +12,14 @@ import { CalculateMoneyComponent } from './calculate-money/calculate-money.compo
 import { AssignmentComponent } from './assignment/assignment.component';
 import { AssignmentService } from './assignment/assignment.service';
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
+import { InformationsComponent } from './informations/informations.component';
 
 @NgModule({
     declarations: [
         QuickSearchComponent,
         CalculateMoneyComponent,
         AssignmentComponent,
+        InformationsComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),

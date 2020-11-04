@@ -130,7 +130,7 @@ export class CreateCustomeromponent implements OnInit {
           this.toastyService.success('Created successfully!');
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-date/customers']);
+              this.router.navigate(['apps/master-data/customers']);
             },
             700
           );
@@ -143,7 +143,7 @@ export class CreateCustomeromponent implements OnInit {
           this.toastyService.success('Updated successfully!');
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-date/customers']);
+              this.router.navigate(['apps/master-data/customers']);
             },
             700
           );

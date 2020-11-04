@@ -157,7 +157,14 @@ export const navigation = [
                         'type' : 'item',
                         'url'  : '/apps/utility/assignment',
                         'exactMatch': true
-                    }
+                    },
+                    {
+                      'id'   : 'informations',
+                      'title': 'Informations',
+                      'type' : 'item',
+                      'url'  : '/apps/utility/information',
+                      'exactMatch': true
+                  }
                 ]
             },
             {

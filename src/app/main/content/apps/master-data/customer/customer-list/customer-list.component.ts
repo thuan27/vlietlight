@@ -110,7 +110,7 @@ export class CustomerListComponent implements OnInit
                 customer['customer_id_link'] = `<a href="#/apps/master-data/customers/${customer['customer_id']}">${customer['customer_id']}</a>`;
             });
             for (let i = 0; i < data['data'].length; i++) {
-                if (data['data'][i]['status'] === 10) {
+                if (data['data'][i]['status'] == 10) {
                     data['data'][i]['status'] = 'Active';
                 }
                 else {
