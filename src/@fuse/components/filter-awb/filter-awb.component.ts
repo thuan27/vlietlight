@@ -19,6 +19,20 @@ export class FuseFilterAWBComponent {
   country;
   serviceName;
   sales;
+  trackCode = [
+    { value: 0 },
+    { value: 1 },
+    { value: 2 },
+    { value: 3 }
+  ];
+  retain = [
+    { value: 0, name: 'No' },
+    { value: 1, name: 'Yes' }
+  ];
+  exact = [
+    { value: 0, name: 'No' },
+    { value: 1, name: 'Yes' }
+  ];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
