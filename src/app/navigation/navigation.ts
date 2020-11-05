@@ -194,6 +194,13 @@ export const navigation = [
                     'url'  : '/apps/administration/users',
                     'exactMatch': true
                   },
+                  {
+                    'id'   : 'monthly-costs',
+                    'title': 'Monthly Costs',
+                    'type' : 'item',
+                    'url'  : '/apps/administration/monthly-costs',
+                    'exactMatch': true
+                  },
               ]
             },
             {

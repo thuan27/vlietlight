@@ -1,3 +1,4 @@
+import { MonthlyCostsListService } from './monthly-costs/monthly-costs-list/monthly-costs-list.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -24,6 +25,9 @@ import { UppercaseToSpaceLowerPipe } from './roles/string.pipe';
 import { UserAdminListComponent } from './user/user-list/user-list.component';
 import { UserAdminListService } from './user/user-list/user-list.service';
 import { CreateUserAdminComponent } from './user/create-user/create-user.component';
+import { CreateMonthlyCostsComponent } from './monthly-costs/create-monthly-costs/create-monthly-costs.component';
+import { MonthlyCostsListComponent } from './monthly-costs/monthly-costs-list/monthly-costs-list.component';
+import { CreateMonthlyCostsService } from './monthly-costs/create-monthly-costs/create-monthly-costs.service';
 
 @NgModule({
     declarations: [
@@ -31,7 +35,9 @@ import { CreateUserAdminComponent } from './user/create-user/create-user.compone
         UserAdminListComponent,
         SearchPipe,
         UppercaseToSpaceLowerPipe,
-        CreateUserAdminComponent
+        CreateUserAdminComponent,
+        MonthlyCostsListComponent,
+        CreateMonthlyCostsComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -53,7 +59,9 @@ import { CreateUserAdminComponent } from './user/create-user/create-user.compone
     ],
     providers: [
       RolesService,
-      UserAdminListService
+      UserAdminListService,
+      MonthlyCostsListService,
+      CreateMonthlyCostsService
     ]
 })
 export class FuseAdministationModule {
