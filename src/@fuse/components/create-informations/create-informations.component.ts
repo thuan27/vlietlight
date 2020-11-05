@@ -36,7 +36,7 @@ export class FuseCreateInformationsComponent {
   private buildFrom() {
     this.form = this.formBuilder.group({
       category: [0],
-      subject: ['']
+      subject: ['',[Validators.required]]
     });
   }
 

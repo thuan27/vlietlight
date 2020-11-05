@@ -16,6 +16,8 @@ import { CustomerServiceListComponent } from './customer-service/customer-servic
 import { CreateCustomerServiceComponent } from './customer-service/create-customer-service/create-customer-service.component';
 import { RangePriceListComponent } from './range-price/range-price-list/range-price-list.component';
 import { CreateRangePriceComponent } from './range-price/create-range-price/create-range-price.component';
+import { CreateCutOffTimesComponent } from './cut-off-times/create-cut-off-times/create-cut-off-times.component';
+import { CutOffTimesListComponent } from './cut-off-times/cut-off-times-list/cut-off-times-list.component';
 
 export const listRoutes: Routes = [
     {
@@ -166,6 +168,26 @@ export const listRoutes: Routes = [
   {
       path: 'range-price/:id/:update',
       component: CreateRangePriceComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'cut-off-times',
+    component: CutOffTimesListComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cut-off-times/create',
+      component: CreateCutOffTimesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cut-off-times/:id',
+      component: CreateCutOffTimesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cut-off-times/:id/:update',
+      component: CreateCutOffTimesComponent,
       canActivate: [AuthGuard, AdminGuard]
   },
 ];

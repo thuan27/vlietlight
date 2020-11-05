@@ -53,10 +53,11 @@ export class InformationsComponent implements OnInit {
 
     private buildForm() {
         this.searchForm = this.formBuilder.group({
-            awb_code: '',
-            awb_sts: '',
-            created_at: null,
-            updated_at: null
+          category: '',
+          subject: '',
+          created_at: null,
+          updated_at: null,
+          created_by: ''
         });
     }
 

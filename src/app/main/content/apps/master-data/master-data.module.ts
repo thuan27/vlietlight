@@ -38,6 +38,10 @@ import { CustomerServiceListComponent } from './customer-service/customer-servic
 import { RangePriceListComponent } from './range-price/range-price-list/range-price-list.component';
 import { CreateRangePriceComponent } from './range-price/create-range-price/create-range-price.component';
 import { CreateRangePriceService } from './range-price/create-range-price/create-range-price.service';
+import { CutOffTimesListService } from './cut-off-times/cut-off-times-list/cut-off-times-list.service';
+import { CreateCutOffTimesService } from './cut-off-times/create-cut-off-times/create-cut-off-times.service';
+import { CreateCutOffTimesComponent } from './cut-off-times/create-cut-off-times/create-cut-off-times.component';
+import { CutOffTimesListComponent } from './cut-off-times/cut-off-times-list/cut-off-times-list.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +60,9 @@ import { CreateRangePriceService } from './range-price/create-range-price/create
         CustomerServiceListComponent,
         CreateCustomerServiceComponent,
         RangePriceListComponent,
-        CreateRangePriceComponent
+        CreateRangePriceComponent,
+        CreateCutOffTimesComponent,
+        CutOffTimesListComponent
     ],
     imports: [
         CommonModule,
@@ -91,7 +97,9 @@ import { CreateRangePriceService } from './range-price/create-range-price/create
         CreatePriceService,
         PriceListService,
         RangePriceListService,
-        CreateRangePriceService
+        CreateRangePriceService,
+        CutOffTimesListService,
+        CreateCutOffTimesService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
