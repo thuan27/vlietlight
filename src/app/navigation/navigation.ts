@@ -261,6 +261,27 @@ export const navigation = [
                     'url'  : '/apps/import/fees-rate',
                     'exactMatch': true
                   },
+                  {
+                    'id'   : 'customer-price',
+                    'title': 'Import Customer Price',
+                    'type' : 'item',
+                    'url'  : '/apps/import/customer-price',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'customer-country-zone',
+                    'title': 'Import Customer Country Zone',
+                    'type' : 'item',
+                    'url'  : '/apps/import/customer-country-zone',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'my-customer-service',
+                    'title': 'Import My Customer Service',
+                    'type' : 'item',
+                    'url'  : '/apps/import/my-customer-service',
+                    'exactMatch': true
+                  },
               ]
             },
             {

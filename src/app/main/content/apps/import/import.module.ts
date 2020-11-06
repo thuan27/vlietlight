@@ -22,6 +22,9 @@ import { ImportCountryComponent } from './import-country/import-country.componen
 import { ImportCountryZoneComponent } from './import-country-zone/import-country-zone.component';
 import { ImportFeesRateComponent } from './import-fees-rate/import-fees-rate.component';
 import { ImportPriceComponent } from './import-price/import-price.component';
+import { ImportCustomerPriceComponent } from './import-customer-price/import-customer-price.component';
+import { ImportCustomerCountryZoneComponent } from './import-customer-country-zone/import-customer-country-zone.component';
+import { ImportMyCustomerServiceComponent } from './import-my-customer-service/import-import-my-customer-service.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { ImportPriceComponent } from './import-price/import-price.component';
       ImportCountryComponent,
       ImportCountryZoneComponent,
       ImportFeesRateComponent,
-      ImportPriceComponent
+      ImportPriceComponent,
+      ImportCustomerPriceComponent,
+      ImportCustomerCountryZoneComponent,
+      ImportMyCustomerServiceComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),

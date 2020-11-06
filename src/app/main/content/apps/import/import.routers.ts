@@ -5,6 +5,9 @@ import { ImportCountryComponent } from './import-country/import-country.componen
 import { ImportPriceComponent } from './import-price/import-price.component';
 import { ImportFeesRateComponent } from './import-fees-rate/import-fees-rate.component';
 import { ImportCountryZoneComponent } from './import-country-zone/import-country-zone.component';
+import { ImportCustomerPriceComponent } from './import-customer-price/import-customer-price.component';
+import { ImportCustomerCountryZoneComponent } from './import-customer-country-zone/import-customer-country-zone.component';
+import { ImportMyCustomerServiceComponent } from './import-my-customer-service/import-import-my-customer-service.component';
 
 export const listRoutes: Routes = [
   {
@@ -30,6 +33,21 @@ export const listRoutes: Routes = [
   {
     path: 'price',
     component: ImportPriceComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'customer-price',
+    component: ImportCustomerPriceComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'customer-country-zone',
+    component: ImportCustomerCountryZoneComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'my-customer-service',
+    component: ImportMyCustomerServiceComponent,
     canActivate: [AuthGuard, AdminGuard]
   }
 ];

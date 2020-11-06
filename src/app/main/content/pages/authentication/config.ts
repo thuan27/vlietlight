@@ -60,7 +60,10 @@ export class APIConfig {
   public IMPORT_COUNTRY = this.API_BASE + '/migration/v1/country/import';
   public IMPORT_COUNTRY_ZONE = this.API_BASE + '/migration/v1/country-zone/import';
   public IMPORT_PRICE = this.API_BASE + '/migration/v1/price/import';
+  public IMPORT_CUSTOMER_PRICE = this.API_BASE + '/migration/v1/customer-price/import';
   public IMPORT_FEES_RATE = this.API_BASE + '/migration/v1/fees-rate/import';
+  public IMPORT_CUSTOMER_COUNTRY_ZONE = this.API_BASE + '/migration/v1/customer-country-zone/import';
+  public IMPORT_MY_CUSTOMER_SERVICE = this.API_BASE + '/migration/v1/my-customer-service/import';
 
   public RESET_PASS = this.API_MASTER + '/reset-password';
   public FORGOT_PASS = this.API_BASE + '/master-service/v1/forgot-password';
