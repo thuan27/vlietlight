@@ -585,4 +585,10 @@ export class AWBDetailV1Component implements OnInit {
       });
     }
   }
+  onRightClick(event){
+    this.toastyService.success('Copied Successfully');
+    event.toElement.select();
+    document.execCommand('copy');
+    event.preventDefault();
+  }
 }

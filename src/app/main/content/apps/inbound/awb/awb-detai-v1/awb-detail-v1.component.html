@@ -346,6 +346,7 @@
               [readonly]="disabledForm"
               formControlName="to_company_name_uppercase"
               matInput
+              (contextmenu)="onRightClick($event)"
               placeholder="To Company Name Uppercase"
             />
             <mat-error
@@ -362,6 +363,7 @@
               [readonly]="disabledForm"
               formControlName="to_address_uppercase"
               matInput
+              (contextmenu)="onRightClick($event)"
               placeholder="To Address Uppercase"
             />
             <mat-error
@@ -376,6 +378,7 @@
               [readonly]="disabledForm"
               formControlName="to_country_name_uppercase"
               matInput
+              (contextmenu)="onRightClick($event)"
               placeholder="To Country Name Uppercase"
             />
             <mat-error
@@ -392,6 +395,7 @@
               [readonly]="disabledForm"
               formControlName="to_contact_name_uppercase"
               matInput
+              (contextmenu)="onRightClick($event)"
               placeholder="To Contact Name Uppercase"
             />
             <mat-error
@@ -650,7 +654,9 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                </div>
+                <div class="row">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="original_weight"
@@ -669,7 +675,7 @@
                       Customer weight is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="original_length"
@@ -688,7 +694,7 @@
                       Customer Length is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="original_width"
@@ -707,7 +713,7 @@
                       Customer Width is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="original_height"
@@ -726,7 +732,7 @@
                       Customer Height is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="weight"
@@ -745,7 +751,7 @@
                       Weight is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="length"
@@ -764,7 +770,7 @@
                       Length is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="width"
@@ -783,7 +789,7 @@
                       Width is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="height"
@@ -802,7 +808,7 @@
                       Height is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="volume"
@@ -823,7 +829,7 @@
                   </mat-form-field>
                 </div>
                 <div class="row">
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="max_weight"
@@ -842,7 +848,7 @@
                       Max Weight is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
                       [readonly]="disabledForm"
                       formControlName="awb_dtl_weight_up"
@@ -861,9 +867,10 @@
                       Round Weight Up is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
-                      class="red-200-bg"
+                      [ngClass]="{'red-200-bg':AWBForm.controls.awb_details['controls'][
+                      i].controls.deleted.value == 1}"
                       [readonly]="disabledForm"
                       formControlName="deleted"
                       matInput
@@ -881,9 +888,10 @@
                       Deleted is required
                     </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-4">
+                  <mat-form-field class="col-sm-12 col-md-3">
                     <input
-                      class="green-200-bg"
+                      [ngClass]="{'green-200-bg':AWBForm.controls.awb_details['controls'][
+                      i].controls.new.value == 1}"
                       [readonly]="disabledForm"
                       formControlName="new"
                       matInput
