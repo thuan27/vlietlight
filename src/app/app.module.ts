@@ -29,7 +29,8 @@ import { ShareService } from '@fuse/services/share.service';
 import { DragDropDirective } from '@fuse/directives/drag-drop/drag-drop.directive';
 import { FuseError404Component } from './main/content/pages/errors/404/error-404.component';
 import { Error404Module } from './main/content/pages/errors/404/error-404.module';
-
+import { FormsModule } from '@angular/forms';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
   }
@@ -79,6 +80,8 @@ const appRoutes: Routes = [
     ],
     imports     : [
         BrowserModule,
+        CKEditorModule,
+        FormsModule,
         BrowserAnimationsModule,
         HttpClientModule,
         Error404Module,

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
+    "allowJs": true,
     "module": "es2015",
     "target": "es5",
     "emitDecoratorMetadata": true,

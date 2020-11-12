@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { CreateInformationsService } from './create-informations.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'fuse-create-informations-dialog',
@@ -19,6 +20,7 @@ export class FuseCreateInformationsComponent {
     { value: 2, name: 'General Information' },
     { value: 3, name: 'Bill' },
   ];
+  public Editor = ClassicEditor;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,7 +38,7 @@ export class FuseCreateInformationsComponent {
   private buildFrom() {
     this.form = this.formBuilder.group({
       category: [0],
-      subject: ['',[Validators.required]]
+      subject: ['']
     });
   }
 

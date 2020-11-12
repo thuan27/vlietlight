@@ -1,7 +1,7 @@
 <ng2-toasty></ng2-toasty>
 <div class="title">Create Informations</div>
 
-<div class="page-layout simple fullwidth" style="max-width: 400px">
+<div class="page-layout simple fullwidth" style="max-width: 800px">
   <form name="form" [formGroup]="form" novalidate>
     <mat-form-field class="mt-3" style="width: 100%">
       <mat-select formControlName="category" placeholder="CS">
@@ -10,13 +10,14 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <ckeditor [editor]="Editor" formControlName="subject"></ckeditor>
 
-    <mat-form-field class="mt-3" style="width: 100%">
+    <!-- <mat-form-field class="mt-3" style="width: 100%">
       <input matInput placeholder="Subject" formControlName="subject" autocomplete="off">
       <mat-error class="text-error" *ngIf="form.controls.subject.hasError('required')">
         Subject is required
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
   </form>
 
   <div>
