@@ -151,10 +151,24 @@ export const navigation = [
                         'exactMatch': true
                     },
                     {
+                        'id'   : 'sales-quicksearch',
+                        'title': 'Sales Quick Search',
+                        'type' : 'item',
+                        'url'  : '/apps/utility/sales-quick-search',
+                        'exactMatch': true
+                    },
+                    {
                         'id'   : 'calculateMoney',
                         'title': 'Calculate Money',
                         'type' : 'item',
                         'url'  : '/apps/utility/calculate-money',
+                        'exactMatch': true
+                    },
+                    {
+                        'id'   : 'sales-calculateMoney',
+                        'title': 'Sales Calculate Money',
+                        'type' : 'item',
+                        'url'  : '/apps/utility/sales-calculate-money',
                         'exactMatch': true
                     },
                     {
