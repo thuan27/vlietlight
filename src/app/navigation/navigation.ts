@@ -65,6 +65,12 @@ export const navigation = [
                         'url'  : '/apps/master-data/countries-zone'
                     },
                     {
+                        'id'   : 'CusCountriesZoneList',
+                        'title': 'Customer Countrie Zones',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/cus-country-zones'
+                    },
+                    {
                         'id'   : 'ServiceList',
                         'title': 'Service',
                         'type' : 'item',

@@ -42,6 +42,10 @@ import { CutOffTimesListService } from './cut-off-times/cut-off-times-list/cut-o
 import { CreateCutOffTimesService } from './cut-off-times/create-cut-off-times/create-cut-off-times.service';
 import { CreateCutOffTimesComponent } from './cut-off-times/create-cut-off-times/create-cut-off-times.component';
 import { CutOffTimesListComponent } from './cut-off-times/cut-off-times-list/cut-off-times-list.component';
+import { CreateCusCountryZoneService } from './cus-country-zone/create-cus-country-zone/create-cus-country-zone.service';
+import { CreateCusCountryZoneComponent } from './cus-country-zone/create-cus-country-zone/create-cus-country-zone.component';
+import { CusCountryZoneListComponent } from './cus-country-zone/cus-country-zone-list/cus-country-zone-list.component';
+import { CusCountryZoneListService } from './cus-country-zone/cus-country-zone-list/cus-country-zone-list.service';
 
 @NgModule({
     declarations: [
@@ -62,7 +66,9 @@ import { CutOffTimesListComponent } from './cut-off-times/cut-off-times-list/cut
         RangePriceListComponent,
         CreateRangePriceComponent,
         CreateCutOffTimesComponent,
-        CutOffTimesListComponent
+        CutOffTimesListComponent,
+        CusCountryZoneListComponent,
+        CreateCusCountryZoneComponent
     ],
     imports: [
         CommonModule,
@@ -99,7 +105,9 @@ import { CutOffTimesListComponent } from './cut-off-times/cut-off-times-list/cut
         RangePriceListService,
         CreateRangePriceService,
         CutOffTimesListService,
-        CreateCutOffTimesService
+        CreateCutOffTimesService,
+        CusCountryZoneListService,
+        CreateCusCountryZoneService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

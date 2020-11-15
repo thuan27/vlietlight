@@ -18,6 +18,8 @@ import { RangePriceListComponent } from './range-price/range-price-list/range-pr
 import { CreateRangePriceComponent } from './range-price/create-range-price/create-range-price.component';
 import { CreateCutOffTimesComponent } from './cut-off-times/create-cut-off-times/create-cut-off-times.component';
 import { CutOffTimesListComponent } from './cut-off-times/cut-off-times-list/cut-off-times-list.component';
+import { CusCountryZoneListComponent } from './cus-country-zone/cus-country-zone-list/cus-country-zone-list.component';
+import { CreateCusCountryZoneComponent } from './cus-country-zone/create-cus-country-zone/create-cus-country-zone.component';
 
 export const listRoutes: Routes = [
     {
@@ -188,6 +190,26 @@ export const listRoutes: Routes = [
   {
       path: 'cut-off-times/:id/:update',
       component: CreateCutOffTimesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cus-country-zones',
+      component: CusCountryZoneListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cus-country-zones/create',
+      component: CreateCusCountryZoneComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cus-country-zones/:id',
+      component: CreateCusCountryZoneComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cus-country-zones/:id/:update',
+      component: CreateCusCountryZoneComponent,
       canActivate: [AuthGuard, AdminGuard]
   },
 ];
