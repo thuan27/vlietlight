@@ -76,6 +76,7 @@ export class OrderListComponent implements OnInit {
 
     this.orderList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
+        data['awb_num'] = `<a href="#/apps/inbound/awb1/${data['awb_id']}">${data['awb_num']}</a>`;
         data['order_id_link'] = `<a href="#/apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
         if (data['is_retain'] == 1) {
           data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_retain']}`
@@ -125,7 +126,8 @@ export class OrderListComponent implements OnInit {
 
   onSort(event){
     this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
-    this.getList(this.current_page);
+    this.getList(this.current_page + 1);
+    this.current_page = this.current_page +1;
   }
 
   reset() {

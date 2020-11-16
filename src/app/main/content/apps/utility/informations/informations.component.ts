@@ -87,7 +87,8 @@ export class InformationsComponent implements OnInit {
 
     onSort(event) {
       this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
-      this.getList(this.current_page);
+      this.getList(this.current_page + 1);
+      this.current_page = this.current_page +1;
     }
 
     reset() {

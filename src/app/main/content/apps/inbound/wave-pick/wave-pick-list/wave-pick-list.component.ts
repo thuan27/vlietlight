@@ -94,7 +94,7 @@ export class WavePickListComponent implements OnInit {
     });
   }
 
-  getList(page = 1, ) {
+  getList(page = 1) {
     let params = '?page=' + page;
     if (this.sortData !== '') {
       params += this.sortData;
@@ -112,7 +112,6 @@ export class WavePickListComponent implements OnInit {
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
-      // tslint:disable-next-line:radix
       this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
       this.loadingIndicator = false;
     });
@@ -163,7 +162,8 @@ export class WavePickListComponent implements OnInit {
 
   onSort(event) {
     this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
-    this.getList(this.current_page);
+    this.getList(this.current_page + 1);
+    this.current_page = this.current_page +1;
   }
 
   reset() {
