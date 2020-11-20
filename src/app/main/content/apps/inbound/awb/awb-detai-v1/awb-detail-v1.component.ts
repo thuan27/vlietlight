@@ -67,15 +67,15 @@ export class AWBDetailV1Component implements OnInit {
   itemType = [
     {
       value: 0,
-      name: 'DOC'
+      name: 'ENVELOP'
     },
     {
       value: 1,
-      name: 'PACK'
+      name: 'DOC'
     },
     {
       value: 2,
-      name: 'ENVELOP'
+      name: 'PACK'
     }
   ];
   IsYesNo = [
@@ -211,7 +211,7 @@ export class AWBDetailV1Component implements OnInit {
     itemDetail.removeAt(0);
     for (let i = 0; i < data.length; i++) {
       const detail = this.formBuilder.group({
-        type: [0],
+        type: [1],
         length: [data[i]['length'], [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
         original_weight: [data[i]['original_weight']],
         weight: [data[i]['weight'], [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],
@@ -261,7 +261,7 @@ export class AWBDetailV1Component implements OnInit {
       to_contact_name_uppercase: [''],
       pick_up_date: [null],
       ship_date: [null],
-      awb_type: [0],
+      awb_type: [1],
       charge_weight: [''],
       declared_value: [''],
       price: [null],
