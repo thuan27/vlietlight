@@ -63,7 +63,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="col-sm-12 col-md-4">
+          <!-- <mat-form-field class="col-sm-12 col-md-4">
             <input
               class="deep-orange-400-bg"
               [readonly]="disabledForm"
@@ -116,7 +116,7 @@
             <mat-error *ngIf="AWBForm.controls.track_time.hasError('required')">
               Track Time is required
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
       </div>
 
@@ -1049,7 +1049,7 @@
                 (onFileDropped)="uploadFile($event)"
               >
                 <input
-                  [disabled]="disabledForm"
+                  [disabled]="!disabledForm"
                   hidden
                   type="file"
                   #fileInput
