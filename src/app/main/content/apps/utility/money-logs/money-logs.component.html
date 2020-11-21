@@ -29,29 +29,7 @@
 
         <form id="form-control" class="row" [formGroup]="searchForm" (submit)="getList()" autocomplete="off">
             <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-              <mat-select formControlName="is_range" placeholder="Range">
-                <mat-option [value]="">
-                  Please select option
-                </mat-option>
-                <mat-option *ngFor="let item of range" [value]="item.value">
-                  {{ item.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-              <input formControlName="cus_service_code" matInput placeholder="Customer Service Code">
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-              <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text"
-                aria-label="Number" matInput [matAutocomplete]="auto">
-              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of country" [value]="option.country_name">
-                  {{ option.country_name }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-              <input formControlName="zone" matInput placeholder="Zone">
+              <input formControlName="created_by" matInput placeholder="Created By">
             </mat-form-field>
             <span class="format-line-height-button">
               <button mat-raised-button color="accent" type="submit">Search</button>
@@ -73,13 +51,13 @@
 
             <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
 
-            <ngx-datatable-column name="Class" prop="class"></ngx-datatable-column>
+            <ngx-datatable-column width="400" name="Class" prop="class"></ngx-datatable-column>
 
-            <ngx-datatable-column name="Function" prop="class"></ngx-datatable-column>
+            <ngx-datatable-column width="400" name="Function" prop="class"></ngx-datatable-column>
 
             <ngx-datatable-column name="Line" prop="line"></ngx-datatable-column>
 
-            <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
+            <ngx-datatable-column width="400" name="Description" prop="description"></ngx-datatable-column>
 
             <ngx-datatable-column name="Internal User" prop="internal_user"></ngx-datatable-column>
 

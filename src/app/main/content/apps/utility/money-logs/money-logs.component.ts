@@ -41,10 +41,7 @@ export class MoneyLogsComponent implements OnInit {
 
     private buildForm() {
         this.searchForm = this.formBuilder.group({
-            zone: '',
-            is_range: '',
-            cus_service_code: '',
-            country_name: ''
+            created_by: '',
         });
     }
 
@@ -56,8 +53,8 @@ export class MoneyLogsComponent implements OnInit {
       }
       this.moneyLogsService.getList(params).subscribe(data => {
           this.rows = data['data'];
-          this.total = data['meta']['totalCount'];
-          this.current_page = parseInt(data['meta']['currentPage']) - 1;
+          this.total = data['meta']['pagination']['total'];
+          this.current_page = parseInt(data['meta']['pagination']['current_page']) - 1;
           this.loadingIndicator = false;
       });
     }
