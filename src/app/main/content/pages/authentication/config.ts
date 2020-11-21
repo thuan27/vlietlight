@@ -49,6 +49,7 @@ export class APIConfig {
   public CREATE_WAVE_PICK = this.API_BASE + '/awbs/v1/awb-wavepick';
   public GET_SALE = this.API_BASE + '/awbs/v1/suggest-sales';
   public GET_CS = this.API_BASE + '/awbs/v1/suggest-cs';
+  public MONEY_LOGS = this.API_BASE + '/awbs/v1/money-log';
 
   //utility
   public GET_LIST_ASSIGNMENT = this.API_BASE + '/awbs/v1/wv-pick/assignment-list';

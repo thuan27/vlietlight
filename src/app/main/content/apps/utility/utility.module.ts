@@ -1,3 +1,4 @@
+import { MoneyLogsService } from './money-logs/money-logs.service';
 import { CalculateMoneyService } from './calculate-money/calculate-money.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
@@ -17,6 +18,7 @@ import { SalesQuickSearchComponent } from './sales-quick-search/sales-quick-sear
 import { SalesQuickSearchService } from './sales-quick-search/sales-quick-search.service';
 import { SalesCalculateMoneyComponent } from './sales-calculate-money/sales-calculate-money.component';
 import { SalesCalculateMoneyService } from './sales-calculate-money/sales-calculate-money.service';
+import { MoneyLogsComponent } from './money-logs/money-logs.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +27,8 @@ import { SalesCalculateMoneyService } from './sales-calculate-money/sales-calcul
         AssignmentComponent,
         InformationsComponent,
         SalesQuickSearchComponent,
-        SalesCalculateMoneyComponent
+        SalesCalculateMoneyComponent,
+        MoneyLogsComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -50,7 +53,8 @@ import { SalesCalculateMoneyService } from './sales-calculate-money/sales-calcul
         CalculateMoneyService,
         AssignmentService,
         SalesQuickSearchService,
-        SalesCalculateMoneyService
+        SalesCalculateMoneyService,
+        MoneyLogsService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

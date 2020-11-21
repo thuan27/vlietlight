@@ -5,12 +5,12 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector: 'sales-quick-search',
-    templateUrl: './sales-quick-search.component.html',
-    styleUrls: ['./sales-quick-search.component.scss'],
+    selector: 'money-logs',
+    templateUrl: './money-logs.component.html',
+    styleUrls: ['./money-logs.component.scss'],
     providers: [MoneyLogsService]
 })
-export class MoneySalesComponent implements OnInit {
+export class MoneyLogsComponent implements OnInit {
     rows: any;
     loadingIndicator = true;
     reorderable = true;

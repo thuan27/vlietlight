@@ -5,6 +5,7 @@ import { AssignmentComponent } from './assignment/assignment.component';
 import { InformationsComponent } from './informations/informations.component';
 import { SalesQuickSearchComponent } from './sales-quick-search/sales-quick-search.component';
 import { SalesCalculateMoneyComponent } from './sales-calculate-money/sales-calculate-money.component';
+import { MoneyLogsComponent } from './money-logs/money-logs.component';
 
 export const listRoutes: Routes = [
     {
@@ -30,6 +31,10 @@ export const listRoutes: Routes = [
     {
         path     : 'sales-calculate-money',
         component: SalesCalculateMoneyComponent
+    },
+    {
+        path     : 'money-logs',
+        component: MoneyLogsComponent
     },
     {
       path      : '**',

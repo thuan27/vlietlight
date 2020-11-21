@@ -24,15 +24,15 @@ export class AWBDetailComponent implements OnInit {
   itemType = [
     {
       value: 0,
-      name: 'DOC'
+      name: 'ENVELOP'
     },
     {
       value: 1,
-      name: 'PACK'
+      name: 'DOC'
     },
     {
       value: 2,
-      name: 'ENVELOP'
+      name: 'PACK'
     }
   ];
 
@@ -85,7 +85,7 @@ export class AWBDetailComponent implements OnInit {
 
   buildChildGroup() {
     return this.formBuilder.group({
-      item_id: [0, [Validators.required]],
+      item_id: [1, [Validators.required]],
       pack_num: 0,
       quantity: 1,
       weight: [null, [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],

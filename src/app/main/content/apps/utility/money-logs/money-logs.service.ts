@@ -1,9 +1,7 @@
 import { APIConfig } from 'app/main/content/pages/authentication/config';
-import { Functions } from '../../../../../../@fuse/core/function';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from '../../../../../../environments/environment';
 
 @Injectable()
 export class MoneyLogsService
@@ -16,7 +14,7 @@ export class MoneyLogsService
     }
 
     getList(params) {
-      return this.http.get(this.apiConfig.CUSTOMER + '/index' + params);
+      return this.http.get(this.apiConfig.MONEY_LOGS + params);
     }
 
     getCountry(data) {
