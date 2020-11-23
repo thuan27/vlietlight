@@ -205,7 +205,7 @@
         <div class="row">
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_company_name"
               matInput
               placeholder="To Company Name"
@@ -218,7 +218,7 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_address"
               matInput
               placeholder="To Address"
@@ -229,7 +229,7 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_postcode"
               matInput
               placeholder="To PostCode"
@@ -242,7 +242,7 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               placeholder="To Country"
               formControlName="to_country_name"
               (keyup)="getCountry($event, 'to_country_id', 'to_country_name')"
@@ -281,7 +281,7 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_phone"
               matInput
               placeholder="To Phone"
@@ -292,20 +292,20 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
-              formControlName="discription"
+              [readonly]="true"
+              formControlName="description"
               matInput
-              placeholder="Discription"
+              placeholder="Dscription"
             />
             <mat-error
-              *ngIf="AWBForm.controls.discription.hasError('required')"
+              *ngIf="AWBForm.controls.description.hasError('required')"
             >
-              Discription is required
+              Description is required
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="sales_note_for_cs"
               matInput
               placeholder="Sales Note For CS"
@@ -318,7 +318,7 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_email"
               matInput
               placeholder="To Email"
@@ -329,7 +329,7 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_contact_name"
               matInput
               placeholder="To Contact Name"
@@ -343,7 +343,7 @@
           <mat-form-field class="col-sm-12 col-md-4">
             <input
               class="amber-100-bg"
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_company_name_uppercase"
               matInput
               (contextmenu)="onRightClick($event)"
@@ -360,7 +360,7 @@
           <mat-form-field class="col-sm-12 col-md-4">
             <input
               class="amber-100-bg"
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_address_uppercase"
               matInput
               (contextmenu)="onRightClick($event)"
@@ -375,7 +375,7 @@
           <mat-form-field class="col-sm-12 col-md-4">
             <input
               class="amber-100-bg"
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_country_name_uppercase"
               matInput
               (contextmenu)="onRightClick($event)"
@@ -392,7 +392,7 @@
           <mat-form-field class="col-sm-12 col-md-4">
             <input
               class="amber-100-bg"
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="to_contact_name_uppercase"
               matInput
               (contextmenu)="onRightClick($event)"
@@ -409,9 +409,10 @@
           <mat-form-field class="col-sm-12 col-md-4">
             <input
               matInput
+              [readonly]="true"
               formControlName="pick_up_date"
               [matDatepicker]="dpPickUpdate"
-              placeholder="Updated Date"
+              placeholder="Pick Up Date"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -435,7 +436,7 @@
               matInput
               formControlName="ship_date"
               [matDatepicker]="dpShipDate"
-              placeholder="Updated Date"
+              placeholder="Ship Date"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -526,7 +527,7 @@
               Sales is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="col-sm-12 col-md-4">
+          <!-- <mat-form-field class="col-sm-12 col-md-4">
             <input
               [readonly]="disabledForm"
               formControlName="pre_alert"
@@ -560,7 +561,7 @@
             >
               Pick Up Note is required
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
           <mat-form-field class="col-sm-12 col-md-4">
             <input
               [readonly]="disabledForm"
@@ -576,7 +577,7 @@
               Pick Up Note For Sales is required
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="col-sm-12 col-md-4">
+          <!-- <mat-form-field class="col-sm-12 col-md-4">
             <mat-select
               [disabled]="disabledForm"
               placeholder="Is Exact"
@@ -597,7 +598,7 @@
                 {{ item.name }}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
           <mat-form-field class="col-sm-12 col-md-4">
             <input
               [readonly]="disabledForm"
@@ -641,7 +642,7 @@
                 <div class="row">
                   <mat-form-field class="col-sm-12 col-md-4">
                     <mat-select
-                      [disabled]="disabledForm"
+                      [disabled]="true"
                       (change)="changeItem($event, i)"
                       placeholder="Type"
                       formControlName="type"
@@ -921,7 +922,7 @@
               <mat-icon class="button-in-table">add_circle</mat-icon>
             </button>
           </mat-tab>
-          <mat-tab label="Event Tracking">
+          <!-- <mat-tab label="Event Tracking">
             <div class="demo-tab-content">
               <div fxLayout="row">
                 <span
@@ -986,7 +987,7 @@
                 </table>
               </div>
             </div>
-          </mat-tab>
+          </mat-tab> -->
           <mat-tab label="Documents">
             <div class="demo-tab-content" *ngIf="action === 'create'">
               <mat-form-field class="ml-3 mt-3">
@@ -1129,7 +1130,7 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Customer Attachment">
+          <!-- <mat-tab label="Customer Attachment">
             <div class="demo-tab-content">
               <mat-form-field class="ml-3 mt-3">
                 <input
@@ -1201,9 +1202,8 @@
                   </tbody>
                 </table>
               </div>
-              <!-- <master-pallet-customer-list-directive></master-pallet-customer-list-directive> -->
             </div>
-          </mat-tab>
+          </mat-tab> -->
         </mat-tab-group>
       </div>
       <button class="button-cancel" mat-raised-button (click)="cancel()">
