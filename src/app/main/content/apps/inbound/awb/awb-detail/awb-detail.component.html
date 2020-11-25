@@ -346,12 +346,12 @@
             </tr>
           </tbody>
         </table>
-        <div fxLayout="row">
-          <mat-form-field fxFlex="50">
+        <div class="row m-0">
+          <mat-form-field class="col-sm-6">
             <label>Total Weight</label>
             <input readonly formControlName="weight" matInput (keypress)="checkInputNumber($event,true)">
           </mat-form-field>
-          <mat-form-field fxFlex="50">
+          <mat-form-field class="col-sm-6">
             <label>Total Volome</label>
             <input readonly formControlName="volume" matInput (keypress)="checkInputNumber($event,true)">
           </mat-form-field>

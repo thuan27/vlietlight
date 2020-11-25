@@ -198,7 +198,7 @@ export class AWBDetailComponent implements OnInit {
     let sumWeight = 0;
     for (let i = 0; i < this.AWBForm.value['details'].length; i++) {
       // tslint:disable-next-line:radix
-      sumWeight = sumWeight + parseInt(this.AWBForm.value['details'][i]['weight']);
+      sumWeight = sumWeight + parseFloat(this.AWBForm.value['details'][i]['weight']);
     }
     this.AWBForm.controls['weight'].setValue(sumWeight);
   }
