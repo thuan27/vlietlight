@@ -41,7 +41,13 @@ export class MoneyLogsComponent implements OnInit {
 
     private buildForm() {
         this.searchForm = this.formBuilder.group({
-            created_by: '',
+            created_at: '',
+            id: '',
+            class: '',
+            description: '',
+            function: '',
+            internal_user: '',
+            error: '',
         });
     }
 

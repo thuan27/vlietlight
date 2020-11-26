@@ -212,13 +212,13 @@ export class AWBDetailV1Component implements OnInit {
     for (let i = 0; i < data.length; i++) {
       const detail = this.formBuilder.group({
         type: [1],
-        length: [data[i]['length'], [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+        length: [data[i]['length'], [Validators.required]],
         original_weight: [data[i]['original_weight']],
-        weight: [data[i]['weight'], [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],
+        weight: [data[i]['weight'], [Validators.required]],
         original_length: [data[i]['original_length']],
-        width: [data[i]['width'], [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+        width: [data[i]['width'], [Validators.required]],
         original_height: [data[i]['original_height']],
-        height: [data[i]['height'], [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+        height: [data[i]['height'], [Validators.required]],
         max_weight: [data[i]['max_weight']],
         awb_dtl_weight_up: [data[i]['awb_dtl_weight_up']],
         deleted: [data[i]['deleted']],
@@ -284,13 +284,13 @@ export class AWBDetailV1Component implements OnInit {
   buildChildGroup() {
     return this.formBuilder.group({
       type: [''],
-      length: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+      length: [null, [Validators.required]],
       original_weight: [null],
-      weight: [null, [Validators.required, this.ValidateWeightDOC, this.ValidateWeightPACK, this.ValidateWeightINVENLOP]],
+      weight: [null, [Validators.required]],
       original_length: [null],
-      width: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+      width: [null, [Validators.required]],
       original_height: [null],
-      height: [null, [Validators.required, this.ValidateLWH_DOC, this.ValidateLWH_PACK, this.ValidateLWH_INVENLOP]],
+      height: [null, [Validators.required]],
       max_weight: [null],
       awb_dtl_weight_up: [null],
       deleted: [null],
@@ -320,54 +320,6 @@ export class AWBDetailV1Component implements OnInit {
           this.router.navigate(['apps/inbound/awb']);
         });
       }
-    }
-  }
-
-  ValidateWeightDOC (control: FormControl) {
-      if ((Number(control.value) < 2.5) && (Number(control.value) > 0)) {
-        return null;
-      } else {
-        return { 'invalid_DOC_weight': true };
-      }
-  }
-
-  ValidateWeightPACK(control: FormControl) {
-    if ((Number(control.value) < 2000) && (Number(control.value) > 0)) {
-      return null;
-    } else {
-      return { 'invalid_PACK_weight': true };
-    }
-  }
-
-  ValidateWeightINVENLOP(control: FormControl) {
-    if (Number(control.value) > 0) {
-      return null;
-    } else {
-      return { 'invalid_INVENLOP_weight': true };
-    }
-  }
-
-  ValidateLWH_DOC(control: FormControl) {
-    if ((Number(control.value) < 1000) && (Number(control.value) > 0)) {
-      return null;
-    } else {
-      return { 'invalid_DOC_LWH': true };
-    }
-  }
-
-  ValidateLWH_PACK(control: FormControl) {
-    if ((Number(control.value) < 10000) && (Number(control.value) > 0)) {
-      return null;
-    } else {
-      return { 'invalid_PACK_LWH': true };
-    }
-  }
-
-  ValidateLWH_INVENLOP(control: FormControl) {
-    if (Number(control.value) > 0) {
-      return null;
-    } else {
-      return { 'invalid_INVENLOP_LWH': true };
     }
   }
 
@@ -590,5 +542,49 @@ export class AWBDetailV1Component implements OnInit {
     event.toElement.select();
     document.execCommand('copy');
     event.preventDefault();
+  }
+
+  validateWeight(control, i) {
+    if (this.AWBForm.value['awb_details'][i]['item_id'] == 1) {
+      if ((Number(control.target.value) <= 2.5) && (Number(control.target.value) >= 0)) {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors(null)
+      } else {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors({ 'invalid_DOC_weight': true })
+      }
+    } else if (this.AWBForm.value['awb_details'][i]['item_id'] == 2) {
+      if ((Number(control.target.value) <= 2000) && (Number(control.target.value) >= 0)) {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors(null)
+      } else {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors({ 'invalid_PACK_weight': true })
+      }
+    } else {
+      if (Number(control.target.value >= 0)) {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors(null)
+      } else {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors({ 'invalid_INVENLOP_weight': true })
+      }
+    }
+  }
+
+  validateWH(control, i) {
+    if (this.AWBForm.value['awb_details'][i]['item_id'] == 1) {
+      if ((Number(control.target.value) <= 1000) && (Number(control.target.value) >= 0)) {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors(null)
+      } else {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors({ 'invalid_DOC_LWH': true })
+      }
+    } else if (this.AWBForm.value['awb_details'][i]['item_id'] == 2) {
+      if ((Number(control.target.value) <= 10000) && (Number(control.target.value) >= 0)) {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors(null)
+      } else {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors({ 'invalid_PACK_LWH': true })
+      }
+    } else {
+      if (Number(control.target.value >= 0)) {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors(null)
+      } else {
+        this.AWBForm.controls['awb_details']['controls'][i]['controls']['weight'].setErrors({ 'invalid_INVENLOP_LWH': true })
+      }
+    }
   }
 }
