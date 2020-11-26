@@ -43,7 +43,7 @@ export class ImportMyCustomerServiceComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
       data => {
-        this.hasImportMyCustomerService = this._user.RequestPermission(data, 'importMyCustomerService');
+        this.hasImportMyCustomerService = this._user.RequestPermission(data, 'importCustomerService');
         /* Check orther permission if View allow */
         if (!this.hasImportMyCustomerService) {
           this.router.navigateByUrl('pages/landing');
