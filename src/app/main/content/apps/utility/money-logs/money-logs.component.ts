@@ -44,6 +44,7 @@ export class MoneyLogsComponent implements OnInit {
             created_at: '',
             id: '',
             class: '',
+            line: '',
             description: '',
             function: '',
             internal_user: '',
