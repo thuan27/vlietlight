@@ -14,15 +14,15 @@ export class CreateCutOffTimesService
     {
     }
 
-    createCountry(param) {
-        return this.http.post(this.apiConfig.COUNTRY_LIST + '/store', param);
+    create(param) {
+        return this.http.post(this.apiConfig.CUT_OFF_TIMES_LIST + '/store', param);
     }
 
-    getCountryDetail(params) {
-        return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params);
+    getDetail(params) {
+        return this.http.get(this.apiConfig.CUT_OFF_TIMES_LIST + '/show/' + params);
     }
 
-    updateCountry(id, param) {
-        return this.http.put(this.apiConfig.COUNTRY_LIST + '/update/' + id, param);
+    update(id, param) {
+        return this.http.put(this.apiConfig.CUT_OFF_TIMES_LIST + '/update/' + id, param);
     }
 }

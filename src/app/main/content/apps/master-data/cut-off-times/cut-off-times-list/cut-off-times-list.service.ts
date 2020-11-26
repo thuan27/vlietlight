@@ -14,18 +14,18 @@ export class CutOffTimesListService {
   }
 
   getList(params) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params);
+    return this.http.get(this.apiConfig.CUT_OFF_TIMES_LIST + params);
   }
 
-  deleteCountry(id) {
-    return this.http.delete(this.apiConfig.COUNTRY_LIST + '/delete/' + id);
+  delete(id) {
+    return this.http.delete(this.apiConfig.CUT_OFF_TIMES_LIST + '/delete/' + id);
   }
 
   getCountry(data) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data);
+    return this.http.get(this.apiConfig.CUT_OFF_TIMES_LIST + '?country_name=' + data);
   }
 
   getReport(params: string = '') {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { responseType: 'blob' });
+    return this.http.get(this.apiConfig.CUT_OFF_TIMES_LIST + params + '&export=1', { responseType: 'blob' });
   }
 }

@@ -91,6 +91,10 @@ export class CutOffTimesListComponent implements OnInit {
     this.cutOffTimesList = this.cutOffTimesListService.getList(params);
 
     this.cutOffTimesList.subscribe((dataList: any[]) => {
+      dataList['data'].forEach((item) => {
+          item['cf_id_temp'] = item['cf_id']
+          item['cf_id'] = `<a href="#/apps/master-data/cut-off-times/${item['cf_id']}">${item['cf_id']}</a>`;
+      });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
       this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
@@ -119,7 +123,7 @@ export class CutOffTimesListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/cut-off-times/${this.selected[0]['country_id_temp']}/update`);
+      this.router.navigateByUrl(`apps/master-data/cut-off-times/${this.selected[0]['cf_id_temp']}/update`);
     }
   }
 
@@ -129,7 +133,7 @@ export class CutOffTimesListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.cutOffTimesListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
+      this.cutOffTimesListService.delete(this.selected[0]['country_id_temp']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {

@@ -121,18 +121,18 @@ export class CreateCutOffTimesComponent implements OnInit {
 
   private detailForm(data) {
     this.CutOffTimesForm = this.formBuilder.group({
-      province: [data['country_code'], [Validators.required]],
-      district: [data['country_name'], [Validators.required]],
-      received_message: [data['country_name'], [Validators.required]],
-      pick: [data['country_name'], [Validators.required]],
-      other_note: [data['country_name']]
+      province: [data['province'], [Validators.required]],
+      district: [data['district'], [Validators.required]],
+      received_message: [data['received_message'], [Validators.required]],
+      pick: [data['pick'], [Validators.required]],
+      other_note: [data['other_note']]
     });
   }
 
   onSubmit() {
     if (this.CutOffTimesForm.valid) {
       if (this.action === 'create') {
-        this._createCutOffTimesService.createCountry(this.CutOffTimesForm.value).subscribe((data) => {
+        this._createCutOffTimesService.create(this.CutOffTimesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -144,7 +144,7 @@ export class CreateCutOffTimesComponent implements OnInit {
           };
         });
       } else if (this.action === 'update') {
-        this._createCutOffTimesService.updateCountry(this.idCutOffTimes, this.CutOffTimesForm.value).subscribe((data) => {
+        this._createCutOffTimesService.update(this.idCutOffTimes, this.CutOffTimesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -161,9 +161,9 @@ export class CreateCutOffTimesComponent implements OnInit {
   }
 
   detail(id) {
-    this._createCutOffTimesService.getCountryDetail(id).subscribe((data) => {
-      this.cutOffTimesDetail = data['country'];
-      this.detailForm(data['country']);
+    this._createCutOffTimesService.getDetail(id).subscribe((data) => {
+      this.cutOffTimesDetail = data['cut_off_time'];
+      this.detailForm(data['cut_off_time']);
     });
   }
 
