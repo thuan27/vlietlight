@@ -144,5 +144,6 @@ export class FuseToolbarComponent
       });
       localStorage.clear();
       this.router.navigateByUrl('pages/landing');
+      location.reload();
     }
 }
