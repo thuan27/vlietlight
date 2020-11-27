@@ -184,6 +184,7 @@ export class OrderListComponent implements OnInit {
         if (response.status == 'success') {
           this.toastyService.success(response.message);
           this.getList();
+          this.selected = [];
         } else {
           this.toastyService.error(response.message);
         }
@@ -206,6 +207,7 @@ export class OrderListComponent implements OnInit {
         if (response.status == 'success') {
           this.toastyService.success(response.message);
           this.getList();
+          this.selected = [];
         } else {
           this.toastyService.error(response.message);
         }
@@ -228,6 +230,7 @@ export class OrderListComponent implements OnInit {
         if (response.status == 'success') {
           this.toastyService.success(response.message);
           this.getList();
+          this.selected = [];
         } else {
           this.toastyService.error(response.message);
         }

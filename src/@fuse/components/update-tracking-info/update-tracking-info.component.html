@@ -1,9 +1,16 @@
+<ng2-toasty></ng2-toasty>
 <div class="title">Update Tracking Info</div>
 
 <div class="page-layout simple fullwidth" style="min-width: 300px">
   <form name="form" [formGroup]="form" novalidate>
+    <div class="ml-4 mb-4 mt-3">
+        <span style="font-weight: 500;">Order Name: </span><span>{{data['data'][0]['odr_name']}}</span>
+    </div>
+    <div class="ml-4 mb-4">
+        <span style="font-weight: 500;">AWB: </span><span>{{data['data'][0]['awb_num']}}</span>
+    </div>
     <mat-form-field class="col-sm-12">
-      <mat-select [disabled]="true" formControlName="track_status_code" placeholder="Tracking Code">
+      <mat-select [disabled]="true" formControlName="odr_status" placeholder="Status">
         <mat-option
           *ngFor="let item of status"
           [value]="item.value"
@@ -13,10 +20,10 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field class="col-sm-12">
-        <input formControlName="track_description" matInput placeholder="Description" />
+        <input formControlName="cus_other_fee" matInput placeholder="Vietlight Order Fee (VND)" />
       </mat-form-field>
       <mat-form-field class="col-sm-12">
-          <input formControlName="track_location" matInput placeholder="Location" />
+          <input formControlName="sales_note_for_cs" matInput placeholder="CS Note about Fee" />
         </mat-form-field>
   </form>
   <div style="margin:auto">

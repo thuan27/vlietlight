@@ -1,10 +1,15 @@
-<ng2-toasty></ng2-toasty>
-<div class="title">Update Fee Order</div>
+<div class="title">Update Order</div>
 
 <div class="page-layout simple fullwidth" style="min-width: 300px">
   <form name="form" [formGroup]="form" novalidate>
+    <div class="ml-4 mb-4 mt-3">
+        <span style="font-weight: 500;">Order Name: </span><span>{{data['data'][0]['odr_name']}}</span>
+    </div>
+    <div class="ml-4 mb-4">
+        <span style="font-weight: 500;">AWB: </span><span>{{data['data'][0]['awb_num_temp']}}</span>
+    </div>
     <mat-form-field class="col-sm-12">
-      <mat-select [disabled]="true" formControlName="odr_status" placeholder="Tracking Code">
+      <mat-select [disabled]="true" formControlName="odr_status" placeholder="Status">
         <mat-option
           *ngFor="let item of status"
           [value]="item.value"
@@ -14,10 +19,10 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field class="col-sm-12">
-        <input formControlName="cus_other_fee" matInput placeholder="Description" />
+        <input formControlName="cus_other_fee" matInput placeholder="Vietlight Order Fee (VND)" />
       </mat-form-field>
       <mat-form-field class="col-sm-12">
-          <input formControlName="sales_note_for_cs" matInput placeholder="Location" />
+          <input formControlName="sales_note_for_cs" matInput placeholder="CS Note about Fee" />
         </mat-form-field>
   </form>
   <div style="margin:auto">
