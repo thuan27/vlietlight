@@ -239,6 +239,13 @@ export class OrderListComponent implements OnInit {
   }
 
   updateAgent() {
+    if (this.selected.length < 1) {
+      this.toastyService.error('Please select at least one item.');
+    } else if (this.selected.length > 1) {
+      this.toastyService.error('Please select one item.');
+    } else {
+      this.router.navigateByUrl(`apps/outbound/order/${this.selected[0]['order_id']}/update`);
+    }
   }
 
   getCountry(event) {

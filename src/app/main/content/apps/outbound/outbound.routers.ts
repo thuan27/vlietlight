@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { CreateOrderComponent } from './order/create-order/create-order.component';
 import { AuthGuard, AdminGuard } from '../../guards';
+import { UpdateOrderComponent } from './order/update-order/update-order.component';
 
 export const listRoutes: Routes = [
     {
@@ -17,6 +18,11 @@ export const listRoutes: Routes = [
     {
         path: 'order/create',
         component: CreateOrderComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path: 'order/:id/update',
+        component: UpdateOrderComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
     // {

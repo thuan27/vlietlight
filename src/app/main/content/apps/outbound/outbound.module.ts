@@ -21,10 +21,13 @@ import { CreateOrderService } from './order/create-order/create-order.service';
 import { CreateOrderComponent } from './order/create-order/create-order.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderListService } from './order/order-list/order-list.service';
+import { UpdateOrderService } from './order/update-order/update-order.service';
+import { UpdateOrderComponent } from './order/update-order/update-order.component';
 
 @NgModule({
     declarations: [
         CreateOrderComponent,
+        UpdateOrderComponent,
         OrderListComponent
     ],
     imports: [
@@ -47,6 +50,7 @@ import { OrderListService } from './order/order-list/order-list.service';
     ],
     providers: [
         CreateOrderService,
+        UpdateOrderService,
         OrderListService,
     ]
 })

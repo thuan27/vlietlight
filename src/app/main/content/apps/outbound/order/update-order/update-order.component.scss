@@ -1,0 +1,38 @@
+.block {
+  margin-top: 40px;
+}
+
+.mat-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+}
+
+.border-table {
+  border-right: 1px solid #b3e5fc;
+  border-bottom: 1px solid #b3e5fc;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.border-table:last-child {
+  border-right: 0px;
+}
+
+.background-title {
+  align-items: center;
+  font-weight: 600;
+  padding: 10;
+  border-radius: 4px;
+  .title {
+      color: white;
+      padding: 10px;
+      margin: 0;
+  }
+}
+
+.button-submit {
+  margin-top: 30px;
+  float: right;
+}
