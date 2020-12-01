@@ -211,7 +211,7 @@ export class AWBDetailV1Component implements OnInit {
     itemDetail.removeAt(0);
     for (let i = 0; i < data.length; i++) {
       const detail = this.formBuilder.group({
-        type: [1],
+        item_id: [data[i]['item_id']],
         length: [data[i]['length'], [Validators.required]],
         original_weight: [data[i]['original_weight']],
         weight: [data[i]['weight'], [Validators.required]],
@@ -283,7 +283,7 @@ export class AWBDetailV1Component implements OnInit {
 
   buildChildGroup() {
     return this.formBuilder.group({
-      type: [''],
+      item_id: [''],
       length: [null, [Validators.required]],
       original_weight: [null],
       weight: [null, [Validators.required]],
@@ -327,7 +327,7 @@ export class AWBDetailV1Component implements OnInit {
     this.awb_details = this.AWBForm.get('awb_details') as FormArray;
     const lengthItems = this.awb_details.length;
     const form = this.formBuilder.group({
-      type: [this.awb_details.controls[lengthItems - 1].value.type],
+      item_id: [this.awb_details.controls[lengthItems - 1].value.item_id],
       length: [this.awb_details.controls[lengthItems - 1].value.length],
       original_weight: [this.awb_details.controls[lengthItems - 1].value.original_weight],
       weight: [this.awb_details.controls[lengthItems - 1].value.weight],

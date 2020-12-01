@@ -28,43 +28,9 @@ export class UpdateOrderComponent implements OnInit {
   action;
   titleGroup;
   items: FormArray;
+  status;
   OrderForm: FormGroup;
-  ChildAWBFrom: FormGroup;
-  country;
-  limitEvent = 20;
-  eventTracking;
-  itemType = [
-    {
-      value: 0,
-      name: 'DOC'
-    },
-    {
-      value: 1,
-      name: 'PACK'
-    },
-    {
-      value: 2,
-      name: 'ENVELOP'
-    }
-  ];
-  showList = [
-    {
-      value: 20,
-      name: 20,
-    },
-    {
-      value: 30,
-      name: 30,
-    },
-    {
-      value: 40,
-      name: 40,
-    },
-    {
-      value: 50,
-      name: 50,
-    },
-  ]
+  service;
 
   constructor(
     private _UpdateOrderService: UpdateOrderService,
@@ -81,6 +47,8 @@ export class UpdateOrderComponent implements OnInit {
   async ngOnInit() {
     await this.buildForm();
     await this.serviceList();
+    // this.serviceList();
+    this.getStatus();
     this.title = 'Update Agent Data';
     this.buttonType = 'Update';
     this.activeRoute.params.subscribe(params => {
@@ -95,7 +63,7 @@ export class UpdateOrderComponent implements OnInit {
   private buildForm() {
     this.OrderForm = this.formBuilder.group({
       odr_status: ['', [Validators.required]],
-      out_awb_num: ['', [Validators.required]],
+      out_awb_num: [''],
       service_id: ['', [Validators.required]],
       zone_id: ['', [Validators.required]],
       items: this.formBuilder.array([this.buildChildGroup()])
@@ -116,7 +84,7 @@ export class UpdateOrderComponent implements OnInit {
   private detailForm(data) {
     this.OrderForm = this.formBuilder.group({
       odr_status: [data.odr_status, [Validators.required]],
-      out_awb_num: [data.out_awb_num, [Validators.required]],
+      out_awb_num: [data.out_awb_num],
       service_id: [data.service_id, [Validators.required]],
       zone_id: [data.zone_id, [Validators.required]],
       items: this.detailChildGroup(data.items)
@@ -207,6 +175,13 @@ export class UpdateOrderComponent implements OnInit {
   serviceList() {
     this._UpdateOrderService.serviceList().subscribe((data) => {
       this.serviceName = data['data'];
+      this.service = data['data']
+    });
+  }
+
+  getStatus() {
+    this._UpdateOrderService.getStatus().subscribe((data) => {
+      this.status = data['data'];
     });
   }
 }

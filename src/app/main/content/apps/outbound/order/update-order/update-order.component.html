@@ -1,9 +1,22 @@
-<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
-
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
-    fxLayoutAlign.gt-xs="space-between center">
-    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
@@ -16,32 +29,49 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-    <form [formGroup]="OrderForm" autocomplete="off" class="form" (submit)="onSubmit()">
+    <form
+      [formGroup]="OrderForm"
+      autocomplete="off"
+      class="form"
+      (submit)="onSubmit()"
+    >
       <div class="background-title mat-cyan-200-bg">
         <h2 class="title">Accountant</h2>
       </div>
       <div class="box-shadow-form margin-top-10">
         <div class="row">
-            <mat-form-field class="col-sm-12 col-md-6">
-                <input formControlName="odr_status" matInput placeholder="Order Status">
-                <mat-error *ngIf="OrderForm.controls.odr_status.hasError('required')">
-                  Order Status is required
-                </mat-error>
-              </mat-form-field>
-              <mat-form-field class="col-sm-12 col-md-6">
-                  <input formControlName="out_awb_num" matInput placeholder="Outbound AWB Number">
-                  <mat-error *ngIf="OrderForm.controls.out_awb_num.hasError('required')">
-                    Outbound AWB Number is required
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field class="col-sm-12 col-md-6">
-                    <input formControlName="zone_id" matInput placeholder="Zone">
-                    <mat-error *ngIf="OrderForm.controls.zone_id.hasError('required')">
-                      Zone ID is required
-                    </mat-error>
-                  </mat-form-field>
-                  <mat-form-field class="col-sm-12 col-md-6">
-                      <input
+          <mat-form-field class="col-sm-12 col-md-6">
+            <mat-select formControlName="odr_status" placeholder="Status">
+              <mat-option *ngFor="let item of status" [value]="item.value">
+                {{ item.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="OrderForm.controls.odr_status.hasError('required')"
+            >
+              Order Status is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-6">
+            <input
+              formControlName="out_awb_num"
+              matInput
+              placeholder="Outbound AWB Number"
+            />
+            <mat-error
+              *ngIf="OrderForm.controls.out_awb_num.hasError('required')"
+            >
+              Outbound AWB Number is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-6">
+            <input formControlName="zone_id" matInput placeholder="Zone" />
+            <mat-error *ngIf="OrderForm.controls.zone_id.hasError('required')">
+              Zone ID is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-6">
+            <input
           placeholder="Service"
           formControlName="service_id"
           (change)="getService($event)"
@@ -63,7 +93,15 @@
             {{ option.service_name }}
           </mat-option>
         </mat-autocomplete>
-                    </mat-form-field>
+            <!-- <mat-select formControlName="service_id" placeholder="Service">
+              <mat-option
+                *ngFor="let item of service"
+                [value]="item.service_id"
+              >
+                {{ item.service_name }}
+              </mat-option>
+            </mat-select> -->
+          </mat-form-field>
         </div>
       </div>
 
@@ -71,81 +109,132 @@
         <h2 class="title">Packages</h2>
       </div>
       <div class="box-shadow-form margin-top-10">
-          <table class="table table-striped table-bordered mat-cyan-50-bg margin-top-10">
-              <thead>
-                <tr>
-                  <th>Height</th>
-                  <th>Item ID</th>
-                  <th>Length</th>
-                  <th>Volume</th>
-                  <th>Weight</th>
-                  <th>Width</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody formArrayName="items">
-                <tr *ngFor="let item of OrderForm.get('items')['controls']; let i = index" [formGroupName]="i">
-                  <td class="border-table">
-                    <input formControlName="height" matInput readonly>
-                    <mat-error
-                      *ngIf="OrderForm.controls.items.controls[i].controls.height.hasError('required') && OrderForm.controls.items.controls[i].controls.height.touched">
-                      Height is required
-                    </mat-error>
-                  </td>
-                  <td class="border-table">
-                    <input formControlName="item_id" matInput readonly>
-                    <mat-error
-                      *ngIf="OrderForm.controls.items.controls[i].controls.item_id.hasError('required') && OrderForm.controls.items.controls[i].controls.item_id.touched">
-                      Item ID is required
-                    </mat-error>
-                  </td>
-                  <td class="border-table">
-                    <input formControlName="length" matInput readonly>
-                    <mat-error
-                      *ngIf="OrderForm.controls.items.controls[i].controls.length.hasError('required') && OrderForm.controls.items.controls[i].controls.length.touched">
-                      Length is required
-                    </mat-error>
-                  </td>
-                  <td class="border-table">
-                    <input formControlName="volume" matInput readonly>
-                    <mat-error
-                      *ngIf="OrderForm.controls.items.controls[i].controls.volume.hasError('required') && OrderForm.controls.items.controls[i].controls.volume.touched">
-                      Volume is required
-                    </mat-error>
-                  </td>
-                  <td class="border-table">
-                    <input formControlName="weight" matInput readonly>
-                    <mat-error
-                      *ngIf="OrderForm.controls.items.controls[i].controls.weight.hasError('required') && OrderForm.controls.items.controls[i].controls.weight.touched">
-                      Weight is required
-                    </mat-error>
-                  </td>
-                  <td class="border-table">
-                    <input formControlName="width" matInput readonly>
-                    <mat-error
-                      *ngIf="OrderForm.controls.items.controls[i].controls.width.hasError('required') && OrderForm.controls.items.controls[i].controls.width.touched">
-                      Width is required
-                    </mat-error>
-                  </td>
+        <table
+          class="table table-striped table-bordered mat-cyan-50-bg margin-top-10"
+        >
+          <thead>
+            <tr>
+              <th>Height</th>
+              <th>Item ID</th>
+              <th>Length</th>
+              <th>Volume</th>
+              <th>Weight</th>
+              <th>Width</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody formArrayName="items">
+            <tr
+              *ngFor="
+                let item of OrderForm.get('items')['controls'];
+                let i = index
+              "
+              [formGroupName]="i"
+            >
+              <td class="border-table">
+                <input formControlName="height" matInput readonly />
+                <mat-error
+                  *ngIf="
+                    OrderForm.controls.items.controls[
+                      i
+                    ].controls.height.hasError('required') &&
+                    OrderForm.controls.items.controls[i].controls.height.touched
+                  "
+                >
+                  Height is required
+                </mat-error>
+              </td>
+              <td class="border-table">
+                <input formControlName="item_id" matInput readonly />
+                <mat-error
+                  *ngIf="
+                    OrderForm.controls.items.controls[
+                      i
+                    ].controls.item_id.hasError('required') &&
+                    OrderForm.controls.items.controls[i].controls.item_id
+                      .touched
+                  "
+                >
+                  Item ID is required
+                </mat-error>
+              </td>
+              <td class="border-table">
+                <input formControlName="length" matInput readonly />
+                <mat-error
+                  *ngIf="
+                    OrderForm.controls.items.controls[
+                      i
+                    ].controls.length.hasError('required') &&
+                    OrderForm.controls.items.controls[i].controls.length.touched
+                  "
+                >
+                  Length is required
+                </mat-error>
+              </td>
+              <td class="border-table">
+                <input formControlName="volume" matInput readonly />
+                <mat-error
+                  *ngIf="
+                    OrderForm.controls.items.controls[
+                      i
+                    ].controls.volume.hasError('required') &&
+                    OrderForm.controls.items.controls[i].controls.volume.touched
+                  "
+                >
+                  Volume is required
+                </mat-error>
+              </td>
+              <td class="border-table">
+                <input formControlName="weight" matInput readonly />
+                <mat-error
+                  *ngIf="
+                    OrderForm.controls.items.controls[
+                      i
+                    ].controls.weight.hasError('required') &&
+                    OrderForm.controls.items.controls[i].controls.weight.touched
+                  "
+                >
+                  Weight is required
+                </mat-error>
+              </td>
+              <td class="border-table">
+                <input formControlName="width" matInput readonly />
+                <mat-error
+                  *ngIf="
+                    OrderForm.controls.items.controls[
+                      i
+                    ].controls.width.hasError('required') &&
+                    OrderForm.controls.items.controls[i].controls.width.touched
+                  "
+                >
+                  Width is required
+                </mat-error>
+              </td>
 
-                  <td class="border-table">
-                    <button mat-raised-button (click)="deleteMoreItem(i)">
-                      <mat-icon class="button-in-table">delete</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding-left: 10px;">
-                    <button mat-raised-button (click)="addMoreItem($event)">
-                      <mat-icon class="button-in-table">add_circle</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <td class="border-table">
+                <button mat-raised-button (click)="deleteMoreItem(i)">
+                  <mat-icon class="button-in-table">delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 10px;">
+                <button mat-raised-button (click)="addMoreItem($event)">
+                  <mat-icon class="button-in-table">add_circle</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <button class="button-submit" mat-raised-button color="accent" type="submit">Create</button>
+      <button
+        class="button-submit"
+        mat-raised-button
+        color="accent"
+        type="submit"
+      >
+        Update
+      </button>
     </form>
   </div>
-
 </div>

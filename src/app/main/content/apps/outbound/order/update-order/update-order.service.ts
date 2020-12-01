@@ -28,4 +28,8 @@ export class UpdateOrderService
      serviceList() {
       return this.http.get(this.apiConfig.SERVICE_LIST);
     }
+
+    getStatus() {
+      return this.http.get(this.apiConfig.GET_STATUS);
+    }
 }
