@@ -24,4 +24,8 @@ export class UpdateOrderService
     getService(data) {
       return this.http.get(this.apiConfig.SERVICE_LIST + data);
     }
+
+     serviceList() {
+      return this.http.get(this.apiConfig.SERVICE_LIST);
+    }
 }

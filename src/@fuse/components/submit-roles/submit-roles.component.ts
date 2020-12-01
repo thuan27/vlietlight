@@ -7,7 +7,7 @@ import { APIConfig } from 'app/main/content/pages/authentication/config';
 import { HttpClient } from '@angular/common/http';
 import { ToastyConfig, ToastyService } from '../../directives/ng2-toasty';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ShareService } from '@fuse/services/share.service';
+// import { ShareService } from '@fuse/services/share.service';
 import { RolesService } from 'app/main/content/apps/administration/roles/roles.service';
 
 
@@ -15,7 +15,7 @@ import { RolesService } from 'app/main/content/apps/administration/roles/roles.s
     selector     : 'fuse-submit-roles-dialog',
     templateUrl  : './submit-roles.component.html',
     styleUrls    : ['./submit-roles.component.scss'],
-    providers: [APIConfig, ToastyService, ShareService]
+    providers: [APIConfig, ToastyService]
 })
 
 export class FuseSubmitRolesComponent

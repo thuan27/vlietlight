@@ -78,13 +78,14 @@ export class UpdateOrderComponent implements OnInit {
     this.toastyConfig.position = 'top-right';
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.buildForm();
+    await this.serviceList();
     this.title = 'Update Agent Data';
     this.buttonType = 'Update';
-    this.routeSub = this.activeRoute.params.subscribe(params => {
+    this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
         this.idOrder = params['id'];
-        this.buildForm();
         this.detail(params['id']);
         this.disabledForm = false;
       }
@@ -113,7 +114,6 @@ export class UpdateOrderComponent implements OnInit {
   }
 
   private detailForm(data) {
-    console.log(data)
     this.OrderForm = this.formBuilder.group({
       odr_status: [data.odr_status, [Validators.required]],
       out_awb_num: [data.out_awb_num, [Validators.required]],
@@ -184,10 +184,13 @@ export class UpdateOrderComponent implements OnInit {
     });
   }
 
-  onSubmit() { }
-  getService(event) {
+  onSubmit() {
+    console.log(this.OrderForm.value)
+  }
+
+  getService(event = undefined) {
     let data = '';
-    if (event.target.value) {
+    if (event && event.target.value) {
       data = data + '?service_name=' + event.target.value;
     }
     this._UpdateOrderService.getService(data).subscribe((data) => {
@@ -197,7 +200,13 @@ export class UpdateOrderComponent implements OnInit {
 
   displayService(id) {
     if (this.serviceName) {
-      return this.serviceName.find(service => service.service_id === id).service_name;
+      return this.serviceName.find(service => service.service_id == id).service_name;
     }
+  }
+
+  serviceList() {
+    this._UpdateOrderService.serviceList().subscribe((data) => {
+      this.serviceName = data['data'];
+    });
   }
 }

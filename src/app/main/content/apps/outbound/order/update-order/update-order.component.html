@@ -44,7 +44,7 @@
                       <input
           placeholder="Service"
           formControlName="service_id"
-          (keyup)="getService($event)"
+          (change)="getService($event)"
           type="text"
           aria-label="Number"
           matInput
@@ -53,6 +53,7 @@
         <mat-autocomplete
           [displayWith]="displayService.bind(this)"
           autoActiveFirstOption
+          tickInterval="auto"
           #autoService="matAutocomplete"
         >
           <mat-option

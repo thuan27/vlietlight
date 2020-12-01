@@ -25,7 +25,7 @@ import { TokenInterceptor } from '@fuse/interceptor/token.interceptor';
 import { AuthService } from '@fuse/services/auth.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {APP_BASE_HREF} from '@angular/common';
-import { ShareService } from '@fuse/services/share.service';
+import { DataShareService } from '@fuse/services/share.service';
 import { DragDropDirective } from '@fuse/directives/drag-drop/drag-drop.directive';
 import { FuseError404Component } from './main/content/pages/errors/404/error-404.component';
 import { Error404Module } from './main/content/pages/errors/404/error-404.module';
@@ -115,7 +115,7 @@ const appRoutes: Routes = [
         AppComponent
     ],
     providers: [
-      ShareService,
+      DataShareService,
       AuthGuard,
       AdminGuard,
       AuthService,
