@@ -32,6 +32,11 @@ export class CreateOrderComponent implements OnInit {
   country;
   limitEvent = 20;
   eventTracking;
+  files: any = [];
+  doc_type = 'agent_bill';
+  selectedFiles: FileList;
+  itemFile = [];
+  filesDetail;
   itemType = [
     {
       value: 0,
@@ -399,8 +404,15 @@ export class CreateOrderComponent implements OnInit {
     this._createOrderService.getDetail(id).subscribe((data) => {
       this.orderDetail = data['data'];
       this.detailForm(data['data']);
+      this.getUploadFile(data['data']['odr_name'], 'agent_bill');
       this.getEventTracking();
     });
+  }
+
+  getUploadFile(transaction, doc_type) {
+    this._createOrderService.getUploadFile(transaction, doc_type).subscribe((response) => {
+      this.filesDetail = response['data'];
+    })
   }
 
   getEventTracking() {
@@ -417,4 +429,41 @@ export class CreateOrderComponent implements OnInit {
 
   onSubmit() { }
   addEvent(e) { }
+
+  uploadFile(file) {
+    this.selectedFiles = file;
+    this.itemFile = <Array<File>> file[0];
+    // this.itemFile = <Array<File>> event.target.files[0];
+
+    // this.selectedFiles = event.target.files;
+    for (let index = 0; index < file.length; index++) {
+      const element = file[index];
+      this.files.push(element)
+      // formarray.append("fileToUpload[]", element);
+    }
+  }
+
+  saveFile() {
+    if (this.doc_type != '' && this.files.length > 0) {
+      if (this.OrderForm.value['odr_name'] != '') {
+        const formarray = new FormData();
+        for (let i = 0; i < this.files.length; i++) {
+          formarray.append("files[]", this.files[i]);
+        }
+        formarray.append("transaction", this.OrderForm.value['odr_name']);
+        formarray.append("doc_type", this.doc_type);
+        this._createOrderService.uploadfile(formarray).subscribe((res) => {
+          this.toastyService.success('Imported document Successfully');
+        })
+      } else {
+        this.toastyService.error('Please enter the AWB Code value');
+      }
+    } else {
+      this.toastyService.error('Please enter the Document Type and import at least one item');
+    }
+  }
+
+  deleteAttachment(index) {
+    this.files.splice(index, 1)
+  }
 }

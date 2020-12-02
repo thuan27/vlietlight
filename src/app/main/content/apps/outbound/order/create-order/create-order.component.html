@@ -578,12 +578,95 @@
                   </mat-tab>
                   <mat-tab label="Documents">
                       <div class="demo-tab-content">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                          Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-                          In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-                          feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-                          orci enim rutrum enim, vel tempor sapien arcu a tellus.
-                      </div>
+                          <mat-form-field class="ml-3 mt-3">
+                            <input
+                              [readonly]="disabledForm"
+                              [ngModelOptions]="{ standalone: true }"
+                              [(ngModel)]="doc_type"
+                              maxlength="50"
+                              matInput
+                              placeholder="Document Type (*)"
+                            />
+                          </mat-form-field>
+                          <div
+                            class="uploadfilecontainer"
+                            (click)="fileInput.click()"
+                            appDragDrop
+                            (onFileDropped)="uploadFile($event)"
+                          >
+                            <input
+                              hidden
+                              type="file"
+                              #fileInput
+                              (change)="uploadFile($event.target.files)"
+                            />
+                          </div>
+                          <div class="files-list" *ngFor="let item of files">
+                            <p>{{ item.name }}</p>
+                            <button class="delete-file" (click)="deleteAttachment(i)">
+                              <img
+                                src="../../../../../../../assets/images/common/Recycle_Bin_Full.png"
+                              />
+                            </button>
+                          </div>
+                          <div class="d-flex justify-content-center mb-3">
+                            <button
+                              [disabled]="!selectedFiles"
+                              mat-raised-button
+                              color="accent"
+                              (click)="saveFile(); $event.preventDefault()"
+                            >
+                              Save
+                            </button>
+                          </div>
+                          <div class="table-style1">
+                              <table
+                                class="table table-striped table-bordered mat-cyan-50-bg"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th>Transaction (*)</th>
+                                    <th>Doc Type (*)</th>
+                                    <th>Doc Date</th>
+                                    <th>File Name (*)</th>
+                                    <th>Created</th>
+                                    <th>Full Name</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of filesDetail">
+                                    <td class="border-table">
+                                      {{ item.transaction }}
+                                    </td>
+                                    <td class="border-table">
+                                      {{ item.doc_type }}
+                                    </td>
+                                    <td class="border-table">
+                                      {{ item.doc_date }}
+                                    </td>
+                                    <td class="border-table">
+                                      {{ item.filename }}
+                                    </td>
+                                    <td class="border-table">
+                                      {{ item.created_at }}
+                                    </td>
+                                    <td class="border-table">
+                                      {{ item.fullname }}
+                                    </td>
+                                    <td>
+                                      <div (click)="deleteFiled(item)">
+                                        <mat-icon
+                                          style="margin-left: 10px; cursor: pointer; color: red"
+                                          >delete_sweep</mat-icon
+                                        >
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                   </mat-tab>
                   </mat-tab-group>
       </div>

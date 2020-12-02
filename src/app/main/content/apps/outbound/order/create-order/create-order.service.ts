@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
@@ -32,5 +32,25 @@ export class CreateOrderService
 
     getEventTracking(params) {
       return this.http.get(this.apiConfig.ORDER_EVENT_TRACKING + params);
+    }
+
+    uploadfile(file) {
+      let formData = new FormData();
+      formData.append('file', file);
+      let params = new HttpParams();
+      const options = {
+        params: params,
+        reportProgress: true,
+        withCredentials: true,
+    }
+      return this.http.post(this.apiConfig.AWB_FILE, file, options);
+    }
+
+    getAWB(id) {
+      return this.http.get(`${this.apiConfig.CREATE_AWB}/${id}`);
+    }
+
+    getUploadFile(transaction, doc_type) {
+      return this.http.get(`${this.apiConfig.AWB_FILE}?transaction=${transaction}&doc_type=${doc_type}`)
     }
 }
