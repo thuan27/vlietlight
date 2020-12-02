@@ -62,8 +62,11 @@ export class FuseUpdatePickUpComponent {
         .updatePickUp(this.data['data'][0]['wv_hdr_id'], this.formUpdate.value)
         .subscribe(
           res => {
-            this.dialogRef.close(this.selected)
+            this.dialogRef.close('Updated Successfully')
           },
+          err => {
+            this.dialogRef.close(err['error']['errors']['message'])
+          }
         );
     } else {
       this.validateID = true;

@@ -9,6 +9,8 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { FuseDetailPickUpComponent } from '@fuse/components/detail-pick-up/detail-pick-up.component';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { FuseDetailAssignmentComponent } from '@fuse/components/detail-assignment/detail-assignment.component';
+import * as moment from 'moment';
+
 @Component({
   selector: 'assignment',
   templateUrl: './assignment.component.html',
@@ -69,16 +71,19 @@ export class AssignmentComponent implements OnInit {
 
     getList() {
       this.showLoadingBar = true;
-      let param = '';
-      param = '?' + 'awb_code=' + this.searchForm.value['awb_code']
-        + '&' + 'customer_name=' + this.searchForm.value['customer_name'];
-      if (this.searchForm.value['from_date'] != '') {
-        param  = param + '&' + 'from_date=' + new Date(this.searchForm.value['from_date']).getTime();
+      let params = `?limit=15`;
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_date') {
+          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+        } else
+        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_date') {
+          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+        } else {
+          params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+        }
       }
-      if (this.searchForm.value['to_date'] != '') {
-        param  = param + '&' + 'to_date=' + new Date(this.searchForm.value['to_date']).getTime();
-      }
-      this.assignmentService.getList(param).subscribe((data) => {
+      this.assignmentService.getList(params).subscribe((data) => {
         this.listAssignment = data['data'];
         this.showLoadingBar = false;
       })

@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import * as moment from 'moment';
 
 @Component({
   selector: 'monthly-costs-list',
@@ -87,7 +88,17 @@ export class MonthlyCostsListComponent implements OnInit {
     }
     const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
     for (let i = 0; i < arrayItem.length; i++) {
-      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+      if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'updated_at') {
+        params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+      } else
+      if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'act_date') {
+        params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+      } else
+      if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'created_at') {
+        params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+      } else {
+        params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+      }
     }
     this.monthlyCostsList = this.monthlyCostsListService.getList(params);
 

@@ -207,6 +207,15 @@ export class WavePickListComponent implements OnInit {
             data: this.selected
         }
       });
+      this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (response == 'Updated Successfully') {
+          this.toastyService.success(response);
+          this.getList();
+        } else {
+          this.toastyService.error(response);
+        }
+      });
     }
   }
 
@@ -220,6 +229,15 @@ export class WavePickListComponent implements OnInit {
         panelClass: 'contact-form-dialog',
         data      : {
             data: this.selected
+        }
+      });
+      this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (response == 'Updated Successfully') {
+          this.toastyService.success(response);
+          this.getList();
+        } else {
+          this.toastyService.error(response);
         }
       });
     }

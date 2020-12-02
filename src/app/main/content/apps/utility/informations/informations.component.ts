@@ -7,6 +7,7 @@ import { InformationsService } from './informations.service';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { MatDialog } from '@angular/material';
 import { FuseCreateInformationsComponent } from '@fuse/components/create-informations/create-informations.component';
+import * as moment from 'moment';
 
 @Component({
     selector: 'informations',
@@ -55,8 +56,8 @@ export class InformationsComponent implements OnInit {
         this.searchForm = this.formBuilder.group({
           category: '',
           subject: '',
-          created_at: null,
-          updated_at: null,
+          created_at: '',
+          updated_at: '',
           created_by: ''
         });
     }
@@ -68,7 +69,14 @@ export class InformationsComponent implements OnInit {
       }
       const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
       for (let i = 0; i < arrayItem.length; i++) {
-        params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'created_at') {
+          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+        } else
+        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'updated_at') {
+          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+        } else {
+          params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+        }
       }
       this.informationsList = this.informationsService.getList(params);
 
@@ -92,7 +100,10 @@ export class InformationsComponent implements OnInit {
     }
 
     reset() {
-      this.searchForm.controls['country_name'].setValue('');
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        this.searchForm.controls[arrayItem[i]].setValue('');
+      }
       this.sortData = '';
       this.getList();
     }

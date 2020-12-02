@@ -14,6 +14,7 @@ import { locale as vietnam } from '../../../../i18n/vn';
 import * as FileSaver from 'file-saver';
 import { FuseUpdateAssignCSComponent } from '@fuse/components/update-assign-cs/update-assign-cs.component';
 import { FuseFilterAWBComponent } from '@fuse/components/filter-awb/filter-awb.component';
+import * as moment from 'moment';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -163,7 +164,14 @@ export class AWBComponent implements OnInit {
         }
         const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
         for (let i = 0; i < arrayItem.length; i++) {
-          params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+          if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_date') {
+            params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+          } else
+          if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_date') {
+            params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+          } else {
+            params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+          }
         }
         this._AWBService.getList(params).subscribe((data) => {
             data['data'].forEach((data) => {
@@ -349,12 +357,12 @@ export class AWBComponent implements OnInit {
           this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to cancel this AWB. The corresponding Order will be canceled?';
 
           this.dialogRef.afterClosed().subscribe(result => {
-              if ( result )
-              {
-                  // this.contactsService.deleteSelectedContacts();
-              } else {
-              }
-              this.dialogRef = null;
+              // if ( result )
+              // {
+              //     // this.contactsService.deleteSelectedContacts();
+              // } else {
+              // }
+              // this.dialogRef = null;
           });
       }
     }
@@ -369,12 +377,12 @@ export class AWBComponent implements OnInit {
           this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to pend this AWB. The corresponding Order will be pended too?';
 
           this.dialogRef.afterClosed().subscribe(result => {
-              if ( result )
-              {
-                  // this.contactsService.deleteSelectedContacts();
-              } else {
-              }
-              this.dialogRef = null;
+              // if ( result )
+              // {
+              //     // this.contactsService.deleteSelectedContacts();
+              // } else {
+              // }
+              // this.dialogRef = null;
           });
       }
     }
@@ -389,12 +397,12 @@ export class AWBComponent implements OnInit {
           this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to complete this AWB. The corresponding Order will be packing?';
 
           this.dialogRef.afterClosed().subscribe(result => {
-              if ( result )
-              {
-                  // this.contactsService.deleteSelectedContacts();
-              } else {
-              }
-              this.dialogRef = null;
+              // if ( result )
+              // {
+              //     // this.contactsService.deleteSelectedContacts();
+              // } else {
+              // }
+              // this.dialogRef = null;
           });
       }
     }
@@ -409,12 +417,12 @@ export class AWBComponent implements OnInit {
           this.dialogRef.componentInstance.confirmMessage = `Are you sure you want to remove this AWB out of WavePick ${this.selected[0].awb_code}?`;
 
           this.dialogRef.afterClosed().subscribe(result => {
-              if ( result )
-              {
-                  // this.contactsService.deleteSelectedContacts();
-              } else {
-              }
-              this.dialogRef = null;
+              // if ( result )
+              // {
+              //     // this.contactsService.deleteSelectedContacts();
+              // } else {
+              // }
+              // this.dialogRef = null;
           });
       }
     }
@@ -435,6 +443,7 @@ export class AWBComponent implements OnInit {
           if ( result )
           {
             this.getList();
+            this.selected = [];
           } else {
           }
           this.dialogRefUpdate = null;
@@ -521,8 +530,10 @@ export class AWBComponent implements OnInit {
             data: this.searchForm
         }
       }).afterClosed().subscribe((response) => {
-        this.searchForm = response;
-        this.getList()
+        if (response) {
+          this.searchForm = response;
+          this.getList()
+        }
       })
     }
 }
