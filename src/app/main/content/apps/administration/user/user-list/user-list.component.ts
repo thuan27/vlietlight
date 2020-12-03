@@ -58,7 +58,7 @@ export class UserAdminListComponent implements OnInit {
 
   private buildForm() {
     this.searchForm = this.formBuilder.group({
-      user_name: '',
+      username: '',
       first_name: '',
       last_name: '',
       email: '',
