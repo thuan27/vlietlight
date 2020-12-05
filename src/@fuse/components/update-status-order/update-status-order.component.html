@@ -5,9 +5,6 @@
   <form name="form" [formGroup]="form" novalidate>
     <mat-form-field class="col-sm-12">
       <mat-select formControlName="odr_status" placeholder="Status">
-        <mat-option style="top:0 !important" [value]="">
-          Please select option
-        </mat-option>
         <mat-option
           style="top:0 !important"
           *ngFor="let item of status"

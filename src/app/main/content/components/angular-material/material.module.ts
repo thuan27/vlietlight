@@ -34,6 +34,7 @@ import {
     MatStepperModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { CdkTableModule } from '@angular/cdk/table';
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        CdkTableModule
+        CdkTableModule,
+        MatDatetimepickerModule
     ],
     exports: [
         MatAutocompleteModule,
@@ -103,7 +105,8 @@ import { CdkTableModule } from '@angular/cdk/table';
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        CdkTableModule
+        CdkTableModule,
+        MatDatetimepickerModule
     ]
 })
 export class MaterialModule

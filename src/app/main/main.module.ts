@@ -70,6 +70,7 @@ import { FuseCreateInformationsModule } from '@fuse/components/create-informatio
         FuseUpdateTrackingOrderModule,
         FuseUpdateAssignCSModule,
         FuseCreateInformationsModule,
+        // FuseUpdateStatusInfoModule,
         ToastyModule.forRoot()
     ],
     exports     : [
