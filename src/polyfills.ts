@@ -74,6 +74,9 @@ import 'intl/locale-data/jsonp/en';
 /**
  * Fix for ngx-chart to work on ie11
  */
+
+import 'time-input-polyfill';
+// Get date time picker
 if ( typeof SVGElement.prototype.contains === 'undefined' )
 {
     SVGElement.prototype.contains = HTMLDivElement.prototype.contains;

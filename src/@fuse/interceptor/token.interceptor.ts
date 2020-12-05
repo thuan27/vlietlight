@@ -22,6 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
    intercept(request: HttpRequest<any>, next: HttpHandler) {
      let check = this.urlCurrent.includes('pages/landing')
                 || this.urlCurrent.includes('pages/auth/login');
+                console.log(this.urlCurrent)
      if (!check) {
       let requestOption:any = {};
       const token = this.auth.getToken();

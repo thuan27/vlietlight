@@ -28,7 +28,8 @@ export class FuseUpdateTrackingInfoComponent {
   ngOnInit() {
     this.buildFrom();
     this.getStatus();
-    // console.log(this.data)
+    console.log(this.data)
+
   }
 
   private buildFrom() {

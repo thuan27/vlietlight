@@ -1,11 +1,12 @@
 import { Subscription } from 'rxjs/Subscription';
 import { CreateOrderService } from './create-order.service';
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialogRef, MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -35,6 +36,7 @@ export class CreateOrderComponent implements OnInit {
   files: any = [];
   doc_type = 'agent_bill';
   selectedFiles: FileList;
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   itemFile = [];
   filesDetail;
   itemType = [
@@ -75,6 +77,7 @@ export class CreateOrderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
+    public dialog: MatDialog,
     private activeRoute: ActivatedRoute,
     private toastyService: ToastyService,
     private toastyConfig: ToastyConfig
@@ -465,5 +468,24 @@ export class CreateOrderComponent implements OnInit {
 
   deleteAttachment(index) {
     this.files.splice(index, 1)
+  }
+
+  deleteFiled(item) {
+    if (!this.disabledForm) {
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this file?';
+
+      this.dialogRef.afterClosed().subscribe(result => {
+          if ( result )
+          {
+            this._createOrderService.deleteFiled(item.file_id).subscribe((response) => {
+              this.toastyService.success('Deleted file Successfully');
+              this.getEventTracking();
+            });
+          } else {
+          }
+          this.dialogRef = null;
+      });
+    }
   }
 }

@@ -3,7 +3,7 @@
 <div class="page-layout simple fullwidth" style="min-width: 300px">
   <form name="form" [formGroup]="form" novalidate>
     <mat-form-field class="col-sm-12">
-      <mat-select [disabled]="true" formControlName="track_status_code" placeholder="Tracking Code">
+      <mat-select formControlName="track_status_code" placeholder="Tracking Code">
         <mat-option
           *ngFor="let item of status"
           [value]="item.value"
@@ -18,6 +18,17 @@
       <mat-form-field class="col-sm-12">
           <input formControlName="track_location" matInput placeholder="Location" />
         </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input matInput [matDatepicker]="picker" formControlName="actual_date_time" placeholder="Actual Date Time">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi="true" #picker></mat-datepicker>
+          <!-- <input matInput readonly formControlName="actual_date_time" [matDatepicker]="actualDate" placeholder="Actual Date Time">
+          <mat-datepicker-toggle matSuffix [for]="actualDate"></mat-datepicker-toggle>
+          <mat-datepicker #actualDate disabled="false"></mat-datepicker> -->
+          <mat-error *ngIf="form.controls.actual_date_time.hasError('required')">
+            Actual Date Time is required
+          </mat-error>
+      </mat-form-field>
   </form>
   <div style="margin:auto">
     <button

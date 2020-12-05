@@ -53,4 +53,8 @@ export class CreateOrderService
     getUploadFile(transaction, doc_type) {
       return this.http.get(`${this.apiConfig.AWB_FILE}?transaction=${transaction}&doc_type=${doc_type}`)
     }
+
+    deleteFiled(idFile) {
+      return this.http.delete(this.apiConfig.AWB_EVENT_TRACKING_DELETE + '/' + idFile);
+    }
 }

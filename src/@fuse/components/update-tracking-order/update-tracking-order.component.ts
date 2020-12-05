@@ -42,6 +42,10 @@ export class FuseUpdateTrackingOrderComponent {
         this.data['data'][0]['track_location'],
         [Validators.required]
       ],
+      actual_date_time: [
+        this.data['data'][0]['track_location'],
+        [Validators.required]
+      ],
     });
   }
 
