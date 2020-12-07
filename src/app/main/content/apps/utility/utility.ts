@@ -6,6 +6,7 @@ import { InformationsComponent } from './informations/informations.component';
 import { SalesQuickSearchComponent } from './sales-quick-search/sales-quick-search.component';
 import { SalesCalculateMoneyComponent } from './sales-calculate-money/sales-calculate-money.component';
 import { MoneyLogsComponent } from './money-logs/money-logs.component';
+import { TrackingListComponent } from './tracking/tracking.component';
 
 export const listRoutes: Routes = [
     {
@@ -34,7 +35,11 @@ export const listRoutes: Routes = [
     },
     {
         path     : 'money-logs',
-        component: MoneyLogsComponent
+        component: MoneyLogsComponent,
+    },
+    {
+        path: 'tracking',
+        component: TrackingListComponent,
     },
     {
       path      : '**',

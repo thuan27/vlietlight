@@ -7,6 +7,5 @@ export const listRoutes: Routes = [
         path: 'awb-event-tracking',
         component: AWBEventTrackingListComponent,
         canActivate: [AuthGuard, AdminGuard]
-    },
-
+    }
 ];

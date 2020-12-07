@@ -44,6 +44,7 @@ export class APIConfig {
   public USER_DELETE = this.API_BASE + '/master-service/v1/delete-multi-user';
   public USER_DETAIL = this.API_BASE + '/authentication/users/info/';
   public AWB_EVENT_TRACKING = this.API_BASE + '/awbs/v1/event-tracking';
+  public TRACKING = this.API_BASE + '/awbs/v1/tracking';
   public AWB_EVENT_TRACKING_DELETE = this.API_BASE + '/upload/v1/file';
   public ORDER_EVENT_TRACKING = this.API_BASE + '/orders/v1/event-tracking'
   public CREATE_WAVE_PICK = this.API_BASE + '/awbs/v1/awb-wavepick';

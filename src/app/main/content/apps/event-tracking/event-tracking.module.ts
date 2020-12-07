@@ -12,7 +12,7 @@ import { AWBEventTrackingList } from './awb-event-tracking/awb-event-tracking-li
 
 @NgModule({
     declarations: [
-      AWBEventTrackingListComponent,
+      AWBEventTrackingListComponent
     ],
     imports: [
         CommonModule,
@@ -33,7 +33,7 @@ import { AWBEventTrackingList } from './awb-event-tracking/awb-event-tracking-li
         MatAutocompleteModule
     ],
     providers   : [
-      AWBEventTrackingList,
+      AWBEventTrackingList
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

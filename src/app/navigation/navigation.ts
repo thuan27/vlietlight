@@ -185,12 +185,19 @@ export const navigation = [
                         'exactMatch': true
                     },
                     {
-                      'id'   : 'informations',
-                      'title': 'Informations',
-                      'type' : 'item',
-                      'url'  : '/apps/utility/information',
-                      'exactMatch': true
-                  }
+                        'id'   : 'informations',
+                        'title': 'Informations',
+                        'type' : 'item',
+                        'url'  : '/apps/utility/information',
+                        'exactMatch': true
+                    },
+                    {
+                        'id'   : 'tracking',
+                        'title': 'Tracking',
+                        'type' : 'item',
+                        'url'  : '/apps/utility/tracking',
+                        'exactMatch': true
+                    },
                 ]
             },
             {

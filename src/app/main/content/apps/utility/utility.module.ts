@@ -19,6 +19,8 @@ import { SalesQuickSearchService } from './sales-quick-search/sales-quick-search
 import { SalesCalculateMoneyComponent } from './sales-calculate-money/sales-calculate-money.component';
 import { SalesCalculateMoneyService } from './sales-calculate-money/sales-calculate-money.service';
 import { MoneyLogsComponent } from './money-logs/money-logs.component';
+import { TrackingListComponent } from './tracking/tracking.component';
+import { TrackingListService } from './tracking/tracking.service';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,8 @@ import { MoneyLogsComponent } from './money-logs/money-logs.component';
         InformationsComponent,
         SalesQuickSearchComponent,
         SalesCalculateMoneyComponent,
-        MoneyLogsComponent
+        MoneyLogsComponent,
+        TrackingListComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -54,7 +57,8 @@ import { MoneyLogsComponent } from './money-logs/money-logs.component';
         AssignmentService,
         SalesQuickSearchService,
         SalesCalculateMoneyService,
-        MoneyLogsService
+        MoneyLogsService,
+        TrackingListService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

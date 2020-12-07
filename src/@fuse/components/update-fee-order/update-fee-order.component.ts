@@ -32,6 +32,7 @@ export class FuseUpdateFeeOrderComponent {
   }
 
   private buildFrom() {
+    console.log(this.data)
     this.form = this.formBuilder.group({
       odr_status: [this.data['data'][0]['odr_status']],
       cus_other_fee: [
