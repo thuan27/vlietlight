@@ -12,8 +12,8 @@ export class UpdateTrackingOrderService
     {
     }
 
-    getStatus() {
-      return this.http.get(this.apiConfig.GET_STATUS);
+    updateTrackingStatus(id, data) {
+      return this.http.put(`${this.apiConfig.ORDER_LIST}/${id}/update-tracking-status`, data);
     }
 
 }

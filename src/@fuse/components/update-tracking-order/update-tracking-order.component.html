@@ -1,29 +1,75 @@
 <div class="title">Update Tracking Info</div>
 
-<div class="page-layout simple fullwidth" style="min-width: 300px">
+<div class="page-layout simple fullwidth" style="width: 500px">
   <form name="form" [formGroup]="form" novalidate>
     <mat-form-field class="col-sm-12">
-      <mat-select formControlName="track_status_code" placeholder="Tracking Code">
-        <mat-option
-          *ngFor="let item of status"
-          [value]="item.value"
-        >
+      <mat-select
+        formControlName="odr_tracking_code_update"
+        placeholder="Tracking Code"
+      >
+        <mat-option *ngFor="let item of trackingCodeList" [value]="item.value">
           {{ item.value }}
         </mat-option>
       </mat-select>
+      <mat-error
+        class="text-error"
+        *ngIf="form.controls.odr_tracking_code_update.hasError('required')"
+      >
+        Tracking Code is required
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="col-sm-12">
-        <input formControlName="track_description" matInput placeholder="Description" />
-      </mat-form-field>
-      <mat-form-field class="col-sm-12">
-          <input formControlName="track_location" matInput placeholder="Location" />
-        </mat-form-field>
-      <mat-form-field class="col-sm-12">
-          <!-- <mat-placeholder>Actual Date Time</mat-placeholder> -->
-          <input placeholder="Actual Date Time" formControlName="actual_date_time" matInput [matDatetimepicker]="dts" required autocomplete="false">
-          <mat-datetimepicker-toggle [for]="dts" matSuffix></mat-datetimepicker-toggle>
-          <mat-datetimepicker #dts type="datetime" openOnFocus="true" timeInterval="5"></mat-datetimepicker>
-        </mat-form-field>
+      <input
+        formControlName="tracking_description"
+        matInput
+        placeholder="Description"
+      />
+      <mat-error
+        class="text-error"
+        *ngIf="form.controls.tracking_description.hasError('required')"
+      >
+        Description is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-12">
+      <input
+        formControlName="tracking_location"
+        matInput
+        placeholder="Location"
+      />
+      <mat-error
+        class="text-error"
+        *ngIf="form.controls.tracking_location.hasError('required')"
+      >
+        Location is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-sm-12">
+      <input
+        placeholder="Actual Date Time"
+        formControlName="tracking_act_date_time"
+        matInput
+        [matDatetimepicker]="dts"
+        required
+        autocomplete="false"
+      />
+      <mat-datetimepicker-toggle
+        [for]="dts"
+        matSuffix
+      ></mat-datetimepicker-toggle>
+      <mat-datetimepicker
+        #dts
+        type="datetime"
+        openOnFocus="true"
+        timeInterval="5"
+      ></mat-datetimepicker>
+      <mat-error
+        class="text-error"
+        *ngIf="form.controls.tracking_act_date_time.hasError('required')"
+      >
+        Actual Date Time is required
+      </mat-error>
+    </mat-form-field>
   </form>
   <div style="margin:auto">
     <button
