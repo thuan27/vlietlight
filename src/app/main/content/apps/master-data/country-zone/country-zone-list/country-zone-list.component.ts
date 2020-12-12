@@ -94,11 +94,10 @@ export class CountryZoneListComponent implements OnInit {
   }
 
   reset() {
-    this.searchForm.controls['country_name'].setValue('');
-    this.searchForm.controls['country_name'].setValue('');
-    this.searchForm.controls['zone'].setValue('');
-
-
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      this.searchForm.controls[arrayItem[i]].setValue('');
+    }
     this.sortData = '';
     this.getList();
   }
