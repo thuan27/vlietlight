@@ -1,5 +1,5 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { TrackingListService } from './tracking.service';
+import { TrackingListService } from './tracking-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -9,9 +9,9 @@ import { UserService } from '@fuse/directives/users/users.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'tracking',
-  templateUrl: './tracking.component.html',
-  styleUrls: ['./tracking.component.scss'],
+  selector: 'tracking-list',
+  templateUrl: './tracking-list.component.html',
+  styleUrls: ['./tracking-list.component.scss'],
   providers: [UserService, TrackingListService, ToastyService]
 })
 export class TrackingListComponent implements OnInit {

@@ -65,16 +65,16 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-6">
-            <input formControlName="zone_id" matInput placeholder="Zone" />
-            <mat-error *ngIf="OrderForm.controls.zone_id.hasError('required')">
-              Zone ID is required
+            <input formControlName="zone" matInput placeholder="Zone" />
+            <mat-error *ngIf="OrderForm.controls.zone.hasError('required')">
+              Zone is required
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-6">
             <input
           placeholder="Service"
           formControlName="service_id"
-          (change)="getService($event)"
+          (keyup)="getService($event)"
           type="text"
           aria-label="Number"
           matInput
@@ -93,15 +93,7 @@
             {{ option.service_name }}
           </mat-option>
         </mat-autocomplete>
-            <!-- <mat-select formControlName="service_id" placeholder="Service">
-              <mat-option
-                *ngFor="let item of service"
-                [value]="item.service_id"
-              >
-                {{ item.service_name }}
-              </mat-option>
-            </mat-select> -->
-          </mat-form-field>
+      </mat-form-field>
         </div>
       </div>
 
@@ -123,10 +115,10 @@
               <th></th>
             </tr>
           </thead>
-          <tbody formArrayName="items">
+          <tbody formArrayName="odr_details">
             <tr
               *ngFor="
-                let item of OrderForm.get('items')['controls'];
+                let item of OrderForm.get('odr_details')['controls'];
                 let i = index
               "
               [formGroupName]="i"
@@ -135,10 +127,10 @@
                 <input formControlName="height" matInput readonly />
                 <mat-error
                   *ngIf="
-                    OrderForm.controls.items.controls[
+                    OrderForm.controls.odr_details.controls[
                       i
                     ].controls.height.hasError('required') &&
-                    OrderForm.controls.items.controls[i].controls.height.touched
+                    OrderForm.controls.odr_details.controls[i].controls.height.touched
                   "
                 >
                   Height is required
@@ -148,10 +140,10 @@
                 <input formControlName="item_id" matInput readonly />
                 <mat-error
                   *ngIf="
-                    OrderForm.controls.items.controls[
+                    OrderForm.controls.odr_details.controls[
                       i
                     ].controls.item_id.hasError('required') &&
-                    OrderForm.controls.items.controls[i].controls.item_id
+                    OrderForm.controls.odr_details.controls[i].controls.item_id
                       .touched
                   "
                 >
@@ -162,10 +154,10 @@
                 <input formControlName="length" matInput readonly />
                 <mat-error
                   *ngIf="
-                    OrderForm.controls.items.controls[
+                    OrderForm.controls.odr_details.controls[
                       i
                     ].controls.length.hasError('required') &&
-                    OrderForm.controls.items.controls[i].controls.length.touched
+                    OrderForm.controls.odr_details.controls[i].controls.length.touched
                   "
                 >
                   Length is required
@@ -175,10 +167,10 @@
                 <input formControlName="volume" matInput readonly />
                 <mat-error
                   *ngIf="
-                    OrderForm.controls.items.controls[
+                    OrderForm.controls.odr_details.controls[
                       i
                     ].controls.volume.hasError('required') &&
-                    OrderForm.controls.items.controls[i].controls.volume.touched
+                    OrderForm.controls.odr_details.controls[i].controls.volume.touched
                   "
                 >
                   Volume is required
@@ -188,10 +180,10 @@
                 <input formControlName="weight" matInput readonly />
                 <mat-error
                   *ngIf="
-                    OrderForm.controls.items.controls[
+                    OrderForm.controls.odr_details.controls[
                       i
                     ].controls.weight.hasError('required') &&
-                    OrderForm.controls.items.controls[i].controls.weight.touched
+                    OrderForm.controls.odr_details.controls[i].controls.weight.touched
                   "
                 >
                   Weight is required
@@ -201,10 +193,10 @@
                 <input formControlName="width" matInput readonly />
                 <mat-error
                   *ngIf="
-                    OrderForm.controls.items.controls[
+                    OrderForm.controls.odr_details.controls[
                       i
                     ].controls.width.hasError('required') &&
-                    OrderForm.controls.items.controls[i].controls.width.touched
+                    OrderForm.controls.odr_details.controls[i].controls.width.touched
                   "
                 >
                   Width is required

@@ -18,11 +18,12 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(@Inject(DOCUMENT) document: any,public dialog: MatDialog, public auth: AuthService) {
     this.urlCurrent = document.location.href;
   }
-
    intercept(request: HttpRequest<any>, next: HttpHandler) {
      let check = this.urlCurrent.includes('pages/landing')
-                || this.urlCurrent.includes('pages/auth/login');
+                || this.urlCurrent.includes('pages/auth/login')
+                || this.urlCurrent.slice(32) == '';
                 console.log(this.urlCurrent)
+                console.log()
      if (!check) {
       let requestOption:any = {};
       const token = this.auth.getToken();

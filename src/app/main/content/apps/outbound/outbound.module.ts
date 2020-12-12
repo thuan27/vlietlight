@@ -23,12 +23,15 @@ import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderListService } from './order/order-list/order-list.service';
 import { UpdateOrderService } from './order/update-order/update-order.service';
 import { UpdateOrderComponent } from './order/update-order/update-order.component';
+import { TrackingComponent } from './tracking-order/tracking-order.component';
+import { TrackingOrderListService } from './tracking-order/tracking-order.service';
 
 @NgModule({
     declarations: [
         CreateOrderComponent,
         UpdateOrderComponent,
-        OrderListComponent
+        OrderListComponent,
+        TrackingComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -52,6 +55,7 @@ import { UpdateOrderComponent } from './order/update-order/update-order.componen
         CreateOrderService,
         UpdateOrderService,
         OrderListService,
+        TrackingOrderListService
     ]
 })
 export class FuseOutboundModule {

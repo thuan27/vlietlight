@@ -19,8 +19,8 @@ import { SalesQuickSearchService } from './sales-quick-search/sales-quick-search
 import { SalesCalculateMoneyComponent } from './sales-calculate-money/sales-calculate-money.component';
 import { SalesCalculateMoneyService } from './sales-calculate-money/sales-calculate-money.service';
 import { MoneyLogsComponent } from './money-logs/money-logs.component';
-import { TrackingListComponent } from './tracking/tracking.component';
-import { TrackingListService } from './tracking/tracking.service';
+import { TrackingListComponent } from './tracking-list/tracking-list.component';
+import { TrackingListService } from './tracking-list/tracking-list.service';
 
 @NgModule({
     declarations: [

@@ -1,0 +1,64 @@
+<ng2-toasty></ng2-toasty>
+
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Tracking</span>
+      </div>
+      <div class="h2 mt-16">Tracking</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+    <form id="form-control" class="row" [formGroup]="searchForm" (submit)="getList()" autocomplete="off">
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+          <input formControlName="odr_code" matInput placeholder="Track">
+        </mat-form-field>
+      <span class="format-line-height-button">
+        <button mat-raised-button color="warn-500-bg" type="submit">
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+        <button mat-raised-button (click)="reset()">Reset</button>
+      </span>
+  </form>
+  <div class="box-shadow-form margin-top-10">
+    <div class="row">
+
+      <span class="font-weight-bold mr-2 h2 ml-4"><mat-icon>airplanemode_active</mat-icon></span>
+      <span>
+        <div class="font-weight-bold h2 mb-2">Shipment information received</div>
+        <div class="font-italic h4">June, 11/11/2021</div>
+      </span>
+    </div>
+    <div class="row">
+        <div class="track ml-auto mr-auto">
+            <div class="step active"> <span class="icon "> <mat-icon class="align-self-center">check_circle_outline</mat-icon>  </span> <span class="text">Order confirmed</span> </div>
+            <div class="step active"> <span class="icon"> <mat-icon class="align-self-center">person_pin_circle</mat-icon> </span> <span class="text"> Picked by courier</span> </div>
+            <div class="step"> <span class="icon"> <mat-icon class="align-self-center">check_circle_outline</mat-icon>  </span> <span class="text"> On the way </span> </div>
+            <div class="step"> <span class="icon"> <mat-icon class="align-self-center">check_circle_outline</mat-icon>  </span> <span class="text">Ready for pickup</span> </div>
+        </div>
+    </div>
+  </div>
+  </div>
+</div>

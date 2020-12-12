@@ -192,10 +192,10 @@ export const navigation = [
                         'exactMatch': true
                     },
                     {
-                        'id'   : 'tracking',
-                        'title': 'Tracking',
+                        'id'   : 'tracking-list',
+                        'title': 'Tracking List',
                         'type' : 'item',
-                        'url'  : '/apps/utility/tracking',
+                        'url'  : '/apps/utility/tracking-list',
                         'exactMatch': true
                     },
                 ]

@@ -18,18 +18,18 @@ export class UpdateOrderService
     }
 
     update(id, param) {
-        return this.http.put(this.apiConfig.ORDER_LIST + '/update/' + id, param);
+        return this.http.put(`${this.apiConfig.ORDER_LIST}/${id}/update-agent-data`, param);
     }
 
     getService(data) {
       return this.http.get(this.apiConfig.SERVICE_LIST + data);
     }
 
-     serviceList() {
+    serviceList() {
       return this.http.get(this.apiConfig.SERVICE_LIST);
     }
 
     getStatus() {
-      return this.http.get(this.apiConfig.GET_STATUS);
+      return this.http.get(this.apiConfig.GET_ORDER_STATUS);
     }
 }
