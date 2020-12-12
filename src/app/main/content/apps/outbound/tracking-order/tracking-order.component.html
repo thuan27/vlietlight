@@ -31,34 +31,121 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-    <form id="form-control" class="row" [formGroup]="searchForm" (submit)="getList()" autocomplete="off">
+    <form
+      id="form-control"
+      class="row"
+      [formGroup]="searchForm"
+      (submit)="getList()"
+      autocomplete="off"
+    >
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-          <input formControlName="odr_code" matInput placeholder="Track">
-        </mat-form-field>
+        <input formControlName="odr_code" matInput placeholder="Track" />
+      </mat-form-field>
       <span class="format-line-height-button">
         <button mat-raised-button color="warn-500-bg" type="submit">
           <mat-icon>arrow_forward_ios</mat-icon>
         </button>
         <button mat-raised-button (click)="reset()">Reset</button>
       </span>
-  </form>
-  <div class="box-shadow-form margin-top-10">
-    <div class="row">
-
-      <span class="font-weight-bold mr-2 h2 ml-4"><mat-icon>airplanemode_active</mat-icon></span>
-      <span>
-        <div class="font-weight-bold h2 mb-2">Shipment information received</div>
-        <div class="font-italic h4">June, 11/11/2021</div>
-      </span>
-    </div>
-    <div class="row">
-        <div class="track ml-auto mr-auto">
-            <div class="step active"> <span class="icon "> <mat-icon class="align-self-center">check_circle_outline</mat-icon>  </span> <span class="text">Order confirmed</span> </div>
-            <div class="step active"> <span class="icon"> <mat-icon class="align-self-center">person_pin_circle</mat-icon> </span> <span class="text"> Picked by courier</span> </div>
-            <div class="step"> <span class="icon"> <mat-icon class="align-self-center">check_circle_outline</mat-icon>  </span> <span class="text"> On the way </span> </div>
-            <div class="step"> <span class="icon"> <mat-icon class="align-self-center">check_circle_outline</mat-icon>  </span> <span class="text">Ready for pickup</span> </div>
+    </form>
+    <div class="box-shadow-form margin-top-10">
+      <div class="row mt-3 mb-3">
+        <span>
+          <img
+            src="../../../../../../assets/images/common/plane.png"
+            class="mr-4 ml-5"
+            style="max-width: 50px; width: 100%;"
+          />
+        </span>
+        <span>
+          <div class="font-weight-bold title-tracking h2 mb-2">
+            Shipment information received
+          </div>
+          <div class="font-italic h4">June, 11/11/2021</div>
+        </span>
+      </div>
+      <div class="row ml-5 mt-4">
+        <span><h5>This shipment is handled by:</h5></span>
+        <span class="font-weight-bold ml-1" style="color: #429ed7"
+          ><h5>Vietlight Express</h5></span
+        >
+      </div>
+      <div class="row ml-5">
+        <span><h5>Agent bill:</h5></span>
+        <span><h5 class="ml-1">77205.....</h5></span>
+      </div>
+      <div class="row ml-5">
+        <span><h5>AWB #:</h5></span>
+        <span><h5 class="ml-1">AWB0001</h5></span>
+      </div>
+      <div class="d-flex mt-5">
+        <div class="ml-5">
+          <div>
+            <mat-icon color="accent">location_on</mat-icon>
+            <span style="color: #429ed7; font-size: 18px;">From</span>
+          </div>
+          <h3 class="font-weight-bold">Ho Chi Minh city</h3>
+          <div>11/11/2011</div>
         </div>
+        <div class="ml-auto mr-5">
+          <div>
+            <span><mat-icon color="accent">person_pin</mat-icon></span>
+            <span style="color: #429ed7; font-size: 18px;">To</span>
+          </div>
+          <h3 class="font-weight-bold">Can Tho city</h3>
+          <div>11/11/2011</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="progressbar-wrapper">
+          <ul class="progressbar">
+            <li class="step1" [ngClass]="{ active: statusBar.packing == true }">
+              Packing
+            </li>
+            <li
+              class="step2"
+              [ngClass]="{ active: statusBar.ready_to_ship == true }"
+            >
+              Ready To Ship
+            </li>
+            <li
+              class="step3"
+              [ngClass]="{ active: statusBar.shipping == true }"
+            >
+              Shipping
+            </li>
+            <li class="step4" [ngClass]="{ active: statusBar.shipped == true }">
+              Shipped
+            </li>
+            <li
+              class="step5"
+              [ngClass]="{ active: statusBar.completed == true }"
+            >
+              Completed
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-  </div>
+
+  <mat-accordion class="faqs-accordion">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Day of the trip
+        </mat-panel-title>
+        <mat-panel-description>
+          Inform the date you wish to travel
+          <mat-icon>date_range</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+      </mat-form-field>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

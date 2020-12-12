@@ -19,6 +19,13 @@ import * as FileSaver from 'file-saver';
 })
 export class TrackingComponent implements OnInit {
   searchForm: FormGroup;
+  statusBar = {
+    packing: true,
+    ready_to_ship: true,
+    shipping: false,
+    shipped: false,
+    completed: false
+  }
 
   constructor(
     private formBuilder: FormBuilder,

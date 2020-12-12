@@ -11,7 +11,8 @@ import { MatButtonModule,
          MatTableModule,
          MatRadioModule,
          MatTabsModule,
-         MatAutocompleteModule
+         MatAutocompleteModule,
+         MatExpansionModule
         } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -49,7 +50,8 @@ import { TrackingOrderListService } from './tracking-order/tracking-order.servic
         MatRadioModule,
         MatTableModule,
         MatTabsModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatExpansionModule
     ],
     providers: [
         CreateOrderService,

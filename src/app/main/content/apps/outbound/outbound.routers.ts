@@ -27,7 +27,7 @@ export const listRoutes: Routes = [
         canActivate: [AuthGuard, AdminGuard]
     },
     {
-        path: 'tracking',
+        path: 'tracking/:id',
         component: TrackingComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
