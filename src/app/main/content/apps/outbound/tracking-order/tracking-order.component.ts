@@ -81,4 +81,8 @@ export class TrackingComponent implements OnInit {
     });
   }
 
+  reset() {
+
+  }
+
 }

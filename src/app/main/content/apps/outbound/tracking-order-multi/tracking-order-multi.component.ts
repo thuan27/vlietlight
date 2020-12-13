@@ -81,4 +81,7 @@ export class TrackingMultiComponent implements OnInit {
     });
   }
 
+  reset() {
+
+  }
 }
