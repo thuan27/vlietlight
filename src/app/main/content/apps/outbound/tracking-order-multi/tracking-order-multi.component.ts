@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
-import { TrackingOrderListService } from './tracking-order.service';
+import { TrackingOrderMultiListService } from './tracking-order-multi.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
 export interface Element {
@@ -22,12 +22,12 @@ const ELEMENT_DATA: Element[] = [
 ];
 
 @Component({
-  selector: 'tracking-order',
-  templateUrl: './tracking-order.component.html',
-  styleUrls: ['./tracking-order.component.scss'],
-  providers: [TrackingOrderListService, ToastyService]
+  selector: 'tracking-order-multi',
+  templateUrl: './tracking-order-multi.component.html',
+  styleUrls: ['./tracking-order-multi.component.scss'],
+  providers: [TrackingOrderMultiListService, ToastyService]
 })
-export class TrackingComponent implements OnInit {
+export class TrackingMultiComponent implements OnInit {
   searchForm: FormGroup;
   displayedColumns: string[] = ['time', 'location', 'description'];
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
@@ -41,7 +41,7 @@ export class TrackingComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private trackingOrderListService: TrackingOrderListService,
+    private trackingOrderMultiListService: TrackingOrderMultiListService,
     private toastyService: ToastyService,
 
     private toastyConfig: ToastyConfig

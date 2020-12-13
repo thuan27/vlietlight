@@ -4,6 +4,7 @@ import { CreateOrderComponent } from './order/create-order/create-order.componen
 import { AuthGuard, AdminGuard } from '../../guards';
 import { UpdateOrderComponent } from './order/update-order/update-order.component';
 import { TrackingComponent } from './tracking-order/tracking-order.component';
+import { TrackingMultiComponent } from './tracking-order-multi/tracking-order-multi.component';
 
 export const listRoutes: Routes = [
     {
@@ -29,6 +30,11 @@ export const listRoutes: Routes = [
     {
         path: 'tracking/:id',
         component: TrackingComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path: 'tracking-multi',
+        component: TrackingMultiComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
     // {
