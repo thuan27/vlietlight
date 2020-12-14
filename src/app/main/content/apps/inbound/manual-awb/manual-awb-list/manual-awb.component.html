@@ -1,0 +1,230 @@
+<ng2-toasty></ng2-toasty>
+
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Manual AWB List</span>
+      </div>
+      <div class="h2 mt-16">Manual AWB List</div>
+    </div>
+
+    <div class="reference-button d-flex">
+      <button class="mr-4" mat-raised-button color="orange-800-bg" (click)="filter()">
+        <mat-icon>filter_list</mat-icon>
+        <span>Filter</span>
+      </button>
+      <div *ngIf="isOption" class="reference-button mat-white-bg">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <!-- <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>{{'INBOUND.CREATE_AWB' | translate}}</span>
+          </button> -->
+          <button
+            *ngIf="createWavePick"
+            mat-menu-item
+            (click)="doCreateWavePick()"
+          >
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>{{ "INBOUND.CREATE_WAVE_PICK" | translate }}</span>
+          </button>
+          <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>{{ "INBOUND.UPDATE_AWB" | translate }}</span>
+          </button>
+          <button
+            *ngIf="hasDeleteUserPermission"
+            mat-menu-item
+            (click)="delete()"
+          >
+            <mat-icon>delete_forever</mat-icon>
+            <span>{{ "INBOUND.DELETE_AWB" | translate }}</span>
+          </button>
+          <button
+            *ngIf="hasCancelUserPermission"
+            mat-menu-item
+            (click)="cancel()"
+          >
+            <mat-icon>cancel</mat-icon>
+            <span>{{ "INBOUND.CANCEL_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="pendingAWB" mat-menu-item (click)="pending()">
+            <mat-icon>short_text</mat-icon>
+            <span>{{ "INBOUND.PENDING_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="completeAWB" mat-menu-item (click)="complete()">
+            <mat-icon>send</mat-icon>
+            <span>{{ "INBOUND.COMPLETE_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="removeAWB" mat-menu-item (click)="remove()">
+            <mat-icon>remove_circle_outline</mat-icon>
+            <span>{{ "INBOUND.REMOVE_AWB" | translate }}</span>
+          </button>
+          <button *ngIf="assignCS" mat-menu-item (click)="updateCS()">
+            <mat-icon>system_update_alt</mat-icon>
+            <span>Update CS</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+
+    <ngx-datatable
+      (page)="pageCallback($event)"
+      class="material"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'"
+      [headerHeight]="48"
+      [footerHeight]="56"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [selectionType]="'checkbox'"
+      [count]="total"
+      [selected]="selected"
+      [externalPaging]="true"
+      [offset]="current_page"
+      [limit]="15"
+      (sort)="onSort($event)"
+      (select)="onSelect($event)"
+      [externalSorting]="true"
+      [scrollbarH]="true"
+    >
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="80"
+        [canAutoResize]="false"
+        [sortable]="false"
+      >
+        <ng-template
+          ngx-datatable-header-template
+          let-value="value"
+          let-allRowsSelected="allRowsSelected"
+          let-selectFn="selectFn"
+        >
+          <mat-checkbox
+            [checked]="allRowsSelected"
+            (change)="selectFn(!allRowsSelected)"
+          ></mat-checkbox>
+        </ng-template>
+
+        <ng-template
+          ngx-datatable-cell-template
+          let-value="value"
+          let-row="row"
+          let-
+          let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn"
+        >
+          <mat-checkbox
+            [checked]="isSelected"
+            (click)="onCheck(isSelected, row)"
+            (change)="onCheckboxChangeFn($event)"
+          >
+          </mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        name="Manual AWB ID"
+        prop="awb_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="130"
+        name="Code"
+        prop="awb_code"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [width]="130"
+        name="Account #"
+        prop="account_number"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Customer Name"
+        prop="account_number"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Customer Address"
+        prop="account_number"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="Manual AWB Name"
+        prop="account_number"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
+
+      <ngx-datatable-column
+        name="File"
+        prop="file"
+      >
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <button mat-raised-button color="blue-300-bg" (click)="exportCsv()"> Download </button>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Sales ID" prop="userName"></ngx-datatable-column>
+
+      <ngx-datatable-column name="CS ID" prop="userName"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Pick Up Note For Sales" prop="userName"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Sales Note" prop="userName"></ngx-datatable-column>
+
+      <ngx-datatable-column name="CS Note" prop="userName"></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [width]="200"
+        name="Created At"
+        prop="created_at"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [width]="200"
+        name="Updated At"
+        prop="updated_at"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column name="Created By" prop="userName"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Updated By" prop="userName"></ngx-datatable-column>
+
+    </ngx-datatable>
+    <div class="export margin-top-10">
+      <label class="label-export">Export to:</label>
+      <a (click)="exportCsv()" class="csv"></a>
+    </div>
+  </div>
+</div>

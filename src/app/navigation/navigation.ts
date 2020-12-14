@@ -111,6 +111,13 @@ export const navigation = [
                         'exactMatch': true
                     },
                     {
+                        'id'   : 'Manual AWB',
+                        'title': 'Manual AWB',
+                        'type' : 'item',
+                        'url'  : '/apps/inbound/manual-awb',
+                        'exactMatch': true
+                  },
+                    {
                         'id'   : 'WavePickList',
                         'title': 'Wave Pick',
                         'type' : 'item',

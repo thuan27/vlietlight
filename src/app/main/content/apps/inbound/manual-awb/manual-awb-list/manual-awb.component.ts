@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { AWBService } from './awb.service';
+import { manualAWBService } from './manual-awb.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -18,12 +18,12 @@ import * as moment from 'moment';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector: 'awb',
-    templateUrl: './awb.component.html',
-    styleUrls: ['./awb.component.scss'],
-    providers: [AWBService, ToastyService, UserService]
+    selector: 'manual-awb',
+    templateUrl: './manual-awb.component.html',
+    styleUrls: ['./manual-awb.component.scss'],
+    providers: [manualAWBService, ToastyService, UserService]
 })
-export class AWBComponent implements OnInit {
+export class manualAWBComponent implements OnInit {
     content;
     element;
     rows: any;
@@ -72,7 +72,7 @@ export class AWBComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private _AWBService: AWBService,
+        private _manualAWBService: manualAWBService,
         private datePipe: DatePipe,
         private router: Router,
         private toastyService: ToastyService,
@@ -171,10 +171,11 @@ export class AWBComponent implements OnInit {
             params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
           }
         }
-        this._AWBService.getList(params).subscribe((data) => {
+        this._manualAWBService.getList(params).subscribe((data) => {
             data['data'].forEach((data) => {
               data['awb_code_temp'] = data['awb_code'];
-              data['awb_code'] = `<a href="#/apps/inbound/awb1/${data['awb_id']}">${data['awb_code']}</a>`;
+              data['awb_code'] = `<a href="#/apps/inbound/manual-awb/${data['awb_id']}">${data['awb_code']}</a>`;
+              data['file'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">`;
               // data['sales_price'] =`${data['sales_price']}`
               if (data['sales_price'] == 0) {
                 data['sales_price'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['sales_price']}`
@@ -195,6 +196,10 @@ export class AWBComponent implements OnInit {
         });
     }
 
+    hihi() {
+      console.log('=====')
+    }
+
     exportCsv() {
       let fileName = 'AWB';
       let fileType = '.csv';
@@ -208,7 +213,7 @@ export class AWBComponent implements OnInit {
       for (let i = 0; i < arrayItem.length; i++) {
         params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
       }
-      let getReport = this._AWBService.getReport(params);
+      let getReport = this._manualAWBService.getReport(params);
       getReport.subscribe((data) => {
         var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         FileSaver.saveAs.saveAs(blob, fileName + fileType);
@@ -257,47 +262,7 @@ export class AWBComponent implements OnInit {
     }
 
     doCreateWavePick() {
-      let checkTheSame = false;
-      for (let i = 0; i < this.selected.length; i++) {
-        checkTheSame = this.selected[0]['customer_id'] == this.selected[i]['customer_id'] ? true : false;
-      }
-      if (this.selected.length < 1) {
-        this.toastyService.error('Please select at least one item.');
-      } else {
-        const result = this.selected.filter(item => {return item.awb_sts === 'New'});
-        if (result.length !== this.selected.length) {
-          this.toastyService.error('Please select new AWB.');
-        } else if (checkTheSame) {
-          this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to create Wave Pick?';
 
-          this.dialogRef.afterClosed().subscribe(result => {
-              if ( result )
-              {
-                let awb_list = [];
-                for (let i = 0; i < this.selected.length; i++) {
-                  let item = {
-                    awb_id: this.selected[i]['awb_id']
-                  }
-                  awb_list.push(item);
-                };
-                const data = {
-                    customer_id: this.selected[0]['cs_id'],
-                    pick_up_address: this.selected[0]['pick_up_address'],
-                    awb_ids: awb_list
-                  };
-                this._AWBService.createWavepick(data).subscribe((data) => {
-                  this.toastyService.success('Created Wave Pick successfully!');
-                  this.getList();
-                });
-              } else {
-              }
-              this.dialogRef = null;
-          });
-        } else {
-          this.toastyService.error('Please select the same Customer');
-        }
-      }
     }
 
     delete() {
@@ -312,7 +277,7 @@ export class AWBComponent implements OnInit {
           this.dialogRef.afterClosed().subscribe(result => {
               if ( result )
               {
-                this._AWBService.deleteAWB(this.selected[0].awb_id).subscribe((data) => {
+                this._manualAWBService.deleteAWB(this.selected[0].awb_id).subscribe((data) => {
                   this.toastyService.success(data['message']);
                   setTimeout(
                     () => {

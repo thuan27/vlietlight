@@ -36,6 +36,10 @@ import { AWBDetailV1Component } from './awb/awb-detai-v1/awb-detail-v1.component
 import { AWBDetailV1Service } from './awb/awb-detai-v1/awb-detail-v1.service';
 import { FuseDirectivesModule } from '@fuse/directives/directives';
 import { TranslateModule } from '@ngx-translate/core';
+import { manualAWBComponent } from './manual-awb/manual-awb-list/manual-awb.component';
+import { manualAWBService } from './manual-awb/manual-awb-list/manual-awb.service';
+import { ManualAWBDetailService } from './manual-awb/manual-awb-detail/manual-awb-detail.service';
+import { ManualAWBDetailComponent } from './manual-awb/manual-awb-detail/manual-awb-detail.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +51,8 @@ import { TranslateModule } from '@ngx-translate/core';
         WavePickListComponent,
         CreateWavePickomponent,
         AWBDetailV1Component,
+        manualAWBComponent,
+        ManualAWBDetailComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -75,7 +81,9 @@ import { TranslateModule } from '@ngx-translate/core';
         AWBDetailForCusService,
         WavePickService,
         CreateWavePickService,
-        AWBDetailV1Service
+        AWBDetailV1Service,
+        manualAWBService,
+        ManualAWBDetailService
     ]
 })
 export class FuseInboundModule {

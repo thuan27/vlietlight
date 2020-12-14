@@ -1,0 +1,188 @@
+<ng2-toasty></ng2-toasty>
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">{{ title }}</span>
+      </div>
+      <div class="h2 mt-16">{{ title }}</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+    <form
+      [formGroup]="AWBForm"
+      autocomplete="off"
+      class="form"
+      (submit)="onSubmit()"
+    >
+      <div class="background-title mat-cyan-200-bg">
+        <h2 class="title">Information</h2>
+      </div>
+      <div class="box-shadow-form mt-5">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input
+              [readonly]="disabledForm"
+              formControlName="awb_code"
+              matInput
+              placeholder="AWB Code"
+            />
+            <mat-error *ngIf="AWBForm.controls.awb_code.hasError('required')">
+              AWB Code is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="account_number"
+                matInput
+                placeholder="Account #"
+              />
+              <mat-error
+                *ngIf="AWBForm.controls.account_number.hasError('required')"
+              >
+                Account # is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="cus_id"
+                  matInput
+                  placeholder="Customer ID"
+                />
+                <mat-error
+                  *ngIf="AWBForm.controls.cus_id.hasError('required')"
+                >
+                  Customer ID is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-12 col-md-4">
+                  <input
+                    [readonly]="disabledForm"
+                    formControlName="cus_address"
+                    matInput
+                    placeholder="Customer Address"
+                  />
+                  <mat-error
+                    *ngIf="AWBForm.controls.cus_address.hasError('required')"
+                  >
+                    Customer Address is required
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-sm-12 col-md-4">
+                    <input
+                      [readonly]="disabledForm"
+                      formControlName="awb_name"
+                      matInput
+                      placeholder="Manual AWB Name"
+                    />
+                    <mat-error
+                      *ngIf="AWBForm.controls.awb_name.hasError('required')"
+                    >
+                      Manual AWB Name is required
+                    </mat-error>
+                  </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+            <mat-select
+              [disabled]="disabledForm"
+              formControlName="awb_sts"
+              placeholder="Status"
+            >
+              <mat-option *ngFor="let item of status" [value]="item.key">
+                {{ item.key }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>download</div>
+          <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="sales_id"
+                matInput
+                placeholder="Sales ID"
+              />
+              <mat-error
+                *ngIf="AWBForm.controls.sales_id.hasError('required')"
+              >
+                Sales ID is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="pickup_note_for_sales"
+                  matInput
+                  placeholder="Pick Up Note For Sales"
+                />
+                <mat-error
+                  *ngIf="
+                    AWBForm.controls.pickup_note_for_sales.hasError('required')
+                  "
+                >
+                  Pick Up Note For Sales is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-12 col-md-4">
+                  <input
+                    [readonly]="true"
+                    formControlName="sales_note_for_cs"
+                    matInput
+                    placeholder="Sales Note For CS"
+                  />
+                  <mat-error
+                    *ngIf="AWBForm.controls.sales_note_for_cs.hasError('required')"
+                  >
+                    Sales Note For CS is required
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-sm-12 col-md-4">
+                    <input
+                      [readonly]="true"
+                      formControlName="cs_note"
+                      matInput
+                      placeholder="CS Note"
+                    />
+                    <mat-error
+                      *ngIf="AWBForm.controls.cs_note.hasError('required')"
+                    >
+                      CS Note is required
+                    </mat-error>
+                  </mat-form-field>
+        </div>
+      </div>
+      <button class="button-cancel" mat-raised-button (click)="cancel()">
+          {{ buttonCancel }}
+        </button>
+      <button
+        class="button-submit"
+        mat-raised-button
+        color="accent"
+        type="submit"
+      >
+        {{ buttonType }}
+      </button>
+    </form>
+  </div>
+</div>
