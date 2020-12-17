@@ -8,9 +8,9 @@
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-        <span class="secondary-text">Country Zone List</span>
+        <span class="secondary-text">Customer Country Zone List</span>
       </div>
-      <div class="h2 mt-16">Country Zone List</div>
+      <div class="h2 mt-16">Customer Country Zone List</div>
     </div>
 
     <div class="reference-button mat-white-bg align-right"
@@ -80,19 +80,21 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="ID" prop="service_name"></ngx-datatable-column>
+      <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
 
-      <ngx-datatable-column name="Cus Service ID" prop="service_name"></ngx-datatable-column>
+      <ngx-datatable-column name="Cus Service ID" prop="cus_service_id"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Cus Service Name" prop="cus_service_name"></ngx-datatable-column>
 
       <ngx-datatable-column name="Country Name" prop="country_name"></ngx-datatable-column>
 
-      <ngx-datatable-column name="State Code" prop="service_name"></ngx-datatable-column>
+      <ngx-datatable-column name="State Code" prop="state_code"></ngx-datatable-column>
 
-      <ngx-datatable-column name="State Name" prop="service_name"></ngx-datatable-column>
+      <ngx-datatable-column name="State Name" prop="state_name"></ngx-datatable-column>
 
       <ngx-datatable-column name="Zone" prop="zone"></ngx-datatable-column>
 
-      <ngx-datatable-column name="Active" prop="country_name"></ngx-datatable-column>
+      <ngx-datatable-column name="Active" prop="active"></ngx-datatable-column>
 
     </ngx-datatable>
 

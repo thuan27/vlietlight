@@ -160,7 +160,6 @@ export class UpdateOrderComponent implements OnInit {
         this.toastyService.success('Updated Successfully');
         setTimeout(
           () => {
-            console.log('hihi')
             this.router.navigate(['apps/outbound/order']);
           },
           700

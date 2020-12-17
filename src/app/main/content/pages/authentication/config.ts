@@ -31,6 +31,7 @@ export class APIConfig {
   public CREATE_CUSTOMER = this.API_BASE + '/customer/v1/customers';
   public CUSTOMER_SERVICE_LIST = this.API_BASE + '/master-data/v1/cus-service';
   public COUNTRY_ZONE_LIST = this.API_BASE + '/master-data/v1/country-zone';
+  public CUS_COUNTRY_ZONE_LIST = this.API_BASE + '/master-data/v1/cus-country-zone';
   public PRICE_LIST = this.API_BASE + '/master-data/v1/price';
   public RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/range-price';
   public ROLES = this.API_BASE + '/master-service/v1/roles';

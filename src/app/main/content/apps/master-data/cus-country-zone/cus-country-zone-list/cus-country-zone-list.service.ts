@@ -13,11 +13,11 @@ export class CusCountryZoneListService {
   }
 
   getList(params) {
-    return this.http.get(this.apiConfig.COUNTRY_ZONE_LIST + params);
+    return this.http.get(this.apiConfig.CUS_COUNTRY_ZONE_LIST + params);
   }
 
   deleteCountry(id) {
-    return this.http.delete(this.apiConfig.COUNTRY_ZONE_LIST + '/delete/' + id);
+    return this.http.delete(this.apiConfig.CUS_COUNTRY_ZONE_LIST + '/delete/' + id);
   }
 
   getService(data) {
@@ -29,6 +29,6 @@ export class CusCountryZoneListService {
   }
 
   getReport(params: string = '') {
-    return this.http.get(this.apiConfig.COUNTRY_ZONE_LIST + params + '&export=1', { responseType: 'blob' });
+    return this.http.get(this.apiConfig.CUS_COUNTRY_ZONE_LIST + params + '&export=1', { responseType: 'blob' });
   }
 }

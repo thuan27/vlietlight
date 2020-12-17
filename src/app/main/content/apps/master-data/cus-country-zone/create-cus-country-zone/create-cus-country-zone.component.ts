@@ -120,7 +120,7 @@ export class CreateCusCountryZoneComponent implements OnInit {
 
   private buildForm() {
     this.CountryForm = this.formBuilder.group({
-      service_id: [1, [Validators.required]],
+      cus_service_id: [1, [Validators.required]],
       country_id: [null, [Validators.required]],
       zone: ['', [Validators.required, this.ValidateZone]],
       state_code: ['', [Validators.required]],
@@ -130,7 +130,7 @@ export class CreateCusCountryZoneComponent implements OnInit {
 
   private detailForm(data) {
     this.CountryForm = this.formBuilder.group({
-      service_id: [data['service_id'], [Validators.required]],
+      cus_service_id: [data['cus_service_id'], [Validators.required]],
       country_id: [data['country_id'], [Validators.required]],
       zone: [data['zone'], [Validators.required, this.ValidateZone]],
       state_code: [data['state_code'], [Validators.required]],
@@ -169,10 +169,13 @@ export class CreateCusCountryZoneComponent implements OnInit {
     }
   }
 
-  detail(id) {
-    this._createCusCountryZoneService.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['country_zone'];
-      this.detailForm(data['country_zone']);
+  async detail(id) {
+    await this._createCusCountryZoneService.getListCountry().toPromise().then((data) => {
+      this.country = data['data'];
+    });
+    await this._createCusCountryZoneService.getCountryDetail(id).toPromise().then((data) => {
+      this.countryDetail = data['cus_country_zone'];
+      this.detailForm(data['cus_country_zone']);
     });
   }
 
@@ -202,5 +205,11 @@ export class CreateCusCountryZoneComponent implements OnInit {
 
   cancel() {
     this.location.back();
+  }
+
+  displayCountry(id) {
+    if (this.country) {
+      return this.country.find(country => country.country_id === id).country_name;
+    }
   }
 }

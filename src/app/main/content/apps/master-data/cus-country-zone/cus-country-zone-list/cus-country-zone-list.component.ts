@@ -83,8 +83,8 @@ export class CusCountryZoneListComponent implements OnInit {
     this.countryList = this.cusCountryZoneListService.getList(params);
     this.countryList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['service_name_temp'] = data['service_name'];
-        data['service_name'] = `<a href="#/apps/master-data/cus-country-zones/${data['country_id']}">${data['service_name']}</a>`;
+        data['id_temp'] = data['id'];
+        data['id'] = `<a href="#/apps/master-data/cus-country-zones/${data['id']}">${data['id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -97,8 +97,6 @@ export class CusCountryZoneListComponent implements OnInit {
     this.searchForm.controls['country_name'].setValue('');
     this.searchForm.controls['country_name'].setValue('');
     this.searchForm.controls['zone'].setValue('');
-
-
     this.sortData = '';
     this.getList();
   }
@@ -142,7 +140,7 @@ export class CusCountryZoneListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/cus-country-zones/${this.selected[0]['id']}/update`);
+      this.router.navigateByUrl(`apps/master-data/cus-country-zones/${this.selected[0]['id_temp']}/update`);
     }
   }
 

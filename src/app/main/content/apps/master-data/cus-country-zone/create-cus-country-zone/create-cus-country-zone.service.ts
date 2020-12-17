@@ -15,15 +15,15 @@ export class CreateCusCountryZoneService
     }
 
     createCountryList(param) {
-        return this.http.post(this.apiConfig.COUNTRY_ZONE_LIST + '/store', param);
+        return this.http.post(this.apiConfig.CUS_COUNTRY_ZONE_LIST + '/store', param);
     }
 
     getCountryDetail(params) {
-        return this.http.get(this.apiConfig.COUNTRY_ZONE_LIST + '/show/' + params);
+        return this.http.get(this.apiConfig.CUS_COUNTRY_ZONE_LIST + '/show/' + params);
     }
 
     updateCountry(id, param) {
-        return this.http.put(this.apiConfig.COUNTRY_ZONE_LIST + '/update/' + id, param);
+        return this.http.put(this.apiConfig.CUS_COUNTRY_ZONE_LIST + '/update/' + id, param);
     }
 
     countryList(data) {
@@ -32,5 +32,9 @@ export class CreateCusCountryZoneService
 
     serviceList() {
       return this.http.get(this.apiConfig.SERVICE_LIST);
+    }
+
+    getListCountry() {
+      return this.http.get(this.apiConfig.GET_COUNTRY + '?limit=300', { headers: this._Func.AuthHeader() });
     }
 }

@@ -26,15 +26,15 @@
       <div class="box-shadow-form margin-top-10">
         <div class="row">
           <mat-form-field class="col-sm-12 col-md-4">
-            <mat-select [disabled]="disabledForm" formControlName="service_id" placeholder="Service">
+            <mat-select [disabled]="disabledForm" formControlName="cus_service_id" placeholder="Service">
               <mat-option *ngFor="let item of service" [value]="item.service_id">
                 {{ item.service_name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
-            <input [disabled]="disabledForm"  placeholder="Country Name" formControlName="country_id" (keyup)="countryList($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <input [readonly]="disabledForm"  placeholder="Country Name" formControlName="country_id" (keyup)="countryList($event)" type="text" aria-label="Number" matInput [matAutocomplete]="auto">
+            <mat-autocomplete [displayWith]="displayCountry.bind(this)" autoActiveFirstOption #auto="matAutocomplete">
               <mat-option *ngFor="let option of country" [value]="option.country_id">
                 {{ option.country_name }}
               </mat-option>
