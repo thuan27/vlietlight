@@ -1,5 +1,13 @@
 @import "src/@fuse/scss/fuse";
 
+.custom-nav {
+  background: transparent;
+  position: relative;
+  top: 0;
+  z-index: 999;
+  box-shadow: none;
+}
+
 :host {
 
     #login {
@@ -236,8 +244,9 @@ nav ul li a {
   display: block;
   padding: 2px;
   text-decoration: none;
-  color: #2e94d2;
-  font-weight: 800;
+  // color: #2e94d2;
+  color: white;
+  font-weight: 700;
   text-transform: uppercase;
   margin: 0 10px;
 }
@@ -247,7 +256,8 @@ nav ul li a:before {
   transition: all .5s;
 }
 nav ul li a:hover {
-  color: #93d6ef;
+  // color: #93d6ef;
+  color: #2e94d2;
 }
 
 
@@ -266,7 +276,7 @@ nav.fill ul li a:after {
   width: 0%;
   content: '.';
   color: transparent;
-  background: #aaa;
+  background: white;
   height: 1px;
 }
 nav.stroke ul li a:hover:after {
@@ -861,4 +871,20 @@ html, body{
 	}
 }
 
+.width-100 {
+  width: 100%;
+  height: auto;
+}
 
+.carousel-custom {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: -220px;
+
+  }
+}
