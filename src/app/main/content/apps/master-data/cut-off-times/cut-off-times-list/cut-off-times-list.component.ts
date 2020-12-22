@@ -74,8 +74,8 @@ export class CutOffTimesListComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       province: '',
       district: '',
-      received_message: '',
-      pick: ''
+      msg_cut_off_time: '',
+      pick_cut_off_time: ''
     });
   }
 
