@@ -32,6 +32,10 @@ import { MonthlyRevenueListService } from './monthly-revenue/monthly-revenue-lis
 import { CreateMonthlyRevenueService } from './monthly-revenue/create-monthly-revenue/create-monthly-revenue.service';
 import { MonthlyRevenueListComponent } from './monthly-revenue/monthly-revenue-list/monthly-revenue-list.component';
 import { CreateMonthlyRevenueComponent } from './monthly-revenue/create-monthly-revenue/create-monthly-revenue.component';
+import { ReceivableListComponent } from './receivable/receivable-list/receivable-list.component';
+import { CreateReceivableComponent } from './receivable/create-receivable/create-receivable.component';
+import { ReceivableListService } from './receivable/receivable-list/receivable-list.service';
+import { CreateReceivableService } from './receivable/create-receivable/create-receivable.service';
 
 @NgModule({
     declarations: [
@@ -43,7 +47,9 @@ import { CreateMonthlyRevenueComponent } from './monthly-revenue/create-monthly-
         MonthlyCostsListComponent,
         CreateMonthlyCostsComponent,
         MonthlyRevenueListComponent,
-        CreateMonthlyRevenueComponent
+        CreateMonthlyRevenueComponent,
+        ReceivableListComponent,
+        CreateReceivableComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -69,7 +75,9 @@ import { CreateMonthlyRevenueComponent } from './monthly-revenue/create-monthly-
       MonthlyCostsListService,
       CreateMonthlyCostsService,
       MonthlyRevenueListService,
-      CreateMonthlyRevenueService
+      CreateMonthlyRevenueService,
+      ReceivableListService,
+      CreateReceivableService
     ]
 })
 export class FuseAdministationModule {

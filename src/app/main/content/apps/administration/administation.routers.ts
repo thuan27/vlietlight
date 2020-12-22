@@ -7,6 +7,8 @@ import { CreateMonthlyCostsComponent } from './monthly-costs/create-monthly-cost
 import { MonthlyCostsListComponent } from './monthly-costs/monthly-costs-list/monthly-costs-list.component';
 import { CreateMonthlyRevenueComponent } from './monthly-revenue/create-monthly-revenue/create-monthly-revenue.component';
 import { MonthlyRevenueListComponent } from './monthly-revenue/monthly-revenue-list/monthly-revenue-list.component';
+import { ReceivableListComponent } from './receivable/receivable-list/receivable-list.component';
+import { CreateReceivableComponent } from './receivable/create-receivable/create-receivable.component';
 
 export const listRoutes: Routes = [
     {
@@ -55,25 +57,45 @@ export const listRoutes: Routes = [
         canActivate: [AuthGuard, AdminGuard]
     },
     {
-      path     : 'monthly-revenue',
-      component: MonthlyRevenueListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path     : 'monthly-revenue/create',
-      component: CreateMonthlyRevenueComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path     : 'monthly-revenue/:id',
-      component: CreateMonthlyRevenueComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path     : 'monthly-revenue/:id/:update',
-      component: CreateMonthlyRevenueComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  }
+        path     : 'monthly-revenue',
+        component: MonthlyRevenueListComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'monthly-revenue/create',
+        component: CreateMonthlyRevenueComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'monthly-revenue/:id',
+        component: CreateMonthlyRevenueComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'monthly-revenue/:id/:update',
+        component: CreateMonthlyRevenueComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'receivable',
+        component: ReceivableListComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'receivable/create',
+        component: CreateReceivableComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'receivable/:id',
+        component: CreateReceivableComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'receivable/:id/:update',
+        component: CreateReceivableComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    }
 ];
 
 
