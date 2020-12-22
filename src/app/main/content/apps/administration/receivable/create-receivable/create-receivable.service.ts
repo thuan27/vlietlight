@@ -4,7 +4,7 @@ import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class CreateMonthlyCostsService
+export class CreateReceivableService
 {
     constructor(
         private http: HttpClient,
@@ -14,15 +14,15 @@ export class CreateMonthlyCostsService
     {
     }
 
-    createCosts(param) {
+    createRevenue(param) {
         return this.http.post(this.apiConfig.COUNTRY_LIST + '/store', param);
     }
 
-    getCostsDetail(params) {
+    getRevenueDetail(params) {
         return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params);
     }
 
-    updateCosts(id, param) {
+    updateRevenue(id, param) {
         return this.http.put(this.apiConfig.COUNTRY_LIST + '/update/' + id, param);
     }
 }

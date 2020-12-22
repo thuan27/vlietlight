@@ -241,6 +241,20 @@ export const navigation = [
                     'url'  : '/apps/administration/monthly-costs',
                     'exactMatch': true
                   },
+                  {
+                    'id'   : 'monthly-revenue',
+                    'title': 'Monthly Revenue',
+                    'type' : 'item',
+                    'url'  : '/apps/administration/monthly-revenue',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'receivable',
+                    'title': 'Receivable',
+                    'type' : 'item',
+                    'url'  : '/apps/administration/receivable',
+                    'exactMatch': true
+                  }
               ]
             },
             {

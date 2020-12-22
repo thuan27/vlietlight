@@ -1,0 +1,265 @@
+
+<ng2-toasty></ng2-toasty>
+
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Receivable</span>
+      </div>
+      <div class="h2 mt-16">Receivable</div>
+    </div>
+
+    <div
+      class="reference-button mat-white-bg align-right"
+      *ngIf="
+        hasCreateUserPermission ||
+        hasEditUserPermission ||
+        hasDeleteUserPermission
+      "
+    >
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          *ngIf="hasCreateUserPermission"
+          mat-menu-item
+          (click)="create()"
+        >
+          <mat-icon>add_circle_outline</mat-icon>
+          <span>Create</span>
+        </button>
+        <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
+          <mat-icon>system_update_alt</mat-icon>
+          <span>Update</span>
+        </button>
+        <button
+          *ngIf="hasDeleteUserPermission"
+          mat-menu-item
+          (click)="delete()"
+        >
+          <mat-icon>delete_forever</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+    <form
+      id="form-control"
+      class="row"
+      [formGroup]="searchForm"
+      autocomplete="off"
+    >
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="cat" matInput placeholder="Cat" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="sales" matInput placeholder="Sales" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          matInput
+          formControlName="act_date"
+          [matDatepicker]="ActDate"
+          placeholder="Act Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="ActDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #ActDate disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          matInput
+          formControlName="created_at"
+          [matDatepicker]="dpCreated"
+          placeholder="Created Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dpCreated"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          matInput
+          formControlName="updated_at"
+          [matDatepicker]="dpUpdated"
+          placeholder="Updated Date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dpUpdated"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <span class="format-line-height-button">
+        <button mat-raised-button color="accent" (click)="getList()">
+          Search
+        </button>
+        <button mat-raised-button (click)="reset()">Reset</button>
+      </span>
+    </form>
+
+    <ngx-datatable
+      (page)="pageCallback($event)"
+      class="material"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'"
+      [headerHeight]="48"
+      [footerHeight]="56"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [selectionType]="'checkbox'"
+      [count]="total"
+      [selected]="selected"
+      [externalPaging]="true"
+      [scrollbarH]="true"
+      [offset]="current_page"
+      [limit]="15"
+      (sort)="onSort($event)"
+      [externalSorting]="true"
+    >
+      <ngx-datatable-column
+        [width]="48"
+        [canAutoResize]="true"
+        [resizeable]="true"
+        [sortable]="false"
+      >
+        <ng-template
+          ngx-datatable-cell-template
+          let-value="value"
+          let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn"
+        >
+          <mat-checkbox
+            [checked]="isSelected"
+            (change)="onCheckboxChangeFn($event)"
+          ></mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="ID"
+        prop="id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Act Date"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Cat ID"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Is Fixed"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Value"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Description"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Document Number"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Sales ID"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Spend Purpose"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Created At"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Updated At"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Created By"
+        prop="country_id"
+      ></ngx-datatable-column>
+
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Updated By"
+        prop="country_id"
+      ></ngx-datatable-column>
+    </ngx-datatable>
+
+    <div class="export margin-top-10">
+      <label class="label-export">Export to:</label>
+      <a (click)="exportCsv()" class="csv"></a>
+    </div>
+  </div>
+</div>

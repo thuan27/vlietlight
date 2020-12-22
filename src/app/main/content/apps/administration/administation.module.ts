@@ -28,6 +28,10 @@ import { CreateUserAdminComponent } from './user/create-user/create-user.compone
 import { CreateMonthlyCostsComponent } from './monthly-costs/create-monthly-costs/create-monthly-costs.component';
 import { MonthlyCostsListComponent } from './monthly-costs/monthly-costs-list/monthly-costs-list.component';
 import { CreateMonthlyCostsService } from './monthly-costs/create-monthly-costs/create-monthly-costs.service';
+import { MonthlyRevenueListService } from './monthly-revenue/monthly-revenue-list/monthly-revenue-list.service';
+import { CreateMonthlyRevenueService } from './monthly-revenue/create-monthly-revenue/create-monthly-revenue.service';
+import { MonthlyRevenueListComponent } from './monthly-revenue/monthly-revenue-list/monthly-revenue-list.component';
+import { CreateMonthlyRevenueComponent } from './monthly-revenue/create-monthly-revenue/create-monthly-revenue.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +41,9 @@ import { CreateMonthlyCostsService } from './monthly-costs/create-monthly-costs/
         UppercaseToSpaceLowerPipe,
         CreateUserAdminComponent,
         MonthlyCostsListComponent,
-        CreateMonthlyCostsComponent
+        CreateMonthlyCostsComponent,
+        MonthlyRevenueListComponent,
+        CreateMonthlyRevenueComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -61,7 +67,9 @@ import { CreateMonthlyCostsService } from './monthly-costs/create-monthly-costs/
       RolesService,
       UserAdminListService,
       MonthlyCostsListService,
-      CreateMonthlyCostsService
+      CreateMonthlyCostsService,
+      MonthlyRevenueListService,
+      CreateMonthlyRevenueService
     ]
 })
 export class FuseAdministationModule {
