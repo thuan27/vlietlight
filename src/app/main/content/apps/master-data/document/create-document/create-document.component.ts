@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreateCountryService } from './create-country.service';
+import { CreateDocumentService } from './create-document.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
@@ -10,17 +10,17 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'create-country',
-  templateUrl: './create-country.component.html',
-  styleUrls: ['./create-country.component.scss'],
+  selector: 'create-document',
+  templateUrl: './create-document.component.html',
+  styleUrls: ['./create-document.component.scss'],
   providers: [ValidationService, ToastyService, UserService]
 })
-export class CreateCountryComponent implements OnInit {
+export class CreateDocumentComponent implements OnInit {
 
   items: FormArray;
-  CountryForm: FormGroup;
-  idCountry;
-  countryDetail;
+  DocumentForm: FormGroup;
+  idDocument;
+  DocumentDetail;
   private routeSub: Subscription;
   disabledForm;
   title;
@@ -28,13 +28,14 @@ export class CreateCountryComponent implements OnInit {
   buttonCancel;
   action;
   titleGroup;
+  service;
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
 
   constructor(
-    private _createCountryService: CreateCountryService,
+    private _createDocumentService: CreateDocumentService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -49,7 +50,7 @@ export class CreateCountryComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.title = 'Create Country';
+    this.title = 'Create Range Price';
     this.titleGroup = 'Registration';
     this.buttonSubmitType = 'Create';
     this.buttonCancel = 'Cancel'
@@ -62,18 +63,18 @@ export class CreateCountryComponent implements OnInit {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update' && this.hasEditUserPermission) {
           this.action = 'update';
-          this.idCountry = params['id'];
+          this.idDocument = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonSubmitType = 'Update';
-          this.title = 'Update Country';
+          this.title = 'Update Document';
           this.titleGroup = 'Update';
         } else {
-          this.idCountry = params['id'];
+          this.idDocument = params['id'];
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Country Details';
+          this.title = 'Document Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }
@@ -81,7 +82,7 @@ export class CreateCountryComponent implements OnInit {
       else if (this.hasCreateUserPermission) {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.title = 'Create Country';
+        this.title = 'Create Document';
         this.buttonSubmitType = 'Create';
         this.disabledForm = false;
       }
@@ -92,10 +93,10 @@ export class CreateCountryComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
         data => {
-            this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountry');
-            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountry');
-            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountry');
-            this.hasViewUserPermission = this._user.RequestPermission(data,'viewCountry');
+            this.hasEditUserPermission = this._user.RequestPermission(data, 'editPrice');
+            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createPrice');
+            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deletePrice');
+            this.hasViewUserPermission = this._user.RequestPermission(data,'viewPrice');
             /* Check orther permission if View allow */
             if(!this.hasViewUserPermission) {
                 this.router.navigateByUrl('pages/landing');
@@ -110,27 +111,29 @@ export class CreateCountryComponent implements OnInit {
   }
 
   private buildForm() {
-    this.CountryForm = this.formBuilder.group({
-      code: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+    this.DocumentForm = this.formBuilder.group({
+      document_name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      link: ['', [Validators.required]]
     });
   }
 
   private detailForm(data) {
-    this.CountryForm = this.formBuilder.group({
-      code: [data['country_code'], [Validators.required]],
-      name: [data['country_name'], [Validators.required]]
+    this.DocumentForm = this.formBuilder.group({
+      document_name: [data['service_id'], [Validators.required]],
+      description: [data['range_code'], [Validators.required]],
+      link: [data['range_code'], [Validators.required]]
     });
   }
 
   onSubmit() {
-    if (this.CountryForm.valid) {
+    if (this.DocumentForm.valid) {
       if (this.action === 'create') {
-        this._createCountryService.createCountry(this.CountryForm.value).subscribe((data) => {
+        this._createDocumentService.createDocument(this.DocumentForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/document']);
             },
             700
           ), err => {
@@ -138,11 +141,11 @@ export class CreateCountryComponent implements OnInit {
           };
         });
       } else if (this.action === 'update') {
-        this._createCountryService.updateCountry(this.idCountry, this.CountryForm.value).subscribe((data) => {
+        this._createDocumentService.updateDocument(this.idDocument, this.DocumentForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/document']);
             },
             700
           );
@@ -155,14 +158,10 @@ export class CreateCountryComponent implements OnInit {
   }
 
   detail(id) {
-    this._createCountryService.getCountryDetail(id).subscribe((data) => {
-      this.countryDetail = data['country'];
-      this.detailForm(data['country']);
+    this._createDocumentService.getDocumentDetail(id).subscribe((data) => {
+      this.DocumentDetail = data['range_price'];
+      this.detailForm(data['range_price']);
     });
-  }
-
-  checkInputNumber($event, int) {
-    this._Valid.isNumber($event, int);
   }
 
   cancel() {

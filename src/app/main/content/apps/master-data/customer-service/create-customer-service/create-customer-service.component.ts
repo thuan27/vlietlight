@@ -65,7 +65,7 @@ export class CreateCustomerServiceComponent implements OnInit {
     this.CustomerServiceForm = this.formBuilder.group({
       cus_service_code: ['', [Validators.required]],
       cus_service_name: ['', [Validators.required]],
-      customer_id: ['', [Validators.required]]
+      customer_id: [19, [Validators.required]]
     });
   }
 
@@ -85,7 +85,7 @@ export class CreateCustomerServiceComponent implements OnInit {
         }
       },
       err => {
-        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+        this.toastyService.error(err.error.errors.message);
       }
     );
   }

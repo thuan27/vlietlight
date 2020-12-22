@@ -1,0 +1,98 @@
+<ng2-toasty></ng2-toasty>
+
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">{{ title }}</span>
+      </div>
+      <div class="h2 mt-16">{{ title }}</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="p-24">
+    <form
+      [formGroup]="DocumentForm"
+      autocomplete="off"
+      class="form"
+      (submit)="onSubmit()"
+    >
+      <div class="background-title mat-cyan-200-bg margin-top-10">
+        <h2 class="title">{{ titleGroup }}</h2>
+      </div>
+      <div class="box-shadow-form margin-top-10">
+        <div class="row">
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input
+              [readonly]="disabledForm"
+              formControlName="document_name"
+              matInput
+              placeholder="Document Name"
+            />
+            <mat-error
+              *ngIf="DocumentForm.controls.document_name.hasError('required')"
+            >
+              Document Name is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input
+              [readonly]="disabledForm"
+              formControlName="description"
+              matInput
+              placeholder="Description"
+            />
+            <mat-error
+              *ngIf="DocumentForm.controls.description.hasError('required')"
+            >
+              Description is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4">
+            <input
+              [readonly]="disabledForm"
+              formControlName="link"
+              matInput
+              placeholder="Link"
+            />
+            <mat-error *ngIf="DocumentForm.controls.link.hasError('required')">
+              Link is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <button class="button-cancel" mat-raised-button (click)="cancel()">
+        {{ buttonCancel }}
+      </button>
+      <button
+        *ngIf="!disabledForm"
+        class="button-submit"
+        mat-raised-button
+        color="accent"
+        type="submit"
+      >
+        {{ buttonSubmitType }}
+      </button>
+    </form>
+  </div>
+</div>

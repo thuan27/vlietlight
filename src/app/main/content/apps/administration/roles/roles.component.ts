@@ -67,7 +67,7 @@ export class RolesComponent implements OnInit {
         this.setIsCheckedAll();
       },
       err => {
-        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+        this.toastyService.error(err.error.errors.message);
       }
     );
   }
@@ -107,7 +107,7 @@ export class RolesComponent implements OnInit {
           }
         },
         err => {
-          this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+          this.toastyService.error(err.error.errors.message);
         }
       )
   }
@@ -215,7 +215,7 @@ export class RolesComponent implements OnInit {
         this.toastyService.success('Updated successfully.');
       },
       err => {
-        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+        this.toastyService.error(err.error.errors.message);
       }
     );
   }
@@ -237,7 +237,7 @@ export class RolesComponent implements OnInit {
             this.getPermissionsByRoleName(this.activeRole['name']);
           },
           err => {
-            this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+            this.toastyService.error(err.error.errors.message);
           }
         );
       });

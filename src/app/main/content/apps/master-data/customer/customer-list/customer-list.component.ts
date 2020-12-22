@@ -46,6 +46,7 @@ export class CustomerListComponent implements OnInit
         )
     {
         this.total = 0;
+        this.toastyConfig.position = 'top-right';
     }
 
     ngOnInit()
@@ -71,7 +72,7 @@ export class CustomerListComponent implements OnInit
         }
       },
       err => {
-        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+        this.toastyService.error(err.error.errors.message);
       }
     );
   }

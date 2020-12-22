@@ -85,7 +85,7 @@ export class MasterPalletCustomerListDirective {
   // }
 
   // private parseError(err){
-  //   this.messages.emit({'status' : 'danger', 'txt' : this._Func.parseErrorMessageFromServer(err)});
+  //   this.messages.emit({'status' : 'danger', 'txt' : err.error.errors.message});
   // }
 
 

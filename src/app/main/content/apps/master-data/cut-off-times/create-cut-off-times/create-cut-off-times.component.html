@@ -38,15 +38,15 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-6">
-            <input [readonly]="disabledForm" formControlName="received_message" matInput
+            <input [readonly]="disabledForm" formControlName="msg_cut_off_time" matInput
               placeholder="Received Message Cut Off Times">
-            <mat-error *ngIf="CutOffTimesForm.controls.received_message.hasError('required')">
+            <mat-error *ngIf="CutOffTimesForm.controls.msg_cut_off_time.hasError('required')">
               Received Message Cut Off Times is required
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-6">
-            <input [readonly]="disabledForm" formControlName="pick" matInput placeholder="Pick Cut Off Times">
-            <mat-error *ngIf="CutOffTimesForm.controls.pick.hasError('required')">
+            <input [readonly]="disabledForm" formControlName="pick_cut_off_time" matInput placeholder="Pick Cut Off Times">
+            <mat-error *ngIf="CutOffTimesForm.controls.pick_cut_off_time.hasError('required')">
               Pick Cut Off Times is required
             </mat-error>
           </mat-form-field>

@@ -1,4 +1,4 @@
-import { PriceListService } from './price-list.service';
+import { DocumentListService } from './document-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -8,48 +8,32 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'price-list',
-  templateUrl: './price-list.component.html',
-  styleUrls: ['./price-list.component.scss'],
-  providers: [PriceListService, ToastyService, UserService]
+  selector: 'document-list',
+  templateUrl: './document-list.component.html',
+  styleUrls: ['./document-list.component.scss'],
+  providers: [DocumentListService, ToastyService, UserService]
 })
-export class PriceListComponent implements OnInit {
+export class DocumentListComponent implements OnInit {
   rows: any;
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  countryList;
+  documentList;
   total;
   current_page;
   selected: any[] = [];
   searchForm: FormGroup;
-  country;
+  document;
   sortData = '';
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
   service;
-  itemType = [
-    {name: 'Doc', value: 1},
-    {name: 'Pack', value: 2}
-  ];
-  rate = [
-    {name: 'No', value: 0},
-    {name: 'Yes', value: 1}
-  ];
-  range = [
-    {name: 'No', value: 0},
-    {name: 'Yes', value: 1}
-  ];
-  rangeID = [
-    {name: 0, value: 0},
-    {name: 1, value: 1}
-  ];
 
   constructor(
     private router: Router,
-    private priceListService: PriceListService,
+    private documentListService: DocumentListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
@@ -70,10 +54,10 @@ export class PriceListComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
       data => {
-        this.hasEditUserPermission = this._user.RequestPermission(data, 'editPrice');
-        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createPrice');
-        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deletePrice');
-        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewPrice');
+        this.hasEditUserPermission = this._user.RequestPermission(data, 'editRangePrice');
+        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createRangePrice');
+        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteRangePrice');
+        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewRangePrice');
         /* Check orther permission if View allow */
         if (!this.hasViewUserPermission) {
           this.router.navigateByUrl('pages/landing');
@@ -91,17 +75,7 @@ export class PriceListComponent implements OnInit {
   private buildForm() {
     this.searchForm = this.formBuilder.group({
       service_id: '',
-      item_type_id: '',
-      weight: '',
-      zone: '',
-      is_rate: '',
-      is_range: '',
-      range_id: '',
-      range_code: '',
-      min_range: '',
-      max_range: '',
-      currency: '',
-      value: '',
+      range_code: ''
     });
   }
 
@@ -110,27 +84,14 @@ export class PriceListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    if (this.searchForm.controls['service_id'].value === undefined) {
-      this.searchForm.controls['service_id'].setValue('');
-    }
     params = params + '&service_id=' + this.searchForm.controls['service_id'].value
-      + '&item_type_id=' + this.searchForm.controls['item_type_id'].value
-      + '&weight=' + this.searchForm.controls['weight'].value
-      + '&zone=' + this.searchForm.controls['zone'].value
-      + '&is_rate=' + this.searchForm.controls['is_rate'].value
-      + '&is_range=' + this.searchForm.controls['is_range'].value
-      + '&range_id=' + this.searchForm.controls['range_id'].value
-      + '&range_code=' + this.searchForm.controls['range_code'].value
-      + '&min_range=' + this.searchForm.controls['min_range'].value
-      + '&max_range=' + this.searchForm.controls['max_range'].value
-      + '&currency=' + this.searchForm.controls['currency'].value
-      + '&value=' + this.searchForm.controls['value'].value;
-    this.countryList = this.priceListService.getList(params);
+      + '&range_code=' + this.searchForm.controls['range_code'].value;
+    this.documentList = this.documentListService.getList(params);
 
-    this.countryList.subscribe((dataList: any[]) => {
+    this.documentList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['id_temp'] = data['id'];
-        data['id'] = `<a href="#/apps/master-data/price/${data['id']}">${data['id']}</a>`;
+        data['id'] = `<a href="#/apps/master-data/document/${data['id']}">${data['id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -140,7 +101,7 @@ export class PriceListComponent implements OnInit {
   }
 
   serviceList() {
-    this.priceListService.serviceList().subscribe((data) => {
+    this.documentListService.serviceList().subscribe((data) => {
       this.service = data['data'];
     });
   }
@@ -151,7 +112,7 @@ export class PriceListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/master-data/price/create']);
+    this.router.navigate(['apps/master-data/document/create']);
   }
 
   update() {
@@ -160,7 +121,7 @@ export class PriceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/price/${this.selected[0]['id']}/update`);
+      this.router.navigateByUrl(`apps/master-data/document/${this.selected[0]['id_temp']}/update`);
     }
   }
 
@@ -170,7 +131,7 @@ export class PriceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.priceListService.deletePrice(this.selected[0]['id']).subscribe((data) => {
+      this.documentListService.deleteDocument(this.selected[0]['id_temp']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {
@@ -183,6 +144,10 @@ export class PriceListComponent implements OnInit {
     }
   }
 
+  selectedOption(data) {
+    this.searchForm.controls['id_temp'].setValue(data);
+  }
+
   onSort(event) {
     this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
     this.getList(this.current_page + 1);
@@ -190,35 +155,21 @@ export class PriceListComponent implements OnInit {
   }
 
   reset() {
-    this.searchForm.controls['service_id'].setValue('');
-    this.searchForm.controls['item_type_id'].setValue('');
-    this.searchForm.controls['zone'].setValue('');
-    this.searchForm.controls['is_rate'].setValue('');
-    this.searchForm.controls['is_range'].setValue('');
-    this.searchForm.controls['range_id'].setValue('');
-    this.searchForm.controls['range_code'].setValue('');
-    this.searchForm.controls['min_range'].setValue('');
-    this.searchForm.controls['max_range'].setValue('');
-    this.searchForm.controls['currency'].setValue('');
-    this.searchForm.controls['value'].setValue('');
+    this.searchForm.controls['country_name'].setValue('');
     this.sortData = '';
     this.getList();
   }
 
   exportCsv() {
-    let fileName = 'Price';
+    let fileName = 'Range Price';
     let fileType = '.csv';
     let params = '';
-    if (this.searchForm.controls['service_id'].value === undefined) {
-      this.searchForm.controls['service_id'].setValue('');
-    }
     params = params + '?service_id=' + this.searchForm.controls['service_id'].value
-      + '&currency=' + this.searchForm.controls['currency'].value
-      + '&zone=' + this.searchForm.controls['zone'].value;
+      + '&range_code=' + this.searchForm.controls['range_code'].value;
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    let getReport = this.priceListService.getReport(params);
+    let getReport = this.documentListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

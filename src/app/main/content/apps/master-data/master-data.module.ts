@@ -1,3 +1,5 @@
+import { CreateDocumentComponent } from './document/create-document/create-document.component';
+import { DocumentListComponent } from './document/document-list/document-list.component';
 import { RangePriceListService } from './range-price/range-price-list/range-price-list.service';
 import { CreateCountryZoneComponent } from './country-zone/create-country-zone/create-country-zone.component';
 import { CreateCountryService } from './country/create-country/create-country.service';
@@ -46,6 +48,8 @@ import { CreateCusCountryZoneService } from './cus-country-zone/create-cus-count
 import { CreateCusCountryZoneComponent } from './cus-country-zone/create-cus-country-zone/create-cus-country-zone.component';
 import { CusCountryZoneListComponent } from './cus-country-zone/cus-country-zone-list/cus-country-zone-list.component';
 import { CusCountryZoneListService } from './cus-country-zone/cus-country-zone-list/cus-country-zone-list.service';
+import { DocumentListService } from './document/document-list/document-list.service';
+import { CreateDocumentService } from './document/create-document/create-document.service';
 
 @NgModule({
     declarations: [
@@ -68,7 +72,9 @@ import { CusCountryZoneListService } from './cus-country-zone/cus-country-zone-l
         CreateCutOffTimesComponent,
         CutOffTimesListComponent,
         CusCountryZoneListComponent,
-        CreateCusCountryZoneComponent
+        CreateCusCountryZoneComponent,
+        DocumentListComponent,
+        CreateDocumentComponent,
     ],
     imports: [
         CommonModule,
@@ -107,7 +113,9 @@ import { CusCountryZoneListService } from './cus-country-zone/cus-country-zone-l
         CutOffTimesListService,
         CreateCutOffTimesService,
         CusCountryZoneListService,
-        CreateCusCountryZoneService
+        CreateCusCountryZoneService,
+        DocumentListService,
+        CreateDocumentService,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

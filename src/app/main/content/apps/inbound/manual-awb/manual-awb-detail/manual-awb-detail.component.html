@@ -43,7 +43,7 @@
         <div class="row">
           <mat-form-field class="col-sm-12 col-md-4">
             <input
-              [readonly]="disabledForm"
+              [readonly]="true"
               formControlName="awb_code"
               matInput
               placeholder="AWB Code"
@@ -54,7 +54,7 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
               <input
-                [readonly]="disabledForm"
+                [readonly]="true"
                 formControlName="account_number"
                 matInput
                 placeholder="Account #"
@@ -67,7 +67,7 @@
             </mat-form-field>
             <mat-form-field class="col-sm-12 col-md-4">
                 <input
-                  [readonly]="disabledForm"
+                  [readonly]="true"
                   formControlName="cus_id"
                   matInput
                   placeholder="Customer ID"
@@ -80,7 +80,7 @@
               </mat-form-field>
               <mat-form-field class="col-sm-12 col-md-4">
                   <input
-                    [readonly]="disabledForm"
+                    [readonly]="true"
                     formControlName="cus_address"
                     matInput
                     placeholder="Customer Address"
@@ -93,7 +93,7 @@
                 </mat-form-field>
                 <mat-form-field class="col-sm-12 col-md-4">
                     <input
-                      [readonly]="disabledForm"
+                      [readonly]="true"
                       formControlName="awb_name"
                       matInput
                       placeholder="Manual AWB Name"
@@ -115,7 +115,15 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="col-sm-12 col-md-4 text-center">
+          <mat-form-field *ngIf="action == 'update'" class="col-sm-12 col-md-4">
+              <input
+                [readonly]="true"
+                formControlName="file_id"
+                matInput
+                placeholder="File ID"
+              />
+            </mat-form-field>
+          <div *ngIf="action == 'detail'" class="col-sm-12 col-md-4 text-center">
             <button color="accent" mat-raised-button>
               Download
             </button>
@@ -133,6 +141,19 @@
                 Sales ID is required
               </mat-error>
             </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="cs_id"
+                  matInput
+                  placeholder="CS ID"
+                />
+                <mat-error
+                  *ngIf="AWBForm.controls.cs_id.hasError('required')"
+                >
+                  CS ID is required
+                </mat-error>
+              </mat-form-field>
             <mat-form-field class="col-sm-12 col-md-4">
                 <input
                   [readonly]="disabledForm"

@@ -93,6 +93,12 @@ export const navigation = [
                         'title': 'Cut Off Times',
                         'type' : 'item',
                         'url'  : '/apps/master-data/cut-off-times'
+                    },
+                    {
+                        'id'   : 'document',
+                        'title': 'Document',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/document'
                     }
                 ]
             },
@@ -114,9 +120,9 @@ export const navigation = [
                         'id'   : 'Manual AWB',
                         'title': 'Manual AWB',
                         'type' : 'item',
-                        'url'  : '/apps/inbound/manual-awb',
+                        'url'  : '/apps/inbound/awb',
                         'exactMatch': true
-                  },
+                    },
                     {
                         'id'   : 'WavePickList',
                         'title': 'Wave Pick',

@@ -71,6 +71,11 @@ export const listRoutes: Routes = [
         component: ManualAWBDetailComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
+    {
+        path     : 'manual-awb/:id/:update',
+        component: ManualAWBDetailComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
 ];
 
 

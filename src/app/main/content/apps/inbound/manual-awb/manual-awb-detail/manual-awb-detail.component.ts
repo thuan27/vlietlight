@@ -170,7 +170,8 @@ export class ManualAWBDetailComponent implements OnInit {
       created_at: [''],
       updated_at: [''],
       created_by: [''],
-      sales_note_for_cs: ['']
+      sales_note_for_cs: [''],
+      file_id: ['']
     });
   }
 
@@ -190,7 +191,8 @@ export class ManualAWBDetailComponent implements OnInit {
       created_at: [''],
       updated_at: [''],
       created_by: [''],
-      sales_note_for_cs: ['']
+      sales_note_for_cs: [''],
+      file_id: [''],
     });
   }
 

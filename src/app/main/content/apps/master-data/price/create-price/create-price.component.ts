@@ -122,7 +122,7 @@ export class CreatePriceComponent implements OnInit {
             }
         },
         err => {
-            this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+            this.toastyService.error(err.error.errors.message);
         }
     );
   }

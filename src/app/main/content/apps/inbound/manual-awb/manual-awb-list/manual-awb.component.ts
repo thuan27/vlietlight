@@ -121,7 +121,7 @@ export class manualAWBComponent implements OnInit {
         }
       },
       err => {
-        this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+        this.toastyService.error(err.error.errors.message);
       }
     );
   }
@@ -261,10 +261,6 @@ export class manualAWBComponent implements OnInit {
       return (this.hasCreateUserPermission || this.hasEditUserPermission || this.hasDeleteUserPermission);
     }
 
-    doCreateWavePick() {
-
-    }
-
     delete() {
       if (this.selected.length < 1) {
         this.toastyService.error('Please select at least one item.');
@@ -314,97 +310,13 @@ export class manualAWBComponent implements OnInit {
       }
     }
 
-    pending() {
-      if (this.selected.length < 1) {
-        this.toastyService.error('Please select at least one item.');
-      } else if (this.selected.length > 1) {
-        this.toastyService.error('Please select one item.');
-      } else {
-        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to pend this AWB. The corresponding Order will be pended too?';
-
-          this.dialogRef.afterClosed().subscribe(result => {
-              // if ( result )
-              // {
-              //     // this.contactsService.deleteSelectedContacts();
-              // } else {
-              // }
-              // this.dialogRef = null;
-          });
-      }
-    }
-
-    complete() {
-      if (this.selected.length < 1) {
-        this.toastyService.error('Please select at least one item.');
-      } else if (this.selected.length > 1) {
-        this.toastyService.error('Please select one item.');
-      } else {
-        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to complete this AWB. The corresponding Order will be packing?';
-
-          this.dialogRef.afterClosed().subscribe(result => {
-              // if ( result )
-              // {
-              //     // this.contactsService.deleteSelectedContacts();
-              // } else {
-              // }
-              // this.dialogRef = null;
-          });
-      }
-    }
-
-    remove() {
-      if (this.selected.length < 1) {
-        this.toastyService.error('Please select at least one item.');
-      } else if (this.selected.length > 1) {
-        this.toastyService.error('Please select one item.');
-      } else {
-        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-          this.dialogRef.componentInstance.confirmMessage = `Are you sure you want to remove this AWB out of WavePick ${this.selected[0].awb_code}?`;
-
-          this.dialogRef.afterClosed().subscribe(result => {
-              // if ( result )
-              // {
-              //     // this.contactsService.deleteSelectedContacts();
-              // } else {
-              // }
-              // this.dialogRef = null;
-          });
-      }
-    }
-
-    updateCS() {
-      if (this.selected.length < 1) {
-        this.toastyService.error('Please select at least one item.');
-      } else if (this.selected.length > 1) {
-        this.toastyService.error('Please select one item.');
-      } else {
-        this.dialogRefUpdate = this.dialog.open(FuseUpdateAssignCSComponent, {
-          panelClass: 'contact-form-dialog',
-          data      : {
-              data: this.selected
-          }
-        });
-        this.dialogRefUpdate.afterClosed().subscribe(result => {
-          if ( result )
-          {
-            this.getList();
-            this.selected = [];
-          } else {
-          }
-          this.dialogRefUpdate = null;
-      });
-      }
-    }
-
     update() {
       if (this.selected.length < 1) {
         this.toastyService.error('Please select at least one item.');
       } else if (this.selected.length > 1) {
         this.toastyService.error('Please select one item.');
       } else {
-        this.router.navigateByUrl(`apps/inbound/awb1/${this.selected[0]['awb_id']}/update`);
+        this.router.navigateByUrl(`apps/inbound/manual-awb/${this.selected[0]['awb_id']}/update`);
       }
     }
 

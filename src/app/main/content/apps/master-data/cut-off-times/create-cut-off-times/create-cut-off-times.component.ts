@@ -104,7 +104,7 @@ export class CreateCutOffTimesComponent implements OnInit {
             }
         },
         err => {
-            this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+            this.toastyService.error(err.error.errors.message);
         }
     );
   }
@@ -113,8 +113,8 @@ export class CreateCutOffTimesComponent implements OnInit {
     this.CutOffTimesForm = this.formBuilder.group({
       province: ['', [Validators.required]],
       district: ['', [Validators.required]],
-      received_message: ['', [Validators.required]],
-      pick: ['', [Validators.required]],
+      msg_cut_off_time: ['', [Validators.required]],
+      pick_cut_off_time: ['', [Validators.required]],
       other_note: ['']
     });
   }
@@ -123,8 +123,8 @@ export class CreateCutOffTimesComponent implements OnInit {
     this.CutOffTimesForm = this.formBuilder.group({
       province: [data['province'], [Validators.required]],
       district: [data['district'], [Validators.required]],
-      received_message: [data['received_message'], [Validators.required]],
-      pick: [data['pick'], [Validators.required]],
+      msg_cut_off_time: [data['msg_cut_off_time'], [Validators.required]],
+      pick_cut_off_time: [data['pick_cut_off_time'], [Validators.required]],
       other_note: [data['other_note']]
     });
   }
@@ -136,7 +136,7 @@ export class CreateCutOffTimesComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/cut-off-times']);
             },
             700
           ), err => {
@@ -148,7 +148,7 @@ export class CreateCutOffTimesComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/cut-off-times']);
             },
             700
           );

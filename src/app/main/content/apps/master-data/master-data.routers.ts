@@ -20,6 +20,8 @@ import { CreateCutOffTimesComponent } from './cut-off-times/create-cut-off-times
 import { CutOffTimesListComponent } from './cut-off-times/cut-off-times-list/cut-off-times-list.component';
 import { CusCountryZoneListComponent } from './cus-country-zone/cus-country-zone-list/cus-country-zone-list.component';
 import { CreateCusCountryZoneComponent } from './cus-country-zone/create-cus-country-zone/create-cus-country-zone.component';
+import { DocumentListComponent } from './document/document-list/document-list.component';
+import { CreateDocumentComponent } from './document/create-document/create-document.component';
 
 export const listRoutes: Routes = [
     {
@@ -210,6 +212,26 @@ export const listRoutes: Routes = [
   {
       path: 'cus-country-zones/:id/:update',
       component: CreateCusCountryZoneComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'document',
+      component: DocumentListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'document/create',
+      component: CreateDocumentComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'document/:id',
+      component: CreateDocumentComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'document/:id/:update',
+      component: CreateDocumentComponent,
       canActivate: [AuthGuard, AdminGuard]
   },
 ];
