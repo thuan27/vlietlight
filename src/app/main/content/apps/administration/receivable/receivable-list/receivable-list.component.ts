@@ -33,7 +33,7 @@ export class ReceivableListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private ReceivableListService: ReceivableListService,
+    private _ReceivableListService: ReceivableListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
@@ -100,7 +100,7 @@ export class ReceivableListComponent implements OnInit {
         params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
       }
     }
-    this.ReceivableList = this.ReceivableListService.getList(params);
+    this.ReceivableList = this._ReceivableListService.getList(params);
 
     this.ReceivableList.subscribe((dataList: any[]) => {
       this.rows = dataList['data'];
@@ -111,7 +111,7 @@ export class ReceivableListComponent implements OnInit {
   }
 
   getCountry(event) {
-    this.ReceivableListService.getCountry(event.target.value).subscribe((data) => {
+    this._ReceivableListService.getCountry(event.target.value).subscribe((data) => {
       this.country = data['data'];
     });
   }
@@ -122,7 +122,7 @@ export class ReceivableListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/administration/monthly-Revenue/create']);
+    this.router.navigate(['apps/administration/receivable/create']);
   }
 
   update() {
@@ -131,7 +131,7 @@ export class ReceivableListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/administration/monthly-Revenue/${this.selected[0]['country_id_temp']}/update`);
+      this.router.navigateByUrl(`apps/administration/receivable/${this.selected[0]['country_id_temp']}/update`);
     }
   }
 
@@ -141,7 +141,7 @@ export class ReceivableListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.ReceivableListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
+      this._ReceivableListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {
@@ -183,7 +183,7 @@ export class ReceivableListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    let getReport = this.ReceivableListService.getReport(params);
+    let getReport = this._ReceivableListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

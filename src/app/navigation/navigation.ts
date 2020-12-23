@@ -254,6 +254,13 @@ export const navigation = [
                     'type' : 'item',
                     'url'  : '/apps/administration/receivable',
                     'exactMatch': true
+                  },
+                  {
+                    'id'   : 'feedback',
+                    'title': 'Feedback',
+                    'type' : 'item',
+                    'url'  : '/apps/administration/feedback',
+                    'exactMatch': true
                   }
               ]
             },

@@ -36,6 +36,10 @@ import { ReceivableListComponent } from './receivable/receivable-list/receivable
 import { CreateReceivableComponent } from './receivable/create-receivable/create-receivable.component';
 import { ReceivableListService } from './receivable/receivable-list/receivable-list.service';
 import { CreateReceivableService } from './receivable/create-receivable/create-receivable.service';
+import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
+import { CreateFeedbackComponent } from './feedback/create-feedback/create-feedback.component';
+import { FeedbackListService } from './feedback/feedback-list/feedback-list.service';
+import { CreateFeedbackService } from './feedback/create-feedback/create-feedback.service';
 
 @NgModule({
     declarations: [
@@ -49,7 +53,9 @@ import { CreateReceivableService } from './receivable/create-receivable/create-r
         MonthlyRevenueListComponent,
         CreateMonthlyRevenueComponent,
         ReceivableListComponent,
-        CreateReceivableComponent
+        CreateReceivableComponent,
+        FeedbackListComponent,
+        CreateFeedbackComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -77,7 +83,9 @@ import { CreateReceivableService } from './receivable/create-receivable/create-r
       MonthlyRevenueListService,
       CreateMonthlyRevenueService,
       ReceivableListService,
-      CreateReceivableService
+      CreateReceivableService,
+      FeedbackListService,
+      CreateFeedbackService
     ]
 })
 export class FuseAdministationModule {

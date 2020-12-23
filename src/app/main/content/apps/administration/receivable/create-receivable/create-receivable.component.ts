@@ -140,7 +140,7 @@ export class CreateReceivableComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/administration/receivable']);
             },
             700
           ), err => {
@@ -152,7 +152,7 @@ export class CreateReceivableComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/administration/receivable']);
             },
             700
           );

@@ -140,7 +140,7 @@ export class CreateMonthlyRevenueComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/administration/monthly-revenue']);
             },
             700
           ), err => {
@@ -152,7 +152,7 @@ export class CreateMonthlyRevenueComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/administration/monthly-revenue']);
             },
             700
           );

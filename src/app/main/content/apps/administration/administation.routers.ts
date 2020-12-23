@@ -9,6 +9,8 @@ import { CreateMonthlyRevenueComponent } from './monthly-revenue/create-monthly-
 import { MonthlyRevenueListComponent } from './monthly-revenue/monthly-revenue-list/monthly-revenue-list.component';
 import { ReceivableListComponent } from './receivable/receivable-list/receivable-list.component';
 import { CreateReceivableComponent } from './receivable/create-receivable/create-receivable.component';
+import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
+import { CreateFeedbackComponent } from './feedback/create-feedback/create-feedback.component';
 
 export const listRoutes: Routes = [
     {
@@ -94,6 +96,26 @@ export const listRoutes: Routes = [
     {
         path     : 'receivable/:id/:update',
         component: CreateReceivableComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'feedback',
+        component: FeedbackListComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'feedback/create',
+        component: CreateFeedbackComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'feedback/:id',
+        component: CreateFeedbackComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'feedback/:id/:update',
+        component: CreateFeedbackComponent,
         canActivate: [AuthGuard, AdminGuard]
     }
 ];
