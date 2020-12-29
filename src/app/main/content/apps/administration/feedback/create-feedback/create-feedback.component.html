@@ -32,7 +32,7 @@
   <!-- CONTENT -->
   <div class="p-24">
     <form
-      [formGroup]="ReceivableForm"
+      [formGroup]="FeedbackForm"
       autocomplete="off"
       class="form"
       (submit)="onSubmit()"
@@ -56,7 +56,7 @@
             ></mat-datepicker-toggle>
             <mat-datepicker #actDate disabled="false"></mat-datepicker>
             <mat-error
-              *ngIf="ReceivableForm.controls.act_date.hasError('required')"
+              *ngIf="FeedbackForm.controls.act_date.hasError('required')"
             >
               Received At is required
             </mat-error>
@@ -69,7 +69,7 @@
               placeholder="Cat ID"
             />
             <mat-error
-              *ngIf="ReceivableForm.controls.cat_id.hasError('required')"
+              *ngIf="FeedbackForm.controls.cat_id.hasError('required')"
             >
               Cat ID is required
             </mat-error>
@@ -82,7 +82,7 @@
               placeholder="Value"
             />
             <mat-error
-              *ngIf="ReceivableForm.controls.value.hasError('required')"
+              *ngIf="FeedbackForm.controls.value.hasError('required')"
             >
               Value is required
             </mat-error>
@@ -95,7 +95,7 @@
               placeholder="Discriptioin"
             />
             <mat-error
-              *ngIf="ReceivableForm.controls.discription.hasError('required')"
+              *ngIf="FeedbackForm.controls.discription.hasError('required')"
             >
               Discriptioin is required
             </mat-error>
@@ -108,7 +108,7 @@
               placeholder="Document Number"
             />
             <mat-error
-              *ngIf="ReceivableForm.controls.doc_number.hasError('required')"
+              *ngIf="FeedbackForm.controls.doc_number.hasError('required')"
             >
               Document Number is required
             </mat-error>
@@ -121,7 +121,7 @@
               placeholder="Sales ID"
             />
             <mat-error
-              *ngIf="ReceivableForm.controls.sales_id.hasError('required')"
+              *ngIf="FeedbackForm.controls.sales_id.hasError('required')"
             >
               Sales ID is required
             </mat-error>
@@ -135,7 +135,7 @@
             />
             <mat-error
               *ngIf="
-                ReceivableForm.controls.spend_purpose.hasError('required')
+                FeedbackForm.controls.spend_purpose.hasError('required')
               "
             >
               Spend Purpose is required
