@@ -178,9 +178,15 @@ export class WavePickListComponent implements OnInit {
   exportCsv() {
     let fileName = 'Country';
     let fileType = '.csv';
-    let params = `?country_name=${this.searchForm.value['country_name']}`;
+    let params = '?limit=15';
     if (this.sortData !== '') {
       params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     let getReport = this.wavePickService.getReport(params);
     getReport.subscribe((data) => {

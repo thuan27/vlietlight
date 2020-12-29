@@ -84,10 +84,10 @@ export class RangePriceListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    params = params + '&service_id=' + this.searchForm.controls['service_id'].value
-      + '&range_code=' + this.searchForm.controls['range_code'].value;
-    this.rangePriceList = this.rangePriceListService.getList(params);
-
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+    }
     this.rangePriceList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['id_temp'] = data['id'];
@@ -163,11 +163,15 @@ export class RangePriceListComponent implements OnInit {
   exportCsv() {
     let fileName = 'Range Price';
     let fileType = '.csv';
-    let params = '';
-    params = params + '?service_id=' + this.searchForm.controls['service_id'].value
-      + '&range_code=' + this.searchForm.controls['range_code'].value;
+    let params = '?limit=15';
     if (this.sortData !== '') {
       params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     let getReport = this.rangePriceListService.getReport(params);
     getReport.subscribe((data) => {

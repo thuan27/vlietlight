@@ -74,11 +74,12 @@ export class CountryZoneListComponent implements OnInit {
 
   getList(page = 1) {
     let params = '?page=' + page;
-    params = params + '&service_name=' + this.searchForm.controls['service_name'].value
-      + '&country_name=' + this.searchForm.controls['country_name'].value
-      + '&zone=' + this.searchForm.controls['zone'].value;
     if (this.sortData !== '') {
       params += this.sortData;
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     this.countryList = this.countryZoneListService.getList(params);
     this.countryList.subscribe((dataList: any[]) => {
@@ -172,11 +173,15 @@ export class CountryZoneListComponent implements OnInit {
   exportCsv() {
     let fileName = 'Country-Zone';
     let fileType = '.csv';
-    let params = `?service_name=${this.searchForm.value['service_name']}
-    &country_name=${this.searchForm.value['country_name']}
-    &zone=${this.searchForm.value['zone']}`;
+    let params = '?limit=15';
     if (this.sortData !== '') {
       params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     let getReport = this.countryZoneListService.getReport(params);
     getReport.subscribe((data) => {

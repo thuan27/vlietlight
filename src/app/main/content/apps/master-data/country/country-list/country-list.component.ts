@@ -81,7 +81,10 @@ export class CountryListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    params += `&country_name=${this.searchForm.value['country_name']}`;
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+    }
     this.countryList = this.countryListService.getList(params);
 
     this.countryList.subscribe((dataList: any[]) => {
@@ -160,9 +163,15 @@ export class CountryListComponent implements OnInit {
   exportCsv() {
     let fileName = 'Country';
     let fileType = '.csv';
-    let params = `?country_name=${this.searchForm.value['country_name']}`;
+    let params = '?limit=15';
     if (this.sortData !== '') {
       params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     let getReport = this.countryListService.getReport(params);
     getReport.subscribe((data) => {

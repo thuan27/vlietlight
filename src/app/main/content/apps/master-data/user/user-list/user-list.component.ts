@@ -33,7 +33,6 @@ export class UserListComponent implements OnInit
 
     getList(pageNum: number = 1) {
         this.userListService.getList().subscribe(data => {
-            console.log(data);
             this.rows = data['data'];
             this.loadingIndicator = false;
             this.pagination = data['meta'];

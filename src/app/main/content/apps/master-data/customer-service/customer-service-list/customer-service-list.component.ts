@@ -100,11 +100,13 @@ export class CustomerServiceListComponent implements OnInit {
   }
 
   getList(page = 1) {
-    let params = '?page=' + page + '&status=' + this.searchForm.controls['status'].value;
-    params = params + '&cus_service_name=' + this.searchForm.controls['cus_service_name'].value
-      + '&cus_service_code=' + this.searchForm.controls['cus_service_code'].value;
+    let params = '?page=' + page;
     if (this.sortData !== '') {
       params += this.sortData;
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     this.dataList = this.customerServiceList.getList(params);
 
@@ -171,11 +173,15 @@ export class CustomerServiceListComponent implements OnInit {
   exportCsv() {
     let fileName = 'Customer-Service';
     let fileType = '.csv';
-    let params = '?status=' + this.searchForm.controls['status'].value;
-    params = params + '&cus_service_name=' + this.searchForm.controls['cus_service_name'].value
-      + '&cus_service_code=' + this.searchForm.controls['cus_service_code'].value;
+    let params = '?limit=15';
     if (this.sortData !== '') {
       params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
+    }
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     let getReport = this.customerServiceList.getReport(params);
     getReport.subscribe((data) => {

@@ -211,7 +211,14 @@ export class manualAWBComponent implements OnInit {
       }
       const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
       for (let i = 0; i < arrayItem.length; i++) {
-        params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_date') {
+          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+        } else
+        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_date') {
+          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
+        } else {
+          params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+        }
       }
       let getReport = this._manualAWBService.getReport(params);
       getReport.subscribe((data) => {

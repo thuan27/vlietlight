@@ -110,8 +110,9 @@ export class PriceListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    if (this.searchForm.controls['service_id'].value === undefined) {
-      this.searchForm.controls['service_id'].setValue('');
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
     params = params + '&service_id=' + this.searchForm.controls['service_id'].value
       + '&item_type_id=' + this.searchForm.controls['item_type_id'].value
@@ -208,15 +209,14 @@ export class PriceListComponent implements OnInit {
   exportCsv() {
     let fileName = 'Price';
     let fileType = '.csv';
-    let params = '';
     if (this.searchForm.controls['service_id'].value === undefined) {
       this.searchForm.controls['service_id'].setValue('');
     }
-    params = params + '?service_id=' + this.searchForm.controls['service_id'].value
-      + '&currency=' + this.searchForm.controls['currency'].value
-      + '&zone=' + this.searchForm.controls['zone'].value;
+    let params = '?limit=15';
     if (this.sortData !== '') {
       params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
     }
     let getReport = this.priceListService.getReport(params);
     getReport.subscribe((data) => {

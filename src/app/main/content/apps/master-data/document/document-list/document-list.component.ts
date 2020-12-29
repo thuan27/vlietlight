@@ -84,8 +84,10 @@ export class DocumentListComponent implements OnInit {
     if (this.sortData !== '') {
       params += this.sortData;
     }
-    params = params + '&service_id=' + this.searchForm.controls['service_id'].value
-      + '&range_code=' + this.searchForm.controls['range_code'].value;
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+    }
     this.documentList = this.documentListService.getList(params);
 
     this.documentList.subscribe((dataList: any[]) => {
@@ -163,11 +165,11 @@ export class DocumentListComponent implements OnInit {
   exportCsv() {
     let fileName = 'Range Price';
     let fileType = '.csv';
-    let params = '';
-    params = params + '?service_id=' + this.searchForm.controls['service_id'].value
-      + '&range_code=' + this.searchForm.controls['range_code'].value;
+    let params = '?limit=15';
     if (this.sortData !== '') {
       params += this.sortData;
+    } else {
+      params += '&sort[awb_id]=desc'
     }
     let getReport = this.documentListService.getReport(params);
     getReport.subscribe((data) => {
