@@ -83,14 +83,14 @@ export class FuseForgotPasswordComponent implements OnInit
         if (this.forgotPasswordForm.valid) {
           const data = {
             email: this.forgotPasswordForm.value.username,
-            reset_password_url: "http://vietlight.vietlight.info/#/reset-password"
+            reset_password_url: "http://vietlight.vietlight.info/#/pages/auth/reset-password"
           }
             this.http.post(this.api.FORGOT_PASS, data)
             .subscribe(
                 (res) => {
                     this.submitted = true;
                     this.toastyService.success('A reset password link has been sent to you via email.');
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/pages/auth/login']);
                 },
                 err => {
                     this.submitted = false;
