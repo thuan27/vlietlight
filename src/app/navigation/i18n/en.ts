@@ -26,6 +26,7 @@ export const locale = {
             'OUTBOUND'    : 'Outbound',
             'ADMINISTRATION': 'Administration',
             'IMPORT'      : 'Import',
+            'REPORT'      : 'Report',
             'EVENTTRACKING': 'Event Tracking'
         }
     }

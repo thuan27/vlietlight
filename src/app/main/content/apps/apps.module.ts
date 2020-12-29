@@ -56,6 +56,10 @@ const routes = [
         loadChildren: './event-tracking/event-tracking.module#FuseEventTrackingModule'
     },
     {
+        path        : 'report',
+        loadChildren: './report/report.module#FuseReportModule'
+    },
+    {
         path      : '**',
         redirectTo: 'apps/dashboards/analytics'
     }

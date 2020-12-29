@@ -1,3 +1,4 @@
+import { MonthlyCostsListService } from './monthly-costs/monthly-costs-list/monthly-costs-list.service';
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -15,23 +16,22 @@ import { MatButtonModule,
         } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { listRoutes } from './administation.routers';
+import { listRoutes } from './report.routers';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { RolesComponent } from './roles/roles.component';
-import { RolesService } from './roles/roles.service';
-import { SearchPipe } from './roles/search.pipe';
-import { UppercaseToSpaceLowerPipe } from './roles/string.pipe';
-import { UserAdminListComponent } from './user/user-list/user-list.component';
-import { UserAdminListService } from './user/user-list/user-list.service';
-import { CreateUserAdminComponent } from './user/create-user/create-user.component';
+import { MonthlyCostsListComponent } from './monthly-costs/monthly-costs-list/monthly-costs-list.component';
+import { MonthlyRevenueListService } from './monthly-revenue/monthly-revenue-list/monthly-revenue-list.service';
+import { MonthlyRevenueListComponent } from './monthly-revenue/monthly-revenue-list/monthly-revenue-list.component';
+import { ReceivableListComponent } from './receivable/receivable-list/receivable-list.component';
+import { ReceivableListService } from './receivable/receivable-list/receivable-list.service';
+import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
+import { FeedbackListService } from './feedback/feedback-list/feedback-list.service';
 
 @NgModule({
     declarations: [
-        RolesComponent,
-        UserAdminListComponent,
-        SearchPipe,
-        UppercaseToSpaceLowerPipe,
-        CreateUserAdminComponent
+        MonthlyCostsListComponent,
+        MonthlyRevenueListComponent,
+        ReceivableListComponent,
+        FeedbackListComponent,
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -52,9 +52,11 @@ import { CreateUserAdminComponent } from './user/create-user/create-user.compone
         MatAutocompleteModule
     ],
     providers: [
-      RolesService,
-      UserAdminListService
+      MonthlyCostsListService,
+      MonthlyRevenueListService,
+      ReceivableListService,
+      FeedbackListService,
     ]
 })
-export class FuseAdministationModule {
+export class FuseReportModule {
 }

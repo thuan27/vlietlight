@@ -1,4 +1,4 @@
-import { MonthlyCostsListService } from './monthly-costs-list.service';
+import { FeedbackListService } from './feedback-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -9,17 +9,17 @@ import { Functions } from '@fuse/core/function';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'monthly-costs-list',
-  templateUrl: './monthly-costs-list.component.html',
-  styleUrls: ['./monthly-costs-list.component.scss'],
-  providers: [MonthlyCostsListService, ToastyService, UserService]
+  selector: 'feedback-list',
+  templateUrl: './feedback-list.component.html',
+  styleUrls: ['./feedback-list.component.scss'],
+  providers: [FeedbackListService, ToastyService, UserService]
 })
-export class MonthlyCostsListComponent implements OnInit {
+export class FeedbackListComponent implements OnInit {
   rows: any;
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  monthlyCostsList;
+  FeedbackList;
   total;
   current_page;
   selected: any[] = [];
@@ -33,7 +33,7 @@ export class MonthlyCostsListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private monthlyCostsListService: MonthlyCostsListService,
+    private _FeedbackListService: FeedbackListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
@@ -100,9 +100,9 @@ export class MonthlyCostsListComponent implements OnInit {
         params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
       }
     }
-    this.monthlyCostsList = this.monthlyCostsListService.getList(params);
+    this.FeedbackList = this._FeedbackListService.getList(params);
 
-    this.monthlyCostsList.subscribe((dataList: any[]) => {
+    this.FeedbackList.subscribe((dataList: any[]) => {
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
       this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
@@ -111,7 +111,7 @@ export class MonthlyCostsListComponent implements OnInit {
   }
 
   getCountry(event) {
-    this.monthlyCostsListService.getCountry(event.target.value).subscribe((data) => {
+    this._FeedbackListService.getCountry(event.target.value).subscribe((data) => {
       this.country = data['data'];
     });
   }
@@ -119,39 +119,6 @@ export class MonthlyCostsListComponent implements OnInit {
   pageCallback(e) {
     this.getList(parseInt(e['offset']) + 1);
     this.selected = [];
-  }
-
-  create() {
-    this.router.navigate(['apps/administration/monthly-costs/create']);
-  }
-
-  update() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.router.navigateByUrl(`apps/administration/monthly-costs/${this.selected[0]['country_id_temp']}/update`);
-    }
-  }
-
-  delete() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.monthlyCostsListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
-      });
-    }
   }
 
   selectedOption(data) {
@@ -183,7 +150,7 @@ export class MonthlyCostsListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    let getReport = this.monthlyCostsListService.getReport(params);
+    let getReport = this._FeedbackListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

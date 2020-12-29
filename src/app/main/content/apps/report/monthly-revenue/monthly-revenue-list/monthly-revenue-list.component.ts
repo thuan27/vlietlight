@@ -1,4 +1,4 @@
-import { ReceivableListService } from './receivable-list.service';
+import { MonthlyRevenueListService } from './monthly-revenue-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -9,17 +9,17 @@ import { Functions } from '@fuse/core/function';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'receivable-list',
-  templateUrl: './receivable-list.component.html',
-  styleUrls: ['./receivable-list.component.scss'],
-  providers: [ReceivableListService, ToastyService, UserService]
+  selector: 'monthly-revenue-list',
+  templateUrl: './monthly-revenue-list.component.html',
+  styleUrls: ['./monthly-revenue-list.component.scss'],
+  providers: [MonthlyRevenueListService, ToastyService, UserService]
 })
-export class ReceivableListComponent implements OnInit {
+export class MonthlyRevenueListComponent implements OnInit {
   rows: any;
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  ReceivableList;
+  monthlyRevenueList;
   total;
   current_page;
   selected: any[] = [];
@@ -33,7 +33,7 @@ export class ReceivableListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _ReceivableListService: ReceivableListService,
+    private monthlyRevenueListService: MonthlyRevenueListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
@@ -100,9 +100,9 @@ export class ReceivableListComponent implements OnInit {
         params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
       }
     }
-    this.ReceivableList = this._ReceivableListService.getList(params);
+    this.monthlyRevenueList = this.monthlyRevenueListService.getList(params);
 
-    this.ReceivableList.subscribe((dataList: any[]) => {
+    this.monthlyRevenueList.subscribe((dataList: any[]) => {
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
       this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
@@ -111,7 +111,7 @@ export class ReceivableListComponent implements OnInit {
   }
 
   getCountry(event) {
-    this._ReceivableListService.getCountry(event.target.value).subscribe((data) => {
+    this.monthlyRevenueListService.getCountry(event.target.value).subscribe((data) => {
       this.country = data['data'];
     });
   }
@@ -119,39 +119,6 @@ export class ReceivableListComponent implements OnInit {
   pageCallback(e) {
     this.getList(parseInt(e['offset']) + 1);
     this.selected = [];
-  }
-
-  create() {
-    this.router.navigate(['apps/administration/receivable/create']);
-  }
-
-  update() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.router.navigateByUrl(`apps/administration/receivable/${this.selected[0]['country_id_temp']}/update`);
-    }
-  }
-
-  delete() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this._ReceivableListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
-      });
-    }
   }
 
   selectedOption(data) {
@@ -183,7 +150,7 @@ export class ReceivableListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    let getReport = this._ReceivableListService.getReport(params);
+    let getReport = this.monthlyRevenueListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

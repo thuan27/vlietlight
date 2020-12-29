@@ -233,34 +233,6 @@ export const navigation = [
                     'type' : 'item',
                     'url'  : '/apps/administration/users',
                     'exactMatch': true
-                  },
-                  {
-                    'id'   : 'monthly-costs',
-                    'title': 'Monthly Costs',
-                    'type' : 'item',
-                    'url'  : '/apps/administration/monthly-costs',
-                    'exactMatch': true
-                  },
-                  {
-                    'id'   : 'monthly-revenue',
-                    'title': 'Monthly Revenue',
-                    'type' : 'item',
-                    'url'  : '/apps/administration/monthly-revenue',
-                    'exactMatch': true
-                  },
-                  {
-                    'id'   : 'receivable',
-                    'title': 'Receivable',
-                    'type' : 'item',
-                    'url'  : '/apps/administration/receivable',
-                    'exactMatch': true
-                  },
-                  {
-                    'id'   : 'feedback',
-                    'title': 'Feedback',
-                    'type' : 'item',
-                    'url'  : '/apps/administration/feedback',
-                    'exactMatch': true
                   }
               ]
             },
@@ -343,6 +315,43 @@ export const navigation = [
                     'url'  : '/apps/import/my-customer-service',
                     'exactMatch': true
                   },
+              ]
+            },
+            {
+              'id'       : 'report',
+              'title'    : 'Report',
+              'translate': 'NAV.REPORT',
+              'type'     : 'collapse',
+              'icon'     : 'power_input',
+              'children' : [
+                  {
+                    'id'   : 'monthly-costs',
+                    'title': 'Monthly Costs',
+                    'type' : 'item',
+                    'url'  : '/apps/report/monthly-costs',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'monthly-revenue',
+                    'title': 'Monthly Revenue',
+                    'type' : 'item',
+                    'url'  : '/apps/report/monthly-revenue',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'receivable',
+                    'title': 'Receivable',
+                    'type' : 'item',
+                    'url'  : '/apps/report/receivable',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'feedback',
+                    'title': 'Feedback',
+                    'type' : 'item',
+                    'url'  : '/apps/report/feedback',
+                    'exactMatch': true
+                  }
               ]
             },
             {
