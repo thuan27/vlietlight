@@ -6,8 +6,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FuseDirectivesModule } from '@fuse/directives/directives';
 import { FusePipesModule } from '@fuse/pipes/pipes.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 @NgModule({
     imports  : [
+        LazyLoadImageModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -18,6 +20,7 @@ import { FusePipesModule } from '@fuse/pipes/pipes.module';
         FusePipesModule,
     ],
     exports  : [
+        LazyLoadImageModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,

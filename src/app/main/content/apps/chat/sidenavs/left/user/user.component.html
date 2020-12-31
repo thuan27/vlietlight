@@ -17,7 +17,7 @@
         <!-- TOOLBAR BOTTOM -->
         <mat-toolbar-row class="toolbar-bottom" fxLayout="column" fxLayoutAlign="center center">
 
-            <img [src]="user.avatar" class="avatar user-avatar huge" alt="{{user.name}}"/>
+            <img [lazyLoad]="user.avatar" class="avatar user-avatar huge" alt="{{user.name}}"/>
             <div class="user-name my-8">{{user.name}}</div>
 
         </mat-toolbar-row>

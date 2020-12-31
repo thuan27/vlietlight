@@ -80,20 +80,20 @@ export class OrderListComponent implements OnInit {
         data['odr_status'] = `<a href="#/apps/outbound/tracking/${data['order_id']}">${data['odr_status']}</a>`;
         data['order_id_link'] = `<a href="#/apps/outbound/order/${data['order_id']}">${data['odr_name']}</a>`;
         if (data['is_retain'] == 1) {
-          data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_retain']}`
+          data['is_retain'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['is_retain']}`
         } else {
-          data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot-green.jpg">${data['is_retain']}`
+          data['is_retain'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot-green.jpg">${data['is_retain']}`
         }
         if (data['is_exact'] == 0) {
-          data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_exact']}`
+          data['is_exact'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['is_exact']}`
         } else {
-          data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot-green.jpg">${data['is_exact']}`
+          data['is_exact'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot-green.jpg">${data['is_exact']}`
         }
         if (data['weight_discrepancy'] == 0) {
-          data['weight_discrepancy'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['weight_discrepancy']}`
+          data['weight_discrepancy'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['weight_discrepancy']}`
         }
         if (data['volume_discrepancy'] == 0) {
-          data['volume_discrepancy'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['volume_discrepancy']}`
+          data['volume_discrepancy'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['volume_discrepancy']}`
         }
       });
 

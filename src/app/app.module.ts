@@ -31,6 +31,8 @@ import { FuseError404Component } from './main/content/pages/errors/404/error-404
 import { Error404Module } from './main/content/pages/errors/404/error-404.module';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+
 export function tokenGetter() {
     return localStorage.getItem(environment.token);
   }
@@ -81,6 +83,7 @@ const Routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, { preloadin
         AppComponent
     ],
     imports     : [
+        LazyLoadImageModule,
         BrowserModule,
         CKEditorModule,
         FormsModule,

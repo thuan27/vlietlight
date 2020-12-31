@@ -177,14 +177,14 @@ export class AWBComponent implements OnInit {
               data['awb_code'] = `<a href="#/apps/inbound/awb1/${data['awb_id']}">${data['awb_code']}</a>`;
               // data['sales_price'] =`${data['sales_price']}`
               if (data['sales_price'] == 0) {
-                data['sales_price'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['sales_price']}`
-                data['freight'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['freight']}`
+                data['sales_price'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['sales_price']}`
+                data['freight'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['freight']}`
               }
               if (data['is_retain'] == 1) {
-                data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_retain']}`
+                data['is_retain'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['is_retain']}`
               }
               if (data['is_exact'] == 0) {
-                data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data['is_exact']}`
+                data['is_exact'] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data['is_exact']}`
               }
             });
             this.rows = data['data'];
