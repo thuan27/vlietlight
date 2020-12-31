@@ -888,6 +888,11 @@ html, body{
 @media (max-width: 768px) {
   #sidebar-wrapper {
     margin-left: -220px;
+  }
+}
 
+@media (max-width: 991px) {
+  .background-group {
+    background: #03a9f459
   }
 }
