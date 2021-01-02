@@ -120,7 +120,7 @@ export const navigation = [
                         'id'   : 'Manual AWB',
                         'title': 'Manual AWB',
                         'type' : 'item',
-                        'url'  : '/apps/inbound/awb',
+                        'url'  : '/apps/inbound/manual-awb',
                         'exactMatch': true
                     },
                     {
