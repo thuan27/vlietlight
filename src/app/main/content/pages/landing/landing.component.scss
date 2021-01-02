@@ -880,9 +880,17 @@ html, body{
 }
 
 .carousel-custom {
+  width: 100%;
+}
+
+.nav-custom {
   position: absolute;
   top: 0;
   width: 100%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (max-width: 768px) {
@@ -902,3 +910,4 @@ html, body{
     z-index: 9999
   }
 }
+
