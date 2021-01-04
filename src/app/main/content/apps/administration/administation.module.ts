@@ -24,6 +24,10 @@ import { UppercaseToSpaceLowerPipe } from './roles/string.pipe';
 import { UserAdminListComponent } from './user/user-list/user-list.component';
 import { UserAdminListService } from './user/user-list/user-list.service';
 import { CreateUserAdminComponent } from './user/create-user/create-user.component';
+import { InvoiceListService } from './invoice/invoice-list/invoice-list.service';
+import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
+import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.component';
+import { CreateInvoiceService } from './invoice/create-invoice/create-invoice.service';
 
 @NgModule({
     declarations: [
@@ -31,7 +35,9 @@ import { CreateUserAdminComponent } from './user/create-user/create-user.compone
         UserAdminListComponent,
         SearchPipe,
         UppercaseToSpaceLowerPipe,
-        CreateUserAdminComponent
+        CreateUserAdminComponent,
+        InvoiceListComponent,
+        CreateInvoiceComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -53,7 +59,9 @@ import { CreateUserAdminComponent } from './user/create-user/create-user.compone
     ],
     providers: [
       RolesService,
-      UserAdminListService
+      UserAdminListService,
+      InvoiceListService,
+      CreateInvoiceService
     ]
 })
 export class FuseAdministationModule {

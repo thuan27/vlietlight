@@ -228,11 +228,18 @@ export const navigation = [
                       'exactMatch': true
                   },
                   {
-                    'id'   : 'user',
-                    'title': 'User',
-                    'type' : 'item',
-                    'url'  : '/apps/administration/users',
-                    'exactMatch': true
+                      'id'   : 'user',
+                      'title': 'User',
+                      'type' : 'item',
+                      'url'  : '/apps/administration/users',
+                      'exactMatch': true
+                  },
+                  {
+                      'id'   : 'invoice',
+                      'title': 'Invoice',
+                      'type' : 'item',
+                      'url'  : '/apps/administration/invoice',
+                      'exactMatch': true
                   }
               ]
             },
