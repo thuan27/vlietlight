@@ -128,6 +128,7 @@ export class CreateInvoiceComponent implements OnInit {
   buildChildGroup() {
     return this.formBuilder.group({
       full_des: [''],
+      vn_des: [''],
     });
   }
 
@@ -153,6 +154,7 @@ export class CreateInvoiceComponent implements OnInit {
     for (let i = 0; i < data.length; i++) {
       const detail = this.formBuilder.group({
         full_des: [''],
+        vn_des: [''],
       });
       itemDetail.push(detail);
     }
@@ -162,10 +164,9 @@ export class CreateInvoiceComponent implements OnInit {
   addMoreItem(event) {
     this.invoice_details = this.InvoiceForm.get('invoice_details') as FormArray;
     const lengthItems = this.invoice_details.length;
-    console.log(this.invoice_details.controls[lengthItems - 1].value)
     const form = this.formBuilder.group({
       full_des: [this.invoice_details.controls[lengthItems - 1].value.full_des],
-      // length: [this.invoice_details.controls[lengthItems - 1].value.length],
+      vn_des: [this.invoice_details.controls[lengthItems - 1].value.vn_des],
       // original_weight: [this.invoice_details.controls[lengthItems - 1].value.original_weight],
       // weight: [this.invoice_details.controls[lengthItems - 1].value.weight],
       // original_length: [this.invoice_details.controls[lengthItems - 1].value.original_length],

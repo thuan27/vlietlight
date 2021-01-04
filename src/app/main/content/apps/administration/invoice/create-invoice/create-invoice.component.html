@@ -18,7 +18,6 @@
 
     <!-- CONTENT -->
     <div class="p-24">
-
         <form [formGroup]="InvoiceForm" autocomplete="off" class="form" (submit)="onSubmit()">
             <div class="background-title mat-cyan-200-bg margin-top-10">
                 <h2 class="title">{{ titleGroup }}</h2>
@@ -80,52 +79,74 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="background-title mat-cyan-200-bg margin-top-10">
-                    <h2 class="title">Invoice Details</h2>
+
+            </div>
+            <div class="background-title mat-cyan-200-bg margin-top-10">
+                <h2 class="title">Invoice Details</h2>
+            </div>
+            <div class="box-shadow-form margin-top-10" formArrayName="invoice_details">
+                <div
+                class="demo-tab-content"
+                *ngFor="
+                  let item of InvoiceForm.get('invoice_details')['controls'];
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
+              <div class="background-title mat-cyan-200-bg mt-2">
+                  <h2 class="title">Row {{ i + 1 }}</h2>
                 </div>
-                <div class="box-shadow-form margin-top-10">
-                    <div
-                    class="demo-tab-content"
-                    *ngFor="
-                      let item of InvoiceForm.get('invoice_details')['controls'];
-                      let i = index
-                    "
-                    [formGroupName]="i"
-                  >
-                  <div class="background-title mat-cyan-200-bg mt-5">
-                      <h2 class="title">Row {{ i + 1 }}</h2>
-                    </div>
-                    <div class="box-shadow-form mt-5">
-                        <div class="row m-0">
+                <div class="box-shadow-form mt-5">
+                    <div class="row m-0">
+                        <mat-form-field class="col-sm-12 col-md-3">
                             <input
-                      [readonly]="disabledForm"
-                      formControlName="full_des"
-                      matInput
-                      placeholder="Full Description"
-                    />
-                    <!-- <mat-error
-                      *ngIf="
-                        InvoiceForm.controls.invoice_details['controls'][
-                          i
-                        ].controls.full_des.hasError('required') &&
-                        InvoiceForm.controls.invoice_details['controls'][i].controls
-                          .full_des.touched
-                      "
-                    >
-                      Full Description is required
-                    </mat-error> -->
-                          </div>
-                          </div>
-                  </div>
-                  <button
-                  [disabled]="action == 'detail'"
-                  class="mt-5"
-                  mat-raised-button
-                  (click)="addMoreItem($event)"
-                >
-                  <mat-icon class="button-in-table">add_circle</mat-icon>
-                </button>
-                </div>
+                            [readonly]="disabledForm"
+                            formControlName="full_des"
+                            matInput
+                            placeholder="Full Description"
+                          />
+                          <mat-error
+                            *ngIf="
+                              InvoiceForm.controls.invoice_details['controls'][
+                                i
+                              ].controls.full_des.hasError('required') &&
+                              InvoiceForm.controls.invoice_details['controls'][i].controls
+                                .full_des.touched
+                            "
+                          >
+                            Full Description is required
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="col-sm-12 col-md-3">
+                            <input
+                            [readonly]="disabledForm"
+                            formControlName="vn_des"
+                            matInput
+                            placeholder="Vietnamese Description"
+                          />
+                          <mat-error
+                            *ngIf="
+                              InvoiceForm.controls.invoice_details['controls'][
+                                i
+                              ].controls.vn_des.hasError('required') &&
+                              InvoiceForm.controls.invoice_details['controls'][i].controls
+                                .vn_des.touched
+                            "
+                          >
+                            Vietnamese Description is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      </div>
+              </div>
+              <button
+              [disabled]="action == 'detail'"
+              class="mt-5"
+              mat-raised-button
+              (click)="addMoreItem($event)"
+            >
+              <mat-icon class="button-in-table">add_circle</mat-icon>
+            </button>
             </div>
               <button class="button-cancel" mat-raised-button (click)="cancel()">{{ buttonCancel }}</button>
               <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent" type="submit">{{ buttonSubmitType }}</button>
