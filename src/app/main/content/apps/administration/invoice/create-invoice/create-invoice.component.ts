@@ -129,6 +129,14 @@ export class CreateInvoiceComponent implements OnInit {
     return this.formBuilder.group({
       full_des: [''],
       vn_des: [''],
+      hs_name: [''],
+      make_in_country_name: [''],
+      material: [''],
+      quantity: [''],
+      oum_name: [''],
+      unit_value: [''],
+      currency: [''],
+      total_value: ['']
     });
   }
 
@@ -155,6 +163,14 @@ export class CreateInvoiceComponent implements OnInit {
       const detail = this.formBuilder.group({
         full_des: [''],
         vn_des: [''],
+        hs_name: [''],
+        make_in_country_name: [''],
+        material: [''],
+        quantity: [''],
+        oum_name: [''],
+        unit_value: [''],
+        currency: [''],
+        total_value: ['']
       });
       itemDetail.push(detail);
     }
@@ -167,19 +183,14 @@ export class CreateInvoiceComponent implements OnInit {
     const form = this.formBuilder.group({
       full_des: [this.invoice_details.controls[lengthItems - 1].value.full_des],
       vn_des: [this.invoice_details.controls[lengthItems - 1].value.vn_des],
-      // original_weight: [this.invoice_details.controls[lengthItems - 1].value.original_weight],
-      // weight: [this.invoice_details.controls[lengthItems - 1].value.weight],
-      // original_length: [this.invoice_details.controls[lengthItems - 1].value.original_length],
-      // height: [this.invoice_details.controls[lengthItems - 1].value.height],
-      // pack_num: [this.invoice_details.controls[lengthItems - 1].value.pack_num],
-      // max_weight: [this.invoice_details.controls[lengthItems - 1].value.max_weight],
-      // deleted: [this.invoice_details.controls[lengthItems - 1].value.deleted],
-      // awb_dtl_weight_up: [this.invoice_details.controls[lengthItems - 1].value.awb_dtl_weight_up],
-      // volume: [this.invoice_details.controls[lengthItems - 1].value.volume],
-      // original_width: [this.invoice_details.controls[lengthItems - 1].value.original_width],
-      // new: [this.invoice_details.controls[lengthItems - 1].value.new],
-      // width: [this.invoice_details.controls[lengthItems - 1].value.width],
-      // original_height: [this.invoice_details.controls[lengthItems - 1].value.original_height],
+      hs_name: [this.invoice_details.controls[lengthItems - 1].value.hs_name],
+      make_in_country_name: [this.invoice_details.controls[lengthItems - 1].value.make_in_country_name],
+      material: [this.invoice_details.controls[lengthItems - 1].value.material],
+      quantity: [this.invoice_details.controls[lengthItems - 1].value.quantity],
+      oum_name: [this.invoice_details.controls[lengthItems - 1].value.oum_name],
+      unit_value: [this.invoice_details.controls[lengthItems - 1].value.unit_value],
+      currency: [this.invoice_details.controls[lengthItems - 1].value.currency],
+      total_value: [this.invoice_details.controls[lengthItems - 1].value.total_value]
     });
     this.invoice_details.push(form);
   }
