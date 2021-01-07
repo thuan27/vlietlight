@@ -107,11 +107,11 @@ export class AnalyticsDashboardDb
             chartType : 'bar',
             datasets  : [
                 {
-                    label: 'Conversion',
+                    label: 'Number of AWB',
                     data : [221, 428, 492, 471, 413, 344, 294]
                 }
             ],
-            labels    : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            labels    : ['Fedex', 'DHL', 'Vietlight', 'Fedex', 'Fedex', 'Fedex', 'Vietlight'],
             colors    : [
                 {
                     borderColor    : '#42a5f5',
@@ -150,6 +150,57 @@ export class AnalyticsDashboardDb
                 }
             }
         },
+        widget21: {
+          conversion: {
+              value   : 492,
+              ofTarget: -2
+          },
+          chartType : 'bar',
+          datasets  : [
+              {
+                  label: 'Number of AWB',
+                  data : [221, 428, 1000, 471, 413, 1200, 294]
+              }
+          ],
+          labels    : ['Fedex', 'DHL', 'Vietlight', 'Fedex', 'Fedex', 'Fedex', 'Vietlight'],
+          colors    : [
+              {
+                  borderColor    : '#42a5f5',
+                  backgroundColor: '#42a5f5'
+              }
+          ],
+          options   : {
+              spanGaps           : false,
+              legend             : {
+                  display: false
+              },
+              maintainAspectRatio: false,
+              layout             : {
+                  padding: {
+                      top   : 24,
+                      left  : 16,
+                      right : 16,
+                      bottom: 16
+                  }
+              },
+              scales             : {
+                  xAxes: [
+                      {
+                          display: false
+                      }
+                  ],
+                  yAxes: [
+                      {
+                          display: false,
+                          ticks  : {
+                              min: 100,
+                              max: 500
+                          }
+                      }
+                  ]
+              }
+          }
+      },
         widget3: {
             impressions: {
                 value   : '87k',
@@ -215,16 +266,16 @@ export class AnalyticsDashboardDb
         widget4: {
             visits   : {
                 value   : 882,
-                ofTarget: -9
+                ofTarget: 10
             },
             chartType: 'bar',
             datasets : [
                 {
-                    label: 'Visits',
-                    data : [432, 428, 327, 363, 456, 267, 231]
+                    label: 'Number of AWB',
+                    data : [432, 1000, 327, 363, 456, 267, 231]
                 }
             ],
-            labels   : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            labels   : ['Fedex', 'Vietlight', 'Vietlight', 'Vietlight', 'DHL', 'DHL', 'Fedex'],
             colors   : [
                 {
                     borderColor    : '#f44336',
