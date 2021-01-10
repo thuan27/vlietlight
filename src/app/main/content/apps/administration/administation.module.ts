@@ -24,10 +24,10 @@ import { UppercaseToSpaceLowerPipe } from './roles/string.pipe';
 import { UserAdminListComponent } from './user/user-list/user-list.component';
 import { UserAdminListService } from './user/user-list/user-list.service';
 import { CreateUserAdminComponent } from './user/create-user/create-user.component';
-import { InvoiceListService } from './invoice/invoice-list/invoice-list.service';
-import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
-import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.component';
-import { CreateInvoiceService } from './invoice/create-invoice/create-invoice.service';
+import { InvoiceListService } from '../inbound/invoice/invoice-list/invoice-list.service';
+import { InvoiceListComponent } from '../inbound/invoice/invoice-list/invoice-list.component';
+import { CreateInvoiceComponent } from '../inbound/invoice/create-invoice/create-invoice.component';
+import { CreateInvoiceService } from '../inbound/invoice/create-invoice/create-invoice.service';
 
 @NgModule({
     declarations: [
@@ -35,9 +35,7 @@ import { CreateInvoiceService } from './invoice/create-invoice/create-invoice.se
         UserAdminListComponent,
         SearchPipe,
         UppercaseToSpaceLowerPipe,
-        CreateUserAdminComponent,
-        InvoiceListComponent,
-        CreateInvoiceComponent
+        CreateUserAdminComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -60,8 +58,7 @@ import { CreateInvoiceService } from './invoice/create-invoice/create-invoice.se
     providers: [
       RolesService,
       UserAdminListService,
-      InvoiceListService,
-      CreateInvoiceService
+
     ]
 })
 export class FuseAdministationModule {

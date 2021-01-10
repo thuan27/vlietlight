@@ -124,6 +124,13 @@ export const navigation = [
                         'exactMatch': true
                     },
                     {
+                        'id'   : 'invoice',
+                        'title': 'Invoice',
+                        'type' : 'item',
+                        'url'  : '/apps/inbound/invoice',
+                        'exactMatch': true
+                    },
+                    {
                         'id'   : 'WavePickList',
                         'title': 'Wave Pick',
                         'type' : 'item',
@@ -232,13 +239,6 @@ export const navigation = [
                       'title': 'User',
                       'type' : 'item',
                       'url'  : '/apps/administration/users',
-                      'exactMatch': true
-                  },
-                  {
-                      'id'   : 'invoice',
-                      'title': 'Invoice',
-                      'type' : 'item',
-                      'url'  : '/apps/administration/invoice',
                       'exactMatch': true
                   }
               ]

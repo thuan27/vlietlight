@@ -90,7 +90,7 @@ export class InvoiceListComponent implements OnInit {
     this.invoiceList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['country_id_temp'] = data['country_id'];
-        data['country_id'] = `<a href="#/apps/administration/invoice/${data['country_id']}">${data['country_code']}</a>`;
+        data['country_id'] = `<a href="#/apps/inbound/invoice/${data['country_id']}">${data['country_code']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -112,7 +112,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/administration/invoice/create']);
+    this.router.navigate(['apps/inbound/invoice/create']);
   }
 
   update() {
@@ -121,7 +121,7 @@ export class InvoiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/administration/invoice/${this.selected[0]['country_id_temp']}/update`);
+      this.router.navigateByUrl(`apps/inbound/invoice/${this.selected[0]['country_id_temp']}/update`);
     }
   }
 

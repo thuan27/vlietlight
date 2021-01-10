@@ -9,6 +9,8 @@ import { CreateWavePickomponent } from './wave-pick/create-wave-pick/create-wave
 import { AWBDetailV1Component } from './awb/awb-detai-v1/awb-detail-v1.component';
 import { manualAWBComponent } from './manual-awb/manual-awb-list/manual-awb.component';
 import { ManualAWBDetailComponent } from './manual-awb/manual-awb-detail/manual-awb-detail.component';
+import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.component';
+import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
 
 export const listRoutes: Routes = [
     {
@@ -76,6 +78,26 @@ export const listRoutes: Routes = [
         component: ManualAWBDetailComponent,
         canActivate: [AuthGuard, AdminGuard]
     },
+    {
+        path     : 'invoice',
+        component: InvoiceListComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'invoice/create',
+        component: CreateInvoiceComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'invoice/:id',
+        component: CreateInvoiceComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    },
+    {
+        path     : 'invoice/:id/:update',
+        component: CreateInvoiceComponent,
+        canActivate: [AuthGuard, AdminGuard]
+    }
 ];
 
 

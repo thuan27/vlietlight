@@ -203,7 +203,7 @@ export class CreateInvoiceComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/administration/invoice']);
+              this.router.navigate(['apps/inbound/invoice']);
             },
             700
           ), err => {
@@ -215,7 +215,7 @@ export class CreateInvoiceComponent implements OnInit {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/administration/invoice']);
+              this.router.navigate(['apps/inbound/invoice']);
             },
             700
           );

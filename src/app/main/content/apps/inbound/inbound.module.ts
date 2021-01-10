@@ -40,6 +40,10 @@ import { manualAWBComponent } from './manual-awb/manual-awb-list/manual-awb.comp
 import { manualAWBService } from './manual-awb/manual-awb-list/manual-awb.service';
 import { ManualAWBDetailService } from './manual-awb/manual-awb-detail/manual-awb-detail.service';
 import { ManualAWBDetailComponent } from './manual-awb/manual-awb-detail/manual-awb-detail.component';
+import { CreateInvoiceService } from './invoice/create-invoice/create-invoice.service';
+import { InvoiceListService } from './invoice/invoice-list/invoice-list.service';
+import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
+import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +56,9 @@ import { ManualAWBDetailComponent } from './manual-awb/manual-awb-detail/manual-
         CreateWavePickomponent,
         AWBDetailV1Component,
         manualAWBComponent,
-        ManualAWBDetailComponent
+        ManualAWBDetailComponent,
+        InvoiceListComponent,
+        CreateInvoiceComponent
     ],
     imports: [
         RouterModule.forChild(listRoutes),
@@ -83,7 +89,9 @@ import { ManualAWBDetailComponent } from './manual-awb/manual-awb-detail/manual-
         CreateWavePickService,
         AWBDetailV1Service,
         manualAWBService,
-        ManualAWBDetailService
+        ManualAWBDetailService,
+        InvoiceListService,
+        CreateInvoiceService
     ]
 })
 export class FuseInboundModule {
