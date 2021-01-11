@@ -23,7 +23,7 @@ export class ShippingPurposeListComponent implements OnInit {
   current_page;
   selected: any[] = [];
   searchForm: FormGroup;
-  shippingPurpose;
+  country;
   sortData = '';
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
@@ -102,7 +102,7 @@ export class ShippingPurposeListComponent implements OnInit {
 
   getCountry(event) {
     this.shippingPurposeListService.getCountry(event.target.value).subscribe((data) => {
-      this.shippingPurpose = data['data'];
+      this.country = data['data'];
     });
   }
 
