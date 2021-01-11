@@ -1,3 +1,4 @@
+import { ShippingPurposeListComponent } from './shipping-purposes/shipping-purposes-list/shipping-purposes-list.component';
 import { CreateCountryComponent } from './country/create-country/create-country.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { Routes } from '@angular/router';
@@ -22,6 +23,7 @@ import { CusCountryZoneListComponent } from './cus-country-zone/cus-country-zone
 import { CreateCusCountryZoneComponent } from './cus-country-zone/create-cus-country-zone/create-cus-country-zone.component';
 import { DocumentListComponent } from './document/document-list/document-list.component';
 import { CreateDocumentComponent } from './document/create-document/create-document.component';
+import { CreateShippingPurposeComponent } from './shipping-purposes/create-shipping-purposes/create-shipping-purposes.component';
 
 export const listRoutes: Routes = [
     {
@@ -232,6 +234,26 @@ export const listRoutes: Routes = [
   {
       path: 'document/:id/:update',
       component: CreateDocumentComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'shipping-purpose',
+      component: ShippingPurposeListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'shipping-purpose/create',
+      component: CreateShippingPurposeComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'shipping-purpose/:id',
+      component: CreateShippingPurposeComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'shipping-purpose/:id/:update',
+      component: CreateShippingPurposeComponent,
       canActivate: [AuthGuard, AdminGuard]
   },
 ];

@@ -99,7 +99,13 @@ export const navigation = [
                         'title': 'Document',
                         'type' : 'item',
                         'url'  : '/apps/master-data/document'
-                    }
+                    },
+                    {
+                      'id'   : 'shipping-purpose',
+                      'title': 'Shipping Purpose',
+                      'type' : 'item',
+                      'url'  : '/apps/master-data/shipping-purpose'
+                  }
                 ]
             },
             {

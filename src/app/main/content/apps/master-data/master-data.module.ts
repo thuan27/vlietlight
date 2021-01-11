@@ -1,3 +1,5 @@
+import { ShippingPurposeListService } from './shipping-purposes/shipping-purposes-list/shipping-purposes-list.service';
+import { ShippingPurposeListComponent } from './shipping-purposes/shipping-purposes-list/shipping-purposes-list.component';
 import { CreateDocumentComponent } from './document/create-document/create-document.component';
 import { DocumentListComponent } from './document/document-list/document-list.component';
 import { RangePriceListService } from './range-price/range-price-list/range-price-list.service';
@@ -50,6 +52,8 @@ import { CusCountryZoneListComponent } from './cus-country-zone/cus-country-zone
 import { CusCountryZoneListService } from './cus-country-zone/cus-country-zone-list/cus-country-zone-list.service';
 import { DocumentListService } from './document/document-list/document-list.service';
 import { CreateDocumentService } from './document/create-document/create-document.service';
+import { CreateShippingPurposeComponent } from './shipping-purposes/create-shipping-purposes/create-shipping-purposes.component';
+import { CreateShippingPurposeService } from './shipping-purposes/create-shipping-purposes/create-shipping-purposes.service';
 
 @NgModule({
     declarations: [
@@ -75,6 +79,8 @@ import { CreateDocumentService } from './document/create-document/create-documen
         CreateCusCountryZoneComponent,
         DocumentListComponent,
         CreateDocumentComponent,
+        ShippingPurposeListComponent,
+        CreateShippingPurposeComponent,
     ],
     imports: [
         CommonModule,
@@ -116,6 +122,8 @@ import { CreateDocumentService } from './document/create-document/create-documen
         CreateCusCountryZoneService,
         DocumentListService,
         CreateDocumentService,
+        ShippingPurposeListService,
+        CreateShippingPurposeService,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
