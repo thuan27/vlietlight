@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreateShippingPurposeService } from './create-shipping-purposes.service';
+import { CreateHarmonisedCategoriesService } from './create-harmonised-categories.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
@@ -10,17 +10,17 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'create-shipping-purposes',
-  templateUrl: './create-shipping-purposes.component.html',
-  styleUrls: ['./create-shipping-purposes.component.scss'],
+  selector: 'create-harmonised-categories',
+  templateUrl: './create-harmonised-categories.component.html',
+  styleUrls: ['./create-harmonised-categories.component.scss'],
   providers: [ValidationService, ToastyService, UserService]
 })
-export class CreateShippingPurposeComponent implements OnInit {
+export class CreateHarmonisedCategoriesComponent implements OnInit {
 
   items: FormArray;
-  ShippingPurposeForm: FormGroup;
-  idShippingPurpose;
-  shippingPurposeDetail;
+  HarmonisedCategoriesForm: FormGroup;
+  idHarmonisedCategories;
+  harmonisedCategoriesDetail;
   private routeSub: Subscription;
   disabledForm;
   title;
@@ -34,7 +34,7 @@ export class CreateShippingPurposeComponent implements OnInit {
   private hasViewUserPermission = false;
 
   constructor(
-    private _createShippingPurposeService: CreateShippingPurposeService,
+    private _createHarmonisedCategoriesService: CreateHarmonisedCategoriesService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -49,7 +49,7 @@ export class CreateShippingPurposeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.title = 'Create ShippingPurpose';
+    this.title = 'Create HarmonisedCategories';
     this.titleGroup = 'Registration';
     this.buttonSubmitType = 'Create';
     this.buttonCancel = 'Cancel'
@@ -62,18 +62,18 @@ export class CreateShippingPurposeComponent implements OnInit {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update' && this.hasEditUserPermission) {
           this.action = 'update';
-          this.idShippingPurpose = params['id'];
+          this.idHarmonisedCategories = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonSubmitType = 'Update';
-          this.title = 'Update Shipping Purpose';
+          this.title = 'Update Harmonised Categories';
           this.titleGroup = 'Update';
         } else {
-          this.idShippingPurpose = params['id'];
+          this.idHarmonisedCategories = params['id'];
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Shipping Purpose Details';
+          this.title = 'Harmonised Categories Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }
@@ -81,7 +81,7 @@ export class CreateShippingPurposeComponent implements OnInit {
       else if (this.hasCreateUserPermission) {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.title = 'Create Shipping Purpose';
+        this.title = 'Create Harmonised Categories';
         this.buttonSubmitType = 'Create';
         this.disabledForm = false;
       }
@@ -110,27 +110,27 @@ export class CreateShippingPurposeComponent implements OnInit {
   }
 
   private buildForm() {
-    this.ShippingPurposeForm = this.formBuilder.group({
+    this.HarmonisedCategoriesForm = this.formBuilder.group({
       code: ['', [Validators.required]],
       name: ['', [Validators.required]]
     });
   }
 
   private detailForm(data) {
-    this.ShippingPurposeForm = this.formBuilder.group({
+    this.HarmonisedCategoriesForm = this.formBuilder.group({
       code: [data['country_code'], [Validators.required]],
       name: [data['country_name'], [Validators.required]]
     });
   }
 
   onSubmit() {
-    if (this.ShippingPurposeForm.valid) {
+    if (this.HarmonisedCategoriesForm.valid) {
       if (this.action === 'create') {
-        this._createShippingPurposeService.createCountry(this.ShippingPurposeForm.value).subscribe((data) => {
+        this._createHarmonisedCategoriesService.createCountry(this.HarmonisedCategoriesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/shipping-purposes']);
+              this.router.navigate(['apps/master-data/range-price']);
             },
             700
           ), err => {
@@ -138,11 +138,11 @@ export class CreateShippingPurposeComponent implements OnInit {
           };
         });
       } else if (this.action === 'update') {
-        this._createShippingPurposeService.updateCountry(this.idShippingPurpose, this.ShippingPurposeForm.value).subscribe((data) => {
+        this._createHarmonisedCategoriesService.updateCountry(this.idHarmonisedCategories, this.HarmonisedCategoriesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/shipping-purposes']);
+              this.router.navigate(['apps/master-data/range-price']);
             },
             700
           );
@@ -155,8 +155,8 @@ export class CreateShippingPurposeComponent implements OnInit {
   }
 
   detail(id) {
-    this._createShippingPurposeService.getCountryDetail(id).subscribe((data) => {
-      this.shippingPurposeDetail = data['country'];
+    this._createHarmonisedCategoriesService.getCountryDetail(id).subscribe((data) => {
+      this.harmonisedCategoriesDetail = data['country'];
       this.detailForm(data['country']);
     });
   }

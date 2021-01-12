@@ -54,6 +54,10 @@ import { DocumentListService } from './document/document-list/document-list.serv
 import { CreateDocumentService } from './document/create-document/create-document.service';
 import { CreateShippingPurposeComponent } from './shipping-purposes/create-shipping-purposes/create-shipping-purposes.component';
 import { CreateShippingPurposeService } from './shipping-purposes/create-shipping-purposes/create-shipping-purposes.service';
+import { HarmonisedCategoriesListComponent } from './harmonised-categories/harmonised-categories-list/harmonised-categories-list.component';
+import { CreateHarmonisedCategoriesComponent } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.component';
+import { HarmonisedCategoriesListService } from './harmonised-categories/harmonised-categories-list/harmonised-categories-list.service';
+import { CreateHarmonisedCategoriesService } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.service';
 
 @NgModule({
     declarations: [
@@ -81,6 +85,8 @@ import { CreateShippingPurposeService } from './shipping-purposes/create-shippin
         CreateDocumentComponent,
         ShippingPurposeListComponent,
         CreateShippingPurposeComponent,
+        HarmonisedCategoriesListComponent,
+        CreateHarmonisedCategoriesComponent,
     ],
     imports: [
         CommonModule,
@@ -124,6 +130,8 @@ import { CreateShippingPurposeService } from './shipping-purposes/create-shippin
         CreateDocumentService,
         ShippingPurposeListService,
         CreateShippingPurposeService,
+        HarmonisedCategoriesListService,
+        CreateHarmonisedCategoriesService,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

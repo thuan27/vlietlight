@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class ShippingPurposeListService {
+export class HarmonisedCategoriesListService {
   constructor(
     private http: HttpClient,
     private _Func: Functions,

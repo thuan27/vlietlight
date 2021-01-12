@@ -1,4 +1,4 @@
-import { ShippingPurposeListService } from './shipping-purposes-list.service';
+import { HarmonisedCategoriesListService } from './harmonised-categories-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -8,17 +8,17 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'shipping-purposes-list',
-  templateUrl: './shipping-purposes-list.component.html',
-  styleUrls: ['./shipping-purposes-list.component.scss'],
-  providers: [ShippingPurposeListService, ToastyService, UserService]
+  selector: 'harmonised-categories-list',
+  templateUrl: './harmonised-categories-list.component.html',
+  styleUrls: ['./harmonised-categories-list.component.scss'],
+  providers: [HarmonisedCategoriesListService, ToastyService, UserService]
 })
-export class ShippingPurposeListComponent implements OnInit {
+export class HarmonisedCategoriesListComponent implements OnInit {
   rows: any;
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  shippingPurposeList;
+  harmonisedCategoriesList;
   total;
   current_page;
   selected: any[] = [];
@@ -32,7 +32,7 @@ export class ShippingPurposeListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private shippingPurposeListService: ShippingPurposeListService,
+    private harmonisedCategoriesListService: HarmonisedCategoriesListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
@@ -72,8 +72,7 @@ export class ShippingPurposeListComponent implements OnInit {
 
   private buildForm() {
     this.searchForm = this.formBuilder.group({
-      sp_code: '',
-      sp_name: ''
+      hs_cat_name: ''
     });
   }
 
@@ -86,12 +85,12 @@ export class ShippingPurposeListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    this.shippingPurposeList = this.shippingPurposeListService.getList(params);
+    this.harmonisedCategoriesList = this.harmonisedCategoriesListService.getList(params);
 
-    this.shippingPurposeList.subscribe((dataList: any[]) => {
+    this.harmonisedCategoriesList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['country_id_temp'] = data['country_id'];
-        data['country_id'] = `<a href="#/apps/master-data/shipping-purposes/${data['country_id']}">${data['country_code']}</a>`;
+        data['country_id'] = `<a href="#/apps/master-data/harmonised-categories/${data['country_id']}">${data['country_code']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -107,7 +106,7 @@ export class ShippingPurposeListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/master-data/shipping-purposes/create']);
+    this.router.navigate(['apps/master-data/harmonised-categories/create']);
   }
 
   update() {
@@ -116,7 +115,7 @@ export class ShippingPurposeListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/shipping-purposes/${this.selected[0]['country_id_temp']}/update`);
+      this.router.navigateByUrl(`apps/master-data/harmonised-categories/${this.selected[0]['country_id_temp']}/update`);
     }
   }
 
@@ -126,7 +125,7 @@ export class ShippingPurposeListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.shippingPurposeListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
+      this.harmonisedCategoriesListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {
@@ -146,14 +145,13 @@ export class ShippingPurposeListComponent implements OnInit {
   }
 
   reset() {
-    this.searchForm.controls['sp_code'].setValue('');
-    this.searchForm.controls['sp_name'].setValue('');
+    this.searchForm.controls['hs_cat_name'].setValue('');
     this.sortData = '';
     this.getList();
   }
 
   exportCsv() {
-    let fileName = 'Shipping Purpose';
+    let fileName = 'Country';
     let fileType = '.csv';
     let params = '?limit=15';
     if (this.sortData !== '') {
@@ -165,7 +163,7 @@ export class ShippingPurposeListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    let getReport = this.shippingPurposeListService.getReport(params);
+    let getReport = this.harmonisedCategoriesListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

@@ -101,11 +101,17 @@ export const navigation = [
                         'url'  : '/apps/master-data/document'
                     },
                     {
-                      'id'   : 'shipping-purpose',
-                      'title': 'Shipping Purpose',
-                      'type' : 'item',
-                      'url'  : '/apps/master-data/shipping-purpose'
-                  }
+                        'id'   : 'shipping-purposes',
+                        'title': 'Shipping Purposes',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/shipping-purpose'
+                    },
+                    {
+                        'id'   : 'harmonised-categories',
+                        'title': 'Harmonised Categories',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/harmonised-categories'
+                    }
                 ]
             },
             {

@@ -40,11 +40,9 @@
 
     <form id="form-control" class="row" [formGroup]="searchForm" autocomplete="off">
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="sp_code" matInput placeholder="Sp Code">
+        <input formControlName="hs_cat_name" matInput placeholder="Hs Cat Name">
       </mat-form-field>
-      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="sp_name" matInput placeholder="Sp Name">
-      </mat-form-field>
+
       <span class="format-line-height-button">
         <button mat-raised-button color="accent" (click)="getList()">Search</button>
         <button mat-raised-button (click)="reset()">Reset</button>
@@ -64,13 +62,10 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Sp ID"
-        prop="country_id"></ngx-datatable-column>
+      <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Hs Cat Code"
+      prop="country_id"></ngx-datatable-column>
 
-      <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Sp Code"
-        prop="country_id"></ngx-datatable-column>
-
-      <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Sp Name"
+      <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Hs Cat Name"
         prop="country_name"></ngx-datatable-column>
     </ngx-datatable>
 

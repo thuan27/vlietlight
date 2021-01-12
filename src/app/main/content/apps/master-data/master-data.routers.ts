@@ -24,6 +24,8 @@ import { CreateCusCountryZoneComponent } from './cus-country-zone/create-cus-cou
 import { DocumentListComponent } from './document/document-list/document-list.component';
 import { CreateDocumentComponent } from './document/create-document/create-document.component';
 import { CreateShippingPurposeComponent } from './shipping-purposes/create-shipping-purposes/create-shipping-purposes.component';
+import { HarmonisedCategoriesListComponent } from './harmonised-categories/harmonised-categories-list/harmonised-categories-list.component';
+import { CreateHarmonisedCategoriesComponent } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.component';
 
 export const listRoutes: Routes = [
     {
@@ -254,6 +256,26 @@ export const listRoutes: Routes = [
   {
       path: 'shipping-purpose/:id/:update',
       component: CreateShippingPurposeComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'harmonised-categories',
+      component: HarmonisedCategoriesListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'harmonised-categories/create',
+      component: CreateHarmonisedCategoriesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'harmonised-categories/:id',
+      component: CreateHarmonisedCategoriesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'harmonised-categories/:id/:update',
+      component: CreateHarmonisedCategoriesComponent,
       canActivate: [AuthGuard, AdminGuard]
   },
 ];
