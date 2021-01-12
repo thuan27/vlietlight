@@ -156,11 +156,6 @@ export class ShippingPurposeListComponent implements OnInit {
     let fileName = 'Shipping Purpose';
     let fileType = '.csv';
     let params = '?limit=15';
-    if (this.sortData !== '') {
-      params += this.sortData;
-    } else {
-      params += '&sort[awb_id]=desc'
-    }
     const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;

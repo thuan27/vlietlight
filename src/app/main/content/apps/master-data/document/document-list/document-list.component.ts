@@ -166,11 +166,6 @@ export class DocumentListComponent implements OnInit {
     let fileName = 'Range Price';
     let fileType = '.csv';
     let params = '?limit=15';
-    if (this.sortData !== '') {
-      params += this.sortData;
-    } else {
-      params += '&sort[awb_id]=desc'
-    }
     let getReport = this.documentListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreateHarmonisedCategoriesService } from './create-harmonised-categories.service';
+import { CreateHarmonisedCodesService } from './create-harmonised-codes.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
@@ -10,17 +10,17 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'create-harmonised-categories',
-  templateUrl: './create-harmonised-categories.component.html',
-  styleUrls: ['./create-harmonised-categories.component.scss'],
+  selector: 'create-harmonised-codes',
+  templateUrl: './create-harmonised-codes.component.html',
+  styleUrls: ['./create-harmonised-codes.component.scss'],
   providers: [ValidationService, ToastyService, UserService]
 })
-export class CreateHarmonisedCategoriesComponent implements OnInit {
+export class CreateHarmonisedCodesComponent implements OnInit {
 
   items: FormArray;
-  HarmonisedCategoriesForm: FormGroup;
-  idHarmonisedCategories;
-  harmonisedCategoriesDetail;
+  HarmonisedCodesForm: FormGroup;
+  idHarmonisedCodes;
+  harmonisedCodesDetail;
   private routeSub: Subscription;
   disabledForm;
   title;
@@ -34,7 +34,7 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
   private hasViewUserPermission = false;
 
   constructor(
-    private _createHarmonisedCategoriesService: CreateHarmonisedCategoriesService,
+    private _createHarmonisedCodesService: CreateHarmonisedCodesService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _Valid: ValidationService,
@@ -49,7 +49,7 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.title = 'Create Harmonised Categories';
+    this.title = 'Create Harmonised Codes';
     this.titleGroup = 'Registration';
     this.buttonSubmitType = 'Create';
     this.buttonCancel = 'Cancel'
@@ -62,18 +62,18 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
       if (params['id'] !== undefined) {
         if (params['update']  === 'update' && this.hasEditUserPermission) {
           this.action = 'update';
-          this.idHarmonisedCategories = params['id'];
+          this.idHarmonisedCodes = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonSubmitType = 'Update';
-          this.title = 'Update Harmonised Categories';
+          this.title = 'Update Harmonised Codes';
           this.titleGroup = 'Update';
         } else {
-          this.idHarmonisedCategories = params['id'];
+          this.idHarmonisedCodes = params['id'];
           this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
-          this.title = 'Harmonised Categories Details';
+          this.title = 'Harmonised Codes Details';
           this.titleGroup = 'Detail';
           this.buttonCancel = 'Back';
         }
@@ -81,7 +81,7 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
       else if (this.hasCreateUserPermission) {
         this.action = 'create';
         this.titleGroup = 'Registration';
-        this.title = 'Create Harmonised Categories';
+        this.title = 'Create Harmonised Codes';
         this.buttonSubmitType = 'Create';
         this.disabledForm = false;
       }
@@ -110,23 +110,23 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
   }
 
   private buildForm() {
-    this.HarmonisedCategoriesForm = this.formBuilder.group({
+    this.HarmonisedCodesForm = this.formBuilder.group({
       code: ['', [Validators.required]],
       name: ['', [Validators.required]]
     });
   }
 
   private detailForm(data) {
-    this.HarmonisedCategoriesForm = this.formBuilder.group({
+    this.HarmonisedCodesForm = this.formBuilder.group({
       code: [data['country_code'], [Validators.required]],
       name: [data['country_name'], [Validators.required]]
     });
   }
 
   onSubmit() {
-    if (this.HarmonisedCategoriesForm.valid) {
+    if (this.HarmonisedCodesForm.valid) {
       if (this.action === 'create') {
-        this._createHarmonisedCategoriesService.createCountry(this.HarmonisedCategoriesForm.value).subscribe((data) => {
+        this._createHarmonisedCodesService.createCountry(this.HarmonisedCodesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -138,7 +138,7 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
           };
         });
       } else if (this.action === 'update') {
-        this._createHarmonisedCategoriesService.updateCountry(this.idHarmonisedCategories, this.HarmonisedCategoriesForm.value).subscribe((data) => {
+        this._createHarmonisedCodesService.updateCountry(this.idHarmonisedCodes, this.HarmonisedCodesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
@@ -155,8 +155,8 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
   }
 
   detail(id) {
-    this._createHarmonisedCategoriesService.getCountryDetail(id).subscribe((data) => {
-      this.harmonisedCategoriesDetail = data['country'];
+    this._createHarmonisedCodesService.getCountryDetail(id).subscribe((data) => {
+      this.harmonisedCodesDetail = data['country'];
       this.detailForm(data['country']);
     });
   }

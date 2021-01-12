@@ -1,4 +1,4 @@
-import { HarmonisedCategoriesListService } from './harmonised-categories-list.service';
+import { HarmonisedCodesListService } from './harmonised-codes-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -8,17 +8,17 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-  selector: 'harmonised-categories-list',
-  templateUrl: './harmonised-categories-list.component.html',
-  styleUrls: ['./harmonised-categories-list.component.scss'],
-  providers: [HarmonisedCategoriesListService, ToastyService, UserService]
+  selector: 'harmonised-codes-list',
+  templateUrl: './harmonised-codes-list.component.html',
+  styleUrls: ['./harmonised-codes-list.component.scss'],
+  providers: [HarmonisedCodesListService, ToastyService, UserService]
 })
-export class HarmonisedCategoriesListComponent implements OnInit {
+export class HarmonisedCodesListComponent implements OnInit {
   rows: any;
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  harmonisedCategoriesList;
+  harmonisedCodesList;
   total;
   current_page;
   selected: any[] = [];
@@ -32,7 +32,7 @@ export class HarmonisedCategoriesListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private harmonisedCategoriesListService: HarmonisedCategoriesListService,
+    private harmonisedCodesListService: HarmonisedCodesListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
@@ -85,12 +85,12 @@ export class HarmonisedCategoriesListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    this.harmonisedCategoriesList = this.harmonisedCategoriesListService.getList(params);
+    this.harmonisedCodesList = this.harmonisedCodesListService.getList(params);
 
-    this.harmonisedCategoriesList.subscribe((dataList: any[]) => {
+    this.harmonisedCodesList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['country_id_temp'] = data['country_id'];
-        data['country_id'] = `<a href="#/apps/master-data/harmonised-categories/${data['country_id']}">${data['country_code']}</a>`;
+        data['country_id'] = `<a href="#/apps/master-data/harmonised-codes/${data['country_id']}">${data['country_code']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -106,7 +106,7 @@ export class HarmonisedCategoriesListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/master-data/harmonised-categories/create']);
+    this.router.navigate(['apps/master-data/harmonised-codes/create']);
   }
 
   update() {
@@ -115,7 +115,7 @@ export class HarmonisedCategoriesListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/harmonised-categories/${this.selected[0]['country_id_temp']}/update`);
+      this.router.navigateByUrl(`apps/master-data/harmonised-codes/${this.selected[0]['country_id_temp']}/update`);
     }
   }
 
@@ -125,7 +125,7 @@ export class HarmonisedCategoriesListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.harmonisedCategoriesListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
+      this.harmonisedCodesListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
         this.toastyService.success(data['message']);
         setTimeout(
           () => {
@@ -151,14 +151,14 @@ export class HarmonisedCategoriesListComponent implements OnInit {
   }
 
   exportCsv() {
-    let fileName = 'Harmonised_Categories';
+    let fileName = 'Harmorised_Codes';
     let fileType = '.csv';
     let params = '?limit=15';
     const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    let getReport = this.harmonisedCategoriesListService.getReport(params);
+    let getReport = this.harmonisedCodesListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

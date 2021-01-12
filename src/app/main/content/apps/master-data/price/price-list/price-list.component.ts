@@ -213,11 +213,6 @@ export class PriceListComponent implements OnInit {
       this.searchForm.controls['service_id'].setValue('');
     }
     let params = '?limit=15';
-    if (this.sortData !== '') {
-      params += this.sortData;
-    } else {
-      params += '&sort[awb_id]=desc'
-    }
     let getReport = this.priceListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
