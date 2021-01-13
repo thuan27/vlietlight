@@ -26,6 +26,8 @@ import { CreateDocumentComponent } from './document/create-document/create-docum
 import { CreateShippingPurposeComponent } from './shipping-purposes/create-shipping-purposes/create-shipping-purposes.component';
 import { HarmonisedCategoriesListComponent } from './harmonised-categories/harmonised-categories-list/harmonised-categories-list.component';
 import { CreateHarmonisedCategoriesComponent } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.component';
+import { HarmonisedCodesListComponent } from './harmonised-codes/harmonised-codes-list/harmonised-codes-list.component';
+import { CreateHarmonisedCodesComponent } from './harmonised-codes/create-harmonised-codes/create-harmonised-codes.component';
 
 export const listRoutes: Routes = [
     {
@@ -278,4 +280,24 @@ export const listRoutes: Routes = [
       component: CreateHarmonisedCategoriesComponent,
       canActivate: [AuthGuard, AdminGuard]
   },
+  {
+      path: 'harmonised-codes',
+      component: HarmonisedCodesListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'harmonised-codes/create',
+      component: CreateHarmonisedCodesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'harmonised-codes/:id',
+      component: CreateHarmonisedCodesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'harmonised-codes/:id/:update',
+      component: CreateHarmonisedCodesComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  }
 ];

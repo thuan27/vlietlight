@@ -19,7 +19,7 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <form [formGroup]="HarmonisedCategoriesForm" autocomplete="off" class="form" (submit)="onSubmit()">
+        <form [formGroup]="HarmonisedCodesForm" autocomplete="off" class="form" (submit)="onSubmit()">
             <div class="background-title mat-cyan-200-bg margin-top-10">
                 <h2 class="title">{{ titleGroup }}</h2>
             </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <mat-form-field class="col-sm-12 col-md-6">
                         <input [readonly]="disabledForm" formControlName="name" matInput placeholder="Hs Cat Name">
-                        <mat-error *ngIf="HarmonisedCategoriesForm.controls.name.hasError('required')">
+                        <mat-error *ngIf="HarmonisedCodesForm.controls.name.hasError('required')">
                           Hs Cat Name is required
                         </mat-error>
                     </mat-form-field>

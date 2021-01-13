@@ -111,6 +111,12 @@ export const navigation = [
                         'title': 'Harmonised Categories',
                         'type' : 'item',
                         'url'  : '/apps/master-data/harmonised-categories'
+                    },
+                    {
+                        'id'   : 'harmonised-codes',
+                        'title': 'Harmonised Codes',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/harmonised-codes'
                     }
                 ]
             },

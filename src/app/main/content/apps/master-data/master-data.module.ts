@@ -1,3 +1,4 @@
+import { HarmonisedCodesListComponent } from './harmonised-codes/harmonised-codes-list/harmonised-codes-list.component';
 import { ShippingPurposeListService } from './shipping-purposes/shipping-purposes-list/shipping-purposes-list.service';
 import { ShippingPurposeListComponent } from './shipping-purposes/shipping-purposes-list/shipping-purposes-list.component';
 import { CreateDocumentComponent } from './document/create-document/create-document.component';
@@ -57,7 +58,10 @@ import { CreateShippingPurposeService } from './shipping-purposes/create-shippin
 import { HarmonisedCategoriesListComponent } from './harmonised-categories/harmonised-categories-list/harmonised-categories-list.component';
 import { CreateHarmonisedCategoriesComponent } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.component';
 import { HarmonisedCategoriesListService } from './harmonised-categories/harmonised-categories-list/harmonised-categories-list.service';
+import { CreateHarmonisedCodesComponent } from './harmonised-codes/create-harmonised-codes/create-harmonised-codes.component';
 import { CreateHarmonisedCategoriesService } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.service';
+import { HarmonisedCodesListService } from './harmonised-codes/harmonised-codes-list/harmonised-codes-list.service';
+import { CreateHarmonisedCodesService } from './harmonised-codes/create-harmonised-codes/create-harmonised-codes.service';
 
 @NgModule({
     declarations: [
@@ -87,6 +91,8 @@ import { CreateHarmonisedCategoriesService } from './harmonised-categories/creat
         CreateShippingPurposeComponent,
         HarmonisedCategoriesListComponent,
         CreateHarmonisedCategoriesComponent,
+        HarmonisedCodesListComponent,
+        CreateHarmonisedCodesComponent
     ],
     imports: [
         CommonModule,
@@ -132,6 +138,8 @@ import { CreateHarmonisedCategoriesService } from './harmonised-categories/creat
         CreateShippingPurposeService,
         HarmonisedCategoriesListService,
         CreateHarmonisedCategoriesService,
+        HarmonisedCodesListService,
+        CreateHarmonisedCodesService
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
