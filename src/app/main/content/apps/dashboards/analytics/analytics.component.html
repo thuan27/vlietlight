@@ -38,6 +38,71 @@
         </div>
 
     </div>
+    <div class="mb-48 mt-32">
+
+      <div class="fuse-card custom-chart-circle">
+
+          <div class="p-16">
+              <div class="h1 font-weight-300">Sessions by staff</div>
+          </div>
+
+          <div class="h-200">
+              <ngx-charts-pie-chart
+                  *fuseIfOnDom
+                  [scheme]="widgets.widget7.scheme"
+                  [results]="widgets.widget7.devices"
+                  [doughnut]="true">
+              </ngx-charts-pie-chart>
+          </div>
+
+          <div class="p-16" fxLayout="row" fxLayoutAlign="center center">
+
+              <div class="px-16" fxLayout="column" fxLayoutAlign="start center"
+                   *ngFor="let device of widgets.widget7.devices">
+
+                  <div class="h4 secondary-text">{{device.name}}</div>
+                  <div class="h2 font-weight-300 py-8">{{device.value}}%</div>
+
+                  <div fxLayout="row" fxLayoutAlign="center center">
+                      <mat-icon class="s-18 pr-4 red-fg"
+                                *ngIf="device.change < 0">
+                          arrow_downward
+                      </mat-icon>
+
+                      <mat-icon class="s-18 pr-4 green-fg"
+                                *ngIf="device.change > 0">
+                          arrow_upward
+                      </mat-icon>
+
+                      <div class="h5 red-fg"
+                           [ngClass]="{'red-fg': device.change < 0, 'green-fg': device.change > 0}">
+                          {{device.change}}%
+                      </div>
+                  </div>
+
+              </div>
+
+          </div>
+
+          <div class="card-divider mb-0"></div>
+
+          <div class="px-16" fxLayout="row" fxLayoutAlign="space-between center">
+              <mat-form-field>
+                  <mat-select class="simplified" value="7days">
+                      <mat-option value="today">Today</mat-option>
+                      <mat-option value="yesterday">Yesterday</mat-option>
+                      <mat-option value="7days">Last 7 days</mat-option>
+                      <mat-option value="28days">Last 28 days</mat-option>
+                      <mat-option value="90days">Last 90 days</mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+              <button mat-button color="accent">OVERVIEW</button>
+          </div>
+
+      </div>
+
+  </div>
 
     <div class="content">
 

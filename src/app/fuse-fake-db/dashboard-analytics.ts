@@ -553,23 +553,43 @@ export class AnalyticsDashboardDb
         },
         widget7: {
             scheme : {
-                domain: ['#4867d2', '#5c84f1', '#89a9f4']
+                domain: ['#4867d2', '#5c84f1', '#89a9f4', '#89a933', '#89a9a4', '#89db55', '#89fc66']
             },
             devices: [
                 {
-                    name  : 'Desktop',
-                    value : 92.8,
+                    name  : 'Mr AAAAA',
+                    value : 80.8,
                     change: -0.6
                 },
                 {
-                    name  : 'Mobile',
+                    name  : 'Ms BBBB',
                     value : 6.1,
                     change: 0.7
                 },
                 {
-                    name  : 'Tablet',
+                    name  : 'MR CCCC',
                     value : 1.1,
                     change: 0.1
+                },
+                {
+                    name  : 'Mr Xang',
+                    value : 50,
+                    change: 0.1
+                },
+                {
+                    name  : 'Mr XXXX',
+                    value : 50,
+                    change: 0.1
+                },
+                {
+                    name  : 'Mr YYYY',
+                    value : 30,
+                    change: 0.1
+                },
+                {
+                    name  : 'Mr KKKK',
+                    value : 20,
+                    change: -0.1
                 }
             ]
         },
@@ -583,6 +603,39 @@ export class AnalyticsDashboardDb
                 percentage: 2.05
             },
             data   : [
+                {
+                    name  : 'Sales',
+                    series: [
+                        {
+                            name : 'Jan 1',
+                            value: 540
+                        },
+                        {
+                            name : 'Jan 2',
+                            value: 539
+                        },
+                        {
+                            name : 'Jan 3',
+                            value: 538
+                        },
+                        {
+                            name : 'Jan 4',
+                            value: 539
+                        },
+                        {
+                            name : 'Jan 5',
+                            value: 540
+                        },
+                        {
+                            name : 'Jan 6',
+                            value: 539
+                        },
+                        {
+                            name : 'Jan 7',
+                            value: 540
+                        }
+                    ]
+                },
                 {
                     name  : 'Sales',
                     series: [
