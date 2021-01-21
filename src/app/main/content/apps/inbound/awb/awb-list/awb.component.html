@@ -95,6 +95,7 @@
   <div class="p-24">
 
     <ngx-datatable
+      style="height: calc(100% - 411px);"
       (page)="pageCallback($event)"
       class="material"
       [rows]="rows"
@@ -114,6 +115,7 @@
       (select)="onSelect($event)"
       [externalSorting]="true"
       [scrollbarH]="true"
+      (tableContextmenu)="onTableContextMenu($event)"
     >
       <ngx-datatable-column
         [frozenLeft]="true"
@@ -309,6 +311,11 @@
       ></ngx-datatable-column>
 
     </ngx-datatable>
+    <app-context-menu
+      [isShow]="contextmenu"
+      [x]="contextmenuX"
+      [y]="contextmenuY">
+    </app-context-menu>
     <div class="export margin-top-10">
       <label class="label-export">Export to:</label>
       <a (click)="exportCsv()" class="csv"></a>

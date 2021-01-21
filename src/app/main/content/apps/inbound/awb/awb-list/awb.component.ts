@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { AWBService } from './awb.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
@@ -68,6 +68,10 @@ export class AWBComponent implements OnInit {
       { value: 2 },
       { value: 3 }
     ];
+
+    public contextmenuX: any;
+    public contextmenuY: any;
+    public contextmenu = false;
 
 
     constructor(
@@ -456,4 +460,20 @@ export class AWBComponent implements OnInit {
         }
       })
     }
+
+    public onTableContextMenu(event) {
+      // NOTE: click on header pls check when use
+      this.contextmenuX = event.event.pageX;
+      this.contextmenuY = event.event.pageY;
+      this.contextmenu = true;
+      event.event.preventDefault();
+      event.event.stopPropagation();
+    }
+
+    @HostListener('document:click', ['$event'])
+    clickedOutside($event) {
+      if ($event.target.className !== 'dropdown-item context-menu') {
+        this.contextmenu = false;
+      }
+  }
 }

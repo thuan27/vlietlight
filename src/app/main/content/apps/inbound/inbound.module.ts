@@ -16,13 +16,12 @@ import { MatButtonModule,
          MatAutocompleteModule,
          MatTabsModule
         } from '@angular/material';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './inbound.routers';
 import { AWBComponent } from './awb/awb-list/awb.component';
 import { AWBService } from './awb/awb-list/awb.service';
 import { AWBDetailComponent } from './awb/awb-detail/awb-detail.component';
-import { ContextMenuComponent } from '../../components/context-menu/context-menu.component';
 import { AWBDetailForCusService } from './awb-for-customer/awb-detail-for-customer/awb-detail-for-customer.service';
 import { AWBDetailForCusComponent } from './awb-for-customer/awb-detail-for-customer/awb-detail-for-customer.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -44,12 +43,12 @@ import { CreateInvoiceService } from './invoice/create-invoice/create-invoice.se
 import { InvoiceListService } from './invoice/invoice-list/invoice-list.service';
 import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
 import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.component';
+import { ContextMenuModule } from '@fuse/components/context-menu/context-menu.module';
 
 @NgModule({
     declarations: [
         AWBComponent,
         AWBDetailComponent,
-        ContextMenuComponent,
         AWBDetailForCusComponentV1,
         AWBDetailForCusComponent,
         WavePickListComponent,
@@ -79,6 +78,7 @@ import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.
         MatTabsModule,
         TranslateModule,
         FuseDirectivesModule,
+        ContextMenuModule
     ],
     providers: [
         AWBService,
@@ -92,7 +92,8 @@ import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.
         ManualAWBDetailService,
         InvoiceListService,
         CreateInvoiceService
-    ]
+    ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FuseInboundModule {
 }
