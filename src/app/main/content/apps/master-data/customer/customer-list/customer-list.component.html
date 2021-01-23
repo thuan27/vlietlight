@@ -88,7 +88,7 @@
             </span>
         </form>
 
-            <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows"
+            <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" (tableContextmenu)="onTableContextMenu($event)"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
             [rowHeight]="'auto'" [reorderable]="reorderable" [selectionType]="'checkbox'" [count]="total"
             [selected]="selected" (select)="onSelect($event)" [externalPaging]="true" [offset]="current_page"

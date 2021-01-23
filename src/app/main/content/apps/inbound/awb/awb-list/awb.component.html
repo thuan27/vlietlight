@@ -95,7 +95,6 @@
   <div class="p-24">
 
     <ngx-datatable
-      style="height: calc(100% - 411px);"
       (page)="pageCallback($event)"
       class="material"
       [rows]="rows"
@@ -311,11 +310,12 @@
       ></ngx-datatable-column>
 
     </ngx-datatable>
-    <app-context-menu
+    <!-- <app-context-menu
       [isShow]="contextmenu"
       [x]="contextmenuX"
+      [name]="name"
       [y]="contextmenuY">
-    </app-context-menu>
+    </app-context-menu> -->
     <div class="export margin-top-10">
       <label class="label-export">Export to:</label>
       <a (click)="exportCsv()" class="csv"></a>

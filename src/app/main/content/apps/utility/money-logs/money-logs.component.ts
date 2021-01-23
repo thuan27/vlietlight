@@ -2,13 +2,14 @@ import { Router } from '@angular/router';
 import { MoneyLogsService } from './money-logs.service';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'money-logs',
     templateUrl: './money-logs.component.html',
     styleUrls: ['./money-logs.component.scss'],
-    providers: [MoneyLogsService]
+    providers: [MoneyLogsService, ToastyService]
 })
 export class MoneyLogsComponent implements OnInit {
     rows: any;
@@ -28,10 +29,13 @@ export class MoneyLogsComponent implements OnInit {
     ];
 
     constructor(
+        private toastyService: ToastyService,
         private formBuilder: FormBuilder,
+        private toastyConfig: ToastyConfig,
         private moneyLogsService: MoneyLogsService,
     ) {
-      this.total = 0;
+        this.toastyConfig.position = 'top-right';
+        this.total = 0;
     }
 
     ngOnInit() {
@@ -94,5 +98,16 @@ export class MoneyLogsComponent implements OnInit {
       }
       this.sortData = '';
       this.getList();
+    }
+
+    onTableContextMenu(event) {
+      var dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = event.event.srcElement.outerText;
+      dummy.select();
+      document.execCommand('copy');
+      event.event.preventDefault();
+      event.event.stopPropagation();
+      this.toastyService.success('Copied Successfully');
     }
 }

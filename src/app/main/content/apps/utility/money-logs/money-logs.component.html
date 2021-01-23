@@ -1,3 +1,5 @@
+<ng2-toasty></ng2-toasty>
+
 <div
   id="ngx-datatable"
   class="page-layout simple fullwidth"
@@ -114,6 +116,7 @@
       [limit]="15"
       (sort)="onSort($event)"
       [externalSorting]="true"
+      (tableContextmenu)="onTableContextMenu($event)"
     >
       <ngx-datatable-column
         [frozenLeft]="true"

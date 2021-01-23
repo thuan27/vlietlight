@@ -135,6 +135,17 @@ export class OrderListComponent implements OnInit {
     this.getList();
   }
 
+  onTableContextMenu(event) {
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = event.event.srcElement.outerText;
+    dummy.select();
+    document.execCommand('copy');
+    event.event.preventDefault();
+    event.event.stopPropagation();
+    this.toastyService.success('Copied Successfully');
+  }
+
   private buildForm() {
     this.searchForm = this.formBuilder.group({
       account_number: '',

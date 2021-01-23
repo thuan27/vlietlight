@@ -1,3 +1,5 @@
+<ng2-toasty></ng2-toasty>
+
 <div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
 
     <!-- HEADER -->
@@ -61,7 +63,7 @@
 
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
         [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
-        [selectionType]="'checkbox'" [count]="total" [selected]="selected"
+        [selectionType]="'checkbox'" [count]="total" [selected]="selected" (tableContextmenu)="onTableContextMenu($event)"
         [externalPaging]="true" [scrollbarH]="true" [offset]="current_page" [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
 
           <ngx-datatable-column [frozenLeft]="true" [width]="70" [canAutoResize]="false" [sortable]="false">

@@ -80,6 +80,7 @@
       [externalPaging]="true"
       [offset]="current_page"
       [limit]="15"
+      (tableContextmenu)="onTableContextMenu($event)"
     >
       <ngx-datatable-column
         [frozenLeft]="true"

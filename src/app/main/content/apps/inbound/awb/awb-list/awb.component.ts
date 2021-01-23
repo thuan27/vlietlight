@@ -72,6 +72,7 @@ export class AWBComponent implements OnInit {
     public contextmenuX: any;
     public contextmenuY: any;
     public contextmenu = false;
+    name = '';
 
 
     constructor(
@@ -462,12 +463,19 @@ export class AWBComponent implements OnInit {
     }
 
     public onTableContextMenu(event) {
+      var dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = event.event.srcElement.outerText;
+      dummy.select();
+      document.execCommand('copy');
       // NOTE: click on header pls check when use
-      this.contextmenuX = event.event.pageX;
-      this.contextmenuY = event.event.pageY;
-      this.contextmenu = true;
+      // this.name = event.event.srcElement.outerText
+      // this.contextmenuX = event.event.pageX;
+      // this.contextmenuY = event.event.pageY-65;
+      // this.contextmenu = true;
       event.event.preventDefault();
       event.event.stopPropagation();
+      this.toastyService.success('Copied Successfully');
     }
 
     @HostListener('document:click', ['$event'])

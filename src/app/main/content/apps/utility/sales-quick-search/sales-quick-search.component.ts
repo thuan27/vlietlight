@@ -4,13 +4,14 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'sales-quick-search',
     templateUrl: './sales-quick-search.component.html',
     styleUrls: ['./sales-quick-search.component.scss'],
-    providers: [SalesQuickSearchService]
+    providers: [SalesQuickSearchService, ToastyService]
 })
 export class SalesQuickSearchComponent implements OnInit {
     rows: any;
@@ -31,9 +32,12 @@ export class SalesQuickSearchComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
+        private toastyService: ToastyService,
+        private toastyConfig: ToastyConfig,
         private salesQuickSearchService: SalesQuickSearchService,
     ) {
       this.total = 0;
+      this.toastyConfig.position = 'top-right';
     }
 
     ngOnInit() {
@@ -92,5 +96,16 @@ export class SalesQuickSearchComponent implements OnInit {
       }
       this.sortData = '';
       this.getList();
+    }
+
+    onTableContextMenu(event) {
+      var dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = event.event.srcElement.outerText;
+      dummy.select();
+      document.execCommand('copy');
+      event.event.preventDefault();
+      event.event.stopPropagation();
+      this.toastyService.success('Copied Successfully');
     }
 }

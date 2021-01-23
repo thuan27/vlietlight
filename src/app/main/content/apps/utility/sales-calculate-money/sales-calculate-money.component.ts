@@ -5,13 +5,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
 import { ValidationService } from '@fuse/core/validator';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'sales-calculate-money',
     templateUrl: './sales-calculate-money.component.html',
     styleUrls: ['./sales-calculate-money.component.scss'],
-    providers: [SalesCalculateMoneyService, ValidationService]
+    providers: [SalesCalculateMoneyService, ToastyService, ValidationService]
 })
 export class SalesCalculateMoneyComponent implements OnInit {
   CalculateForm: FormGroup;
@@ -76,9 +77,13 @@ export class SalesCalculateMoneyComponent implements OnInit {
   constructor(
     private salesCalculateMoneyService: SalesCalculateMoneyService,
     private formBuilder: FormBuilder,
+    private toastyService: ToastyService,
     private router: Router,
     private _Valid: ValidationService,
-  ) { }
+    private toastyConfig: ToastyConfig
+  ) {
+    this.toastyConfig.position = 'top-right';
+  }
 
   ngOnInit() {
     this.buildForm();

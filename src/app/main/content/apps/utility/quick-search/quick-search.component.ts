@@ -4,13 +4,14 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
+import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'quick-search',
     templateUrl: './quick-search.component.html',
     styleUrls: ['./quick-search.component.scss'],
-    providers: [QuickSearchService]
+    providers: [QuickSearchService, ToastyService]
 })
 export class QuickSearchComponent implements OnInit {
     contextmenuX: any;
@@ -46,8 +47,11 @@ export class QuickSearchComponent implements OnInit {
         private formBuilder: FormBuilder,
         private quickSearchService: QuickSearchService,
         private datePipe: DatePipe,
+        private toastyService: ToastyService,
         private func: Functions,
-        private router: Router
+        private router: Router,
+        private toastyConfig: ToastyConfig
+
     ) {
     }
 
@@ -92,20 +96,31 @@ export class QuickSearchComponent implements OnInit {
         this.router.navigate(['apps/inbound/awb/create']);
     }
 
-    onTableContextMenu(event) { 
-        // console.log(event);
-        // console.log(event.event.target);
-        console.log(this.xMenuContext, this.yMenuContext);
-        this.element = event['event']['srcElement']['outerHTML'];
-        // this.content = event['event']['content'];
-        this.contextmenuX = event['event']['pageX'];
-        this.contextmenuY = event['event']['pageY'];
-        this.content = event.event.target;
-        // this.contextmenuX = event.event.target['offsetLeft'] + event.event.target['offsetWidth'];
-        // this.contextmenuY = event.event.target['offsetTop'] + event.event.target['offsetHeight'];
-        this.contextmenu = true;
-        event['event'].preventDefault();
-        event['event'].stopPropagation();
+    // onTableContextMenu(event) {
+    //     // console.log(event);
+    //     // console.log(event.event.target);
+    //     console.log(this.xMenuContext, this.yMenuContext);
+    //     this.element = event['event']['srcElement']['outerHTML'];
+    //     // this.content = event['event']['content'];
+    //     this.contextmenuX = event['event']['pageX'];
+    //     this.contextmenuY = event['event']['pageY'];
+    //     this.content = event.event.target;
+    //     // this.contextmenuX = event.event.target['offsetLeft'] + event.event.target['offsetWidth'];
+    //     // this.contextmenuY = event.event.target['offsetTop'] + event.event.target['offsetHeight'];
+    //     this.contextmenu = true;
+    //     event['event'].preventDefault();
+    //     event['event'].stopPropagation();
+    // }
+
+    onTableContextMenu(event) {
+      var dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = event.event.srcElement.outerText;
+      dummy.select();
+      document.execCommand('copy');
+      event.event.preventDefault();
+      event.event.stopPropagation();
+      this.toastyService.success('Copied Successfully');
     }
 
     @HostListener('document:click', ['$event'])
@@ -114,4 +129,5 @@ export class QuickSearchComponent implements OnInit {
         this.contextmenu = false;
       }
     }
+
 }

@@ -95,7 +95,7 @@
 
     <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
       [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
-      [selectionType]="'checkbox'" [count]="total" [selected]="selected" [scrollbarH]="true"
+      [selectionType]="'checkbox'" [count]="total" [selected]="selected" [scrollbarH]="true" (tableContextmenu)="onTableContextMenu($event)"
       [externalPaging]="true" [offset]="current_page" [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
 
       <ngx-datatable-column [frozenLeft]="true" [width]="48" [canAutoResize]="true" [resizeable]="true" [sortable]="false">

@@ -268,4 +268,15 @@ export class WavePickListComponent implements OnInit {
     }
   }
 
+  onTableContextMenu(event) {
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = event.event.srcElement.outerText;
+    dummy.select();
+    document.execCommand('copy');
+    event.event.preventDefault();
+    event.event.stopPropagation();
+    this.toastyService.success('Copied Successfully');
+  }
+
 }

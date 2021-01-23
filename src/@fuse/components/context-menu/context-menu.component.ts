@@ -9,16 +9,18 @@ export class ContextComponent implements OnInit {
   @Input() x: number = 0;
   @Input() y: number = 0;
   @Input() isShow: boolean;
+  @Input() name: string;
   constructor() { }
 
   ngOnInit() {
-    console.log('---------')
   }
 
-  public onLock(e): void {
-    e.toElement.select();
+  public copy(e): void {
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = this.name;
+    dummy.select();
     document.execCommand('copy');
-    console.log('lock');
   }
 
   public onUnLock(e): void {

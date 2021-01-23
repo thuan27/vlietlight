@@ -29,7 +29,7 @@
     <div class="p-24">
 
         <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable" [selectionType]="'checkbox'"
-            [limit]="10">
+            [limit]="10" (tableContextmenu)="onTableContextMenu($event)">
 
             <ngx-datatable-column [width]="48" [canAutoResize]="false" [sortable]="false">
                 <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">

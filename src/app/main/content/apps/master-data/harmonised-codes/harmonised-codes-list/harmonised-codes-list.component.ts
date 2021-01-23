@@ -164,4 +164,15 @@ export class HarmonisedCodesListComponent implements OnInit {
       FileSaver.saveAs.saveAs(blob, fileName + fileType);
     })
   }
+
+  onTableContextMenu(event) {
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = event.event.srcElement.outerText;
+    dummy.select();
+    document.execCommand('copy');
+    event.event.preventDefault();
+    event.event.stopPropagation();
+    this.toastyService.success('Copied Successfully');
+  }
 }
