@@ -19,6 +19,7 @@ import { FuseSearchBarDocsComponent } from './search-bar/search-bar.component';
 import { FuseSidebarDocsComponent } from './sidebar/sidebar.component';
 import { FuseShortcutsDocsComponent } from './shortcuts/shortcuts.component';
 import { FuseWidgetDocsComponent } from './widget/widget.component';
+import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 const routes = [
     {
@@ -74,7 +75,8 @@ const routes = [
         FuseSearchBarDocsComponent,
         FuseSidebarDocsComponent,
         FuseShortcutsDocsComponent,
-        FuseWidgetDocsComponent
+        FuseWidgetDocsComponent,
+        ContextMenuComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
