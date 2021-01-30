@@ -8,6 +8,9 @@ import { ImportCountryZoneComponent } from './import-country-zone/import-country
 import { ImportCustomerPriceComponent } from './import-customer-price/import-customer-price.component';
 import { ImportCustomerCountryZoneComponent } from './import-customer-country-zone/import-customer-country-zone.component';
 import { ImportMyCustomerServiceComponent } from './import-my-customer-service/import-import-my-customer-service.component';
+import { ImportOrderReceivableComponent } from './import-order-receivable/import-order-receivable.component';
+import { ImportOrderFeeComponent } from './import-order-fee/import-order-fee.component';
+import { ImportCheckingDebitNoteComponent } from './import-checking-debit-note/import-checking-debit-note.component';
 
 export const listRoutes: Routes = [
   {
@@ -48,6 +51,21 @@ export const listRoutes: Routes = [
   {
     path: 'my-customer-service',
     component: ImportMyCustomerServiceComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'order-receivable',
+    component: ImportOrderReceivableComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'order-fee',
+    component: ImportOrderFeeComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'checking-debit-note',
+    component: ImportCheckingDebitNoteComponent,
     canActivate: [AuthGuard, AdminGuard]
   }
 ];

@@ -340,6 +340,27 @@ export const navigation = [
                     'url'  : '/apps/import/my-customer-service',
                     'exactMatch': true
                   },
+                  {
+                    'id'   : 'order-receivable',
+                    'title': 'Import Order Receivable',
+                    'type' : 'item',
+                    'url'  : '/apps/import/order-receivable',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'order-fee',
+                    'title': 'Import Order Fee',
+                    'type' : 'item',
+                    'url'  : '/apps/import/order-fee',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'checking-debit-note',
+                    'title': 'Import Checking Debit Note',
+                    'type' : 'item',
+                    'url'  : '/apps/import/checking-debit-note',
+                    'exactMatch': true
+                  },
               ]
             },
             {
