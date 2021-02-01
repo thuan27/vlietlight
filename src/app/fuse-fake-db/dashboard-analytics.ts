@@ -593,6 +593,38 @@ export class AnalyticsDashboardDb
                 }
             ]
         },
+        widget71: {
+          scheme : {
+              domain: ['#4867d2', '#5c84f1', '#89a9f4', '#89a933', '#89a9a4']
+          },
+          devices: [
+              {
+                  name  : 'Can Tho',
+                  value : 80.8,
+                  change: -0.6
+              },
+              {
+                  name  : 'Ho Chi Minh',
+                  value : 6.1,
+                  change: 0.7
+              },
+              {
+                  name  : 'Bac Lieu',
+                  value : 1.1,
+                  change: 0.1
+              },
+              {
+                  name  : 'Nha Trang',
+                  value : 50,
+                  change: 0.1
+              },
+              {
+                  name  : 'Ha Noi',
+                  value : 50,
+                  change: 0.1
+              }
+          ]
+      },
         widget8: {
             scheme : {
                 domain: ['#5c84f1']
