@@ -1,10 +1,9 @@
 <div class="title">Filter Order List</div>
 
-<div class="page-layout simple fullwidth" style="max-width: 700px">
+<div class="page-layout simple fullwidth custom-dialog">
   <form
     id="form-control"
-    class="row"
-    style="margin:0 !important"
+    class="row custom-form"
     [formGroup]="searchForm"
     autocomplete="off"
     (submit)="search()"
@@ -24,11 +23,11 @@
     </mat-form-field>
     <mat-form-field class="col-sm-6 col-md-3">
       <mat-select formControlName="odr_status" placeholder="Status">
-        <mat-option style="top:0 !important" [value]="">
+        <mat-option class="custom-select-input" [value]="">
           Please select option
         </mat-option>
         <mat-option
-          style="top:0 !important"
+          class="custom-select-input"
           *ngFor="let item of status"
           [value]="item.value"
         >

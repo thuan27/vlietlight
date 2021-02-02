@@ -1,9 +1,9 @@
 <ng2-toasty></ng2-toasty>
 <div class="title">Create Informations</div>
 
-<div class="page-layout simple fullwidth" style="width: 500px">
+<div class="page-layout simple fullwidth custom-dialog">
   <form name="form" [formGroup]="form" novalidate>
-    <mat-form-field class="mt-3" style="width: 100%">
+    <mat-form-field class="mt-3 w-100">
       <mat-select formControlName="category" placeholder="CS">
         <mat-option *ngFor="let item of createdByList" [value]="item.value">
           {{ item.name }}
@@ -11,13 +11,6 @@
       </mat-select>
     </mat-form-field>
     <ckeditor [editor]="Editor" formControlName="subject"></ckeditor>
-
-    <!-- <mat-form-field class="mt-3" style="width: 100%">
-      <input matInput placeholder="Subject" formControlName="subject" autocomplete="off">
-      <mat-error class="text-error" *ngIf="form.controls.subject.hasError('required')">
-        Subject is required
-      </mat-error>
-    </mat-form-field> -->
   </form>
 
   <div>

@@ -1,10 +1,9 @@
 <div class="title">Filter AWB List</div>
 
-<div class="page-layout simple fullwidth" style="max-width: 700px">
+<div class="page-layout simple fullwidth custom-dialog">
   <form
       id="form-control"
-      class="row"
-      style="margin:0 !important"
+      class="row custom-form"
       [formGroup]="searchForm"
       autocomplete="off"
       (submit)="search()"
@@ -235,7 +234,7 @@
           placeholder="To Phone"
         />
       </mat-form-field>
-    <span class="format-line-height-button" style="margin: auto">
+    <span class="format-line-height-button group-button">
       <button mat-raised-button color="accent" type="submit">Search</button>
       <button class="ml-3" mat-raised-button (click)="reset()">Reset</button>
     </span>
