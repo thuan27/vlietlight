@@ -10,3 +10,10 @@ fuse-navigation {
         width: 100%;
     }
 }
+
+.custom-nav {
+  position: fixed;
+  overflow: scroll;
+  height: 100%;
+  width: 292px;
+}
