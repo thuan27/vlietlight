@@ -1,23 +1,23 @@
 <div class="title">Update Pick Up</div>
 
-<div class="page-layout simple fullwidth" style="width: 600px">
+<div class="page-layout simple fullwidth custom-dialog">
   <form *ngIf="formUpdate" name="formUpdate" [formGroup]="formUpdate" novalidate>
 
-    <mat-form-field style="width: 100%">
+    <mat-form-field class="w-100">
       <input matInput placeholder="Picker" formControlName="picker" autocomplete="off">
       <mat-error class="text-error" *ngIf="formUpdate.controls.picker.hasError('required')">
         Picker is required
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="mt-3" style="width: 100%">
+    <mat-form-field class="mt-3" class="w-100">
       <input matInput placeholder="Pre Alert Note" formControlName="pre_alert_note" autocomplete="off">
       <mat-error class="text-error" *ngIf="formUpdate.controls.pre_alert_note.hasError('required')">
         Pre Alert Note is required
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="mt-3" style="width: 100%">
+    <mat-form-field class="mt-3" class="w-100">
       <input matInput placeholder="Pre Alert Note For Sales" formControlName="pre_alert_note_for_sales" autocomplete="off">
       <mat-error class="text-error" *ngIf="formUpdate.controls.pre_alert_note_for_sales.hasError('required')">
         Pre Alert Note For Sales is required
@@ -27,7 +27,7 @@
       Please select one item
     </mat-error>
   </form>
-  <div style="overflow: inherit; height: 300px">
+  <div class="custom-search">
   <form *ngIf="formSearch" [formGroup]="formSearch" novalidate>
     <div fxLayout="row" class="mt-3">
       <mat-form-field fxFlex="25" class="mr-3">
@@ -39,7 +39,7 @@
       <mat-form-field fxFlex="25" class="mr-3">
         <input (keyup)="onSuggest()" formControlName="email" matInput placeholder="Email" autocomplete="off">
       </mat-form-field>
-      <button (click)="reset()" fxFlex="25" class="mt-3 mr-1" style="height: 40px" mat-raised-button>
+      <button (click)="reset()" fxFlex="25" class="mt-3 mr-1 custom-button" mat-raised-button>
         Reset
       </button>
     </div>
