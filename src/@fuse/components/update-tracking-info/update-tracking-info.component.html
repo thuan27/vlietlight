@@ -1,13 +1,13 @@
 <ng2-toasty></ng2-toasty>
 <div class="title">Update Tracking Info</div>
 
-<div class="page-layout simple fullwidth" style="width: 500px">
+<div class="page-layout simple fullwidth custom-dialog">
   <form name="form" [formGroup]="form" novalidate>
     <div class="ml-4 mb-4 mt-3">
-        <span style="font-weight: 500;">Order Name: </span><span>{{data['data'][0]['odr_name']}}</span>
+        <span class="font-weight-bold">Order Name: </span><span>{{data['data'][0]['odr_name']}}</span>
     </div>
     <div class="ml-4 mb-4">
-        <span style="font-weight: 500;">AWB: </span><span>{{data['data'][0]['awb_num']}}</span>
+        <span class="font-weight-bold">AWB: </span><span>{{data['data'][0]['awb_num']}}</span>
     </div>
     <mat-form-field class="col-sm-12">
       <mat-select [disabled]="true" formControlName="odr_status" placeholder="Status">
