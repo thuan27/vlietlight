@@ -13,7 +13,7 @@ export class TrackingOrderListService
     {
     }
 
-    getList(params) {
-        return this.http.get(this.apiConfig.ORDER_LIST + params);
+    getList(id) {
+        return this.http.get(`${this.apiConfig.TRACKING_ORDER_LIST}/${id}`);
     }
 }

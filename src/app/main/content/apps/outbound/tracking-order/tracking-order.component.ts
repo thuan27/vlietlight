@@ -3,6 +3,8 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { TrackingOrderListService } from './tracking-order.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 export interface Element {
   time: number;
   location: string;
@@ -29,6 +31,7 @@ const ELEMENT_DATA: Element[] = [
 })
 export class TrackingComponent implements OnInit {
   searchForm: FormGroup;
+  private routeSub: Subscription;
   displayedColumns: string[] = ['time', 'location', 'description'];
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   statusBar = {
@@ -38,12 +41,13 @@ export class TrackingComponent implements OnInit {
     shipped: false,
     completed: false
   }
+  trackingList;
 
   constructor(
     private formBuilder: FormBuilder,
     private trackingOrderListService: TrackingOrderListService,
     private toastyService: ToastyService,
-
+    private activeRoute: ActivatedRoute,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -51,9 +55,14 @@ export class TrackingComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.routeSub = this.activeRoute.params.subscribe(params => {
+      if (params['id'] !== undefined) {
+        this.getList(params['id'])
+      }
+    })
   }
 
-  getList(page = 1) {
+  getList(id) {
     // let params = `?limit=15` + `&page=` + page;
     // if (this.sortData !== '') {
     //   params += this.sortData;
@@ -64,8 +73,11 @@ export class TrackingComponent implements OnInit {
     // for (let i = 0; i < arrayItem.length; i++) {
     //   params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     // }
-    // this.orderList = this.trackingOrderListService.getList(params);
-
+    this.trackingOrderListService.getList(id).subscribe((response) => {
+      if (response['data']['code'] == 200) {
+        this.trackingList = response['data']['data']
+      }
+    });
     // this.orderList.subscribe((dataList: any[]) => {
     //   this.rows = dataList['data'];
     //   this.total = dataList['meta']['pagination']['total'];
