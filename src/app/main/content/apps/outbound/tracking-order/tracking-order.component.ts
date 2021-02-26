@@ -41,7 +41,7 @@ export class TrackingComponent implements OnInit {
     shipped: false,
     completed: false
   }
-  trackingList;
+  trackingList = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,7 +75,12 @@ export class TrackingComponent implements OnInit {
     // }
     this.trackingOrderListService.getList(id).subscribe((response) => {
       if (response['data']['code'] == 200) {
-        this.trackingList = response['data']['data']
+        let data = response['data']['data']
+        if (data.DeliveryDateUnavailable) {
+          console.log('///////', data['Package']['TrackingNumber'])
+          this.trackingList['TrackingNumber'] = data['Package']['TrackingNumber']
+          this.trackingList['Description'] = data['Package']['Activity']['Status']['StatusType']['Description']
+        }
       }
     });
     // this.orderList.subscribe((dataList: any[]) => {
