@@ -32,6 +32,7 @@ const ELEMENT_DATA: Element[] = [
 export class TrackingComponent implements OnInit {
   searchForm: FormGroup;
   private routeSub: Subscription;
+  AWB;
   displayedColumns: string[] = ['time', 'location', 'description'];
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   statusBar = {
@@ -60,36 +61,34 @@ export class TrackingComponent implements OnInit {
         this.getList(params['id'])
       }
     })
+    this.activeRoute.queryParams.subscribe((param) => {
+      this.AWB = param.AWB
+    })
   }
 
   getList(id) {
-    // let params = `?limit=15` + `&page=` + page;
-    // if (this.sortData !== '') {
-    //   params += this.sortData;
-    // } else {
-    //   params += '&sort[awb_id]=desc'
-    // }
-    // const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-    // for (let i = 0; i < arrayItem.length; i++) {
-    //   params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
-    // }
     this.trackingOrderListService.getList(id).subscribe((response) => {
       if (response['data']['code'] == 200) {
         let data = response['data']['data']
+        if (typeof response['data']['data'] == 'string') {
+          data = JSON.parse(data);
+        }
+        console.log(data)
         if (data.DeliveryDateUnavailable) {
-          console.log('///////', data['Package']['TrackingNumber'])
+          this.trackingList['shipment'] = 'UPS'
           this.trackingList['TrackingNumber'] = data['Package']['TrackingNumber']
           this.trackingList['Description'] = data['Package']['Activity']['Status']['StatusType']['Description']
+          this.trackingList['from'] = data['Shipper']['Address']['AddressLine1'] + data['Shipper']['Address']['City']
+          this.trackingList['to'] = data['ShipTo']['Address']['City']
+        } else if (data.shipments) {
+          this.trackingList['shipment'] = 'DHL'
+          this.trackingList['TrackingNumber'] = data.shipments[0]['id']
+          this.trackingList['Description'] = data.shipments[0]['status']['description']
+          this.trackingList['from'] = data.shipments[0]['destination']['address']['addressLocality']
+          this.trackingList['to'] = data.shipments[0]['origin']['address']['addressLocality']
         }
       }
     });
-    // this.orderList.subscribe((dataList: any[]) => {
-    //   this.rows = dataList['data'];
-    //   this.total = dataList['meta']['pagination']['total'];
-    //   // tslint:disable-next-line:radix
-    //   this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
-    //   this.loadingIndicator = false;
-    // });
   }
 
   private buildForm() {
