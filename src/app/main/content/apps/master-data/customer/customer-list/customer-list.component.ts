@@ -6,6 +6,8 @@ import { Functions } from '@fuse/core/function';
 import { UserService } from '@fuse/directives/users/users.service';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import * as FileSaver from 'file-saver';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -34,6 +36,7 @@ export class CustomerListComponent implements OnInit
       { value: 'AC', name: 'Active' },
       { value: 'IA', name: 'Inactive' }
     ];
+    dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
     constructor(
         private customerListService: CustomerListService,
@@ -41,6 +44,7 @@ export class CustomerListComponent implements OnInit
         private _user: UserService,
         private _Func: Functions,
         private toastyService: ToastyService,
+        public dialog: MatDialog,
         private toastyConfig: ToastyConfig,
         private formBuilder: FormBuilder
         )
@@ -166,15 +170,24 @@ export class CustomerListComponent implements OnInit
       } else if (this.selected.length > 1) {
         this.toastyService.error('Please select one item.');
       } else {
-        this.customerListService.deleteCus(this.selected[0]['customer_id']).subscribe((data) => {
-          this.toastyService.success(data['message']);
-          setTimeout(
-            () => {
-              this.getList();
-            },
-            700
-          );
-        });
+        this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+        this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+        this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.customerListService.deleteCus(this.selected[0]['customer_id']).subscribe((data) => {
+            this.toastyService.success(data['message']);
+            setTimeout(
+              () => {
+                this.getList();
+              },
+              700
+            );
+          });
+        } else {
+        }
+        this.dialogRef = null;
+      });
+
       }
     }
 

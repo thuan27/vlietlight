@@ -6,6 +6,8 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import * as FileSaver from 'file-saver';
 import { Functions } from '@fuse/core/function';
 import { UserService } from '@fuse/directives/users/users.service';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -34,12 +36,14 @@ export class ServiceListComponent implements OnInit {
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   constructor(
     private router: Router,
     private serviceList: ServiceList,
     private toastyService: ToastyService,
     private formBuilder: FormBuilder,
+    public dialog: MatDialog,
     private _user: UserService,
     private _Func: Functions,
     private toastyConfig: ToastyConfig
@@ -149,15 +153,23 @@ export class ServiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.serviceList.delete(this.selected[0]['service_id']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.serviceList.delete(this.selected[0]['service_id']).subscribe((data) => {
+            this.toastyService.success(data['message']);
+            setTimeout(
+              () => {
+                this.getList();
+                this.selected = [];
+              },
+              700
+            );
+          });
+        } else {
+        }
+        this.dialogRef = null;
       });
     }
   }

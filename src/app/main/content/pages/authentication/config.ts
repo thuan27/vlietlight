@@ -54,6 +54,7 @@ export class APIConfig {
   public GET_CS = this.API_BASE + '/awbs/v1/suggest-cs';
   public MONEY_LOGS = this.API_BASE + '/awbs/v1/money-log';
   public CUT_OFF_TIMES_LIST = this.API_BASE + '/master-data/v1/cut-off-time';
+  public HARMONISED_CATEGORY = this.API_BASE + '/master-data/v1/harmonised-category';
 
   //utility
   public GET_LIST_ASSIGNMENT = this.API_BASE + '/awbs/v1/wv-pick/assignment-list';

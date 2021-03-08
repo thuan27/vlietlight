@@ -277,7 +277,7 @@ export class manualAWBComponent implements OnInit {
         this.toastyService.error('Please select one item.');
       } else {
         this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this AWB. The corresponding Order will be deleted?';
+          this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this manual AWB. The corresponding Order will be deleted?';
 
           this.dialogRef.afterClosed().subscribe(result => {
               if ( result )

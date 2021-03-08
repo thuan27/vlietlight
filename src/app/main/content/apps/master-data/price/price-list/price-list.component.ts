@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'price-list',
@@ -46,6 +48,7 @@ export class PriceListComponent implements OnInit {
     {name: 0, value: 0},
     {name: 1, value: 1}
   ];
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   constructor(
     private router: Router,
@@ -53,6 +56,7 @@ export class PriceListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
+    public dialog: MatDialog,
     private _Func: Functions,
     private toastyConfig: ToastyConfig
   ) {
@@ -171,15 +175,23 @@ export class PriceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.priceListService.deletePrice(this.selected[0]['id']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.priceListService.deletePrice(this.selected[0]['id']).subscribe((data) => {
+            this.toastyService.success(data['message']);
+            setTimeout(
+              () => {
+                this.getList();
+                this.selected = [];
+              },
+              700
+            );
+          });
+        } else {
+        }
+        this.dialogRef = null;
       });
     }
   }

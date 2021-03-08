@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'harmonised-categories-list',
@@ -29,6 +31,7 @@ export class HarmonisedCategoriesListComponent implements OnInit {
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   constructor(
     private router: Router,
@@ -37,6 +40,7 @@ export class HarmonisedCategoriesListComponent implements OnInit {
     private toastyService: ToastyService,
     private _user: UserService,
     private _Func: Functions,
+    public dialog: MatDialog,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -89,8 +93,8 @@ export class HarmonisedCategoriesListComponent implements OnInit {
 
     this.harmonisedCategoriesList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['country_id_temp'] = data['country_id'];
-        data['country_id'] = `<a href="#/apps/master-data/harmonised-categories/${data['country_id']}">${data['country_code']}</a>`;
+        data['hs_cat_id_temp'] = data['hs_cat_id'];
+        data['hs_cat_id'] = `<a href="#/apps/master-data/harmonised-categories/${data['hs_cat_id']}">${data['hs_cat_id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -115,7 +119,7 @@ export class HarmonisedCategoriesListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/harmonised-categories/${this.selected[0]['country_id_temp']}/update`);
+      this.router.navigateByUrl(`apps/master-data/harmonised-categories/${this.selected[0]['hs_cat_id_temp']}/update`);
     }
   }
 
@@ -125,15 +129,23 @@ export class HarmonisedCategoriesListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.harmonisedCategoriesListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.harmonisedCategoriesListService.deleteHarmonisedCategory(this.selected[0]['hs_cat_id_temp']).subscribe((data) => {
+            this.toastyService.success(data['message']);
+            setTimeout(
+              () => {
+                this.getList();
+                this.selected = [];
+              },
+              700
+            );
+          });
+        } else {
+        }
+        this.dialogRef = null;
       });
     }
   }

@@ -135,12 +135,9 @@ export class WavePickListComponent implements OnInit {
       this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
         disableClose: false
       });
-
       this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
-
       this.confirmDialogRef.afterClosed().subscribe(result => {
-        if ( result )
-        {
+        if ( result ) {
           this.wavePickService.delete(this.selected[0]['wv_hdr_id']).subscribe((data) => {
             this.toastyService.success(data['message']);
             setTimeout(

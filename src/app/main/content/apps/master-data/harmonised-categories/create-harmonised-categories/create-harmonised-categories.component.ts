@@ -111,26 +111,24 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
 
   private buildForm() {
     this.HarmonisedCategoriesForm = this.formBuilder.group({
-      code: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+      hs_cat_name: ['', [Validators.required]]
     });
   }
 
   private detailForm(data) {
     this.HarmonisedCategoriesForm = this.formBuilder.group({
-      code: [data['country_code'], [Validators.required]],
-      name: [data['country_name'], [Validators.required]]
+      hs_cat_name: [data['hs_cat_name'], [Validators.required]]
     });
   }
 
   onSubmit() {
     if (this.HarmonisedCategoriesForm.valid) {
       if (this.action === 'create') {
-        this._createHarmonisedCategoriesService.createCountry(this.HarmonisedCategoriesForm.value).subscribe((data) => {
+        this._createHarmonisedCategoriesService.createHarmonisedCategory(this.HarmonisedCategoriesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/harmonised-categories']);
             },
             700
           ), err => {
@@ -138,11 +136,11 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
           };
         });
       } else if (this.action === 'update') {
-        this._createHarmonisedCategoriesService.updateCountry(this.idHarmonisedCategories, this.HarmonisedCategoriesForm.value).subscribe((data) => {
+        this._createHarmonisedCategoriesService.updateHarmonisedCategory(this.idHarmonisedCategories, this.HarmonisedCategoriesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/harmonised-categories']);
             },
             700
           );
@@ -155,9 +153,9 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
   }
 
   detail(id) {
-    this._createHarmonisedCategoriesService.getCountryDetail(id).subscribe((data) => {
-      this.harmonisedCategoriesDetail = data['country'];
-      this.detailForm(data['country']);
+    this._createHarmonisedCategoriesService.getHarmonisedCategoryDetail(id).subscribe((data) => {
+      this.harmonisedCategoriesDetail = data['harmonised_category'];
+      this.detailForm(data['harmonised_category']);
     });
   }
 

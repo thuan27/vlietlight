@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'invoice-list',
@@ -29,6 +31,7 @@ export class InvoiceListComponent implements OnInit {
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   constructor(
     private router: Router,
@@ -37,6 +40,7 @@ export class InvoiceListComponent implements OnInit {
     private toastyService: ToastyService,
     private _user: UserService,
     private _Func: Functions,
+    public dialog: MatDialog,
     private toastyConfig: ToastyConfig
   ) {
     this.toastyConfig.position = 'top-right';
@@ -131,15 +135,23 @@ export class InvoiceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.invoiceListService.deleteInvoice(this.selected[0]['country_id_temp']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.invoiceListService.deleteInvoice(this.selected[0]['country_id_temp']).subscribe((data) => {
+            this.toastyService.success(data['message']);
+            setTimeout(
+              () => {
+                this.getList();
+                this.selected = [];
+              },
+              700
+            );
+          });
+        } else {
+        }
+        this.dialogRef = null;
       });
     }
   }

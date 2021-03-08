@@ -14,14 +14,14 @@ export class HarmonisedCategoriesListService {
   }
 
   getList(params) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params);
+    return this.http.get(this.apiConfig.HARMONISED_CATEGORY + params);
   }
 
-  deleteCountry(id) {
-    return this.http.delete(this.apiConfig.COUNTRY_LIST + '/delete/' + id);
+  deleteHarmonisedCategory(id) {
+    return this.http.delete(this.apiConfig.HARMONISED_CATEGORY + '/delete/' + id);
   }
 
   getReport(params: string = '') {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { responseType: 'blob' });
+    return this.http.get(this.apiConfig.HARMONISED_CATEGORY + params + '&export=1', { responseType: 'blob' });
   }
 }

@@ -14,15 +14,15 @@ export class CreateHarmonisedCategoriesService
     {
     }
 
-    createCountry(param) {
-        return this.http.post(this.apiConfig.COUNTRY_LIST + '/store', param);
+    createHarmonisedCategory(param) {
+        return this.http.post(this.apiConfig.HARMONISED_CATEGORY + '/store', param);
     }
 
-    getCountryDetail(params) {
-        return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params);
+    getHarmonisedCategoryDetail(params) {
+        return this.http.get(this.apiConfig.HARMONISED_CATEGORY + '/show/' + params);
     }
 
-    updateCountry(id, param) {
-        return this.http.put(this.apiConfig.COUNTRY_LIST + '/update/' + id, param);
+    updateHarmonisedCategory(id, param) {
+        return this.http.put(this.apiConfig.HARMONISED_CATEGORY + '/update/' + id, param);
     }
 }

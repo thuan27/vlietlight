@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'document-list',
@@ -24,12 +26,13 @@ export class DocumentListComponent implements OnInit {
   selected: any[] = [];
   searchForm: FormGroup;
   document;
+  service;
   sortData = '';
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
   private hasViewUserPermission = false;
-  service;
+  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   constructor(
     private router: Router,
@@ -37,6 +40,7 @@ export class DocumentListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     private _user: UserService,
+    public dialog: MatDialog,
     private _Func: Functions,
     private toastyConfig: ToastyConfig
   ) {
@@ -133,15 +137,23 @@ export class DocumentListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.documentListService.deleteDocument(this.selected[0]['id_temp']).subscribe((data) => {
-        this.toastyService.success(data['message']);
-        setTimeout(
-          () => {
-            this.getList();
-            this.selected = [];
-          },
-          700
-        );
+      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.documentListService.deleteDocument(this.selected[0]['id_temp']).subscribe((data) => {
+            this.toastyService.success(data['message']);
+            setTimeout(
+              () => {
+                this.getList();
+                this.selected = [];
+              },
+              700
+            );
+          });
+        } else {
+        }
+        this.dialogRef = null;
       });
     }
   }

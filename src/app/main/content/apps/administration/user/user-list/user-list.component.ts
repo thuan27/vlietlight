@@ -152,8 +152,7 @@ export class UserAdminListComponent implements OnInit {
       this.toastyService.error('Please select one item.');
     } else {
       this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this User?';
-
+      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
       this.dialogRef.afterClosed().subscribe(result => {
         if (result) {
           let data = {
