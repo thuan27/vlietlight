@@ -14,14 +14,14 @@ export class HarmonisedCodesListService {
   }
 
   getList(params) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params);
+    return this.http.get(this.apiConfig.HARMONISED_CODES + params);
   }
 
-  deleteCountry(id) {
-    return this.http.delete(this.apiConfig.COUNTRY_LIST + '/delete/' + id);
+  deleteHarmonisedCode(id) {
+    return this.http.delete(this.apiConfig.HARMONISED_CODES + '/delete/' + id);
   }
 
   getReport(params: string = '') {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { responseType: 'blob' });
+    return this.http.get(this.apiConfig.HARMONISED_CODES + params + '&export=1', { responseType: 'blob' });
   }
 }

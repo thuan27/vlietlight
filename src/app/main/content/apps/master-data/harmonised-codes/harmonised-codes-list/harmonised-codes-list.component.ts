@@ -76,7 +76,9 @@ export class HarmonisedCodesListComponent implements OnInit {
 
   private buildForm() {
     this.searchForm = this.formBuilder.group({
-      hs_cat_name: ''
+      hs_cat_id: '',
+      hs_name: '',
+      hs_code: ''
     });
   }
 
@@ -93,8 +95,8 @@ export class HarmonisedCodesListComponent implements OnInit {
 
     this.harmonisedCodesList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
-        data['country_id_temp'] = data['country_id'];
-        data['country_id'] = `<a href="#/apps/master-data/harmonised-codes/${data['country_id']}">${data['country_code']}</a>`;
+        data['hs_code_temp'] = data['hs_code'];
+        data['hs_code'] = `<a href="#/apps/master-data/harmonised-codes/${data['hs_code_temp']}">${data['hs_code_temp ']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -119,7 +121,7 @@ export class HarmonisedCodesListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/harmonised-codes/${this.selected[0]['country_id_temp']}/update`);
+      this.router.navigateByUrl(`apps/master-data/harmonised-codes/${this.selected[0]['hs_code_temp']}/update`);
     }
   }
 
@@ -133,7 +135,7 @@ export class HarmonisedCodesListComponent implements OnInit {
       this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
       this.dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.harmonisedCodesListService.deleteCountry(this.selected[0]['country_id_temp']).subscribe((data) => {
+          this.harmonisedCodesListService.deleteHarmonisedCode(this.selected[0]['hs_code_temp']).subscribe((data) => {
             this.toastyService.success(data['message']);
             setTimeout(
               () => {
@@ -157,7 +159,9 @@ export class HarmonisedCodesListComponent implements OnInit {
   }
 
   reset() {
-    this.searchForm.controls['hs_cat_name'].setValue('');
+    this.searchForm.controls['hs_cat_id'].setValue('');
+    this.searchForm.controls['hs_code'].setValue('');
+    this.searchForm.controls['hs_name'].setValue('');
     this.sortData = '';
     this.getList();
   }
