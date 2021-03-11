@@ -28,6 +28,7 @@ export class CreateHarmonisedCodesComponent implements OnInit {
   buttonCancel;
   action;
   titleGroup;
+  harmonisedCodeMenu;
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
@@ -55,6 +56,7 @@ export class CreateHarmonisedCodesComponent implements OnInit {
     this.buttonCancel = 'Cancel'
     this.checkPermission();
     this.buildForm();
+    this.getHarmonisedCodeMenu()
   }
 
   defaultPage() {
@@ -111,38 +113,40 @@ export class CreateHarmonisedCodesComponent implements OnInit {
 
   private buildForm() {
     this.HarmonisedCodesForm = this.formBuilder.group({
-      code: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+      hs_cat_id: ['', [Validators.required]],
+      hs_code: ['', [Validators.required]],
+      hs_name: ['', [Validators.required]]
     });
   }
 
   private detailForm(data) {
     this.HarmonisedCodesForm = this.formBuilder.group({
-      code: [data['country_code'], [Validators.required]],
-      name: [data['country_name'], [Validators.required]]
+      hs_cat_id: [data['hs_cat_id'], [Validators.required]],
+      hs_code: [data['hs_code'], [Validators.required]],
+      hs_name: [data['hs_name'], [Validators.required]]
     });
   }
 
   onSubmit() {
     if (this.HarmonisedCodesForm.valid) {
       if (this.action === 'create') {
-        this._createHarmonisedCodesService.createCountry(this.HarmonisedCodesForm.value).subscribe((data) => {
+        this._createHarmonisedCodesService.createHarmonisedCode(this.HarmonisedCodesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/harmonised-codes']);
             },
             700
-          ), err => {
-            this.toastyService.error(err.error.errors.message);
-          };
+          );
+        }, err => {
+          this.toastyService.error(err.error.errors.message);
         });
       } else if (this.action === 'update') {
-        this._createHarmonisedCodesService.updateCountry(this.idHarmonisedCodes, this.HarmonisedCodesForm.value).subscribe((data) => {
+        this._createHarmonisedCodesService.updateHarmonisedCode(this.idHarmonisedCodes, this.HarmonisedCodesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);
           setTimeout(
             () => {
-              this.router.navigate(['apps/master-data/range-price']);
+              this.router.navigate(['apps/master-data/harmonised-codes']);
             },
             700
           );
@@ -154,10 +158,16 @@ export class CreateHarmonisedCodesComponent implements OnInit {
     }
   }
 
+  getHarmonisedCodeMenu() {
+    this._createHarmonisedCodesService.getHarmonisedCodeMenu().subscribe((data) => {
+      this.harmonisedCodeMenu = data['data']
+    })
+  }
+
   detail(id) {
-    this._createHarmonisedCodesService.getCountryDetail(id).subscribe((data) => {
-      this.harmonisedCodesDetail = data['country'];
-      this.detailForm(data['country']);
+    this._createHarmonisedCodesService.getHarmonisedCodeDetail(id).subscribe((data) => {
+      this.harmonisedCodesDetail = data['harmonised_code'];
+      this.detailForm(data['harmonised_code']);
     });
   }
 

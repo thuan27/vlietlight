@@ -56,6 +56,7 @@ export class APIConfig {
   public CUT_OFF_TIMES_LIST = this.API_BASE + '/master-data/v1/cut-off-time';
   public HARMONISED_CATEGORY = this.API_BASE + '/master-data/v1/harmonised-category';
   public HARMONISED_CODES = this.API_BASE + '/master-data/v1/harmonised-code';
+  public HARMONISED_CODES_MENU = this.API_BASE + '/master-data/v1/harmonised-code-menu';
 
   //utility
   public GET_LIST_ASSIGNMENT = this.API_BASE + '/awbs/v1/wv-pick/assignment-list';

@@ -26,9 +26,23 @@
             <div class="box-shadow-form margin-top-10">
                 <div class="row">
                     <mat-form-field class="col-sm-12 col-md-6">
-                        <input [readonly]="disabledForm" formControlName="name" matInput placeholder="Hs Cat Name">
-                        <mat-error *ngIf="HarmonisedCodesForm.controls.name.hasError('required')">
-                          Hs Cat Name is required
+                        <input [readonly]="disabledForm" formControlName="hs_cat_id" matInput placeholder="Hs Cat ID">
+                        <mat-error *ngIf="HarmonisedCodesForm.controls.hs_cat_id.hasError('required')">
+                          Hs Cat ID is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-sm-12 col-md-6">
+                        <input [maxlength]="3" [readonly]="disabledForm" formControlName="hs_code" matInput placeholder="Hs Code">
+                        <mat-error *ngIf="HarmonisedCodesForm.controls.hs_code.hasError('required')">
+                          Hs Code is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-form-field class="col-sm-12 col-md-6">
+                        <input [readonly]="disabledForm" formControlName="hs_name" matInput placeholder="Hs Name">
+                        <mat-error *ngIf="HarmonisedCodesForm.controls.hs_name.hasError('required')">
+                          Hs Name is required
                         </mat-error>
                     </mat-form-field>
                 </div>

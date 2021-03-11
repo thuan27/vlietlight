@@ -131,10 +131,10 @@ export class CreateHarmonisedCategoriesComponent implements OnInit {
               this.router.navigate(['apps/master-data/harmonised-categories']);
             },
             700
-          ), err => {
+            );
+          }, err => {
             this.toastyService.error(err.error.errors.message);
-          };
-        });
+          });
       } else if (this.action === 'update') {
         this._createHarmonisedCategoriesService.updateHarmonisedCategory(this.idHarmonisedCategories, this.HarmonisedCategoriesForm.value).subscribe((data) => {
           this.toastyService.success(data['message']);

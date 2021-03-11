@@ -96,7 +96,7 @@ export class HarmonisedCodesListComponent implements OnInit {
     this.harmonisedCodesList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['hs_code_temp'] = data['hs_code'];
-        data['hs_code'] = `<a href="#/apps/master-data/harmonised-codes/${data['hs_code_temp']}">${data['hs_code_temp ']}</a>`;
+        data['hs_code'] = `<a href="#/apps/master-data/harmonised-codes/${data['hs_code_temp']}">${data['hs_code_temp']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];

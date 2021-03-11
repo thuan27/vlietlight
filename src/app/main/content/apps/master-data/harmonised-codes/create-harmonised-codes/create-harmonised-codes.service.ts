@@ -14,15 +14,19 @@ export class CreateHarmonisedCodesService
     {
     }
 
-    createCountry(param) {
-        return this.http.post(this.apiConfig.COUNTRY_LIST + '/store', param);
+    createHarmonisedCode(param) {
+        return this.http.post(this.apiConfig.HARMONISED_CODES + '/store', param);
     }
 
-    getCountryDetail(params) {
-        return this.http.get(this.apiConfig.COUNTRY_LIST + '/show/' + params);
+    getHarmonisedCodeDetail(params) {
+        return this.http.get(this.apiConfig.HARMONISED_CODES + '/show/' + params);
     }
 
-    updateCountry(id, param) {
-        return this.http.put(this.apiConfig.COUNTRY_LIST + '/update/' + id, param);
+    updateHarmonisedCode(id, param) {
+        return this.http.put(this.apiConfig.HARMONISED_CODES + '/update/' + id, param);
+    }
+
+    getHarmonisedCodeMenu() {
+      return this.http.get(this.apiConfig.HARMONISED_CODES_MENU);
     }
 }
