@@ -22,7 +22,7 @@ export class CreateShippingPurposeComponent implements OnInit {
   idShippingPurpose;
   shippingPurposeDetail;
   private routeSub: Subscription;
-  disabledForm;
+  disabledForm = false;
   title;
   buttonSubmitType;
   buttonCancel;
@@ -58,10 +58,12 @@ export class CreateShippingPurposeComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update' && this.hasEditUserPermission) {
-          this.action = 'update';
+        if (this.action  === 'update' && this.hasEditUserPermission) {
           this.idShippingPurpose = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
@@ -70,7 +72,6 @@ export class CreateShippingPurposeComponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idShippingPurpose = params['id'];
-          this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'Shipping Purpose Details';
@@ -79,7 +80,6 @@ export class CreateShippingPurposeComponent implements OnInit {
         }
       }
       else if (this.hasCreateUserPermission) {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.title = 'Create Shipping Purpose';
         this.buttonSubmitType = 'Create';

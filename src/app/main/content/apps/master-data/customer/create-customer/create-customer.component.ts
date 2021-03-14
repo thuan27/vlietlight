@@ -26,7 +26,7 @@ export class CreateCustomeromponent implements OnInit {
   private routeSub: Subscription;
   action;
   idCus;
-  disabledForm;
+  disabledForm = false;
   titleGroup;
   customerDetail;
 
@@ -48,12 +48,12 @@ export class CreateCustomeromponent implements OnInit {
     this.title = 'Create Customer';
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
-      console.log(params)
-      console.log(params['update'])
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
-          this.action = 'update';
+        if (this.action  === 'update') {
           this.idCus = params['id'];
           this.buildForm();
           this.detail(params['id']);
@@ -63,7 +63,6 @@ export class CreateCustomeromponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idCus = params['id'];
-          this.action = 'detail';
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
@@ -72,7 +71,6 @@ export class CreateCustomeromponent implements OnInit {
         }
       }
       else {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.buildForm();
         this.title = 'Create Customer';

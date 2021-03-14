@@ -22,7 +22,7 @@ export class CreateHarmonisedCodesComponent implements OnInit {
   idHarmonisedCodes;
   harmonisedCodesDetail;
   private routeSub: Subscription;
-  disabledForm;
+  disabledForm = true;
   title;
   buttonSubmitType;
   buttonCancel;
@@ -60,10 +60,12 @@ export class CreateHarmonisedCodesComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update' && this.hasEditUserPermission) {
-          this.action = 'update';
+        if (this.action === 'update' && this.hasEditUserPermission) {
           this.idHarmonisedCodes = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
@@ -72,7 +74,6 @@ export class CreateHarmonisedCodesComponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idHarmonisedCodes = params['id'];
-          this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'Harmonised Codes Details';
@@ -81,7 +82,6 @@ export class CreateHarmonisedCodesComponent implements OnInit {
         }
       }
       else if (this.hasCreateUserPermission) {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.title = 'Create Harmonised Codes';
         this.buttonSubmitType = 'Create';

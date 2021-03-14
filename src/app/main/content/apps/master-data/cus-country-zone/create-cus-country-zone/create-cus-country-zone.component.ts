@@ -25,7 +25,7 @@ export class CreateCusCountryZoneComponent implements OnInit {
   idCountry;
   countryDetail;
   private routeSub: Subscription;
-  disabledForm;
+  disabledForm = false;
   title;
   buttonType;
   action;
@@ -85,10 +85,12 @@ export class CreateCusCountryZoneComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update'] === 'update') {
-          this.action = 'update';
+        if (this.action === 'update' && this.hasEditUserPermission) {
           this.idCountry = params['id'];
           this.buildForm();
           this.detail(params['id']);
@@ -98,7 +100,6 @@ export class CreateCusCountryZoneComponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idCountry = params['id'];
-          this.action = 'detail';
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
@@ -108,7 +109,6 @@ export class CreateCusCountryZoneComponent implements OnInit {
         }
       }
       else {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.buildForm();
         this.title = 'Create Country Zone';

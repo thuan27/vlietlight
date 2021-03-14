@@ -23,7 +23,7 @@ export class CreateWavePickomponent implements OnInit {
   private routeSub: Subscription;
   action;
   idCountry;
-  disabledForm;
+  disabledForm = false;
   titleGroup;
   status;
   buttonCancel;
@@ -64,10 +64,12 @@ export class CreateWavePickomponent implements OnInit {
     this.titleGroup = 'Registration';
     this.buttonType = 'Create';
     this.buttonCancel = 'Cancel';
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
-          this.action = 'update';
+        if (this.action  === 'update') {
           this.idCountry = params['id'];
           this.buildForm();
           this.detail(params['id']);
@@ -78,7 +80,6 @@ export class CreateWavePickomponent implements OnInit {
           this.buttonCancel = 'Cancel';
         } else {
           this.idCountry = params['id'];
-          this.action = 'detail';
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
@@ -88,7 +89,6 @@ export class CreateWavePickomponent implements OnInit {
         }
       }
       else {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.buildForm();
         this.title = 'Create Wave Pick';

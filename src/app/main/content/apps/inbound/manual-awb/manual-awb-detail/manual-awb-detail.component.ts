@@ -37,7 +37,7 @@ export class ManualAWBDetailComponent implements OnInit {
   rows = [];
   private idAWB;
   buttonCancel;
-  disabledForm;
+  disabledForm = false;
   buttonType;
   title;
   awbDetail;
@@ -111,31 +111,27 @@ export class ManualAWBDetailComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
-      console.log(params)
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
-          this.action = 'update';
+        if (this.action  === 'update') {
           this.idAWB = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
           this.buttonType = 'Update';
           this.title = 'Update Manual AWB';
           this.buttonCancel = 'Cancel'
-          // this.titleGroup = 'Update';
         } else {
           this.idAWB = params['id'];
-          this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'Manual AWB Details';
           this.buttonCancel = 'Cancel'
-          // this.titleGroup = 'Detail';
         }
       }
       else {
-        this.action = 'create';
-        // this.titleGroup = 'Registration';
         this.title = 'Create Manual AWB';
         this.buttonType = 'Create';
         this.disabledForm = false;

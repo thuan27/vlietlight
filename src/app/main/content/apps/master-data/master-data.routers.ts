@@ -38,7 +38,8 @@ export const listRoutes: Routes = [
     {
         path    : 'users/create',
         component: CreateUserComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'create'}
     },
     {
         path    : 'customers',
@@ -48,17 +49,20 @@ export const listRoutes: Routes = [
     {
         path: 'customers/create',
         component: CreateCustomeromponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'create'}
     },
     {
         path    : 'customers/:id',
         component: CreateCustomeromponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'detail'}
     },
     {
-        path    : 'customers/:id/:update',
+        path    : 'customers/:id/update',
         component: CreateCustomeromponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'update'}
     },
     {
         path: 'countries',
@@ -68,17 +72,20 @@ export const listRoutes: Routes = [
     {
         path: 'countries/create',
         component: CreateCountryComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'create'}
     },
     {
         path: 'countries/:id',
         component: CreateCountryComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'detail'}
     },
     {
-        path: 'countries/:id/:update',
+        path: 'countries/:id/update',
         component: CreateCountryComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'update'}
     },
     {
         path: 'countries-zone',
@@ -88,17 +95,20 @@ export const listRoutes: Routes = [
     {
         path: 'countries-zone/create',
         component: CreateCountryZoneComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'create'}
     },
     {
         path: 'countries-zone/:id',
         component: CreateCountryZoneComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'detail'}
     },
     {
-        path: 'countries-zone/:id/:update',
+        path: 'countries-zone/:id/update',
         component: CreateCountryZoneComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'update'}
     },
     {
         path: 'service',
@@ -108,17 +118,20 @@ export const listRoutes: Routes = [
     {
         path: 'service/create',
         component: CreateServiceComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'create'}
     },
     {
         path: 'service/:id',
         component: CreateServiceComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'detail'}
     },
     {
-        path: 'service/:id/:update',
+        path: 'service/:id/update',
         component: CreateServiceComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'update'}
     },
     {
       path: 'price',
@@ -128,17 +141,20 @@ export const listRoutes: Routes = [
   {
       path: 'price/create',
       component: CreatePriceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'price/:id',
       component: CreatePriceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'price/:id/:update',
+      path: 'price/:id/update',
       component: CreatePriceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
       path: 'customers-service',
@@ -148,17 +164,20 @@ export const listRoutes: Routes = [
   {
       path: 'customers-service/create',
       component: CreateCustomerServiceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'customers-service/:id',
       component: CreateCustomerServiceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'customers-service/:id/:update',
+      path: 'customers-service/:id/update',
       component: CreateCustomerServiceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
       path: 'range-price',
@@ -168,17 +187,20 @@ export const listRoutes: Routes = [
   {
       path: 'range-price/create',
       component: CreateRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'range-price/:id',
       component: CreateRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'range-price/:id/:update',
+      path: 'range-price/:id/update',
       component: CreateRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
     path: 'cut-off-times',
@@ -188,17 +210,20 @@ export const listRoutes: Routes = [
   {
       path: 'cut-off-times/create',
       component: CreateCutOffTimesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'cut-off-times/:id',
       component: CreateCutOffTimesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'cut-off-times/:id/:update',
+      path: 'cut-off-times/:id/update',
       component: CreateCutOffTimesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
       path: 'cus-country-zones',
@@ -208,17 +233,20 @@ export const listRoutes: Routes = [
   {
       path: 'cus-country-zones/create',
       component: CreateCusCountryZoneComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'cus-country-zones/:id',
       component: CreateCusCountryZoneComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'cus-country-zones/:id/:update',
+      path: 'cus-country-zones/:id/update',
       component: CreateCusCountryZoneComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
       path: 'document',
@@ -228,17 +256,20 @@ export const listRoutes: Routes = [
   {
       path: 'document/create',
       component: CreateDocumentComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'document/:id',
       component: CreateDocumentComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'document/:id/:update',
+      path: 'document/:id/update',
       component: CreateDocumentComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
       path: 'shipping-purpose',
@@ -248,17 +279,20 @@ export const listRoutes: Routes = [
   {
       path: 'shipping-purpose/create',
       component: CreateShippingPurposeComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'shipping-purpose/:id',
       component: CreateShippingPurposeComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'shipping-purpose/:id/:update',
+      path: 'shipping-purpose/:id/update',
       component: CreateShippingPurposeComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
       path: 'harmonised-categories',
@@ -268,17 +302,20 @@ export const listRoutes: Routes = [
   {
       path: 'harmonised-categories/create',
       component: CreateHarmonisedCategoriesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'harmonised-categories/:id',
       component: CreateHarmonisedCategoriesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'harmonised-categories/:id/:update',
+      path: 'harmonised-categories/:id/update',
       component: CreateHarmonisedCategoriesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   },
   {
       path: 'harmonised-codes',
@@ -288,16 +325,19 @@ export const listRoutes: Routes = [
   {
       path: 'harmonised-codes/create',
       component: CreateHarmonisedCodesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
   },
   {
       path: 'harmonised-codes/:id',
       component: CreateHarmonisedCodesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
   },
   {
-      path: 'harmonised-codes/:id/:update',
+      path: 'harmonised-codes/:id/update',
       component: CreateHarmonisedCodesComponent,
-      canActivate: [AuthGuard, AdminGuard]
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
   }
 ];

@@ -22,7 +22,7 @@ export class CreateCountryComponent implements OnInit {
   idCountry;
   countryDetail;
   private routeSub: Subscription;
-  disabledForm;
+  disabledForm = false;
   title;
   buttonSubmitType;
   buttonCancel;
@@ -58,9 +58,12 @@ export class CreateCountryComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update' && this.hasEditUserPermission) {
+        if (this.action  === 'update' && this.hasEditUserPermission) {
           this.action = 'update';
           this.idCountry = params['id'];
           this.detail(params['id']);
@@ -70,7 +73,6 @@ export class CreateCountryComponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idCountry = params['id'];
-          this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'Country Details';
@@ -79,7 +81,6 @@ export class CreateCountryComponent implements OnInit {
         }
       }
       else if (this.hasCreateUserPermission) {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.title = 'Create Country';
         this.buttonSubmitType = 'Create';

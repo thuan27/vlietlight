@@ -22,7 +22,7 @@ export class CreateRangePriceComponent implements OnInit {
   idRangePrice;
   rangePriceDetail;
   private routeSub: Subscription;
-  disabledForm;
+  disabledForm = false;
   title;
   buttonSubmitType;
   buttonCancel;
@@ -60,10 +60,12 @@ export class CreateRangePriceComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update' && this.hasEditUserPermission) {
-          this.action = 'update';
+        if (this.action  === 'update' && this.hasEditUserPermission) {
           this.idRangePrice = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
@@ -72,7 +74,6 @@ export class CreateRangePriceComponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idRangePrice = params['id'];
-          this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'Range Price Details';
@@ -81,7 +82,6 @@ export class CreateRangePriceComponent implements OnInit {
         }
       }
       else if (this.hasCreateUserPermission) {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.title = 'Create Range Price';
         this.buttonSubmitType = 'Create';

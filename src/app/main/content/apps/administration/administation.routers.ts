@@ -20,17 +20,20 @@ export const listRoutes: Routes = [
     {
         path     : 'users/create',
         component: CreateUserAdminComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'create'}
     },
     {
         path     : 'users/:id',
         component: CreateUserAdminComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'detail'}
     },
     {
-        path     : 'users/:id/:update',
+        path     : 'users/:id/update',
         component: CreateUserAdminComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [AuthGuard, AdminGuard],
+        data: { Action: 'update'}
     }
 ];
 

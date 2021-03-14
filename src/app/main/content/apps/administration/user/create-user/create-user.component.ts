@@ -26,7 +26,7 @@ export class CreateUserAdminComponent implements OnInit {
   idUser;
   userDetail;
   private routeSub: Subscription;
-  disabledForm;
+  disabledForm = false;
   title;
   buttonType;
   action;
@@ -135,10 +135,12 @@ export class CreateUserAdminComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
-          this.action = 'update';
+        if (this.action  === 'update') {
           this.idUser = params['id'];
           this.detail(params['id']);
           this.disabledForm = false;
@@ -147,7 +149,6 @@ export class CreateUserAdminComponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idUser = params['id'];
-          this.action = 'detail';
           this.detail(params['id']);
           this.disabledForm = true;
           this.title = 'User Details';
@@ -155,7 +156,6 @@ export class CreateUserAdminComponent implements OnInit {
         }
       }
       else {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.title = 'Create User';
         this.buttonType = 'Create';

@@ -23,7 +23,7 @@ export class CreateCustomerServiceComponent implements OnInit {
   idCustomerService;
   customerServiceDetail;
   private routeSub: Subscription;
-  disabledForm;
+  disabledForm = false;
   title;
   buttonType;
   action;
@@ -91,10 +91,12 @@ export class CreateCustomerServiceComponent implements OnInit {
   }
 
   defaultPage() {
+    this.activeRoute.data.subscribe((data) => {
+      this.action = data.Action
+    })
     this.routeSub = this.activeRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        if (params['update']  === 'update') {
-          this.action = 'update';
+        if (this.action  === 'update' && this.hasEditUserPermission) {
           this.idCustomerService = params['id'];
           this.buildForm();
           this.detail(params['id']);
@@ -104,7 +106,6 @@ export class CreateCustomerServiceComponent implements OnInit {
           this.titleGroup = 'Update';
         } else {
           this.idCustomerService = params['id'];
-          this.action = 'detail';
           this.buildForm();
           this.detail(params['id']);
           this.disabledForm = true;
@@ -114,7 +115,6 @@ export class CreateCustomerServiceComponent implements OnInit {
         }
       }
       else {
-        this.action = 'create';
         this.titleGroup = 'Registration';
         this.buildForm();
         this.title = 'Create Customer Service';
