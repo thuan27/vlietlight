@@ -67,28 +67,32 @@ export class TrackingComponent implements OnInit {
   }
 
   getList(id) {
-    this.trackingOrderListService.getList(id).subscribe((response) => {
-      if (response['data']['code'] == 200) {
-        let data = response['data']['data']
-        if (typeof response['data']['data'] == 'string') {
-          data = JSON.parse(data);
-        }
-        console.log(data)
-        if (data.DeliveryDateUnavailable) {
-          this.trackingList['shipment'] = 'UPS'
-          this.trackingList['TrackingNumber'] = data['Package']['TrackingNumber']
-          this.trackingList['Description'] = data['Package']['Activity']['Status']['StatusType']['Description']
-          this.trackingList['from'] = data['Shipper']['Address']['AddressLine1'] + data['Shipper']['Address']['City']
-          this.trackingList['to'] = data['ShipTo']['Address']['City']
-        } else if (data.shipments) {
-          this.trackingList['shipment'] = 'DHL'
-          this.trackingList['TrackingNumber'] = data.shipments[0]['id']
-          this.trackingList['Description'] = data.shipments[0]['status']['description']
-          this.trackingList['from'] = data.shipments[0]['destination']['address']['addressLocality']
-          this.trackingList['to'] = data.shipments[0]['origin']['address']['addressLocality']
-        }
-      }
-    });
+    this.trackingOrderListService.getSingleList(id).subscribe((response) => {
+      console.log(response['data'])
+      this.trackingList = response['data']
+    })
+    // this.trackingOrderListService.getList(id).subscribe((response) => {
+    //   if (response['data']['code'] == 200) {
+    //     let data = response['data']['data']
+    //     if (typeof response['data']['data'] == 'string') {
+    //       data = JSON.parse(data);
+    //     }
+    //     console.log(data)
+    //     if (data.DeliveryDateUnavailable) {
+    //       this.trackingList['shipment'] = 'UPS'
+    //       this.trackingList['TrackingNumber'] = data['Package']['TrackingNumber']
+    //       this.trackingList['Description'] = data['Package']['Activity']['Status']['StatusType']['Description']
+    //       this.trackingList['from'] = data['Shipper']['Address']['AddressLine1'] + data['Shipper']['Address']['City']
+    //       this.trackingList['to'] = data['ShipTo']['Address']['City']
+    //     } else if (data.shipments) {
+    //       this.trackingList['shipment'] = 'DHL'
+    //       this.trackingList['TrackingNumber'] = data.shipments[0]['id']
+    //       this.trackingList['Description'] = data.shipments[0]['status']['description']
+    //       this.trackingList['from'] = data.shipments[0]['destination']['address']['addressLocality']
+    //       this.trackingList['to'] = data.shipments[0]['origin']['address']['addressLocality']
+    //     }
+    //   }
+    // });
   }
 
   private buildForm() {

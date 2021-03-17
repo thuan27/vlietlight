@@ -16,4 +16,8 @@ export class TrackingOrderListService
     getList(id) {
         return this.http.get(`${this.apiConfig.TRACKING_ORDER_LIST}/${id}`);
     }
+
+    getSingleList(id) {
+      return this.http.get(`${this.apiConfig.SINGLE_TRACKING_ORDER_LIST}/${id}`);
+    }
 }
