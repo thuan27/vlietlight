@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { TrackingOrderListService } from './tracking-order.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 export interface Element {
@@ -10,18 +10,6 @@ export interface Element {
   location: string;
   description: string;
 }
-const ELEMENT_DATA: Element[] = [
-  {time: 1, location: 'Hydrogen', description: 'H'},
-  {time: 2, location: 'Helium', description: 'He'},
-  {time: 3, location: 'Lithium', description: 'Li'},
-  {time: 4, location: 'Beryllium', description: 'Be'},
-  {time: 5, location: 'Boron', description: 'B'},
-  {time: 6, location: 'Carbon', description: 'C'},
-  {time: 7, location: 'Nitrogen', description: 'N'},
-  {time: 8, location: 'Oxygen', description: 'O'},
-  {time: 9, location: 'Fluorine', description: 'F'},
-  {time: 10, location: 'Neon', description: 'Ne'},
-];
 
 @Component({
   selector: 'tracking-order',
@@ -32,9 +20,8 @@ const ELEMENT_DATA: Element[] = [
 export class TrackingComponent implements OnInit {
   searchForm: FormGroup;
   private routeSub: Subscription;
-  AWB;
   displayedColumns: string[] = ['time', 'location', 'description'];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  dataSource;
   statusBar = {
     packing: true,
     ready_to_ship: true,
@@ -43,6 +30,7 @@ export class TrackingComponent implements OnInit {
     completed: false
   }
   trackingList = {};
+  loading: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,15 +49,23 @@ export class TrackingComponent implements OnInit {
         this.getList(params['id'])
       }
     })
-    this.activeRoute.queryParams.subscribe((param) => {
-      this.AWB = param.AWB
-    })
   }
 
   getList(id) {
+    this.loading = true;
+    console.log(id)
     this.trackingOrderListService.getSingleList(id).subscribe((response) => {
-      console.log(response['data'])
+      this.loading = false
       this.trackingList = response['data']
+      let listEvent = [];
+      if (response['data']['events'] && response['data']['vietlight_events']) {
+        listEvent = response['data']['events'].concat(response['data']['vietlight_events'])
+      } else {
+        listEvent = response['data']['events'] ? response['data']['event'] : response['data']['vietlight_events']
+      }
+      this.dataSource = new MatTableDataSource<Element>(listEvent);
+    }, err => {
+      this.loading = false
     })
     // this.trackingOrderListService.getList(id).subscribe((response) => {
     //   if (response['data']['code'] == 200) {

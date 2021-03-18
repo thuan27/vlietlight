@@ -12,7 +12,8 @@ import { MatButtonModule,
          MatRadioModule,
          MatTabsModule,
          MatAutocompleteModule,
-         MatExpansionModule
+         MatExpansionModule,
+         MatProgressSpinnerModule
         } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -39,6 +40,7 @@ import { TrackingOrderMultiListService } from './tracking-order-multi/tracking-o
     ],
     imports: [
         RouterModule.forChild(listRoutes),
+        MatProgressSpinnerModule,
         MatButtonModule,
         MatCheckboxModule,
         MatIconModule,
