@@ -5,6 +5,7 @@
   class="page-layout simple fullwidth"
   fusePerfectScrollbar
 >
+
   <!-- HEADER -->
   <div
     class="header mat-accent-bg p-24 h-160"
@@ -126,6 +127,7 @@
         </div>
       </div>
     </div>
+    <mat-progress-bar *ngIf="loading" color="accent" mode="indeterminate"></mat-progress-bar>
     <mat-accordion class="faqs-accordion">
         <mat-expansion-panel class="light-blue-200-bg">
           <mat-expansion-panel-header>
@@ -154,7 +156,6 @@
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
-
         </mat-expansion-panel>
       </mat-accordion>
   </div>
