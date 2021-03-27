@@ -3,25 +3,27 @@
     <!-- <img class="icon-logistics" src="assets/images/common/logistics.png">
     <img class="icon-cloud" src="assets/images/common/cloud.png">
     <img class="icon-sun" src="assets/images/common/sun.png"> -->
-    <button style="z-index: 9999;" #openButton mat-icon-button class="setting open-button light-blue-bg mat-elevation-z2" (click)="showMenu()">
-      <span>MENU</span>
+    <button style="z-index: 9999;" #openButton mat-icon-button class="setting open-button" (click)="showMenu()">
+      <!-- <span>MENU</span> -->
       <mat-icon style="color: white">settings</mat-icon>
     </button>
     <!-- <span class="title">VIETLIGHT EXPRESS</span> -->
 
 
-    <ng-container>
-        <div class="container is-mobile nav-custom">
+    <header>
+      <div class="is-mobile nav-custom">
+        <div class="container">
           <nav class="stroke navbar navbar-expand-lg navbar-light custom-nav">
-              <img width="128" lazyLoad="assets/images/logos/logo.png">
+              <img width="100" lazyLoad="assets/images/logos/logo.png">
 
               <button class="navbar-toggler" type="button" style="margin-right: 20px; border-color: white; border-width: 1px" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
+                  <span>
+                      <mat-icon class="collapse-arrow" style="color: white; margin-top: 2px">dehaze</mat-icon>
+                  </span>
               </button>
 
               <div class="collapse navbar-collapse" id="collapsibleNavbar">
                   <ul class="background-group">
-                      <li><a href="#">Home</a></li>
                       <li><a href="#">Service</a></li>
                       <li><a href="#">Documents</a></li>
                       <li><a href="#">News</a></li>
@@ -37,6 +39,7 @@
               </div>
 
             </nav>
+          </div>
         </div>
               <div class="carousel-custom">
                   <div class="carousel slide" id="main-carousel" data-ride="carousel">
@@ -48,53 +51,140 @@
 
                     <div class="carousel-inner">
                       <div class="carousel-item active width-110">
-                        <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="../../../../../assets/images/backgrounds/logistics3.jpg" alt="">
+                        <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="assets/images/backgrounds/background1.png" alt="">
                         <div class="carousel-caption d-none d-md-block ">
-                          <h1>Mountain</h1>
+                          <p>
+                            <span class="tittle">VIETLIGHT</span>
+                            <span class="sub-title">Express</span>
+                          </p>
+                          <p style="font-size: 20px; font-weight: 300;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus! 1</p>
                         </div>
                       </div>
                       <div class="carousel-item width-110">
-                        <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="../../../../../assets/images/backgrounds/logistics1.jpg" alt="">
+                        <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="assets/images/backgrounds/background2.png" alt="">
                         <div class="carousel-caption d-none d-md-block">
-                          <h3>Mountain</h3>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus! 1</p>
+                          <p>
+                            <span class="tittle">VIETLIGHT</span>
+                            <span class="sub-title">Express</span>
+                          </p>
+                          <p style="font-size: 20px; font-weight: 300;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus! 1</p>
                         </div>
                       </div>
                       <div class="carousel-item width-110">
-                        <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="../../../../../assets/images/backgrounds/logistics3.jpg" alt="">
+                        <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="assets/images/backgrounds/background3.png" alt="">
                         <div class="carousel-caption d-none d-md-block">
-                          <h3>Mountain</h3>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus!</p>
+                          <p>
+                            <span class="tittle">VIETLIGHT</span>
+                            <span class="sub-title">Express</span>
+                          </p>
+                          <p style="font-size: 20px; font-weight: 300;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus! 1</p>
                         </div>
                       </div>
                     </div><!-- /.carousel-inner -->
 
-                    <a href="#main-carousel" class="carousel-control-prev" style="z-index: 999;" data-slide="prev">
+                    <a href="#main-carousel" class="carousel-control-prev custom-carousel-button" data-slide="prev">
                       <span class="carousel-control-prev-icon"></span>
                       <span class="sr-only" aria-hidden="true">Prev</span>
                     </a>
-                    <a href="#main-carousel" class="carousel-control-next" style="z-index: 999;" data-slide="next">
+                    <a href="#main-carousel" class="carousel-control-next custom-carousel-button" data-slide="next">
                       <span class="carousel-control-next-icon"></span>
                       <span class="sr-only" aria-hidden="true">Next</span>
                     </a>
                   </div><!-- /.carousel -->
                 </div><!-- /.container -->
-    </ng-container>
-    <div class="container">
-        <h2>Your journey starts here.</h2>
-        <span>This is it. You've made it so far. There is no going back.</span>
-        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta iste molestias vel commodi, quae quaerat ex numquam. Consectetur corporis explicabo, qui labore, repellat dignissimos illo molestias maxime nisi a consequuntur?</span>
-      </div>
-      <div class="container">
-          <h2>Your journey starts here.</h2>
-          <span>This is it. You've made it so far. There is no going back.</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta iste molestias vel commodi, quae quaerat ex numquam. Consectetur corporis explicabo, qui labore, repellat dignissimos illo molestias maxime nisi a consequuntur?</span>
+    </header>
+    <main>
+    <section class="container section-frist height-auto">
+      <h2 class="tittle">FEATURES</h2>
+      <div class="row">
+        <div class="col-lg-4 col-sm-6 col-sm-12">
+          <div class="group-title">
+            <img lazyLoad="assets/images/common/feather.png" alt="">
+            <div class="group-text">
+              <p class="title-col">About company</p>
+              <p class="description-col">This is it. You've made it so far. There is no going back.</p>
+              <p class="description-col">This is it. You've made it so far. There is no going back.</p>
+            </div>
+          </div>
         </div>
+        <div class="col-lg-4 col-sm-6 col-sm-12">
+          <div class="group-title">
+            <img lazyLoad="assets/images/common/megaphone.png" alt="">
+            <div class="group-text">
+                <p class="title-col">Notification</p>
+                <p class="description-col">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta iste molestias vel commodi, quae quaerat ex numquam. Consectetur corporis explicabo, qui labore, repellat dignissimos illo molestias maxime nisi a consequuntur?</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-sm-12">
+          <div class="group-title">
+            <img lazyLoad="assets/images/common/feather.png" alt="">
+            <div class="group-text">
+              <p class="title-col">About company</p>
+              <p class="description-col">This is it. You've made it so far. There is no going back.</p>
+              <p class="description-col">This is it. You've made it so far. There is no going back.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="container section-second height-auto">
+            <div class="carousel slide" id="carousel-multi" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carousel-multi" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-multi" data-slide-to="1"></li>
+                <li data-target="#carousel-multi" data-slide-to="2"></li>
+              </ol><!-- /.carousel-indicators -->
+
+              <div class="carousel-inner">
+                <div class="carousel-item active width-110">
+                  <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="assets/images/backgrounds/background1.png" alt="">
+                  <div class="carousel-caption d-none d-md-block ">
+                    <p>
+                      <span class="tittle">VIETLIGHT</span>
+                      <span class="sub-title">Express</span>
+                    </p>
+                    <p style="font-size: 20px; font-weight: 300;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus! 1</p>
+                  </div>
+                </div>
+                <div class="carousel-item width-110">
+                  <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="assets/images/backgrounds/background2.png" alt="">
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>
+                      <span class="tittle">VIETLIGHT</span>
+                      <span class="sub-title">Express</span>
+                    </p>
+                    <p style="font-size: 20px; font-weight: 300;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus! 1</p>
+                  </div>
+                </div>
+                <div class="carousel-item width-110">
+                  <img class="d-block img-fluid width-110" style="max-height: 700px;" lazyLoad="assets/images/backgrounds/background3.png" alt="">
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>
+                      <span class="tittle">VIETLIGHT</span>
+                      <span class="sub-title">Express</span>
+                    </p>
+                    <p style="font-size: 20px; font-weight: 300;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse vitae exercitationem fugit, numquam minus! 1</p>
+                  </div>
+                </div>
+              </div><!-- /.carousel-inner -->
+
+              <a href="#carousel-multi" class="carousel-control-prev custom-carousel-button" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="sr-only" aria-hidden="true">Prev</span>
+              </a>
+              <a href="#carousel-multi" class="carousel-control-next custom-carousel-button" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="sr-only" aria-hidden="true">Next</span>
+              </a>
+            </div><!-- /.carousel -->
+    </section>
         <div class="container">
             <h2>Your journey starts here.</h2>
             <span>This is it. You've made it so far. There is no going back.</span>
             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta iste molestias vel commodi, quae quaerat ex numquam. Consectetur corporis explicabo, qui labore, repellat dignissimos illo molestias maxime nisi a consequuntur?</span>
           </div>
+        </main>
     <div id="wrapper" [ngClass]="{'active': isShowNav}">
     <div id="sidebar-wrapper" style="z-index: 9999;">
         <ul (click)="showMenu()" id="sidebar_menu" class="sidebar-nav">
