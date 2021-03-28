@@ -226,7 +226,7 @@ text-decoration: none;
 
 .sidebar-nav li a:hover {
 // color: #93D6EF;
-color: black;
+color: white;
 background: rgba(255,255,255,0.2);
 text-decoration: none;
 }
@@ -459,6 +459,7 @@ background: none;
 
 .carousel-custom {
   width: 100%;
+  max-height: 700px;
 }
 
 .nav-custom {
@@ -515,6 +516,7 @@ background: none;
 }
 
 .section-frist {
+  padding-bottom: 20px;
   .tittle {
     font-weight: 600;
     color: #408fbf
@@ -537,6 +539,28 @@ background: none;
     padding: 6px;
     width: 30px;
     height: 30px;
+  }
+}
+
+.section-second {
+  background: #dcf7f973;
+  padding-bottom: 65px;
+  .tittle {
+    font-weight: 600;
+    color: #408fbf
+  }
+  .carousel-second {
+    max-height: 450px;
+    .group-img {
+      padding: 0 30px;
+      .img-banner-multi {
+        max-height: 450px;
+        box-shadow: 0px 5px 0px #dedede;
+        border: 1px solid #dedede;
+        border-radius: 5px;
+        width: 100%;
+      }
+    }
   }
 }
 
