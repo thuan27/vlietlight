@@ -29,7 +29,7 @@ const routes = [
     },
     {
         path        : 'master-data',
-        loadChildren: './master-data/master-data.module#FuseMasterDataModule'
+        loadChildren: './master-data/master-data-fe.module#FuseMasterDataModule'
     },
     {
         path        : 'inbound',
