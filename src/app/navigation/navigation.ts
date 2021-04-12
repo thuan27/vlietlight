@@ -89,6 +89,12 @@ export const navigation = [
                         'url'  : '/apps/master-data/range-price'
                     },
                     {
+                        'id'   : 'CusRangePriceList',
+                        'title': 'Cus Range Price',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/cus-range-price'
+                    },
+                    {
                         'id'   : 'CutOffTimes',
                         'title': 'Cut Off Times',
                         'type' : 'item',

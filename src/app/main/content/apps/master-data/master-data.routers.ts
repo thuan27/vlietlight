@@ -28,6 +28,8 @@ import { HarmonisedCategoriesListComponent } from './harmonised-categories/harmo
 import { CreateHarmonisedCategoriesComponent } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.component';
 import { HarmonisedCodesListComponent } from './harmonised-codes/harmonised-codes-list/harmonised-codes-list.component';
 import { CreateHarmonisedCodesComponent } from './harmonised-codes/create-harmonised-codes/create-harmonised-codes.component';
+import { CreateCusRangePriceComponent } from './cus-range-price/create-cus-range-price/create-cus-range-price.component';
+import { CusRangePriceListComponent } from './cus-range-price/cus-range-price-list/cus-range-price-list.component';
 
 export const listRoutes: Routes = [
     {
@@ -199,6 +201,29 @@ export const listRoutes: Routes = [
   {
       path: 'range-price/:id/update',
       component: CreateRangePriceComponent,
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'update'}
+  },
+  {
+      path: 'cus-range-price',
+      component: CusRangePriceListComponent,
+      canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+      path: 'cus-range-price/create',
+      component: CreateCusRangePriceComponent,
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'create'}
+  },
+  {
+      path: 'cus-range-price/:id',
+      component: CreateCusRangePriceComponent,
+      canActivate: [AuthGuard, AdminGuard],
+      data: { Action: 'detail'}
+  },
+  {
+      path: 'cus-range-price/:id/update',
+      component: CreateCusRangePriceComponent,
       canActivate: [AuthGuard, AdminGuard],
       data: { Action: 'update'}
   },

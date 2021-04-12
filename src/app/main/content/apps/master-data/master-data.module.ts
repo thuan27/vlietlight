@@ -62,6 +62,10 @@ import { CreateHarmonisedCodesComponent } from './harmonised-codes/create-harmon
 import { CreateHarmonisedCategoriesService } from './harmonised-categories/create-harmonised-categories/create-harmonised-categories.service';
 import { HarmonisedCodesListService } from './harmonised-codes/harmonised-codes-list/harmonised-codes-list.service';
 import { CreateHarmonisedCodesService } from './harmonised-codes/create-harmonised-codes/create-harmonised-codes.service';
+import { CreateCusRangePriceComponent } from './cus-range-price/create-cus-range-price/create-cus-range-price.component';
+import { CusRangePriceListComponent } from './cus-range-price/cus-range-price-list/cus-range-price-list.component';
+import { CreateCusRangePriceService } from './cus-range-price/create-cus-range-price/create-cus-range-price.service';
+import { CusRangePriceListService } from './cus-range-price/cus-range-price-list/cus-range-price-list.service';
 
 @NgModule({
     declarations: [
@@ -81,6 +85,8 @@ import { CreateHarmonisedCodesService } from './harmonised-codes/create-harmonis
         CreateCustomerServiceComponent,
         RangePriceListComponent,
         CreateRangePriceComponent,
+        CusRangePriceListComponent,
+        CreateCusRangePriceComponent,
         CreateCutOffTimesComponent,
         CutOffTimesListComponent,
         CusCountryZoneListComponent,
@@ -128,6 +134,8 @@ import { CreateHarmonisedCodesService } from './harmonised-codes/create-harmonis
         PriceListService,
         RangePriceListService,
         CreateRangePriceService,
+        CusRangePriceListService,
+        CreateCusRangePriceService,
         CutOffTimesListService,
         CreateCutOffTimesService,
         CusCountryZoneListService,

@@ -1,4 +1,4 @@
-import { RangePriceListService } from './range-price-list.service';
+import { CusRangePriceListService } from './cus-range-price-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -10,17 +10,17 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'range-price-list',
-  templateUrl: './range-price-list.component.html',
-  styleUrls: ['./range-price-list.component.scss'],
-  providers: [RangePriceListService, ToastyService, UserService]
+  selector: 'cus-range-price-list',
+  templateUrl: './cus-range-price-list.component.html',
+  styleUrls: ['./cus-range-price-list.component.scss'],
+  providers: [CusRangePriceListService, ToastyService, UserService]
 })
-export class RangePriceListComponent implements OnInit {
+export class CusRangePriceListComponent implements OnInit {
   rows: any;
   loadingIndicator = true;
   reorderable = true;
   pagination: any;
-  rangePriceList;
+  cusRangePriceList;
   total;
   current_page;
   selected: any[] = [];
@@ -36,7 +36,7 @@ export class RangePriceListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private rangePriceListService: RangePriceListService,
+    private cusRangePriceListService: CusRangePriceListService,
     private formBuilder: FormBuilder,
     private toastyService: ToastyService,
     public dialog: MatDialog,
@@ -78,7 +78,7 @@ export class RangePriceListComponent implements OnInit {
 
   private buildForm() {
     this.searchForm = this.formBuilder.group({
-      service_id: '',
+      cus_service_id: '',
       range_code: ''
     });
   }
@@ -92,11 +92,11 @@ export class RangePriceListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    this.rangePriceList = this.rangePriceListService.getList(params);
-    this.rangePriceList.subscribe((dataList: any[]) => {
+    this.cusRangePriceList = this.cusRangePriceListService.getList(params);
+    this.cusRangePriceList.subscribe((dataList: any[]) => {
       dataList['data'].forEach((data) => {
         data['id_temp'] = data['id'];
-        data['id'] = `<a href="#/apps/master-data/range-price/${data['id']}">${data['id']}</a>`;
+        data['id'] = `<a href="#/apps/master-data/cus-range-price/${data['id']}">${data['id']}</a>`;
       });
       this.rows = dataList['data'];
       this.total = dataList['meta']['pagination']['total'];
@@ -106,7 +106,7 @@ export class RangePriceListComponent implements OnInit {
   }
 
   serviceList() {
-    this.rangePriceListService.serviceList().subscribe((data) => {
+    this.cusRangePriceListService.serviceList().subscribe((data) => {
       this.service = data['data'];
     });
   }
@@ -117,7 +117,7 @@ export class RangePriceListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['apps/master-data/range-price/create']);
+    this.router.navigate(['apps/master-data/cus-range-price/create']);
   }
 
   update() {
@@ -126,7 +126,7 @@ export class RangePriceListComponent implements OnInit {
     } else if (this.selected.length > 1) {
       this.toastyService.error('Please select one item.');
     } else {
-      this.router.navigateByUrl(`apps/master-data/range-price/${this.selected[0]['id_temp']}/update`);
+      this.router.navigateByUrl(`apps/master-data/cus-range-price/${this.selected[0]['id_temp']}/update`);
     }
   }
 
@@ -140,7 +140,7 @@ export class RangePriceListComponent implements OnInit {
       this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
       this.dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.rangePriceListService.deleteRangePrice(this.selected[0]['id_temp']).subscribe((data) => {
+          this.cusRangePriceListService.deleteCusRangePrice(this.selected[0]['id_temp']).subscribe((data) => {
             this.toastyService.success(data['message']);
             setTimeout(
               () => {
@@ -181,7 +181,7 @@ export class RangePriceListComponent implements OnInit {
     for (let i = 0; i < arrayItem.length; i++) {
       params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
     }
-    let getReport = this.rangePriceListService.getReport(params);
+    let getReport = this.cusRangePriceListService.getReport(params);
     getReport.subscribe((data) => {
       var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs.saveAs(blob, fileName + fileType);

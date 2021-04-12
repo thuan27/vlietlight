@@ -34,6 +34,7 @@ export class APIConfig {
   public CUS_COUNTRY_ZONE_LIST = this.API_BASE + '/master-data/v1/cus-country-zone';
   public PRICE_LIST = this.API_BASE + '/master-data/v1/price';
   public RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/range-price';
+  public CUS_RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/cus-range-price';
   public ROLES = this.API_BASE + '/master-service/v1/roles';
   public WAVE_PICK = this.API_BASE + '/awbs/v1/wv-pick-search';
   public WAVE_PICK_DETAIL = this.API_BASE + '/awbs/v1/wv-pick';
