@@ -23,30 +23,47 @@
             <div class="background-title mat-cyan-200-bg margin-top-10">
                 <h2 class="title">Calculate</h2>
             </div>
+            <mat-progress-bar *ngIf="loadingService" class="mt-2" color="accent" mode="indeterminate"></mat-progress-bar>
+
             <div class="box-shadow-form margin-top-10">
                 <div class="row">
                     <mat-form-field class="col-sm-12">
-                        <input placeholder="Service Name" formControlName="service_name" (keyup)="getService($event)" type="text"
-                          aria-label="Number" matInput [matAutocomplete]="autoServiceName">
-                        <mat-autocomplete autoActiveFirstOption #autoServiceName="matAutocomplete">
-                          <mat-option *ngFor="let option of serviceName" [value]="option.service_name">
-                            {{ option.service_name }}
-                          </mat-option>
-                        </mat-autocomplete>
-                      </mat-form-field>
+                        <input
+                        placeholder="Service Name (1) [A]"
+                        formControlName="cus_service_id"
+                        (keyup)="getService($event)"
+                        type="text"
+                        aria-label="Number"
+                        matInput
+                        [matAutocomplete]="autoService"
+                      />
+                      <mat-autocomplete
+                        [displayWith]="displayService.bind(this)"
+                        autoActiveFirstOption
+                        #autoService="matAutocomplete"
+                      >
+                        <mat-option
+                          (click)="onChangeAutoComplete()"
+                          *ngFor="let option of serviceName"
+                          [value]="option.cus_service_id"
+                        >
+                          {{ option.cus_service_name }}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field class="col-sm-12">
-                        <mat-select formControlName="service_id_example" placeholder="Service Weight Range">
-                            <mat-option *ngFor="let item of group2" [value]="item.value">
-                                {{ item.name }}
+                        <mat-select [disabled]="!CalculateForm.value.cus_service_id" formControlName="service_id_example" placeholder="Service Weight Range">
+                            <mat-option *ngFor="let item of serviceWeightRange" [value]="item.group1">
+                                {{ item.group1 }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field class="col-sm-12">
-                        <input formControlName="reweight" matInput placeholder="Weight (2) [B]">
+                        <input (keypress)="checkInputNumber($event,true)" formControlName="reweight" matInput placeholder="Weight (2) [B]">
                         <mat-error *ngIf="CalculateForm.controls.reweight.hasError('required')">
                             Weight is required
                         </mat-error>
@@ -54,16 +71,32 @@
                 </div>
                 <div class="row">
                     <mat-form-field class="col-sm-12">
-                        <mat-select formControlName="zone_example" placeholder="">
-                            <mat-option *ngFor="let item of group3" [value]="item.value">
-                                {{ item.name }}
-                            </mat-option>
-                        </mat-select>
+                      <input
+                      [readonly]="!CalculateForm.value.cus_service_id"
+                      placeholder="Prefer to the Zone"
+                      formControlName="zone_example"
+                      (keyup)="getCusCountryZone($event)"
+                      type="text"
+                      matInput
+                      [matAutocomplete]="autoZone"
+                    />
+                    <mat-autocomplete
+                      autoActiveFirstOption
+                      #autoZone="matAutocomplete"
+                    >
+                      <mat-option
+                        (click)="onChangeZone(option)"
+                        *ngFor="let option of cusCountryZone"
+                        [value]="option.result"
+                      >
+                        {{ option.result }}
+                      </mat-option>
+                    </mat-autocomplete>
                     </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field class="col-sm-12">
-                        <input formControlName="zone" matInput placeholder="Zone (3) [C]">
+                        <input [readonly]="!CalculateForm.value.cus_service_id" (keypress)="checkInputNumber($event,true)" formControlName="zone" matInput placeholder="Zone (3) [C]">
                         <mat-error *ngIf="CalculateForm.controls.zone.hasError('required')">
                             Weight is required
                         </mat-error>
@@ -80,9 +113,9 @@
                 </div>
                 <div class="row">
                     <mat-form-field class="col-sm-12">
-                        <mat-select formControlName="rangeId" placeholder="Range Weight(5)">
-                            <mat-option *ngFor="let item of rangeWeight" [value]="item.value">
-                                {{ item.name }}
+                        <mat-select [disabled]="!CalculateForm.value.cus_service_id" formControlName="cus_range_price" placeholder="Range Weight(5)">
+                            <mat-option *ngFor="let item of rangeWeight" [value]="item.id">
+                                {{ item.range_code }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>

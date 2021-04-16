@@ -55,7 +55,7 @@
   </a>
     <div class="box-shadow-form margin-top-10">
       <div class="font-weight-bold title-tracking h2 mb-2 mr-5 ml-5 text-center">
-        {{ trackingList.status_description }}
+        {{ trackingList?.status_description }}
       </div>
       <div class="font-italic h4 mr-5 ml-5 text-center">June, 11/11/2021</div>
       <p class="ml-5 mt-4">
@@ -64,25 +64,25 @@
       </p>
       <p class="ml-5">
         <strong>Agent bill:</strong>
-        <span class="ml-1">{{ trackingList.trackingAwb }}</span>
+        <span class="ml-1">{{ trackingList?.trackingAwb }}</span>
       </p>
       <p class="ml-5">
         <strong>AWB #:</strong>
-        <span class="ml-1">{{ trackingList.vietlightAwb }}</span>
+        <span class="ml-1">{{ trackingList?.vietlightAwb }}</span>
       </p>
       <div class="d-flex mt-5">
         <div class="ml-5">
           <div class="mb-3">
             <strong style="color: #429ed7; font-size: 18px;">From</strong>
           </div>
-          <h3 class="font-weight-bold">{{ trackingList.from_address }}</h3>
+          <h3 class="font-weight-bold">{{ trackingList?.from_address }}</h3>
           <div>11/11/2011</div>
         </div>
         <div class="ml-auto mr-5">
           <div class="mb-3">
             <strong style="color: #429ed7; font-size: 18px;">To</strong>
           </div>
-          <h3 class="font-weight-bold">{{ trackingList.destination }}</h3>
+          <h3 class="font-weight-bold">{{ trackingList?.destination }}</h3>
           <div>11/11/2011</div>
         </div>
       </div>

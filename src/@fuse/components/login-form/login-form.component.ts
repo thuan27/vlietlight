@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { ToastyConfig, ToastyService } from '../../directives/ng2-toasty';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { AuthService } from '@fuse/services/auth.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class FuseLoginFormDialogComponent
         private api: APIConfig,
         private http: HttpClient,
         private toastyService: ToastyService,
+        private auth: AuthService
     )
     {
       this.loginURL = this.api.LOGIN;
@@ -72,6 +74,7 @@ export class FuseLoginFormDialogComponent
                         localStorage.setItem(environment.token, res['data'].token);
                         this.dialog.closeAll();
                         location.reload();
+                        // this.auth.retryFailedRequests();
                     } else {
                         this.toastyService.error('No Token Found.');
                     }

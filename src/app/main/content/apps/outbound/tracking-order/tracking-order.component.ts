@@ -29,7 +29,7 @@ export class TrackingComponent implements OnInit {
     shipped: false,
     completed: false
   }
-  trackingList = {};
+  trackingList;
   loading: Boolean = false;
 
   constructor(

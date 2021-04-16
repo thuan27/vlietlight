@@ -20,6 +20,18 @@ export class SalesCalculateMoneyService
     }
 
     getService(data) {
-      return this.http.get(this.apiConfig.SERVICE_LIST + data);
+      return this.http.get(this.apiConfig.CUS_SERVICE_LIST + data);
+    }
+
+    getCusRangPrice(cusServiceID) {
+      return this.http.get(`${this.apiConfig.CUS_RANGE_PRICE_MENU}?cus_service_id=${cusServiceID}`);
+    }
+
+    getCusCountryZone(params) {
+      return this.http.get(`${this.apiConfig.CUS_COUNTRY_ZONE_BY_SERVICE}`);
+    }
+
+    getServiceWeightRange(cusServiceID) {
+      return this.http.get(`${this.apiConfig.SERVICE_WEIGHT_RANGE}?cus_service_id=${cusServiceID}`);
     }
 }

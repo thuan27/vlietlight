@@ -17,30 +17,7 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 export class SalesCalculateMoneyComponent implements OnInit {
   CalculateForm: FormGroup;
   serviceName;
-  type = []
-
-  group1 = [
-    {
-      value: 0,
-      name: 'test'
-    }
-  ];
-
-  group2 = [
-    {
-      value: 0,
-      name: 'test1'
-    }
-  ];
-
-  group3 = [
-    {
-      value: 0,
-      name: 'test2'
-    }
-  ];
-
-  group4 = [
+  type = [
     {
       value: 0,
       name: 'Document'
@@ -48,31 +25,12 @@ export class SalesCalculateMoneyComponent implements OnInit {
     {
       value: 1,
       name: 'Pack'
-    },
-    {
-      value: 2,
-      name: 'Envelop'
     }
   ];
-
-  rangeWeight = [
-    {
-      value: 0,
-      name: 'Fixed kilogram area'
-    },
-    {
-      value: 1,
-      name: '300-999'
-    },
-    {
-      value: 2,
-      name: '71-300'
-    },
-    {
-      value: 3,
-      name: '30-70'
-    }
-  ];
+  cusCountryZone;
+  rangeWeight;
+  serviceWeightRange;
+  loadingService: boolean = false;
 
   constructor(
     private salesCalculateMoneyService: SalesCalculateMoneyService,
@@ -87,14 +45,15 @@ export class SalesCalculateMoneyComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.getCusRangPrice();
   }
 
   private buildForm() {
     this.CalculateForm = this.formBuilder.group({
-      service_name: ['', [Validators.required]],
+      cus_service_id: [undefined, [Validators.required]],
       service_id_example: [0, [Validators.required]],
-      zone_example: [0, [Validators.required]],
-      rangeId: [0, [Validators.required]],
+      zone_example: ['', [Validators.required]],
+      cus_range_price: [0, [Validators.required]],
       reweight: ['', [Validators.required]],
       zone: ['', [Validators.required]],
       type: [0, [Validators.required]]
@@ -115,12 +74,56 @@ export class SalesCalculateMoneyComponent implements OnInit {
   }
 
   getService(event) {
+    this.loadingService = true;
     let data = '';
     if (event.target.value) {
-      data = '?service_name=' + event.target.value;
+      data = data + '?cus_service_name=' + event.target.value;
     }
     this.salesCalculateMoneyService.getService(data).subscribe((data) => {
       this.serviceName = data['data'];
+      this.loadingService = false;
+    }, error => {
+      this.loadingService = false;
     });
+  }
+
+  displayService(id) {
+    if (this.serviceName) {
+      return this.serviceName.find(service => service.cus_service_id === id).cus_service_name;
+    }
+  }
+
+  onChangeAutoComplete() {
+    if (this.CalculateForm.value['cus_service_id']) {
+      const service_id = this.CalculateForm.value['cus_service_id'];
+      this.getCusRangPrice(service_id);
+      this.getServiceWeightRange(service_id);
+    }
+  }
+
+  getCusRangPrice(cusServiceID = '') {
+    this.salesCalculateMoneyService.getCusRangPrice(cusServiceID).subscribe((data)=> {
+      this.rangeWeight = data['data']
+    })
+  }
+
+  getCusCountryZone(event) {
+    let data = '?' + this.CalculateForm.value['cus_service_id'];
+    if (event.target.value) {
+      data = data + '&cus_service_name=' + event.target.value;
+    }
+    this.salesCalculateMoneyService.getCusCountryZone(data).subscribe((data) => {
+      this.cusCountryZone = data['data'];
+    });
+  }
+
+  onChangeZone(cusCountryZone) {
+    this.CalculateForm.controls['zone'].setValue(cusCountryZone.zone);
+  }
+
+  getServiceWeightRange(cusServiceID) {
+    this.salesCalculateMoneyService.getServiceWeightRange(cusServiceID).subscribe((data)=> {
+      this.serviceWeightRange = data['data']
+    })
   }
 }
