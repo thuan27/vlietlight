@@ -39,6 +39,8 @@ export class APIConfig {
   public CUS_RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/cus-range-price';
   public CUS_RANGE_PRICE_MENU = this.API_BASE + '/master-data/v1/cus-range-price-menu-filter';
   public SERVICE_WEIGHT_RANGE =  this.API_BASE + '/master-data/v1/service-weight-range';
+  public SALES_CALCULATE_MONEY =  this.API_BASE + '/master-data/v1/calculate-money';
+  public SALES_CALCULATE_MONEY_AUTO =  this.API_BASE + '/master-data/v1/calculate-money-auto';
   public ROLES = this.API_BASE + '/master-service/v1/roles';
   public WAVE_PICK = this.API_BASE + '/awbs/v1/wv-pick-search';
   public WAVE_PICK_DETAIL = this.API_BASE + '/awbs/v1/wv-pick';

@@ -1,9 +1,7 @@
 import { Router } from '@angular/router';
 import { SalesCalculateMoneyService } from './sales-calculate-money.service';
-import { Component, OnInit, HostListener } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { Functions } from '@fuse/core/function';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 
@@ -16,21 +14,23 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 })
 export class SalesCalculateMoneyComponent implements OnInit {
   CalculateForm: FormGroup;
+  @ViewChild('formDirective') formDirective: FormGroupDirective;
   serviceName;
   type = [
     {
-      value: 0,
+      value: 1,
       name: 'Document'
     },
     {
-      value: 1,
+      value: 2,
       name: 'Pack'
     }
   ];
   cusCountryZone;
   rangeWeight;
   serviceWeightRange;
-  loadingService: boolean = false;
+  loading: boolean = false;
+  result;
 
   constructor(
     private salesCalculateMoneyService: SalesCalculateMoneyService,
@@ -45,28 +45,59 @@ export class SalesCalculateMoneyComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.getCusRangPrice();
+    // this.getCusRangPrice();
   }
 
   private buildForm() {
     this.CalculateForm = this.formBuilder.group({
-      cus_service_id: [undefined, [Validators.required]],
+      cus_service_id: [null, [Validators.required]],
       service_id_example: [0, [Validators.required]],
-      zone_example: ['', [Validators.required]],
-      cus_range_price: [0, [Validators.required]],
-      reweight: ['', [Validators.required]],
-      zone: ['', [Validators.required]],
-      type: [0, [Validators.required]]
+      zone_example: [''],
+      rangeId: [null],
+      reweight: [null, [Validators.required]],
+      zone: [null, [Validators.required]],
+      type: [1, [Validators.required]]
     });
   }
 
-  onSubmit() {
+  onSubmit(event) {
+    this.result = null;
+    let params;
     if (this.CalculateForm.valid) {
-
+      this.loading = true;
+      if (event.submitter.name === 'calculate') {
+        params = '?service_id=' + this.CalculateForm.value['cus_service_id']
+          + '&reweight=' + this.CalculateForm.value['reweight']
+          + '&rangeId=' + this.CalculateForm.value['rangeId']
+          + '&zone=' + this.CalculateForm.value['zone']
+          + '&type=' + this.CalculateForm.value['type'];
+        this.salesCalculateMoneyService.calculateMoney(params).subscribe((response) => {
+          this.result = response['net_price']
+          this.loading = false;
+          this.CalculateForm.reset();
+          this.formDirective.resetForm();
+          this.serviceName = undefined;
+        }, err=> {
+          this.loading = false;
+          this.result = 'Không tìm thấy kết quả.'
+        })
+      } else {
+        params = '?service_id=' + this.CalculateForm.value['cus_service_id']
+          + '&weight=' + this.CalculateForm.value['reweight']
+          + '&zone=' + this.CalculateForm.value['zone']
+          + '&type=' + this.CalculateForm.value['type'];
+        this.salesCalculateMoneyService.calculateMoneyAuto(params).subscribe((response) => {
+          this.result = response['net_price']
+          this.CalculateForm.reset();
+          this.formDirective.resetForm();
+          this.serviceName = undefined;
+          this.loading = false;
+        }, err=> {
+          this.loading = false;
+          this.result = 'Không tìm thấy kết quả.'
+        })
+      }
     }
-    // this._createCustomerService.createCustomer(this.CustomerForm.value).subscribe((data) => {
-    //   this.router.navigate(['apps/master-date/users']);
-    // });
   }
 
   checkInputNumber($event, int) {
@@ -74,16 +105,16 @@ export class SalesCalculateMoneyComponent implements OnInit {
   }
 
   getService(event) {
-    this.loadingService = true;
+    this.loading = true;
     let data = '';
     if (event.target.value) {
       data = data + '?cus_service_name=' + event.target.value;
     }
     this.salesCalculateMoneyService.getService(data).subscribe((data) => {
       this.serviceName = data['data'];
-      this.loadingService = false;
+      this.loading = false;
     }, error => {
-      this.loadingService = false;
+      this.loading = false;
     });
   }
 
@@ -98,22 +129,36 @@ export class SalesCalculateMoneyComponent implements OnInit {
       const service_id = this.CalculateForm.value['cus_service_id'];
       this.getCusRangPrice(service_id);
       this.getServiceWeightRange(service_id);
+      this.CalculateForm.controls['reweight'].setValue(null);
+      this.CalculateForm.controls['zone'].setValue(null);
+      this.CalculateForm.controls['type'].setValue(1);
+      this.CalculateForm.controls['rangeId'].setValue(null);
+      this.CalculateForm.controls['zone_example'].setValue('');
+      this.CalculateForm.controls['service_id_example'].setValue(0);
     }
   }
 
   getCusRangPrice(cusServiceID = '') {
+    this.loading = true;
     this.salesCalculateMoneyService.getCusRangPrice(cusServiceID).subscribe((data)=> {
       this.rangeWeight = data['data']
+      this.loading = false;
+    }, err => {
+      this.loading = false;
     })
   }
 
   getCusCountryZone(event) {
-    let data = '?' + this.CalculateForm.value['cus_service_id'];
+    let data = '?cus_service_id=' + this.CalculateForm.value['cus_service_id'];
     if (event.target.value) {
-      data = data + '&cus_service_name=' + event.target.value;
+      data = data + '&country_name=' + event.target.value;
     }
+    this.loading = true;
     this.salesCalculateMoneyService.getCusCountryZone(data).subscribe((data) => {
       this.cusCountryZone = data['data'];
+      this.loading = false;
+    }, err => {
+      this.loading = false;
     });
   }
 
@@ -122,8 +167,12 @@ export class SalesCalculateMoneyComponent implements OnInit {
   }
 
   getServiceWeightRange(cusServiceID) {
+    this.loading = true;
     this.salesCalculateMoneyService.getServiceWeightRange(cusServiceID).subscribe((data)=> {
       this.serviceWeightRange = data['data']
+      this.loading = false;
+    }, err => {
+      this.loading = false;
     })
   }
 }

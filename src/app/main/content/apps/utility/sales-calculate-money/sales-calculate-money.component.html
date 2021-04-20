@@ -19,11 +19,11 @@
     <!-- CONTENT -->
     <div class="p-24">
 
-        <form [formGroup]="CalculateForm" autocomplete="off" class="form">
+        <form [formGroup]="CalculateForm" #formDirective="ngForm" autocomplete="off" class="form" (ngSubmit)="onSubmit($event)">
             <div class="background-title mat-cyan-200-bg margin-top-10">
                 <h2 class="title">Calculate</h2>
             </div>
-            <mat-progress-bar *ngIf="loadingService" class="mt-2" color="accent" mode="indeterminate"></mat-progress-bar>
+            <mat-progress-bar *ngIf="loading" class="mt-2" color="accent" mode="indeterminate"></mat-progress-bar>
 
             <div class="box-shadow-form margin-top-10">
                 <div class="row">
@@ -113,7 +113,7 @@
                 </div>
                 <div class="row">
                     <mat-form-field class="col-sm-12">
-                        <mat-select [disabled]="!CalculateForm.value.cus_service_id" formControlName="cus_range_price" placeholder="Range Weight(5)">
+                        <mat-select [disabled]="!CalculateForm.value.cus_service_id" formControlName="rangeId" placeholder="Range Weight(5)">
                             <mat-option *ngFor="let item of rangeWeight" [value]="item.id">
                                 {{ item.range_code }}
                             </mat-option>
@@ -121,8 +121,9 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button class="button-submit mt-3" mat-raised-button color="accent" (submit)="onSubmit()">Calculate [1-5]</button>
-            <button class="button-submit mt3" mat-raised-button color="orange-800-bg" (submit)="onSubmit()">Calculate [A-B]</button>
+            <button class="button-submit mt-3" mat-raised-button color="accent" name="calculate">Calculate [1-5]</button>
+            <button class="button-submit mt3" mat-raised-button color="orange-800-bg" name="calculateAuto">Calculate [A-D]</button>
+            <p *ngIf="result" class="text-center h2" style="color: #3FA6DA;">{{ result }}</p>
         </form>
     </div>
 </div>

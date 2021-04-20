@@ -28,10 +28,18 @@ export class SalesCalculateMoneyService
     }
 
     getCusCountryZone(params) {
-      return this.http.get(`${this.apiConfig.CUS_COUNTRY_ZONE_BY_SERVICE}`);
+      return this.http.get(`${this.apiConfig.CUS_COUNTRY_ZONE_BY_SERVICE}${params}`);
     }
 
     getServiceWeightRange(cusServiceID) {
       return this.http.get(`${this.apiConfig.SERVICE_WEIGHT_RANGE}?cus_service_id=${cusServiceID}`);
+    }
+
+    calculateMoney(params)  {
+      return this.http.get(`${this.apiConfig.SALES_CALCULATE_MONEY}${params}`);
+    }
+
+    calculateMoneyAuto(params)  {
+      return this.http.get(`${this.apiConfig.SALES_CALCULATE_MONEY_AUTO}${params}`);
     }
 }
