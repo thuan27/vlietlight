@@ -15,15 +15,11 @@ export class SalesCalculateMoneyService
     {
     }
 
-    getList(params) {
-      return this.http.get(this.apiConfig.CUSTOMER + '/index' + params);
-    }
-
     getService(data) {
       return this.http.get(this.apiConfig.CUS_SERVICE_LIST + data);
     }
 
-    getCusRangPrice(cusServiceID) {
+    getCusRangePrice(cusServiceID) {
       return this.http.get(`${this.apiConfig.CUS_RANGE_PRICE_MENU}?cus_service_id=${cusServiceID}`);
     }
 
@@ -32,7 +28,7 @@ export class SalesCalculateMoneyService
     }
 
     getServiceWeightRange(cusServiceID) {
-      return this.http.get(`${this.apiConfig.SERVICE_WEIGHT_RANGE}?cus_service_id=${cusServiceID}`);
+      return this.http.get(`${this.apiConfig.CUS_SERVICE_WEIGHT_RANGE}?cus_service_id=${cusServiceID}`);
     }
 
     calculateMoney(params)  {

@@ -1,20 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Functions } from '@fuse/core/function';
+import { APIConfig } from 'app/main/content/pages/authentication/config';
 
-// import { environment } from '../../../../../../../environments/environment';
 
 @Injectable()
 export class CalculateMoneyService
 {
     constructor(
         private http: HttpClient,
-        private _Func: Functions
+        private apiConfig: APIConfig
     )
     {
     }
 
-    createCustomer(param) {
-        return this.http.post('http://35.240.239.183/demo/index.php?r=awb/create', param);
+    getService(data) {
+      return this.http.get(this.apiConfig.SERVICE_LIST_MENU + data);
+    }
+
+    getRangePrice(serviceID) {
+      return this.http.get(`${this.apiConfig.RANGE_PRICE_MENU}?service_id=${serviceID}`);
+    }
+
+    getCountryZone(params) {
+      return this.http.get(`${this.apiConfig.COUNTRY_ZONE_BY_SERVICE}${params}`);
+    }
+
+    getServiceWeightRange(serviceID) {
+      return this.http.get(`${this.apiConfig.SERVICE_WEIGHT_RANGE}?service_id=${serviceID}`);
+    }
+
+    calculateMoney(params)  {
+      return this.http.get(`${this.apiConfig.CALCULATE_MONEY}${params}`);
+    }
+
+    calculateMoneyAuto(params)  {
+      return this.http.get(`${this.apiConfig.CALCULATE_MONEY_AUTO}${params}`);
     }
 }

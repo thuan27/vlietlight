@@ -45,7 +45,6 @@ export class SalesCalculateMoneyComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    // this.getCusRangPrice();
   }
 
   private buildForm() {
@@ -127,7 +126,7 @@ export class SalesCalculateMoneyComponent implements OnInit {
   onChangeAutoComplete() {
     if (this.CalculateForm.value['cus_service_id']) {
       const service_id = this.CalculateForm.value['cus_service_id'];
-      this.getCusRangPrice(service_id);
+      this.getCusRangePrice(service_id);
       this.getServiceWeightRange(service_id);
       this.CalculateForm.controls['reweight'].setValue(null);
       this.CalculateForm.controls['zone'].setValue(null);
@@ -138,9 +137,9 @@ export class SalesCalculateMoneyComponent implements OnInit {
     }
   }
 
-  getCusRangPrice(cusServiceID = '') {
+  getCusRangePrice(cusServiceID = '') {
     this.loading = true;
-    this.salesCalculateMoneyService.getCusRangPrice(cusServiceID).subscribe((data)=> {
+    this.salesCalculateMoneyService.getCusRangePrice(cusServiceID).subscribe((data)=> {
       this.rangeWeight = data['data']
       this.loading = false;
     }, err => {
