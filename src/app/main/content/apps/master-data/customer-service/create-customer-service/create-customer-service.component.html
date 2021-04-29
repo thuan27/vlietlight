@@ -27,6 +27,7 @@
         <div class="row">
           <mat-form-field class="col-sm-12 col-md-4">
             <mat-select [attr.disabled]="disabledForm" formControlName="customer_id" placeholder="Customer">
+              <mat-option [value]="">Please select one option</mat-option>
               <mat-option *ngFor="let item of customer" [value]="item.customer_id">
                 {{ item.customer_name }}
               </mat-option>
@@ -46,6 +47,13 @@
             <mat-error *ngIf="CustomerServiceForm.controls.cus_service_name.hasError('required')">
               Customer Service Name is required
             </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12 col-md-4" *ngIf="action === 'update'">
+          <mat-select formControlName="status" placeholder="Status">
+              <mat-option *ngFor="let item of status" [value]="item.value">
+                {{ item.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>

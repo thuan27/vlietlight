@@ -27,9 +27,11 @@ export class CustomerServiceListComponent implements OnInit {
   selected: any[] = [];
   searchForm: FormGroup;
   status = [
-    { value: 'active', name: 'Active' },
-    { value: 'inactive', name: 'Inactive' }
+    { value: '', name: 'None' },
+    { value: 'Active', name: 'Active' },
+    { value: 'Inactive', name: 'Inactive' }
   ];
+  serviceCode;
   serviceName;
   sortData = '';
   hasEditUserPermission = false;
@@ -61,7 +63,7 @@ export class CustomerServiceListComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       cus_service_name: '',
       cus_service_code: '',
-      status: 'active',
+      status: '',
     });
   }
 
@@ -88,18 +90,25 @@ export class CustomerServiceListComponent implements OnInit {
   }
 
   reset() {
-    this.searchForm.controls['cus_service_name'].setValue('');
-    this.searchForm.controls['cus_service_code'].setValue('');
-    this.searchForm.controls['status'].setValue('active');
+    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+    for (let i = 0; i < arrayItem.length; i++) {
+      this.searchForm.controls[arrayItem[i]].setValue('');
+    }
+    this.sortData = '';
+    this.getList();
   }
 
-  getCustomerService(event) {
+  getService(event, type) {
     let data = '?status=' + this.searchForm.controls['status'].value;
     if (event.target.value) {
-      data = data + '&service_name=' + event.target.value;
+      data = `${data}&${type}=${event.target.value}`
     }
     this.customerServiceList.getCustomerService(data).subscribe((data) => {
-      this.serviceName = data['data'];
+      if (type === 'cus_service_code') {
+        this.serviceCode = data['data'];
+      } else {
+        this.serviceName = data['data'];
+      }
     });
   }
 
@@ -163,7 +172,7 @@ export class CustomerServiceListComponent implements OnInit {
             this.toastyService.success(data['message']);
             setTimeout(
               () => {
-                this.getList();
+                this.reset();
                 this.selected = [];
               },
               700

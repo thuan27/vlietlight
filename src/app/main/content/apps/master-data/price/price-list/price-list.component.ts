@@ -183,7 +183,7 @@ export class PriceListComponent implements OnInit {
             this.toastyService.success(data['message']);
             setTimeout(
               () => {
-                this.getList();
+                this.reset();
                 this.selected = [];
               },
               700

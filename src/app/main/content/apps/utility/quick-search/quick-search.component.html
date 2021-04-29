@@ -1,95 +1,199 @@
 <ng2-toasty></ng2-toasty>
 
-<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
-
-    <!-- HEADER -->
-    <div class="header mat-accent-bg p-24  h-110" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
-        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
-            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="secondary-text s-16">home</mat-icon>
-                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Quick Search</span>
-            </div>
-            <div class="h2 mt-16">Quick Search</div>
-        </div>
-        <div class="reference-button mat-white-bg">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="create()">
-                    <mat-icon>add_circle_outline</mat-icon>
-                    <span>Create</span>
-                </button>
-            </mat-menu>
-        </div>
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24  h-110"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Quick Search</span>
+      </div>
+      <div class="h2 mt-16">Quick Search</div>
     </div>
-    <!-- / HEADER -->
+  </div>
+  <!-- / HEADER -->
 
-    <!-- CONTENT -->
-    <div class="p-24">
+  <!-- CONTENT -->
+  <div class="p-24">
+    <form
+      id="form-control"
+      class="row"
+      [formGroup]="searchForm"
+      (submit)="getList()"
+      autocomplete="off"
+    >
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <mat-select formControlName="is_range" placeholder="Range">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of range" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          placeholder="Service Name"
+          formControlName="service_name"
+          (keyup)="getService($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoServiceName"
+        />
+        <mat-autocomplete
+          autoActiveFirstOption
+          #autoServiceName="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let option of serviceName"
+            [value]="option.service_name"
+          >
+            {{ option.service_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          placeholder="Country Name"
+          formControlName="country_name"
+          (keyup)="getCountry($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of country"
+            [value]="option.country_name"
+          >
+            {{ option.country_name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="zone" matInput placeholder="Zone" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="weight"
+          matInput
+          (keypress)="checkInputNumber($event, true)"
+          placeholder="Weight"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="value"
+          matInput
+          (keypress)="checkInputNumber($event, true)"
+          placeholder="Value"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <mat-select formControlName="item_type_id" placeholder="Item Type">
+          <mat-option [value]="">
+            Please select option
+          </mat-option>
+          <mat-option *ngFor="let item of itemTypeList" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span class="format-line-height-button">
+        <button mat-raised-button color="accent" type="submit">Search</button>
+        <button mat-raised-button (click)="reset()">Reset</button>
+      </span>
+    </form>
 
-        <form id="form-control" class="row" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <input formControlName="awb_code" matInput placeholder="Code">
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <mat-select formControlName="awb_sts" placeholder="Status">
-                    <mat-option *ngFor="let item of status" [value]="item.value">
-                        {{ item.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <input matInput formControlName="created_at" [matDatepicker]="dpCreated" placeholder="Created Date">
-                <mat-datepicker-toggle matSuffix [for]="dpCreated"></mat-datepicker-toggle>
-                <mat-datepicker #dpCreated disabled="false"></mat-datepicker>
-                <mat-error *ngIf="searchForm.controls.created_at.errors?.date">
-                    La date d'envoi n'est pas <strong>valide</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-                <input matInput formControlName="updated_at" [matDatepicker]="dpUpdated" placeholder="Updated Date">
-                <mat-datepicker-toggle matSuffix [for]="dpUpdated"></mat-datepicker-toggle>
-                <mat-datepicker #dpUpdated disabled="false"></mat-datepicker>
-            </mat-form-field>
-            <span class="format-line-height-button">
-              <button mat-raised-button color="accent" type="submit">Search</button>
-              <button mat-raised-button>Reset</button>
-            </span>
-        </form>
+    <ngx-datatable
+      (page)="pageCallback($event)"
+      class="material"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'"
+      [headerHeight]="48"
+      [footerHeight]="56"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [selectionType]="'checkbox'"
+      [count]="total"
+      [selected]="selected"
+      (tableContextmenu)="onTableContextMenu($event)"
+      [externalPaging]="true"
+      [scrollbarH]="true"
+      [offset]="current_page"
+      [limit]="15"
+      (sort)="onSort($event)"
+      [externalSorting]="true"
+    >
+      <ngx-datatable-column
+        [frozenLeft]="true"
+        [width]="70"
+        [canAutoResize]="false"
+        [sortable]="false"
+      >
+        <ng-template
+          ngx-datatable-cell-template
+          let-value="value"
+          let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn"
+        >
+          <mat-checkbox
+            [checked]="isSelected"
+            (change)="onCheckboxChangeFn($event)"
+          ></mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>
 
-        <ngx-datatable [scrollbarH]="true" id="example" (tableContextmenu)="onTableContextMenu($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [scrollbarH]="true" [reorderable]="reorderable"
-            [selectionType]="'checkbox'" [limit]="10" (tableContextmenu)="onTableContextMenu($event)">
+      <ngx-datatable-column name="Weight" prop="weight"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="80" [canAutoResize]="false" [sortable]="false">
-                <!-- <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
-                    <mat-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></mat-checkbox>
-                </ng-template> -->
+      <ngx-datatable-column
+        name="Is Range"
+        prop="is_range"
+      ></ngx-datatable-column>
 
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let- let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
-                    <mat-checkbox [checked]="isSelected" (click)="onCheck(isSelected, row)" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
-                </ng-template>
-            </ngx-datatable-column>
+      <ngx-datatable-column
+        name="Service Name"
+        prop="service_name"
+      ></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="80" name="Code" prop="awb_code"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Country Name"
+        prop="country_name"
+      ></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="150" name="From Phone" prop="from_phone"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Item Type ID"
+        prop="item_type_id"
+      ></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="300" name="From Email" prop="from_email"></ngx-datatable-column>
+      <ngx-datatable-column name="Zone" prop="zone"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="300" name="From Address" prop="from_address"></ngx-datatable-column>
+      <ngx-datatable-column name="Value" prop="value"></ngx-datatable-column>
 
-            <ngx-datatable-column [width]="200" name="Created Date" prop="created_at"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Updated Date" prop="updated_at"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="200" name="Status" prop="awb_sts"></ngx-datatable-column>
-
-            <ngx-datatable-column [width]="400" name="Description" prop="description  "></ngx-datatable-column>
-
-        </ngx-datatable>
-
-    </div>
-
+      <ngx-datatable-column
+        name="Currency"
+        prop="currency"
+      ></ngx-datatable-column>
+    </ngx-datatable>
+  </div>
 </div>

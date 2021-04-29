@@ -47,6 +47,8 @@ export class APIConfig {
   public CALCULATE_MONEY_AUTO =  this.API_BASE + '/master-data/v1/calculate-money-auto';
   public SALES_CALCULATE_MONEY =  this.API_BASE + '/master-data/v1/cus-calculate-money';
   public SALES_CALCULATE_MONEY_AUTO =  this.API_BASE + '/master-data/v1/cus-calculate-money-auto';
+  public QUICK_SEARCH =  this.API_BASE + '/master-data/v1/quick-search';
+  public SALE_QUICK_SEARCH =  this.API_BASE + '/master-data/v1/sale-quick-search';
   public ROLES = this.API_BASE + '/master-service/v1/roles';
   public WAVE_PICK = this.API_BASE + '/awbs/v1/wv-pick-search';
   public WAVE_PICK_DETAIL = this.API_BASE + '/awbs/v1/wv-pick';

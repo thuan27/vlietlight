@@ -16,10 +16,14 @@ export class SalesQuickSearchService
     }
 
     getList(params) {
-      return this.http.get(this.apiConfig.CUSTOMER + '/index' + params);
+      return this.http.get(this.apiConfig.SALE_QUICK_SEARCH + params);
     }
 
     getCountry(data) {
       return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data);
+    }
+
+    getCustomerService(data) {
+      return this.http.get(this.apiConfig.CUSTOMER_SERVICE_LIST + data);
     }
 }

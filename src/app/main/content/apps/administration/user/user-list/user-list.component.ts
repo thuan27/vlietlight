@@ -162,7 +162,7 @@ export class UserAdminListComponent implements OnInit {
             this.toastyService.success('Deleted Successfully');
             setTimeout(
               () => {
-                this.getList();
+                this.reset();
                 this.selected = [];
               },
               700

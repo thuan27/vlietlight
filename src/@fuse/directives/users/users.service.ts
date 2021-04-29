@@ -30,7 +30,7 @@ export class UserService {
   {
     let ListPermissionUser=null;
 
-    return this.http.get(this._API.API_USER_Permission)
+    return this.http.get(this._API.API_USER_Permission, {headers: this.AuthHeader })
     .map(res => res['data']);
   }
 

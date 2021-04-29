@@ -5,13 +5,14 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
+import { ValidationService } from '@fuse/core/validator';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'quick-search',
     templateUrl: './quick-search.component.html',
     styleUrls: ['./quick-search.component.scss'],
-    providers: [QuickSearchService, ToastyService]
+    providers: [QuickSearchService, ToastyService, ValidationService]
 })
 export class QuickSearchComponent implements OnInit {
     contextmenuX: any;
@@ -23,23 +24,13 @@ export class QuickSearchComponent implements OnInit {
     loadingIndicator = true;
     reorderable = true;
     searchForm: FormGroup;
+    selected: any[] = [];
     examples: any;
-    private listSelectedItem = [];
-
-    status = [
-        {
-            value    : 0,
-            name: 'Picking'
-        },
-        {
-            value    : 1,
-            name: 'Ready to pick'
-        },
-        {
-            value    : 2,
-            name: 'Completed'
-        }
-    ];
+    serviceName;
+    total = 0;
+    current_page;
+    sortData = '';
+    country;
     xMenuContext: number;
     yMenuContext: number;
 
@@ -49,6 +40,7 @@ export class QuickSearchComponent implements OnInit {
         private datePipe: DatePipe,
         private toastyService: ToastyService,
         private func: Functions,
+        private _Valid: ValidationService,
         private router: Router,
         private toastyConfig: ToastyConfig
 
@@ -62,38 +54,50 @@ export class QuickSearchComponent implements OnInit {
 
     private buildForm() {
         this.searchForm = this.formBuilder.group({
-            awb_code: '',
-            awb_sts: '',
-            created_at: null,
-            updated_at: null
+          zone: '',
+          is_range: '',
+          service_name: '',
+          country_name: '',
+          weight: '',
+          value: '',
+          item_type_id: ''
         });
     }
 
-    getList() {
-        this.quickSearchService.getList().subscribe(data => {
-            this.rows = data;
-            this.loadingIndicator = false;
-        });
+    getList(pageNum = 1) {
+      let params = `?limit=15` + `&page=` + pageNum;
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+      }
+      if (this.sortData !== '') {
+        params += this.sortData;
+      }
+      this.quickSearchService.getList(params).subscribe(data => {
+        data['data']['data'].forEach((item) => {
+          item['is_range'] = item['is_range'] ? 'Yes' : 'No';
+          item['item_type_id'] = item['item_type_id'] == 1 ? 'Doc' : 'Pack';
+        })
+        this.rows = data['data']['data'];
+        this.total = data['data']['total'];
+        this.current_page = parseInt(data['data']['current_page']) - 1;
+        this.loadingIndicator = false;
+      });
     }
 
-    search() {
-        this.searchForm.value['created_at'] = this.datePipe.transform(this.searchForm.value['created_at'], 'MM/dd/yyyy');
-        this.searchForm.value['updated_at'] = this.datePipe.transform(this.searchForm.value['updated_at'], 'MM/dd/yyyy');
-        console.log(this.searchForm.value);
+    onSort(event) {
+      this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+      this.getList(this.current_page + 1);
+      this.current_page = this.current_page +1;
     }
 
-    onCheck(isSelected, row) {
-        if (isSelected === false) {
-            this.listSelectedItem.push(row.awb_id);
-        }
-        else {
-            const el = this.listSelectedItem.indexOf(row.awb_id);
-            this.listSelectedItem.splice(el, 1);
-        }
+    checkInputNumber($event, int) {
+      this._Valid.isNumber($event, int);
     }
 
-    create() {
-        this.router.navigate(['apps/inbound/awb/create']);
+    pageCallback(e) {
+      this.getList(parseInt(e['offset']) + 1);
+      this.selected = [];
     }
 
     // onTableContextMenu(event) {
@@ -123,11 +127,36 @@ export class QuickSearchComponent implements OnInit {
       this.toastyService.success('Copied Successfully');
     }
 
+    getCountry(event) {
+      this.quickSearchService.getCountry(event.target.value).subscribe((data) => {
+        this.country = data['data'];
+      });
+    }
+
+    reset() {
+      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+      for (let i = 0; i < arrayItem.length; i++) {
+        this.searchForm.controls[arrayItem[i]].setValue('');
+      }
+      this.sortData = '';
+      this.getList();
+    }
+
     @HostListener('document:click', ['$event'])
     clickedOutside($event) {
       if ($event.target.className !== 'dropdown-item context-menu') {
         this.contextmenu = false;
       }
+    }
+
+    getService(event) {
+      let data;
+      if (event.target.value) {
+        data = `?service_name=${event.target.value}`
+      }
+      this.quickSearchService.getService(data).subscribe((data) => {
+        this.serviceName = data['data'];
+      });
     }
 
 }

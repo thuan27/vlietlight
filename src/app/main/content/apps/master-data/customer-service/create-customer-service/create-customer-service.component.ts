@@ -31,6 +31,10 @@ export class CreateCustomerServiceComponent implements OnInit {
   customer;
   service;
   buttonCancel;
+  status = [
+    { value: 'Active', name: 'Active' },
+    { value: 'Inactive', name: 'Inactive' }
+  ];
   hasEditUserPermission = false;
   hasCreateUserPermission = false;
   hasDeleteUserPermission = false;
@@ -65,7 +69,8 @@ export class CreateCustomerServiceComponent implements OnInit {
     this.CustomerServiceForm = this.formBuilder.group({
       cus_service_code: ['', [Validators.required]],
       cus_service_name: ['', [Validators.required]],
-      customer_id: [19, [Validators.required]]
+      status: ['Active', [Validators.required]],
+      customer_id: ['', [Validators.required]]
     });
   }
 
@@ -129,6 +134,7 @@ export class CreateCustomerServiceComponent implements OnInit {
       cus_service_name: [data['cus_service_name'], [Validators.required]],
       cus_service_code: [data['cus_service_code'], [Validators.required]],
       customer_id: [data['customer_id'], [Validators.required]],
+      status: [data['status'], [Validators.required]],
     });
   }
 
