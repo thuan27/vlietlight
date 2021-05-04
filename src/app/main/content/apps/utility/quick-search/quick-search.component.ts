@@ -33,6 +33,14 @@ export class QuickSearchComponent implements OnInit {
     country;
     xMenuContext: number;
     yMenuContext: number;
+    range = [
+      {name: 'No', value: 0},
+      {name: 'Yes', value: 1}
+    ];
+    itemTypeList = [
+      {name: 'Doc', value: 1},
+      {name: 'Pack', value: 2}
+    ]
 
     constructor(
         private formBuilder: FormBuilder,
