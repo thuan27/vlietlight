@@ -553,45 +553,35 @@ export class AnalyticsDashboardDb
         },
         widget7: {
             scheme : {
-                domain: ['#4867d2', '#5c84f1', '#89a9f4', '#89a933', '#89a9a4', '#89db55', '#89fc66']
+                domain: ['#233e8b', '#ffffc7', '#1eae98', '#a9f1df', '#00adb5', '#aad8d3', '#eeeeee']
             },
             devices: [
-                {
-                    name  : 'Mr AAAAA',
-                    value : 80.8,
-                    change: -0.6
-                },
-                {
-                    name  : 'Ms BBBB',
-                    value : 6.1,
-                    change: 0.7
-                },
-                {
-                    name  : 'MR CCCC',
-                    value : 1.1,
-                    change: 0.1
-                },
-                {
-                    name  : 'Mr Xang',
-                    value : 50,
-                    change: 0.1
-                },
-                {
-                    name  : 'Mr XXXX',
-                    value : 50,
-                    change: 0.1
-                },
-                {
-                    name  : 'Mr YYYY',
-                    value : 30,
-                    change: 0.1
-                },
-                {
-                    name  : 'Mr KKKK',
-                    value : 20,
-                    change: -0.1
-                }
-            ]
+              {
+                  name  : 'Can Tho',
+                  value : 80.8,
+                  change: -0.6
+              },
+              {
+                  name  : 'Ho Chi Minh',
+                  value : 6.1,
+                  change: 0.7
+              },
+              {
+                  name  : 'Bac Lieu',
+                  value : 1.1,
+                  change: 0.1
+              },
+              {
+                  name  : 'Nha Trang',
+                  value : 50,
+                  change: 0.1
+              },
+              {
+                  name  : 'Ha Noi',
+                  value : 50,
+                  change: 0.1
+              }
+          ]
         },
         widget71: {
           scheme : {

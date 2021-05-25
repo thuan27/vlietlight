@@ -28,7 +28,12 @@
     </div>
 
     <div class="reference-button d-flex">
-      <button class="mr-4" mat-raised-button color="orange-800-bg" (click)="filter()">
+      <button
+        class="mr-4"
+        mat-raised-button
+        color="orange-800-bg"
+        (click)="filter()"
+      >
         <mat-icon>filter_list</mat-icon>
         <span>Filter</span>
       </button>
@@ -49,7 +54,11 @@
             <mat-icon>add_circle_outline</mat-icon>
             <span>{{ "INBOUND.CREATE_WAVE_PICK" | translate }}</span>
           </button>
-          <button *ngIf="hasEditUserPermission" mat-menu-item (click)="update()">
+          <button
+            *ngIf="hasEditUserPermission"
+            mat-menu-item
+            (click)="update()"
+          >
             <mat-icon>system_update_alt</mat-icon>
             <span>{{ "INBOUND.UPDATE_AWB" | translate }}</span>
           </button>
@@ -93,7 +102,6 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-
     <ngx-datatable
       (page)="pageCallback($event)"
       class="material"
@@ -183,15 +191,27 @@
 
       <ngx-datatable-column name="Status" prop="awb_sts"></ngx-datatable-column>
 
-      <ngx-datatable-column name="Track Status Code" prop="track_status_code"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Track Status Code"
+        prop="track_status_code"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column name="Track Description" prop="track_description"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="Track Description"
+        prop="track_description"
+      ></ngx-datatable-column>
 
       <ngx-datatable-column name="Sales" prop="userName"></ngx-datatable-column>
 
-      <ngx-datatable-column name="To Country" prop="to_country_name"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="To Country"
+        prop="to_country_name"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column name="To Address" prop="to_address"></ngx-datatable-column>
+      <ngx-datatable-column
+        name="To Address"
+        prop="to_address"
+      ></ngx-datatable-column>
 
       <ngx-datatable-column
         name="From Company Name"
@@ -308,7 +328,6 @@
         name="Description"
         prop="description"
       ></ngx-datatable-column>
-
     </ngx-datatable>
     <!-- <app-context-menu
       [isShow]="contextmenu"

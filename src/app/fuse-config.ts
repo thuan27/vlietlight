@@ -14,7 +14,7 @@ export const fuseConfig = {
         mode            : 'fullwidth' // 'boxed', 'fullwidth'
     },
     colorClasses    : {
-        toolbar: 'mat-white-500-bg',
+        toolbar: 'mat-grey-50-bg',
         navbar : 'mat-fuse-dark-700-bg',
         footer : 'mat-fuse-dark-900-bg'
     },

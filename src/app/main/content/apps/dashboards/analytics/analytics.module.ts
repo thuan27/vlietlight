@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MatFormFieldModule, MatIconModule, MatMenuModule, MatSelectModule, MatTabsModule } from '@angular/material';
+import {
+	MatFormFieldModule,
+	MatIconModule,
+	MatMenuModule,
+	MatSelectModule,
+	MatTabsModule,
+	MatDatepickerModule,
+	MatInputModule,
+	MatButtonModule
+} from '@angular/material';
 
 import { AgmCoreModule } from '@agm/core';
 import { ChartsModule } from 'ng2-charts';
@@ -12,44 +21,40 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
 import { FuseAnalyticsDashboardComponent } from './analytics.component';
 import { AnalyticsDashboardService } from './analytics.service';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 const routes: Routes = [
-    {
-        path     : '**',
-        component: FuseAnalyticsDashboardComponent,
-        resolve  : {
-            data: AnalyticsDashboardService
-        }
-    }
+	{
+		path: '**',
+		component: FuseAnalyticsDashboardComponent,
+		resolve: {
+			data: AnalyticsDashboardService
+		}
+	}
 ];
 
 @NgModule({
-    declarations: [
-        FuseAnalyticsDashboardComponent
-    ],
-    imports     : [
-        RouterModule.forChild(routes),
+	declarations: [ FuseAnalyticsDashboardComponent ],
+	imports: [
+		RouterModule.forChild(routes),
 
-        MatFormFieldModule,
-        MatIconModule,
-        MatMenuModule,
-        MatSelectModule,
-        MatTabsModule,
-
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8'
-        }),
-        ChartsModule,
-        NgxChartsModule,
-        FuseSharedModule,
-        FuseWidgetModule
-    ],
-    providers   : [
-        AnalyticsDashboardService
-    ]
+		MatFormFieldModule,
+		MatIconModule,
+		MatMenuModule,
+		MatSelectModule,
+		MatTabsModule,
+		MatDatepickerModule,
+		MatMomentDateModule,
+		MatInputModule,
+		MatButtonModule,
+		AgmCoreModule.forRoot({
+			apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8'
+		}),
+		ChartsModule,
+		NgxChartsModule,
+		FuseSharedModule,
+		FuseWidgetModule
+	],
+	providers: [ AnalyticsDashboardService ]
 })
-export class FuseAnalyticsDashboardModule
-{
-}
-
+export class FuseAnalyticsDashboardModule {}
