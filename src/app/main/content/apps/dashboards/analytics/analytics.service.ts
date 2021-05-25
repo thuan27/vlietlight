@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../../../../environments/environment';
 import { Functions } from '@fuse/core/function';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Injectable()
 export class AnalyticsDashboardService implements Resolve<any> {
