@@ -42,4 +42,10 @@ export class AnalyticsDashboardService implements Resolve<any> {
 		let to_date = moment(value.to_date).format('YYYY/MM/DD');
 		return this.http.get(`${this.apiConfig.DASHBOARD_CUSTOMERS}?from_date=${from_date}&to_date=${to_date}`);
 	}
+
+	getChartCountries(value) {
+		let from_date = moment(value.from_date).format('YYYY/MM/DD');
+		let to_date = moment(value.to_date).format('YYYY/MM/DD');
+		return this.http.get(`${this.apiConfig.DASHBOARD_COUNTRIES}?from_date=${from_date}&to_date=${to_date}`);
+	}
 }

@@ -14,9 +14,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class FuseAnalyticsDashboardComponent {
 	widgets: any;
 	chartCustomer: string[] = [];
+	chartCountry: string[] = [];
 	widget1SelectedYear = '2016';
 	widget5SelectedDay = 'today';
 	searchCustomerForm: FormGroup;
+	searchCountryForm: FormGroup;
 
 	constructor(
 		private analyticsDashboardService: AnalyticsDashboardService,
@@ -27,17 +29,29 @@ export class FuseAnalyticsDashboardComponent {
 		this.widgets = this.analyticsDashboardService.widgets;
 		// Register the custom chart.js plugin
 		this.registerCustomChartJSPlugin();
+		this.buildCustomerForm();
+		this.buildCountryForm();
 	}
 
-	async ngOnInit() {
-		await this.buildCustomerForm();
+	ngOnInit() {
 		this.getChartCustomers();
+		this.getChartCountries();
 	}
 
 	private buildCustomerForm() {
 		const nowDate = new Date();
+		const lastDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 		this.searchCustomerForm = this.formBuilder.group({
-			from_date: nowDate,
+			from_date: lastDate,
+			to_date: nowDate
+		});
+	}
+
+	private buildCountryForm() {
+		const nowDate = new Date();
+		const lastDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+		this.searchCountryForm = this.formBuilder.group({
+			from_date: lastDate,
 			to_date: nowDate
 		});
 	}
@@ -100,9 +114,14 @@ export class FuseAnalyticsDashboardComponent {
 	}
 
 	getChartCustomers() {
-		console.log(this.searchCustomerForm.value);
 		this.analyticsDashboardService.getChartCustomers(this.searchCustomerForm.value).subscribe((response) => {
 			this.chartCustomer = response['data'];
+		});
+	}
+
+	getChartCountries() {
+		this.analyticsDashboardService.getChartCountries(this.searchCountryForm.value).subscribe((response) => {
+			this.chartCountry = response['data'];
 		});
 	}
 }

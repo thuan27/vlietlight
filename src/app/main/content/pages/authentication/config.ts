@@ -98,4 +98,5 @@ export class APIConfig {
 
 	// Dashboard
 	public DASHBOARD_CUSTOMERS = this.API_BASE + '/report/v1/customers-dashboard';
+	public DASHBOARD_COUNTRIES = this.API_BASE + '/report/v1/countries-dashboard';
 }
