@@ -15,10 +15,12 @@ export class FuseAnalyticsDashboardComponent {
 	widgets: any;
 	chartCustomer: string[] = [];
 	chartCountry: string[] = [];
+	chartService: string[] = [];
 	widget1SelectedYear = '2016';
 	widget5SelectedDay = 'today';
 	searchCustomerForm: FormGroup;
 	searchCountryForm: FormGroup;
+	searchServiceForm: FormGroup;
 
 	constructor(
 		private analyticsDashboardService: AnalyticsDashboardService,
@@ -31,11 +33,13 @@ export class FuseAnalyticsDashboardComponent {
 		this.registerCustomChartJSPlugin();
 		this.buildCustomerForm();
 		this.buildCountryForm();
+		this.buildServiceForm();
 	}
 
 	ngOnInit() {
 		this.getChartCustomers();
 		this.getChartCountries();
+		this.getChartServices();
 	}
 
 	private buildCustomerForm() {
@@ -51,6 +55,15 @@ export class FuseAnalyticsDashboardComponent {
 		const nowDate = new Date();
 		const lastDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 		this.searchCountryForm = this.formBuilder.group({
+			from_date: lastDate,
+			to_date: nowDate
+		});
+	}
+
+	private buildServiceForm() {
+		const nowDate = new Date();
+		const lastDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+		this.searchServiceForm = this.formBuilder.group({
 			from_date: lastDate,
 			to_date: nowDate
 		});
@@ -122,6 +135,21 @@ export class FuseAnalyticsDashboardComponent {
 	getChartCountries() {
 		this.analyticsDashboardService.getChartCountries(this.searchCountryForm.value).subscribe((response) => {
 			this.chartCountry = response['data'];
+		});
+	}
+
+	getChartServices() {
+		this.analyticsDashboardService.getChartServices(this.searchCountryForm.value).subscribe((response) => {
+			this.chartService = response['data'];
+			if (this.chartService['name'] == null) {
+				this.chartService['name'] = 'aaa';
+			}
+
+			this.chartService.forEach((item) => {
+				if (item['name'] == null) {
+					item['name'] = '';
+				}
+			});
 		});
 	}
 }

@@ -585,7 +585,12 @@ export class AnalyticsDashboardDb
         },
         widgetCountry: {
           scheme : {
-            domain: ['#d8e3e7', '#bdc7c9', '#51c4d3', '#126e82', '#2b4f60', '#d2e69c', '#8fd9a8', '#28b5b5']
+            domain: ['#d8e3e7', '#51c4d3', '#bdc7c9', '#126e82', '#2b4f60', '#d2e69c', '#8fd9a8', '#28b5b5']
+          },
+        },
+        widgetService: {
+          scheme : {
+            domain: ['#233e8b', '#1eae98', '#a9f1df', '#ffffc7']
           },
         },
         widget71: {

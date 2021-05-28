@@ -1,53 +1,52 @@
 @import "src/@fuse/scss/fuse";
 
 #dashboard-analytics {
+	.main-widget {
+		display: flex;
+		flex-direction: column;
+	}
 
-    .main-widget {
-        display: flex;
-        flex-direction: column;
-    }
+	.content {
+		display: flex;
+		flex: 1 1 auto;
+		padding: 32px;
+		min-width: 0;
 
-    .content {
-        display: flex;
-        flex: 1 1 auto;
-        padding: 32px;
-        min-width: 0;
+		@include media-breakpoint-down('md') {
+			flex-direction: column;
+		}
 
-        @include media-breakpoint-down('md') {
-            flex-direction: column;
-        }
+		.left {
+			display: flex;
+			flex-direction: column;
+			flex: 1 1 auto;
+			min-width: 0;
 
-        .left {
-            display: flex;
-            flex-direction: column;
-            flex: 1 1 auto;
-            min-width: 0;
+			.widget {
+				flex: 1 1 auto;
+				min-width: 0;
+			}
+		}
 
-            .widget {
-                flex: 1 1 auto;
-                min-width: 0;
-            }
-        }
+		.right {
+			display: flex;
+			flex: 0 0 auto;
+			width: 320px;
+			min-width: 320px;
+			max-width: 320px;
 
-        .right {
-            display: flex;
-            flex: 0 0 auto;
-            width: 320px;
-            min-width: 320px;
-            max-width: 320px;
-
-            @include media-breakpoint-down('md') {
-                flex: 1 0 100%;
-                margin-top: 32px;
-                width: 100%;
-                min-width: 0;
-                max-width: none;
-            }
-        }
-    }
-
+			@include media-breakpoint-down('md') {
+				flex: 1 0 100%;
+				margin-top: 32px;
+				width: 100%;
+				min-width: 0;
+				max-width: none;
+			}
+		}
+	}
 }
 
 .custom-chart-circle {
-  max-width: 100% !important;
+	max-width: 100% !important;
+	margin: 0 20px 0 20px;
 }

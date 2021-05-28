@@ -1,6 +1,6 @@
 <div
   id="dashboard-analytics"
-  class="page-layout blank grey-100-bg"
+  class="page-layout grey-100-bg"
   fusePerfectScrollbar
 >
   <div class="main-widget">
@@ -52,7 +52,86 @@
   </div>
 
   <div class="mb-48 mt-32">
-    <div class="fuse-card custom-chart-circle">
+    <div class="">
+      <div class="mb-48 mt-32">
+        <div class="fuse-card custom-chart-circle">
+          <form
+            class="pt-5"
+            [formGroup]="searchServiceForm"
+            autocomplete="off"
+            novalidate
+            (ngSubmit)="getChartServices()"
+          >
+            <div class="px-16" fxLayout="row" fxLayoutAlign="start center">
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="from_date"
+                  [matDatepicker]="dpServiceFrom"
+                  placeholder="From Date"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="dpServiceFrom"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  #dpServiceFrom
+                  disabled="false"
+                ></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="ml-3">
+                <input
+                  matInput
+                  formControlName="to_date"
+                  [matDatepicker]="dpServiceTo"
+                  placeholder="To Date"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="dpServiceTo"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #dpServiceTo disabled="false"></mat-datepicker>
+              </mat-form-field>
+
+              <button class="ml-3" mat-button color="accent" type="submit">
+                OVERVIEW
+              </button>
+            </div>
+          </form>
+
+          <div class="card-divider mb-0"></div>
+
+          <div class="p-16">
+            <div class="h1 font-weight-300">Sessions by Service</div>
+          </div>
+
+          <div
+            class="h-200"
+            *ngIf="chartService && chartService.length > 0; else message"
+          >
+            <ngx-charts-pie-chart
+              *fuseIfOnDom
+              [scheme]="widgets.widgetService.scheme"
+              [results]="chartService"
+              [doughnut]="true"
+            >
+            </ngx-charts-pie-chart>
+          </div>
+          <ng-template #message>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <h3 class="accent-500-fg mb-5">No data for this period</h3>
+            </div>
+          </ng-template>
+
+          <div class="p-16 row" *ngIf="chartService && chartService.length > 0">
+            <div class="px-16 col-sm-2" *ngFor="let cus of chartService">
+              <div class="h4 secondary-text">{{ cus.name }}</div>
+              <div class="h2 font-weight-300 py-8">{{ cus.value }}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="mb-48 mt-32">
         <div class="fuse-card custom-chart-circle mat-accent-50-bg">
           <form
@@ -205,99 +284,100 @@
       </div>
 
       <div class="mb-48 mt-32">
-        <div class="fuse-card custom-chart-circle">
-          <div class="mb-48 mt-32">
-            <div class="fuse-card custom-chart-circle mat-accent-50-bg">
-              <form
-                class="pt-5"
-                [formGroup]="searchCountryForm"
-                autocomplete="off"
-                novalidate
-                (ngSubmit)="getChartCountries()"
-              >
-                <div class="px-16" fxLayout="row" fxLayoutAlign="start center">
-                  <mat-form-field>
-                    <input
-                      matInput
-                      formControlName="from_date"
-                      [matDatepicker]="dpCountryFrom"
-                      placeholder="From Date"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="dpCountryFrom"
-                    ></mat-datepicker-toggle>
-                    <mat-datepicker
-                      #dpCountryFrom
-                      disabled="false"
-                    ></mat-datepicker>
-                  </mat-form-field>
-                  <mat-form-field class="ml-3">
-                    <input
-                      matInput
-                      formControlName="to_date"
-                      [matDatepicker]="dpCountryTo"
-                      placeholder="To Date"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="dpCountryTo"
-                    ></mat-datepicker-toggle>
-                    <mat-datepicker
-                      #dpCountryTo
-                      disabled="false"
-                    ></mat-datepicker>
-                  </mat-form-field>
+          <div class="fuse-card custom-chart-circle mat-accent-50-bg">
+            <form
+              class="pt-5"
+              [formGroup]="searchCountryForm"
+              autocomplete="off"
+              novalidate
+              (ngSubmit)="getChartCountries()"
+            >
+              <div class="px-16" fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field>
+                  <input
+                    matInput
+                    formControlName="from_date"
+                    [matDatepicker]="dpCountryFrom"
+                    placeholder="From Date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="dpCountryFrom"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker
+                    #dpCountryFrom
+                    disabled="false"
+                  ></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="ml-3">
+                  <input
+                    matInput
+                    formControlName="to_date"
+                    [matDatepicker]="dpCountryTo"
+                    placeholder="To Date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="dpCountryTo"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker
+                    #dpCountryTo
+                    disabled="false"
+                  ></mat-datepicker>
+                </mat-form-field>
 
-                  <button class="ml-3" mat-button color="accent" type="submit">
-                    OVERVIEW
-                  </button>
-                </div>
-              </form>
-
-              <div class="card-divider mb-0"></div>
-
-              <div class="p-16">
-                <div class="h1 font-weight-300">Sessions by Country</div>
+                <button class="ml-3" mat-button color="accent" type="submit">
+                  OVERVIEW
+                </button>
               </div>
+            </form>
 
-              <div
-                class="h-200"
-                *ngIf="
-                  chartCountry && chartCountry.length > 0;
-                  else messageCountry
-                "
+            <div class="card-divider mb-0"></div>
+
+            <div class="p-16">
+              <div class="h1 font-weight-300">Sessions by Country</div>
+            </div>
+
+            <div
+              class="h-200"
+              *ngIf="
+                chartCountry && chartCountry.length > 0;
+                else messageCountry
+              "
+            >
+              <ngx-charts-pie-chart
+                *fuseIfOnDom
+                [scheme]="widgets.widgetCountry.scheme"
+                [results]="chartCountry"
+                [doughnut]="true"
               >
-                <ngx-charts-pie-chart
-                  *fuseIfOnDom
-                  [scheme]="widgets.widgetCountry.scheme"
-                  [results]="chartCountry"
-                  [doughnut]="true"
-                >
-                </ngx-charts-pie-chart>
+              </ngx-charts-pie-chart>
+            </div>
+            <ng-template #messageCountry>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <h3 class="accent-500-fg mb-5">No data for this period</h3>
               </div>
-              <ng-template #messageCountry>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                  <h3 class="accent-500-fg mb-5">No data for this period</h3>
-                </div>
-              </ng-template>
+            </ng-template>
 
+            <div
+              class="p-16 row"
+              *ngIf="chartCountry && chartCountry.length > 0"
+            >
               <div
-                class="p-16 row"
-                *ngIf="chartCountry && chartCountry.length > 0"
+                class="px-16 col-sm-2"
+                *ngFor="let country of chartCountry"
               >
-                <div
-                  class="px-16 col-sm-2"
-                  *ngFor="let country of chartCountry"
-                >
-                  <div class="h4 secondary-text">{{ country.name }}</div>
-                  <div class="h2 font-weight-300 py-8">
-                    {{ country.value }}%
-                  </div>
+                <div class="h4 secondary-text">{{ country.name }}</div>
+                <div class="h2 font-weight-300 py-8">
+                  {{ country.value }}%
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+      <div class="mb-48 mt-32">
+        <div class="fuse-card custom-chart-circle">
 
           <div class="content">
             <div class="left mr-32">
