@@ -6,22 +6,17 @@ import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
 export class ShippingPurposeListService {
-  constructor(
-    private http: HttpClient,
-    private _Func: Functions,
-    private apiConfig: APIConfig
-  ) {
-  }
+	constructor(private http: HttpClient, private _Func: Functions, private apiConfig: APIConfig) {}
 
-  getList(params) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params);
-  }
+	getList(params) {
+		return this.http.get(this.apiConfig.SHIPPING_PURPOSE_LIST + params);
+	}
 
-  deleteCountry(id) {
-    return this.http.delete(this.apiConfig.COUNTRY_LIST + '/delete/' + id);
-  }
+	deleteShippingPurpose(id) {
+		return this.http.delete(this.apiConfig.SHIPPING_PURPOSE_LIST + '/delete/' + id);
+	}
 
-  getReport(params: string = '') {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { responseType: 'blob' });
-  }
+	getReport(params: string = '') {
+		return this.http.get(this.apiConfig.SHIPPING_PURPOSE_LIST + params + '&export=1', { responseType: 'blob' });
+	}
 }
