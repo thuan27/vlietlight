@@ -31,7 +31,7 @@ export class CustomerListComponent implements OnInit {
 	hasCreateUserPermission = false;
 	hasDeleteUserPermission = false;
 	private hasViewUserPermission = false;
-	status = [ { value: 'AC', name: 'Active' }, { value: 'IA', name: 'Inactive' } ];
+	status = [ { value: '10', name: 'Active' }, { value: '09', name: 'Inactive' } ];
 	dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
 	constructor(
@@ -78,8 +78,9 @@ export class CustomerListComponent implements OnInit {
 		this.searchForm = this.formBuilder.group({
 			loginname: '',
 			customer_name: '',
-			email: '',
-			phone: '',
+			customer_address: '',
+			customer_email: '',
+			customer_phone: '',
 			account_number: '',
 			tax_number: '',
 			zip_code: '',
@@ -109,16 +110,17 @@ export class CustomerListComponent implements OnInit {
 					'customer_id'
 				]}">${customer['customer_id']}</a>`;
 			});
-			for (let i = 0; i < data['data'].length; i++) {
-				if (data['data'][i]['status'] == 10) {
-					data['data'][i]['status'] = 'Active';
-				} else {
-					data['data'][i]['status'] = 'Inactive';
-				}
-			}
+			// for (let i = 0; i < data['data'].length; i++) {
+			// 	if (data['data'][i]['status'] == 10) {
+			// 		data['data'][i]['status'] = 'Active';
+			// 	} else {
+			// 		data['data'][i]['status'] = 'Inactive';
+			// 	}
+			// }
 			this.rows = data['data'];
-			this.total = data['meta']['totalCount'];
-			this.current_page = parseInt(data['meta']['currentPage']) - 1;
+
+			this.total = data['meta']['pagination']['total'];
+			this.current_page = parseInt(data['meta']['pagination']['current_page']) - 1;
 			this.loadingIndicator = false;
 		});
 	}

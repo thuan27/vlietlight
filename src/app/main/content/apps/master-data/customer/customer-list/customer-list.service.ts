@@ -18,6 +18,6 @@ export class CustomerListService {
 	}
 
 	deleteCus(id) {
-		return this.http.delete(this.apiConfig.CREATE_CUSTOMER + '/' + id);
+		return this.http.put(this.apiConfig.CREATE_CUSTOMER + '/delete/' + id, {});
 	}
 }

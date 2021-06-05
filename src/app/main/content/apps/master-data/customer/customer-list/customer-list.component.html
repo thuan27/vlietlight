@@ -79,10 +79,25 @@
         />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="email" matInput placeholder="Email" />
+        <input
+          formControlName="customer_email"
+          matInput
+          placeholder="Customer Email"
+        />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="phone" matInput placeholder="Customer Phone" />
+        <input
+          formControlName="customer_address"
+          matInput
+          placeholder="Customer Address"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input
+          formControlName="customer_phone"
+          matInput
+          placeholder="Customer Phone"
+        />
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <input formControlName="tax_number" matInput placeholder="Tax Number" />
@@ -198,8 +213,8 @@
 
       <ngx-datatable-column
         [width]="200"
-        name="Customer Email"
-        prop="customer_email"
+        name="Customer customer_email"
+        prop="customer_customer_email"
       ></ngx-datatable-column>
 
       <ngx-datatable-column
