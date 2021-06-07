@@ -110,13 +110,6 @@ export class CustomerListComponent implements OnInit {
 					'customer_id'
 				]}">${customer['customer_id']}</a>`;
 			});
-			// for (let i = 0; i < data['data'].length; i++) {
-			// 	if (data['data'][i]['status'] == 10) {
-			// 		data['data'][i]['status'] = 'Active';
-			// 	} else {
-			// 		data['data'][i]['status'] = 'Inactive';
-			// 	}
-			// }
 			this.rows = data['data'];
 
 			this.total = data['meta']['pagination']['total'];
