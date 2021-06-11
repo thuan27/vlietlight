@@ -194,6 +194,23 @@ export class CustomerListComponent implements OnInit {
 		});
 	}
 
+	exportExcel() {
+		let fileName = 'Customers';
+		let fileType = '.xlsx';
+		let params = '?type=xlsx';
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		let getReport = this.customerListService.getReport(params);
+		getReport.subscribe((data) => {
+			var blob = new Blob([ data ], {
+				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			});
+			FileSaver.saveAs.saveAs(blob, fileName + fileType);
+		});
+	}
+
 	onTableContextMenu(event) {
 		var dummy = document.createElement('textarea');
 		document.body.appendChild(dummy);

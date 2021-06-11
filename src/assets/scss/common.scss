@@ -1,115 +1,120 @@
 .table-custom {
-    border:1px solid #b3e5fc;
-    border-spacing: 0;
-    background: white;
-    border-radius: 6px;
-    overflow: hidden;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    thead tr {
-        height: 60px;
-        background: rgb(75, 189, 241);
-        font-size: 16px;
-        th {
-            text-align: center !important;
-        }
-    }
-    tbody tr {
-        height: 48px;
-        border-bottom: 1px solid #E3F1D5;
-        &:last-child {
-            border: 0;
-        }
-    }
+	border: 1px solid #b3e5fc;
+	border-spacing: 0;
+	background: white;
+	border-radius: 6px;
+	overflow: hidden;
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+	thead tr {
+		height: 60px;
+		background: rgb(75, 189, 241);
+		font-size: 16px;
+		th {
+			text-align: center !important;
+		}
+	}
+	tbody tr {
+		height: 48px;
+		border-bottom: 1px solid #e3f1d5;
+		&:last-child {
+			border: 0;
+		}
+	}
 }
 
 .form {
-    box-shadow: 5px 5px 15px grey;
-    padding: 10px;
-    border-radius: 2px;
+	box-shadow: 5px 5px 15px grey;
+	padding: 10px;
+	border-radius: 2px;
 }
 
 .box-shadow-form {
-    box-shadow: 2px 2px 7px rgb(212, 211, 211);
-    padding: 10px;
-    border-radius: 2px;
+	box-shadow: 2px 2px 7px rgb(212, 211, 211);
+	padding: 10px;
+	border-radius: 2px;
 }
 
 .margin-top-10 {
-    margin-top: 10px !important;
+	margin-top: 10px !important;
 }
 
 .margin-left-20 {
-    margin-left: 20px !important;
+	margin-left: 20px !important;
 }
 
 .margin-left-10 {
-  margin-left: 10px !important;
+	margin-left: 10px !important;
 }
 
 .margin-bottom-10 {
-    margin-bottom: 10px !important;
+	margin-bottom: 10px !important;
 }
 
 .align-right {
-  margin-left: auto;
+	margin-left: auto;
 }
 
 .custom-radio {
-    margin-left: 20px;
-    &:first-child {
-        margin-left: 0;
-    }
+	margin-left: 20px;
+	&:first-child {
+		margin-left: 0;
+	}
 }
 
 .icon-delete {
-    cursor: pointer;
-    color: #80deea !important;
+	cursor: pointer;
+	color: #80deea !important;
 }
 
 .icon-delete:hover {
-    color: #3fbbf5 !important;
+	color: #3fbbf5 !important;
 }
 
 .button-in-table {
-    // background: transparent !important;
-    color: #80deea !important;
+	// background: transparent !important;
+	color: #80deea !important;
 }
 
 .padding-left-10 {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 
 .title-control {
-    padding-left: 10px;
-    padding-bottom: 10px;
-    font-size: 20px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	font-size: 20px;
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
 
 .export {
-  .label-export {
-    vertical-align: top;
-    font-weight: normal;
-  }
-  .csv, .pdf {
-    background: url('/assets/images/common/export-file.png') no-repeat;
-    width: 25px;
-    height: 25px;
-    background-size: 100px auto;
-    cursor: pointer;
-    margin-left: 10px;
-    display: inline-block;
-  }
-  .pdf {
-    background-position: -71px;
-  }
+	.label-export {
+		vertical-align: top;
+		font-weight: normal;
+	}
+	.csv,
+	.pdf,
+	.excel {
+		background: url('/assets/images/common/export-file.png') no-repeat;
+		width: 25px;
+		height: 25px;
+		background-size: 100px auto;
+		cursor: pointer;
+		margin-left: 10px;
+		display: inline-block;
+	}
+	.pdf {
+		background-position: -71px;
+	}
+	.excel {
+		background-position: -34px;
+	}
 }
 .format-line-height-button {
-  padding-left: 15px;
-  line-height: 55px;
+	padding-left: 15px;
+	line-height: 55px;
 }

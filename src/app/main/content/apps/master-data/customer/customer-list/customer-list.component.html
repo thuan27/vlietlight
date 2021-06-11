@@ -44,7 +44,11 @@
           <mat-icon>system_update_alt</mat-icon>
           <span>Update</span>
         </button>
-        <button mat-menu-item (click)="delete()">
+        <button
+          *ngIf="hasDeleteUserPermission"
+          mat-menu-item
+          (click)="delete()"
+        >
           <mat-icon>delete_forever</mat-icon>
           <span>Delete</span>
         </button>
@@ -262,6 +266,7 @@
     <div class="export margin-top-10">
       <label class="label-export">Export to:</label>
       <a (click)="exportCsv()" class="csv"></a>
+      <a (click)="exportExcel()" class="excel"></a>
     </div>
   </div>
 </div>
