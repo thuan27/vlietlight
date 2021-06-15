@@ -21,8 +21,8 @@ export class TokenInterceptor implements HttpInterceptor {
 		private injector: Injector,
 		private router: Router
 	) {
-		// this.urlCurrent = document.location.href;
-		this.urlCurrent = router['location'].path();
+		this.urlCurrent = document.location.href;
+		// this.urlCurrent = router['location'].path();
 		// this.router.events.subscribe((url: any) => {
 		// 	this.urlCurrent = url.url;
 		// 	console.log(url.url);
@@ -92,7 +92,11 @@ export class TokenInterceptor implements HttpInterceptor {
 		//       }
 		//   );
 
-		let check = this.urlCurrent.includes('pages/landing') || this.urlCurrent.includes('pages/auth/login');
+		let check =
+			this.urlCurrent.includes('pages/landing') ||
+			this.urlCurrent.includes('pages/auth/login') ||
+			this.urlCurrent.slice(32) == '';
+		// let check = this.urlCurrent.includes('pages/landing') || this.urlCurrent.includes('pages/auth/login');
 		// console.log(this.urlCurrent);
 		if (!check) {
 			let requestOption: any = {};
