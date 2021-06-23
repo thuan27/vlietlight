@@ -22,29 +22,37 @@
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-        <span class="secondary-text">Tracking</span>
+        <span class="secondary-text">Tracking Multiple</span>
       </div>
-      <div class="h2 mt-16">Tracking</div>
+      <div class="h2 mt-16">Tracking Multiple</div>
     </div>
   </div>
   <!-- / HEADER -->
 
   <!-- CONTENT -->
+
   <div class="p-24">
-    <form
-      id="form-control"
-      class="row"
-      [formGroup]="searchForm"
-      (submit)="getList()"
-      autocomplete="off"
-    >
-      <mat-form-field class="col-sm-12 col-lg-3">
-        <textarea matInput
-          formControlName="odr_code"
-          placeholder="Track"
-          mat-maxlength="500"
-          max-rows="5">
-        </textarea>
+    <form id="form-control" class="row" (submit)="getList()" autocomplete="off">
+      <mat-form-field class="col-sm-12">
+        <mat-label>Track</mat-label>
+        <mat-chip-list #chipList aria-label="Order ID selection">
+          <mat-chip
+            *ngFor="let order of orderId"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(order)"
+          >
+            {{ order.name }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Track multuple"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+          />
+        </mat-chip-list>
       </mat-form-field>
       <span class="format-line-height-button">
         <button mat-raised-button color="warn-500-bg" type="submit">
@@ -53,88 +61,97 @@
         <button mat-raised-button (click)="reset()">Reset</button>
       </span>
     </form>
-    <div class="box-shadow-form margin-top-10">
-      <div class="row mt-3 mb-3">
-        <span>
-          <img
-            lazyLoad="../../../../../../assets/images/common/plane.png"
-            class="mr-4 ml-5"
-            style="max-width: 50px; width: 100%;"
-          />
-        </span>
-        <span>
-          <div class="font-weight-bold title-tracking h2 mb-2">
-            Shipment information received
+    <mat-progress-bar
+      *ngIf="loading"
+      color="accent"
+      mode="indeterminate"
+    ></mat-progress-bar>
+    <div *ngFor="let track of trackingArrayList; let i = index">
+      <h2 class="mb-3 mt-4 font-weight-bold title-id">{{ track.id }}</h2>
+      <div class="box-shadow-form margin-top-10">
+        <div *ngIf="track.success; else messageError">
+          <div
+            class="font-weight-bold title-tracking h2 mb-2 mr-5 ml-5 text-center"
+          >
+            {{ track?.status_description }}
           </div>
-          <div class="font-italic h4">June, 11/11/2021</div>
-        </span>
-      </div>
-      <div class="row ml-5 mt-4">
-        <span><h5>This shipment is handled by:</h5></span>
-        <span class="font-weight-bold ml-1" style="color: #429ed7"
-          ><h5>Vietlight Express</h5></span
-        >
-      </div>
-      <div class="row ml-5">
-        <span><h5>Agent bill:</h5></span>
-        <span><h5 class="ml-1">77205.....</h5></span>
-      </div>
-      <div class="row ml-5">
-        <span><h5>AWB #:</h5></span>
-        <span><h5 class="ml-1">AWB0001</h5></span>
-      </div>
-      <div class="d-flex mt-5">
-        <div class="ml-5">
-          <div>
-            <span style="color: #429ed7; font-size: 18px;">From</span>
+          <div class="font-italic h4 mr-5 ml-5 text-center">
+            June, 11/11/2021
           </div>
-          <h3 class="font-weight-bold">Ho Chi Minh city</h3>
-          <div>11/11/2011</div>
-        </div>
-        <div class="ml-auto mr-5">
-          <div>
-            <span style="color: #429ed7; font-size: 18px;">To</span>
+          <p class="ml-5 mt-4">
+            <strong>This shipment is handled by:</strong>
+            <span class="ml-1" style="color: #429ed7">Vietlight Express</span>
+          </p>
+          <p class="ml-5">
+            <strong>Agent bill:</strong>
+            <span class="ml-1">{{ track?.trackingAwb }}</span>
+          </p>
+          <p class="ml-5">
+            <strong>AWB #:</strong>
+            <span class="ml-1">{{ track?.vietlightAwb }}</span>
+          </p>
+          <div class="d-flex mt-5">
+            <div class="ml-5">
+              <div class="mb-3">
+                <strong style="color: #429ed7; font-size: 18px;">From</strong>
+              </div>
+              <h3 class="font-weight-bold">{{ track?.from_address }}</h3>
+              <div>11/11/2011</div>
+            </div>
+            <div class="ml-auto mr-5">
+              <div class="mb-3">
+                <strong style="color: #429ed7; font-size: 18px;">To</strong>
+              </div>
+              <h3 class="font-weight-bold">{{ track?.destination }}</h3>
+              <div>11/11/2011</div>
+            </div>
           </div>
-          <h3 class="font-weight-bold">Can Tho city</h3>
-          <div>11/11/2011</div>
+          <div class="row">
+            <div class="progressbar-wrapper">
+              <ul class="progressbar">
+                <li
+                  class="step1"
+                  [ngClass]="{ active: statusBar.packing == true }"
+                >
+                  Packing
+                </li>
+                <li
+                  class="step2"
+                  [ngClass]="{ active: statusBar.ready_to_ship == true }"
+                >
+                  Ready To Ship
+                </li>
+                <li
+                  class="step3"
+                  [ngClass]="{ active: statusBar.shipping == true }"
+                >
+                  Shipping
+                </li>
+                <li
+                  class="step4"
+                  [ngClass]="{ active: statusBar.shipped == true }"
+                >
+                  Shipped
+                </li>
+                <li
+                  class="step5"
+                  [ngClass]="{ active: statusBar.completed == true }"
+                >
+                  Completed
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+        <ng-template #messageError
+          ><mat-error>{{ track.message }}</mat-error>
+        </ng-template>
       </div>
-      <div class="row">
-        <div class="progressbar-wrapper">
-          <ul class="progressbar">
-            <li class="step1" [ngClass]="{ active: statusBar.packing == true }">
-              Packing
-            </li>
-            <li
-              class="step2"
-              [ngClass]="{ active: statusBar.ready_to_ship == true }"
-            >
-              Ready To Ship
-            </li>
-            <li
-              class="step3"
-              [ngClass]="{ active: statusBar.shipping == true }"
-            >
-              Shipping
-            </li>
-            <li class="step4" [ngClass]="{ active: statusBar.shipped == true }">
-              Shipped
-            </li>
-            <li
-              class="step5"
-              [ngClass]="{ active: statusBar.completed == true }"
-            >
-              Completed
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <mat-accordion class="faqs-accordion">
-        <mat-expansion-panel>
+      <mat-accordion class="faqs-accordion">
+        <mat-expansion-panel class="light-blue-200-bg" *ngIf="track.success">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Information Detail
+              Details
             </mat-panel-title>
             <!-- <mat-panel-description>
               Inform the date you wish to travel
@@ -142,24 +159,36 @@
             </mat-panel-description> -->
           </mat-expansion-panel-header>
 
-          <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
-              <ng-container matColumnDef="time">
-                  <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.time}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="location">
-                  <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.location}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="description">
-                  <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
-              </ng-container>
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-table
+            #table
+            [dataSource]="track.dataSource"
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="time">
+              <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.datetime | date }}</mat-cell
+              >
+            </ng-container>
+            <ng-container matColumnDef="location">
+              <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.location }}</mat-cell
+              >
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{
+                element.description
+              }}</mat-cell>
+            </ng-container>
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
           </mat-table>
-
         </mat-expansion-panel>
       </mat-accordion>
+    </div>
   </div>
 </div>

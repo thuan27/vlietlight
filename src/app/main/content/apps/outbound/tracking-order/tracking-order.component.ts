@@ -57,7 +57,6 @@ export class TrackingComponent implements OnInit {
 			(response) => {
 				this.loading = false;
 				this.trackingList = response['data'];
-				console.log(this.trackingList);
 				let listEvent = [];
 				if (response['data']['events'] && response['data']['vietlight_events']) {
 					listEvent = response['data']['events'].concat(response['data']['vietlight_events']);

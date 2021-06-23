@@ -66,6 +66,7 @@ export class APIConfig {
 	public ORDER_EVENT_TRACKING = this.API_BASE + '/orders/v1/event-tracking';
 	public TRACKING_ORDER_LIST = this.API_BASE + '/orders/v1/get-tracking-info';
 	public SINGLE_TRACKING_ORDER_LIST = this.API_BASE + '/orders/v1/single-tracking-info';
+	public MULTIPLE_TRACKING_ORDER_LIST = this.API_BASE + '/orders/v1/multiple-tracking-info';
 	public CREATE_WAVE_PICK = this.API_BASE + '/awbs/v1/awb-wavepick';
 	public GET_SALE = this.API_BASE + '/awbs/v1/suggest-sales';
 	public GET_CS = this.API_BASE + '/awbs/v1/suggest-cs';
