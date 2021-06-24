@@ -27,14 +27,29 @@
       <div class="h2 mt-16">Tracking Multiple</div>
     </div>
   </div>
+  <mat-progress-bar
+    *ngIf="loading"
+    color="accent"
+    mode="indeterminate"
+  ></mat-progress-bar>
   <!-- / HEADER -->
 
   <!-- CONTENT -->
 
   <div class="p-24">
     <form id="form-control" class="row" (submit)="getList()" autocomplete="off">
-      <mat-form-field class="col-sm-12">
+      <mat-form-field class="col-sm-12 col-md-8 col-lg-9">
         <mat-label>Track</mat-label>
+        <span matPrefix
+          >&nbsp;&nbsp;<mat-icon
+            matTooltip="Maximum enter 10 orderIDs, the code is separated by the enter button"
+            matTooltipPosition="after"
+            color="accent"
+            [matTooltipClass]="{ 'tool-tip': true }"
+            >help</mat-icon
+          >
+          &nbsp;</span
+        >
         <mat-chip-list #chipList aria-label="Order ID selection">
           <mat-chip
             *ngFor="let order of orderId"
@@ -54,20 +69,18 @@
           />
         </mat-chip-list>
       </mat-form-field>
-      <span class="format-line-height-button">
-        <button mat-raised-button color="warn-500-bg" type="submit">
+      <span class="format-line-height-button col-md-4 col-lg-3">
+        <button mat-raised-button color="amber-400-bg" type="submit">
           <mat-icon>arrow_forward_ios</mat-icon>
         </button>
         <button mat-raised-button (click)="reset()">Reset</button>
       </span>
     </form>
-    <mat-progress-bar
-      *ngIf="loading"
-      color="accent"
-      mode="indeterminate"
-    ></mat-progress-bar>
+
     <div *ngFor="let track of trackingArrayList; let i = index">
-      <h2 class="mb-3 mt-4 font-weight-bold title-id">{{ track.id }}</h2>
+      <div class="mb-3 mt-4 box-title-id">
+        <span class="title-id">{{ track.id }}</span>
+      </div>
       <div class="box-shadow-form margin-top-10">
         <div *ngIf="track.success; else messageError">
           <div

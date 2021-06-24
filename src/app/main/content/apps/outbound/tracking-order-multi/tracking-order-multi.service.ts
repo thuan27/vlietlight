@@ -11,7 +11,7 @@ export class TrackingOrderMultiListService {
 		return this.http.get(this.apiConfig.MULTIPLE_TRACKING_ORDER_LIST + params);
 	}
 
-	getSingcleList(id) {
+	getSingleList(id) {
 		return this.http.get(`${this.apiConfig.SINGLE_TRACKING_ORDER_LIST}/${id}`);
 	}
 }

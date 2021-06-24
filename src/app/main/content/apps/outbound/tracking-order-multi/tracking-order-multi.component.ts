@@ -4,6 +4,12 @@ import { TrackingOrderMultiListService } from './tracking-order-multi.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { MatTableDataSource, MatChipInputEvent } from '@angular/material';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { HttpClient } from '@angular/common/http';
+import { APIConfig } from 'app/main/content/pages/authentication/config';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 export interface Element {
 	time: number;
 	location: string;
@@ -41,6 +47,8 @@ export class TrackingMultiComponent implements OnInit {
 	orderId = [];
 
 	constructor(
+		private http: HttpClient,
+		private apiConfig: APIConfig,
 		private formBuilder: FormBuilder,
 		private trackingOrderMultiListService: TrackingOrderMultiListService,
 		private toastyService: ToastyService,
@@ -54,9 +62,8 @@ export class TrackingMultiComponent implements OnInit {
 	getList() {
 		this.loading = true;
 		this.trackingArrayList = [];
-
-		this.orderId.forEach((item) => {
-			this.trackingOrderMultiListService.getSingcleList(item.name).subscribe(
+		this.orderId.forEach((item, i) => {
+			this.trackingOrderMultiListService.getSingleList(item.name).subscribe(
 				(response) => {
 					response['data']['id'] = item.name;
 					response['data']['success'] = true;
@@ -84,16 +91,36 @@ export class TrackingMultiComponent implements OnInit {
 				}
 			);
 		});
+		// this.getObjectsById().subscribe(
+		// 	(item) => {
+		//     item.forEach()
+		// 		console.log(item);
+		// 	},
+		// 	(err) => {
+		// 		console.log(err);
+		// 	}
+		// );
+	}
+
+	getObjectsById() {
+		let observableBatch = [];
+		this.orderId.forEach((key) => {
+			observableBatch.push(this.http.get(`${this.apiConfig.SINGLE_TRACKING_ORDER_LIST}/${key.name}`));
+		});
+
+		return Observable.forkJoin(observableBatch);
 	}
 
 	add(event: MatChipInputEvent): void {
 		let input = event.input;
 		let value = event.value;
+		let checkExist = this.orderId.find((o) => o.name === value);
 
 		// Add our person
-		if ((value || '').trim() && this.orderId.length < 10) {
+		if ((value || '').trim() && this.orderId.length <= 10 && !checkExist) {
 			this.orderId.push({ name: value.trim() });
-		} else {
+		}
+		if (!(this.orderId.length <= 10)) {
 			this.toastyService.error('You can only track 10 data');
 		}
 

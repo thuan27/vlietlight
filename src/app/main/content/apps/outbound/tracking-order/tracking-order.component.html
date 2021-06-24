@@ -5,7 +5,6 @@
   class="page-layout simple fullwidth"
   fusePerfectScrollbar
 >
-
   <!-- HEADER -->
   <div
     class="header mat-accent-bg p-24  h-110"
@@ -28,6 +27,12 @@
       <div class="h2 mt-16">Tracking</div>
     </div>
   </div>
+  <mat-progress-bar
+    *ngIf="loading"
+    color="accent"
+    mode="indeterminate"
+  ></mat-progress-bar>
+
   <!-- / HEADER -->
 
   <!-- CONTENT -->
@@ -52,9 +57,11 @@
     </form>
     <a class="custom-hyberlink" [routerLink]="'/apps/outbound/tracking-multi'">
       Multiple Tracking Numbers
-  </a>
+    </a>
     <div class="box-shadow-form margin-top-10">
-      <div class="font-weight-bold title-tracking h2 mb-2 mr-5 ml-5 text-center">
+      <div
+        class="font-weight-bold title-tracking h2 mb-2 mr-5 ml-5 text-center"
+      >
         {{ trackingList?.status_description }}
       </div>
       <div class="font-italic h4 mr-5 ml-5 text-center">June, 11/11/2021</div>
@@ -117,36 +124,41 @@
         </div>
       </div>
     </div>
-    <mat-progress-bar *ngIf="loading" color="accent" mode="indeterminate"></mat-progress-bar>
     <mat-accordion class="faqs-accordion">
-        <mat-expansion-panel class="light-blue-200-bg">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Details
-            </mat-panel-title>
-            <!-- <mat-panel-description>
+      <mat-expansion-panel class="light-blue-200-bg">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Details
+          </mat-panel-title>
+          <!-- <mat-panel-description>
               Inform the date you wish to travel
               <mat-icon>date_range</mat-icon>
             </mat-panel-description> -->
-          </mat-expansion-panel-header>
+        </mat-expansion-panel-header>
 
-          <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
-              <ng-container matColumnDef="time">
-                  <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.datetime | date}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="location">
-                  <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.location}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="description">
-                  <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-                  <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
-              </ng-container>
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          </mat-table>
-        </mat-expansion-panel>
-      </mat-accordion>
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="time">
+            <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.datetime | date }}</mat-cell
+            >
+          </ng-container>
+          <ng-container matColumnDef="location">
+            <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.location }}</mat-cell
+            >
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{
+              element.description
+            }}</mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
