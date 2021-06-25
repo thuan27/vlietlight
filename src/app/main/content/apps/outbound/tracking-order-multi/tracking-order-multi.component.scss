@@ -1,7 +1,16 @@
+body {
+	scroll-behavior: smooth;
+}
 .title-tracking {
 	color: #429ed7;
 	font-size: 27px;
 	letter-spacing: 0.8px;
+}
+
+.sticky {
+	position: fixed;
+	top: 75px;
+	width: 100%;
 }
 
 .box-title-id {

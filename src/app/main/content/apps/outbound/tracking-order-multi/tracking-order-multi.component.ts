@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { TrackingOrderMultiListService } from './tracking-order-multi.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
@@ -117,13 +117,12 @@ export class TrackingMultiComponent implements OnInit {
 		let checkExist = this.orderId.find((o) => o.name === value);
 
 		// Add our person
-		if ((value || '').trim() && this.orderId.length <= 10 && !checkExist) {
-			this.orderId.push({ name: value.trim() });
-		}
-		if (!(this.orderId.length <= 10)) {
+		if (this.orderId.length > 10) {
 			this.toastyService.error('You can only track 10 data');
 		}
-
+		if ((value || '').trim() && this.orderId.length < 10 && !checkExist) {
+			this.orderId.push({ name: value.trim() });
+		}
 		// Reset the input value
 		if (input) {
 			input.value = '';
@@ -138,5 +137,27 @@ export class TrackingMultiComponent implements OnInit {
 		}
 	}
 
-	reset() {}
+	reset() {
+		this.loading = false;
+		this.orderId = [];
+	}
+
+	scroll(id) {
+		let el = document.getElementById(id);
+		el.scrollIntoView({
+			block: 'start'
+		});
+	}
+
+	@HostListener('window:scroll', [ '$event' ])
+	onScroll(event) {
+		const header = document.getElementById('header').offsetHeight;
+		const form = document.getElementById('form-control').offsetHeight;
+		const button = document.getElementById('scroll');
+		if (event.srcElement.scrollTop > header + form) {
+			button.classList.add('sticky');
+		} else {
+			button.classList.remove('sticky');
+		}
+	}
 }

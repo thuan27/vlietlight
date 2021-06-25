@@ -4,9 +4,11 @@
   id="ngx-datatable"
   class="page-layout simple fullwidth"
   fusePerfectScrollbar
+  (scroll)="onScroll($event)"
 >
   <!-- HEADER -->
   <div
+    id="header"
     class="header mat-accent-bg p-24  h-110"
     fxLayout="column"
     fxLayoutAlign="center center"
@@ -37,7 +39,7 @@
   <!-- CONTENT -->
 
   <div class="p-24">
-    <form id="form-control" class="row" (submit)="getList()" autocomplete="off">
+    <div id="form-control" class="row">
       <mat-form-field class="col-sm-12 col-md-8 col-lg-9">
         <mat-label>Track</mat-label>
         <span matPrefix
@@ -70,15 +72,28 @@
         </mat-chip-list>
       </mat-form-field>
       <span class="format-line-height-button col-md-4 col-lg-3">
-        <button mat-raised-button color="amber-400-bg" type="submit">
+        <button mat-raised-button color="amber-400-bg" (click)="getList()">
           <mat-icon>arrow_forward_ios</mat-icon>
         </button>
         <button mat-raised-button (click)="reset()">Reset</button>
       </span>
-    </form>
+    </div>
+    <div class="row" id="scroll" style="padding-left: 15px; z-index: 10000">
+      <div *ngFor="let track of trackingArrayList; let i = index">
+        <button
+          color="cyan-100-bg"
+          mat-raised-button
+          class="mr-3"
+          (click)="scroll(track.id)"
+          style="display: inline-block"
+        >
+          {{ track.id }}
+        </button>
+      </div>
+    </div>
 
     <div *ngFor="let track of trackingArrayList; let i = index">
-      <div class="mb-3 mt-4 box-title-id">
+      <div class="mb-3 mt-4 box-title-id" [id]="track.id">
         <span class="title-id">{{ track.id }}</span>
       </div>
       <div class="box-shadow-form margin-top-10">
