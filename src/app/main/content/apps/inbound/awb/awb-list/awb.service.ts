@@ -13,7 +13,7 @@ export class AWBService {
 	}
 
 	getReport(params) {
-		return this.http.get(this.apiConfig.LIST_AWB + '/export' + params, { responseType: 'blob' });
+		return this.http.get(this.apiConfig.OPTION_AWB + '/export' + params, { responseType: 'blob' });
 	}
 
 	cancelAWB() {

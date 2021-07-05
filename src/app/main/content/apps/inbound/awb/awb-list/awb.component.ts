@@ -229,6 +229,28 @@ export class AWBComponent implements OnInit {
 		});
 	}
 
+	exportExcel() {
+		let fileName = 'AWB';
+		let fileType = '.xlsx';
+		let params = '?type=xlsx';
+		if (this.sortData !== '') {
+			params += this.sortData;
+		} else {
+			params += '&sort[awb_id]=desc';
+		}
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		let getReport = this._AWBService.getReport(params);
+		getReport.subscribe((data) => {
+			var blob = new Blob([ data ], {
+				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			});
+			FileSaver.saveAs.saveAs(blob, fileName + fileType);
+		});
+	}
+
 	pageCallback(e) {
 		this.getList(e['offset'] + 1);
 		this.selected = [];
