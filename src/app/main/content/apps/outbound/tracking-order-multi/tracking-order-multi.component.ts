@@ -84,7 +84,7 @@ export class TrackingMultiComponent implements OnInit {
 					let error = {
 						id: item.name,
 						success: false,
-						message: 'Can not get this ID'
+						message: `The "${item.name}" doesn't exist!  Please try again`
 					};
 
 					this.trackingArrayList.push(error);
@@ -140,6 +140,7 @@ export class TrackingMultiComponent implements OnInit {
 	reset() {
 		this.loading = false;
 		this.orderId = [];
+		this.trackingArrayList = [];
 	}
 
 	scroll(id) {

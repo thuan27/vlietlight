@@ -236,6 +236,13 @@ export const navigation = [
                         'exactMatch': true
                     },
                     {
+                      'id'   : 'tracking',
+                      'title': 'Tracking',
+                      'type' : 'item',
+                      'url'  : '/apps/outbound/tracking',
+                      'exactMatch': true
+                  },
+                    {
                         'id'   : 'tracking-list',
                         'title': 'Tracking List',
                         'type' : 'item',

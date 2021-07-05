@@ -49,16 +49,21 @@
         <input formControlName="odr_code" matInput placeholder="Track" />
       </mat-form-field>
       <span class="format-line-height-button">
-        <button mat-raised-button color="warn-500-bg" type="submit">
+        <button
+          [disabled]="searchForm.controls.odr_code.value == ''"
+          mat-raised-button
+          color="warn-500-bg"
+          type="submit"
+        >
           <mat-icon>arrow_forward_ios</mat-icon>
         </button>
-        <button mat-raised-button (click)="reset()">Reset</button>
+        <button mat-raised-button (click)="reset()" type="button">Reset</button>
       </span>
     </form>
     <a class="custom-hyberlink" [routerLink]="'/apps/outbound/tracking-multi'">
       Multiple Tracking Numbers
     </a>
-    <div class="box-shadow-form margin-top-10">
+    <div class="box-shadow-form margin-top-10" *ngIf="trackingList">
       <div
         class="font-weight-bold title-tracking h2 mb-2 mr-5 ml-5 text-center"
       >
@@ -96,35 +101,63 @@
       <div class="row">
         <div class="progressbar-wrapper">
           <ul class="progressbar">
-            <li class="step1" [ngClass]="{ active: statusBar.packing == true }">
+            <li
+              class="step1"
+              [ngClass]="{
+                active:
+                  trackingList?.statusShip == 'packing' ||
+                  trackingList?.statusShip == 'ready' ||
+                  trackingList?.statusShip == 'processing' ||
+                  trackingList?.statusShip == 'shipping' ||
+                  trackingList?.statusShip == 'delivered'
+              }"
+            >
               Packing
             </li>
             <li
               class="step2"
-              [ngClass]="{ active: statusBar.ready_to_ship == true }"
+              [ngClass]="{
+                active:
+                  trackingList?.statusShip == 'ready' ||
+                  trackingList?.statusShip == 'processing' ||
+                  trackingList?.statusShip == 'shipping' ||
+                  trackingList?.statusShip == 'delivered'
+              }"
             >
               Ready To Ship
             </li>
             <li
               class="step3"
-              [ngClass]="{ active: statusBar.shipping == true }"
+              [ngClass]="{
+                active:
+                  trackingList?.statusShip == 'processing' ||
+                  trackingList?.statusShip == 'shipping' ||
+                  trackingList?.statusShip == 'delivered'
+              }"
+            >
+              Processing
+            </li>
+            <li
+              class="step4"
+              [ngClass]="{
+                active:
+                  trackingList?.statusShip == 'shipping' ||
+                  trackingList?.statusShip == 'delivered'
+              }"
             >
               Shipping
             </li>
-            <li class="step4" [ngClass]="{ active: statusBar.shipped == true }">
-              Shipped
-            </li>
             <li
               class="step5"
-              [ngClass]="{ active: statusBar.completed == true }"
+              [ngClass]="{ active: trackingList.statusShip == 'delivered' }"
             >
-              Completed
+              Deliveried
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <mat-accordion class="faqs-accordion">
+    <mat-accordion class="faqs-accordion" *ngIf="trackingList">
       <mat-expansion-panel class="light-blue-200-bg">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -160,5 +193,11 @@
         </mat-table>
       </mat-expansion-panel>
     </mat-accordion>
+    <div class="box-shadow-form margin-top-10" *ngIf="error">
+      <span
+        >The "{{ searchForm.value.odr_code }}" doesn't exist! Please try
+        again</span
+      >
+    </div>
   </div>
 </div>

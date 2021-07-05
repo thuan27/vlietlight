@@ -7,46 +7,49 @@ import { TrackingComponent } from './tracking-order/tracking-order.component';
 import { TrackingMultiComponent } from './tracking-order-multi/tracking-order-multi.component';
 
 export const listRoutes: Routes = [
-    {
-        path     : 'order',
-        component: OrderListComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path: 'order/:id',
-        component: CreateOrderComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'detail'}
-    },
-    {
-        path: 'order/create',
-        component: CreateOrderComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path: 'order/:id/update',
-        component: UpdateOrderComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path: 'tracking/:id',
-        component: TrackingComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'detail'}
-    },
-    {
-        path: 'tracking-multi',
-        component: TrackingMultiComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
-    // {
-    //     path: 'order/create-for-cus',
-    //     component: CreateOrderComponent,
-    //     canActivate: [AuthGuard, AdminGuard]
-    // },
+	{
+		path: 'order',
+		component: OrderListComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'order/:id',
+		component: CreateOrderComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'order/create',
+		component: CreateOrderComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'order/:id/update',
+		component: UpdateOrderComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'tracking',
+		component: TrackingComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'tracking/:id',
+		component: TrackingComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'tracking-multi',
+		component: TrackingMultiComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	}
+	// {
+	//     path: 'order/create-for-cus',
+	//     component: CreateOrderComponent,
+	//     canActivate: [AuthGuard, AdminGuard]
+	// },
 ];
-
-

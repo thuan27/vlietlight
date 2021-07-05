@@ -31,6 +31,7 @@ export class TrackingComponent implements OnInit {
 	};
 	trackingList;
 	loading: Boolean = false;
+	error = false;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -55,6 +56,7 @@ export class TrackingComponent implements OnInit {
 		this.loading = true;
 		this.trackingOrderListService.getSingleList(id).subscribe(
 			(response) => {
+				this.error = false;
 				this.loading = false;
 				this.trackingList = response['data'];
 				let listEvent = [];
@@ -68,6 +70,7 @@ export class TrackingComponent implements OnInit {
 				this.dataSource = new MatTableDataSource<Element>(listEvent);
 			},
 			(err) => {
+				this.error = true;
 				this.loading = false;
 			}
 		);
@@ -101,5 +104,9 @@ export class TrackingComponent implements OnInit {
 		});
 	}
 
-	reset() {}
+	reset() {
+		this.error = false;
+		this.searchForm.controls['odr_code'].setValue('');
+		this.trackingList = undefined;
+	}
 }

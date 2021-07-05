@@ -39,7 +39,7 @@
   <!-- CONTENT -->
 
   <div class="p-24">
-    <div id="form-control" class="row">
+    <form id="form-control" class="row" (submit)="getList()" autocomplete="off">
       <mat-form-field class="col-sm-12 col-md-8 col-lg-9">
         <mat-label>Track</mat-label>
         <span matPrefix
@@ -63,7 +63,7 @@
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
           <input
-            placeholder="Track multuple"
+            placeholder="Track Multiple"
             [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur"
@@ -72,12 +72,17 @@
         </mat-chip-list>
       </mat-form-field>
       <span class="format-line-height-button col-md-4 col-lg-3">
-        <button mat-raised-button color="amber-400-bg" (click)="getList()">
+        <button
+          mat-raised-button
+          color="amber-400-bg"
+          type="submit"
+          [disabled]="orderId.length === 0"
+        >
           <mat-icon>arrow_forward_ios</mat-icon>
         </button>
-        <button mat-raised-button (click)="reset()">Reset</button>
+        <button mat-raised-button (click)="reset()" type="button">Reset</button>
       </span>
-    </div>
+    </form>
     <div class="row" id="scroll" style="padding-left: 15px; z-index: 10000">
       <div *ngFor="let track of trackingArrayList; let i = index">
         <button
@@ -139,33 +144,55 @@
               <ul class="progressbar">
                 <li
                   class="step1"
-                  [ngClass]="{ active: statusBar.packing == true }"
+                  [ngClass]="{
+                    active:
+                      track?.statusShip == 'packing' ||
+                      track?.statusShip == 'ready' ||
+                      track?.statusShip == 'processing' ||
+                      track?.statusShip == 'shipping' ||
+                      track?.statusShip == 'delivered'
+                  }"
                 >
                   Packing
                 </li>
                 <li
                   class="step2"
-                  [ngClass]="{ active: statusBar.ready_to_ship == true }"
+                  [ngClass]="{
+                    active:
+                      track?.statusShip == 'ready' ||
+                      track?.statusShip == 'processing' ||
+                      track?.statusShip == 'shipping' ||
+                      track?.statusShip == 'delivered'
+                  }"
                 >
                   Ready To Ship
                 </li>
                 <li
                   class="step3"
-                  [ngClass]="{ active: statusBar.shipping == true }"
+                  [ngClass]="{
+                    active:
+                      track?.statusShip == 'processing' ||
+                      track?.statusShip == 'shipping' ||
+                      track?.statusShip == 'delivered'
+                  }"
+                >
+                  Processing
+                </li>
+                <li
+                  class="step4"
+                  [ngClass]="{
+                    active:
+                      track?.statusShip == 'shipping' ||
+                      track?.statusShip == 'delivered'
+                  }"
                 >
                   Shipping
                 </li>
                 <li
-                  class="step4"
-                  [ngClass]="{ active: statusBar.shipped == true }"
-                >
-                  Shipped
-                </li>
-                <li
                   class="step5"
-                  [ngClass]="{ active: statusBar.completed == true }"
+                  [ngClass]="{ active: track?.statusShip == 'delivered' }"
                 >
-                  Completed
+                  Deliveried
                 </li>
               </ul>
             </div>
