@@ -6,41 +6,42 @@ import { environment } from '../../../../../../../environments/environment';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class OrderListService
-{
-    constructor(
-        private http: HttpClient,
-        private _Func: Functions,
-        private apiConfig: APIConfig
-    )
-    {
-    }
+export class OrderListService {
+	constructor(private http: HttpClient, private _Func: Functions, private apiConfig: APIConfig) {}
 
-    getList(params) {
-        return this.http.get(this.apiConfig.ORDER_LIST + params);
-    }
+	getList(params) {
+		return this.http.get(this.apiConfig.ORDER_LIST + params);
+	}
 
-    getReport(params) {
-      return this.http.get(this.apiConfig.ORDER_LIST + params + '&export=1', { responseType: 'blob' });
-  }
+	// getReport(params) {
+	// 	return this.http.get(this.apiConfig.ORDER_LIST + params + '&export=1', { responseType: 'blob' });
+	// }
 
-    deleteCountry(id) {
-        return this.http.delete(this.apiConfig.ORDER_LIST + '/delete/' + id);
-    }
+	getReport(params) {
+		return this.http.get(`${this.apiConfig.ORDER_LIST}/export` + params, { responseType: 'blob' });
+	}
 
-    getStatus() {
-      return this.http.get(this.apiConfig.GET_STATUS);
-    }
+	getReportDetail(params) {
+		return this.http.get(`${this.apiConfig.ORDER_LIST}/export-detail` + params, { responseType: 'blob' });
+	}
 
-    getCountry(data) {
-      return this.http.get(this.apiConfig.GET_COUNTRY + '?limit=300' + data);
-    }
+	deleteCountry(id) {
+		return this.http.delete(this.apiConfig.ORDER_LIST + '/delete/' + id);
+	}
 
-    getCS(data) {
-      return this.http.get(this.apiConfig.GET_CS + data);
-    }
+	getStatus() {
+		return this.http.get(this.apiConfig.GET_STATUS);
+	}
 
-    getService(data) {
-      return this.http.get(this.apiConfig.SERVICE_LIST + data);
-    }
+	getCountry(data) {
+		return this.http.get(this.apiConfig.GET_COUNTRY + '?limit=300' + data);
+	}
+
+	getCS(data) {
+		return this.http.get(this.apiConfig.GET_CS + data);
+	}
+
+	getService(data) {
+		return this.http.get(this.apiConfig.SERVICE_LIST + data);
+	}
 }

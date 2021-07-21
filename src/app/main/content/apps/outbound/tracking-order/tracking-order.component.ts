@@ -109,4 +109,38 @@ export class TrackingComponent implements OnInit {
 		this.searchForm.controls['odr_code'].setValue('');
 		this.trackingList = undefined;
 	}
+
+	arrayBK = [ 'Ma sói', 'Ma sói', 'Tiên tri', 'Dân thường', 'Dân thường', 'Bảo vệ', 'Dân thường', 'Dân thường' ];
+	arrayMS = [ 'Ma sói', 'Ma sói', 'Tiên tri', 'Dân thường', 'Dân thường', 'Bảo vệ', 'Dân thường', 'Dân thường' ];
+	ketqua = '';
+	select(i) {
+		alert(this.arrayMS[i]);
+		this.arrayMS.splice(i, 1);
+	}
+
+	resett() {
+		this.ketqua = '';
+		let array = this.shuffle(this.arrayBK);
+		this.arrayMS = [ ...array ];
+	}
+
+	shuffle(array) {
+		var currentIndex = array.length,
+			temporaryValue,
+			randomIndex;
+
+		// While there remain elements to shuffle...
+		while (0 !== currentIndex) {
+			// Pick a remaining element...
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex -= 1;
+
+			// And swap it with the current element.
+			temporaryValue = array[currentIndex];
+			array[currentIndex] = array[randomIndex];
+			array[randomIndex] = temporaryValue;
+		}
+
+		return array;
+	}
 }

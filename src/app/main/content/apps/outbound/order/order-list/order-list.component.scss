@@ -1,24 +1,30 @@
 :host {
-    .content {
-        max-width: 1100px;
-    }
+	.content {
+		max-width: 1100px;
+	}
 }
 
 /deep/.ngx-datatable {
-  overflow: unset !important;
-  datatable-header {
-    position: sticky;
-    background: #fff;
-    top: 0;
-    z-index: 100;
-    &:before {
-      content: ' ';
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      background: #fff;
-    }
-  }
+	overflow: unset !important;
+	datatable-header {
+		position: sticky;
+		background: #fff;
+		top: 0;
+		z-index: 100;
+		&:before {
+			content: ' ';
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			background: #fff;
+		}
+	}
+}
+
+.algin-right-export {
+	position: absolute;
+	right: 0;
+	margin-right: 23px;
 }

@@ -10,6 +10,7 @@ import { FuseUpdateStatusOrderComponent } from '@fuse/components/update-status-o
 import { FuseUpdateTrackingOrderComponent } from '@fuse/components/update-tracking-order/update-tracking-order.component';
 import { FuseUpdateFeeOrderComponent } from '@fuse/components/update-fee-order/update-fee-order.component';
 import * as FileSaver from 'file-saver';
+import * as moment from 'moment';
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -136,6 +137,44 @@ export class OrderListComponent implements OnInit {
 			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
 		}
 		let getReport = this.orderListService.getReport(params);
+		getReport.subscribe((data) => {
+			var blob = new Blob([ data ], {
+				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			});
+			FileSaver.saveAs.saveAs(blob, fileName + fileType);
+		});
+	}
+
+	exportExcel() {
+		const now = new Date();
+		const dateString = moment(now).format('YYYY-MM-DD');
+		let fileName = `Nhat_ky_hang_hoa_${dateString}`;
+		let fileType = '.xlsx';
+		let params = '?type=xlsx';
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		let getReport = this.orderListService.getReport(params);
+		getReport.subscribe((data) => {
+			var blob = new Blob([ data ], {
+				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			});
+			FileSaver.saveAs.saveAs(blob, fileName + fileType);
+		});
+	}
+
+	exportExcelDetail() {
+		const now = new Date();
+		const dateString = moment(now).format('YYYY-MM-DD');
+		let fileName = `Nhat_ky_hang_hoa_chi_tiet_${dateString}`;
+		let fileType = '.xlsx';
+		let params = '?type=xlsx';
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		let getReport = this.orderListService.getReportDetail(params);
 		getReport.subscribe((data) => {
 			var blob = new Blob([ data ], {
 				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
