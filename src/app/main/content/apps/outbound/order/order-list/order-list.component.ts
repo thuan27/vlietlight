@@ -68,9 +68,26 @@ export class OrderListComponent implements OnInit {
 		} else {
 			params += '&sort[awb_id]=desc';
 		}
-		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		let arrayItem = [];
+		if (this.searchForm) {
+			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		}
 		for (let i = 0; i < arrayItem.length; i++) {
-			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else {
+				params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			}
 		}
 		this.orderList = this.orderListService.getList(params);
 
@@ -132,9 +149,26 @@ export class OrderListComponent implements OnInit {
 		let fileName = 'Order-List';
 		let fileType = '.csv';
 		let params = '?limit=15';
-		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		let arrayItem = [];
+		if (this.searchForm) {
+			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		}
 		for (let i = 0; i < arrayItem.length; i++) {
-			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else {
+				params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			}
 		}
 		let getReport = this.orderListService.getReport(params);
 		getReport.subscribe((data) => {
@@ -151,9 +185,26 @@ export class OrderListComponent implements OnInit {
 		let fileName = `Nhat_ky_hang_hoa_${dateString}`;
 		let fileType = '.xlsx';
 		let params = '?type=xlsx';
-		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		let arrayItem = [];
+		if (this.searchForm) {
+			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		}
 		for (let i = 0; i < arrayItem.length; i++) {
-			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else {
+				params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			}
 		}
 		let getReport = this.orderListService.getReport(params);
 		getReport.subscribe((data) => {
@@ -170,7 +221,10 @@ export class OrderListComponent implements OnInit {
 		let fileName = `Nhat_ky_hang_hoa_chi_tiet_${dateString}`;
 		let fileType = '.xlsx';
 		let params = '?type=xlsx';
-		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		let arrayItem = [];
+		if (this.searchForm) {
+			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		}
 		for (let i = 0; i < arrayItem.length; i++) {
 			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
 		}
@@ -225,7 +279,11 @@ export class OrderListComponent implements OnInit {
 			sales_note_for_cs: '',
 			service_id: '',
 			item_id: '',
-			zone_id: ''
+			zone_id: '',
+			from_ship_date: '',
+			to_ship_date: '',
+			from_act_ship_date: '',
+			to_act_ship_date: ''
 		});
 	}
 
@@ -393,8 +451,10 @@ export class OrderListComponent implements OnInit {
 			})
 			.afterClosed()
 			.subscribe((response) => {
-				this.searchForm = response;
-				this.getList();
+				if (response) {
+					this.searchForm = response;
+					this.getList();
+				}
 			});
 	}
 }

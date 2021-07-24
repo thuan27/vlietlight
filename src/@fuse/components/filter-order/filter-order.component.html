@@ -136,6 +136,58 @@
     <mat-form-field class="col-sm-6 col-md-3">
       <input formControlName="zone_id" matInput placeholder="Zone" />
     </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        matInput
+        formControlName="to_ship_date"
+        [matDatepicker]="toShipDate"
+        placeholder="To Ship Date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="toShipDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #toShipDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        matInput
+        formControlName="from_ship_date"
+        [matDatepicker]="fromShipDate"
+        placeholder="From Ship Date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="fromShipDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fromShipDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        matInput
+        formControlName="to_act_ship_date"
+        [matDatepicker]="toActShipDate"
+        placeholder="To Act Ship Date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="toActShipDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #toActShipDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        matInput
+        formControlName="from_act_ship_date"
+        [matDatepicker]="fromActShipDate"
+        placeholder="From Act Ship Date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="fromActShipDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fromActShipDate disabled="false"></mat-datepicker>
+    </mat-form-field>
     <span class="format-line-height-button" class="custom-button">
       <button mat-raised-button color="accent" type="submit">Search</button>
       <button class="ml-3" mat-raised-button (click)="reset()">Reset</button>
