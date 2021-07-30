@@ -139,19 +139,6 @@
     <mat-form-field class="col-sm-6 col-md-3">
       <input
         matInput
-        formControlName="to_ship_date"
-        [matDatepicker]="toShipDate"
-        placeholder="To Ship Date"
-      />
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="toShipDate"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #toShipDate disabled="false"></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field class="col-sm-6 col-md-3">
-      <input
-        matInput
         formControlName="from_ship_date"
         [matDatepicker]="fromShipDate"
         placeholder="From Ship Date"
@@ -165,15 +152,15 @@
     <mat-form-field class="col-sm-6 col-md-3">
       <input
         matInput
-        formControlName="to_act_ship_date"
-        [matDatepicker]="toActShipDate"
-        placeholder="To Act Ship Date"
+        formControlName="to_ship_date"
+        [matDatepicker]="toShipDate"
+        placeholder="To Ship Date"
       />
       <mat-datepicker-toggle
         matSuffix
-        [for]="toActShipDate"
+        [for]="toShipDate"
       ></mat-datepicker-toggle>
-      <mat-datepicker #toActShipDate disabled="false"></mat-datepicker>
+      <mat-datepicker #toShipDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="col-sm-6 col-md-3">
       <input
@@ -187,6 +174,19 @@
         [for]="fromActShipDate"
       ></mat-datepicker-toggle>
       <mat-datepicker #fromActShipDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-sm-6 col-md-3">
+      <input
+        matInput
+        formControlName="to_act_ship_date"
+        [matDatepicker]="toActShipDate"
+        placeholder="To Act Ship Date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="toActShipDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #toActShipDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <span class="format-line-height-button" class="custom-button">
       <button mat-raised-button color="accent" type="submit">Search</button>

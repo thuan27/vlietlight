@@ -73,13 +73,25 @@ export class OrderListComponent implements OnInit {
 			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
 		}
 		for (let i = 0; i < arrayItem.length; i++) {
-			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'ship_date') {
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_ship_date') {
 				params =
 					params +
 					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
 						'YYYY/MM/DD'
 					)}`;
-			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'act_ship_date') {
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_act_ship_date') {
 				params =
 					params +
 					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
@@ -154,13 +166,25 @@ export class OrderListComponent implements OnInit {
 			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
 		}
 		for (let i = 0; i < arrayItem.length; i++) {
-			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'ship_date') {
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_ship_date') {
 				params =
 					params +
 					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
 						'YYYY/MM/DD'
 					)}`;
-			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'act_ship_date') {
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_act_ship_date') {
 				params =
 					params +
 					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
@@ -190,13 +214,25 @@ export class OrderListComponent implements OnInit {
 			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
 		}
 		for (let i = 0; i < arrayItem.length; i++) {
-			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'ship_date') {
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_ship_date') {
 				params =
 					params +
 					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
 						'YYYY/MM/DD'
 					)}`;
-			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'act_ship_date') {
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_act_ship_date') {
 				params =
 					params +
 					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
@@ -226,7 +262,33 @@ export class OrderListComponent implements OnInit {
 			arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
 		}
 		for (let i = 0; i < arrayItem.length; i++) {
-			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'from_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'to_act_ship_date') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else {
+				params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			}
 		}
 		let getReport = this.orderListService.getReportDetail(params);
 		getReport.subscribe((data) => {
