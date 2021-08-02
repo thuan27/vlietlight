@@ -1,56 +1,56 @@
 @import "src/@fuse/scss/fuse";
 
 .title {
-  text-align: center;
-  font-weight: 700;
+	text-align: center;
+	font-weight: 700;
 }
 
 .submit-button {
-  width: 220px;
-  margin: 16px auto;
-  display: block;
-  background: #b3e5fc;
-  height: 40px;
-  border-radius: 3px;
-  color: white;
-  cursor: pointer;
-  @include media-breakpoint('xs') {
-      width: 90%;
-  }
+	width: 220px;
+	margin: 16px auto;
+	display: block;
+	background: #b3e5fc;
+	height: 40px;
+	border-radius: 3px;
+	color: white;
+	cursor: pointer;
+	@include media-breakpoint('xs') {
+		width: 90%;
+	}
 }
 
 .submit-button:hover {
-  background-color: #61c5f3;
+	background-color: #61c5f3;
 }
 
 .input {
-  height: 30px;
-  background-color: #eff1ef;
-  border-radius: 2px;
-  padding-left: 10px;
-  width: 100%;
+	height: 30px;
+	background-color: #eff1ef;
+	border-radius: 2px;
+	padding-left: 10px;
+	width: 100%;
 }
 
 .text-error {
-  color: #f44336;
+	color: #f44336;
 }
 
 .width-th {
-  min-width: 130px !important;
+	min-width: 130px !important;
 }
 
 .custom-dialog {
-  max-width: 700px
+	max-width: 700px;
 }
 
 .custom-form {
-  margin:0 !important
+	margin: 0 !important;
 }
 
 .custom-select-input {
-  top:0 !important
+	top: 0 !important;
 }
 
 .custom-button {
-  margin: auto;
+	margin: auto auto 10px auto;
 }

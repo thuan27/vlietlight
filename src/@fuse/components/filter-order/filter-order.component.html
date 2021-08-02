@@ -75,10 +75,24 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="col-sm-6 col-md-3">
-      <input formControlName="picker" matInput placeholder="Pick Up" />
+      <mat-select formControlName="picker" placeholder="User">
+        <mat-option [value]="">
+          Please select option
+        </mat-option>
+        <mat-option *ngFor="let item of userPickup" [value]="item.user_id">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field class="col-sm-6 col-md-3">
-      <input formControlName="user_id" matInput placeholder="User" />
+      <mat-select formControlName="user_id" placeholder="User">
+        <mat-option [value]="">
+          Please select option
+        </mat-option>
+        <mat-option *ngFor="let item of userSale" [value]="item.user_id">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field class="col-sm-6 col-md-3">
       <input
@@ -131,7 +145,14 @@
       </mat-autocomplete>
     </mat-form-field>
     <mat-form-field class="col-sm-6 col-md-3">
-      <input formControlName="item_id" matInput placeholder="Item" />
+      <mat-select formControlName="item_id" placeholder="Item">
+        <mat-option [value]="">
+          Please select option
+        </mat-option>
+        <mat-option *ngFor="let item of itemTypeList" [value]="item.value">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field class="col-sm-6 col-md-3">
       <input formControlName="zone_id" matInput placeholder="Zone" />

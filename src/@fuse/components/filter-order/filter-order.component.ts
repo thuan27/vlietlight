@@ -13,10 +13,13 @@ import { Inject } from '@angular/core';
 })
 export class FuseFilterOrderComponent {
 	searchForm: FormGroup;
-	status;
+	status: Array<string> = [];
 	dataCS;
-	country;
+	country: Array<any> = [];
 	serviceName;
+	userSale: Array<string> = [];
+	userPickup: Array<string> = [];
+	itemTypeList = [ { name: 'Doc', value: 1 }, { name: 'Pack', value: 2 } ];
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,6 +32,8 @@ export class FuseFilterOrderComponent {
 	ngOnInit() {
 		this.buildForm();
 		this.getStatus();
+		this.getUserSale();
+		this.getUserPickup();
 	}
 
 	private buildForm() {
@@ -139,5 +144,17 @@ export class FuseFilterOrderComponent {
 		if (this.searchForm.valid) {
 			this.dialogRef.close(this.searchForm);
 		}
+	}
+
+	getUserSale() {
+		this.filterOrderService.getUserSale().subscribe((data) => {
+			this.userSale = data['data'];
+		});
+	}
+
+	getUserPickup() {
+		this.filterOrderService.getUserPickup().subscribe((data) => {
+			this.userPickup = data['data'];
+		});
 	}
 }

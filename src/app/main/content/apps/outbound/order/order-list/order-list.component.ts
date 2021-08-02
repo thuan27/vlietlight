@@ -106,6 +106,7 @@ export class OrderListComponent implements OnInit {
 		this.orderList.subscribe((dataList: any[]) => {
 			dataList['data'].forEach((data) => {
 				data['awb_num_temp'] = data['awb_num'];
+				data['item_type'] = data['item_type'] == 1 ? 'Doc' : 'Pack';
 				data['order_id_link'] = `#/apps/outbound/order/${data['order_id']}`;
 				if (data['is_retain'] == 1) {
 					data[

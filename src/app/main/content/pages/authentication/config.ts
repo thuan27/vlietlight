@@ -102,4 +102,8 @@ export class APIConfig {
 	public DASHBOARD_CUSTOMERS = this.API_BASE + '/report/v1/customers-dashboard';
 	public DASHBOARD_COUNTRIES = this.API_BASE + '/report/v1/countries-dashboard';
 	public DASHBOARD_SERVICES = this.API_BASE + '/report/v1/services-dashboard';
+
+	// List User
+	public USER_SALES = this.API_BASE + '/master-data/v1/sale-list';
+	public USER_PICKUP = this.API_BASE + '/master-data/v1/pickup-list';
 }
