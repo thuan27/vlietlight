@@ -60,17 +60,19 @@
       [formGroup]="searchForm"
       autocomplete="off"
     >
-      <!-- <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input placeholder="Country Name" formControlName="country_name" (keyup)="getCountry($event)" type="text"
-          aria-label="Number" matInput [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option (click)="selectedOption(option.country_id)" style="top:0 !important"
-            *ngFor="let option of country" [value]="option.country_name">
-            {{ option.country_name }}
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="inv_name" matInput placeholder="Inv Name" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <input formControlName="awb_code" matInput placeholder="AWB Code" />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
+        <mat-select formControlName="sp_code" placeholder="Shipping Purpose">
+          <mat-option *ngFor="let item of SPList" [value]="item.sp_code">
+            {{ item.sp_name }}
           </mat-option>
-        </mat-autocomplete>
-      </mat-form-field> -->
-
+        </mat-select>
+      </mat-form-field>
       <span class="format-line-height-button">
         <button mat-raised-button color="accent" (click)="getList()">
           Search

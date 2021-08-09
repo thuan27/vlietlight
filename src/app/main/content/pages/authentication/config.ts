@@ -27,6 +27,7 @@ export class APIConfig {
 	public COUNTRY_LIST = this.API_BASE + '/master-data/v1/country';
 	public INVOICE_LIST = this.API_BASE + '/awbs/v1/invoice';
 	public SHIPPING_PURPOSE_LIST = this.API_BASE + '/master-data/v1/shipping-purpose';
+	public SHIPPING_PURPOSE_MENU = this.API_BASE + '/master-data/v1/shipping-purpose-menu';
 	public ORDER_LIST = this.API_BASE + '/orders/v1/orders';
 	public SERVICE_LIST = this.API_BASE + '/master-data/v1/service';
 	public SERVICE_LIST_MENU = this.API_BASE + '/master-data/v1/service-menu';

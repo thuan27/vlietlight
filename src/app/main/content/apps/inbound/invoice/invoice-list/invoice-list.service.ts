@@ -19,4 +19,8 @@ export class InvoiceListService {
 	getReport(id) {
 		return this.http.get(this.apiConfig.INVOICE_LIST + '/export/' + id, { responseType: 'blob' });
 	}
+
+	getSPList() {
+		return this.http.get(this.apiConfig.SHIPPING_PURPOSE_MENU);
+	}
 }

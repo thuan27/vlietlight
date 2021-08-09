@@ -27,6 +27,7 @@ export class InvoiceListComponent implements OnInit {
 	searchForm: FormGroup;
 	invoice;
 	sortData = '';
+	SPList = [];
 	hasEditInvoicePermission = false;
 	hasCreateInvoicePermission = false;
 	hasDeleteInvoicePermission = false;
@@ -50,6 +51,7 @@ export class InvoiceListComponent implements OnInit {
 	ngOnInit() {
 		this.checkPermission();
 		this.buildForm();
+		this.getSPList();
 	}
 
 	// Check permission for user using this function page
@@ -75,7 +77,9 @@ export class InvoiceListComponent implements OnInit {
 
 	private buildForm() {
 		this.searchForm = this.formBuilder.group({
-			country_name: ''
+			inv_name: '',
+			sp_code: '',
+			awb_code: ''
 		});
 	}
 
@@ -91,12 +95,6 @@ export class InvoiceListComponent implements OnInit {
 		this.invoiceList = this.invoiceListService.getList(params);
 
 		this.invoiceList.subscribe((dataList: any[]) => {
-			dataList['data'].forEach((data) => {
-				data['country_id_temp'] = data['country_id'];
-				data['country_id'] = `<a href="#/apps/inbound/invoice/${data['country_id']}">${data[
-					'country_code'
-				]}</a>`;
-			});
 			this.rows = dataList['data'];
 			this.total = dataList['meta']['pagination']['total'];
 			// tslint:disable-next-line:radix
@@ -123,7 +121,9 @@ export class InvoiceListComponent implements OnInit {
 	}
 
 	reset() {
-		this.searchForm.controls['country_name'].setValue('');
+		this.searchForm.controls['inv_name'].setValue('');
+		this.searchForm.controls['awb_code'].setValue('');
+		this.searchForm.controls['sp_code'].setValue('');
 		this.sortData = '';
 		this.getList();
 	}
@@ -144,5 +144,11 @@ export class InvoiceListComponent implements OnInit {
 				FileSaver.saveAs.saveAs(blob, fileName + fileType);
 			});
 		}
+	}
+
+	getSPList() {
+		this.invoiceListService.getSPList().subscribe((response) => {
+			this.SPList = response['data'];
+		});
 	}
 }
