@@ -6,26 +6,17 @@ import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
 export class InvoiceListService {
-  constructor(
-    private http: HttpClient,
-    private _Func: Functions,
-    private apiConfig: APIConfig
-  ) {
-  }
+	constructor(private http: HttpClient, private _Func: Functions, private apiConfig: APIConfig) {}
 
-  getList(params) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params);
-  }
+	getList(params) {
+		return this.http.get(this.apiConfig.INVOICE_LIST + params);
+	}
 
-  deleteInvoice(id) {
-    return this.http.delete(this.apiConfig.COUNTRY_LIST + '/delete/' + id);
-  }
+	getInvoice(data) {
+		return this.http.get(this.apiConfig.INVOICE_LIST + '?country_name=' + data);
+	}
 
-  getInvoice(data) {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + '?country_name=' + data);
-  }
-
-  getReport(params: string = '') {
-    return this.http.get(this.apiConfig.COUNTRY_LIST + params + '&export=1', { responseType: 'blob' });
-  }
+	getReport(id) {
+		return this.http.get(this.apiConfig.INVOICE_LIST + '/export/' + id, { responseType: 'blob' });
+	}
 }

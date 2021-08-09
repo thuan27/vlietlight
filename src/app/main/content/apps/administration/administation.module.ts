@@ -1,18 +1,19 @@
 import { GoogleMapsModule } from '../../components-third-party/google-maps/google-maps.module';
 import { FuseSharedModule } from '../../../../../@fuse/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule,
-         MatCheckboxModule,
-         MatIconModule,
-         MatInputModule,
-         MatSelectModule,
-         MatDatepickerModule,
-         MatMenuModule,
-         MatTableModule,
-         MatRadioModule,
-         MatTabsModule,
-         MatAutocompleteModule
-        } from '@angular/material';
+import {
+	MatButtonModule,
+	MatCheckboxModule,
+	MatIconModule,
+	MatInputModule,
+	MatSelectModule,
+	MatDatepickerModule,
+	MatMenuModule,
+	MatTableModule,
+	MatRadioModule,
+	MatTabsModule,
+	MatAutocompleteModule
+} from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './administation.routers';
@@ -26,40 +27,33 @@ import { UserAdminListService } from './user/user-list/user-list.service';
 import { CreateUserAdminComponent } from './user/create-user/create-user.component';
 import { InvoiceListService } from '../inbound/invoice/invoice-list/invoice-list.service';
 import { InvoiceListComponent } from '../inbound/invoice/invoice-list/invoice-list.component';
-import { CreateInvoiceComponent } from '../inbound/invoice/create-invoice/create-invoice.component';
-import { CreateInvoiceService } from '../inbound/invoice/create-invoice/create-invoice.service';
 
 @NgModule({
-    declarations: [
-        RolesComponent,
-        UserAdminListComponent,
-        SearchPipe,
-        UppercaseToSpaceLowerPipe,
-        CreateUserAdminComponent
-    ],
-    imports: [
-        RouterModule.forChild(listRoutes),
-        MatButtonModule,
-        MatCheckboxModule,
-        MatIconModule,
-        NgxDatatableModule,
-        FuseSharedModule,
-        GoogleMapsModule,
-        MatSelectModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatMomentDateModule,
-        MatMenuModule,
-        MatRadioModule,
-        MatTableModule,
-        MatTabsModule,
-        MatAutocompleteModule
-    ],
-    providers: [
-      RolesService,
-      UserAdminListService,
-
-    ]
+	declarations: [
+		RolesComponent,
+		UserAdminListComponent,
+		SearchPipe,
+		UppercaseToSpaceLowerPipe,
+		CreateUserAdminComponent
+	],
+	imports: [
+		RouterModule.forChild(listRoutes),
+		MatButtonModule,
+		MatCheckboxModule,
+		MatIconModule,
+		NgxDatatableModule,
+		FuseSharedModule,
+		GoogleMapsModule,
+		MatSelectModule,
+		MatInputModule,
+		MatDatepickerModule,
+		MatMomentDateModule,
+		MatMenuModule,
+		MatRadioModule,
+		MatTableModule,
+		MatTabsModule,
+		MatAutocompleteModule
+	],
+	providers: [ RolesService, UserAdminListService ]
 })
-export class FuseAdministationModule {
-}
+export class FuseAdministationModule {}

@@ -4,18 +4,19 @@ import { GoogleMapsModule } from '../../components-third-party/google-maps/googl
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MatButtonModule,
-         MatCheckboxModule,
-         MatIconModule,
-         MatInputModule,
-         MatSelectModule,
-         MatDatepickerModule,
-         MatMenuModule,
-         MatTableModule,
-         MatRadioModule,
-         MatAutocompleteModule,
-         MatTabsModule
-        } from '@angular/material';
+import {
+	MatButtonModule,
+	MatCheckboxModule,
+	MatIconModule,
+	MatInputModule,
+	MatSelectModule,
+	MatDatepickerModule,
+	MatMenuModule,
+	MatTableModule,
+	MatRadioModule,
+	MatAutocompleteModule,
+	MatTabsModule
+} from '@angular/material';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { listRoutes } from './inbound.routers';
@@ -39,61 +40,56 @@ import { manualAWBComponent } from './manual-awb/manual-awb-list/manual-awb.comp
 import { manualAWBService } from './manual-awb/manual-awb-list/manual-awb.service';
 import { ManualAWBDetailService } from './manual-awb/manual-awb-detail/manual-awb-detail.service';
 import { ManualAWBDetailComponent } from './manual-awb/manual-awb-detail/manual-awb-detail.component';
-import { CreateInvoiceService } from './invoice/create-invoice/create-invoice.service';
 import { InvoiceListService } from './invoice/invoice-list/invoice-list.service';
 import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
-import { CreateInvoiceComponent } from './invoice/create-invoice/create-invoice.component';
 import { ContextMenuModule } from '@fuse/components/context-menu/context-menu.module';
 
 @NgModule({
-    declarations: [
-        AWBComponent,
-        AWBDetailComponent,
-        AWBDetailForCusComponentV1,
-        AWBDetailForCusComponent,
-        WavePickListComponent,
-        CreateWavePickomponent,
-        AWBDetailV1Component,
-        manualAWBComponent,
-        ManualAWBDetailComponent,
-        InvoiceListComponent,
-        CreateInvoiceComponent
-    ],
-    imports: [
-        RouterModule.forChild(listRoutes),
-        MatButtonModule,
-        MatCheckboxModule,
-        MatIconModule,
-        NgxDatatableModule,
-        FuseSharedModule,
-        GoogleMapsModule,
-        MatSelectModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatMomentDateModule,
-        MatMenuModule,
-        MatRadioModule,
-        MatTableModule,
-        MatAutocompleteModule,
-        MatTabsModule,
-        TranslateModule,
-        FuseDirectivesModule,
-        ContextMenuModule
-    ],
-    providers: [
-        AWBService,
-        AWBDetailService,
-        AWBDetailForCusServiceV1,
-        AWBDetailForCusService,
-        WavePickService,
-        CreateWavePickService,
-        AWBDetailV1Service,
-        manualAWBService,
-        ManualAWBDetailService,
-        InvoiceListService,
-        CreateInvoiceService
-    ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+	declarations: [
+		AWBComponent,
+		AWBDetailComponent,
+		AWBDetailForCusComponentV1,
+		AWBDetailForCusComponent,
+		WavePickListComponent,
+		CreateWavePickomponent,
+		AWBDetailV1Component,
+		manualAWBComponent,
+		ManualAWBDetailComponent,
+		InvoiceListComponent
+	],
+	imports: [
+		RouterModule.forChild(listRoutes),
+		MatButtonModule,
+		MatCheckboxModule,
+		MatIconModule,
+		NgxDatatableModule,
+		FuseSharedModule,
+		GoogleMapsModule,
+		MatSelectModule,
+		MatInputModule,
+		MatDatepickerModule,
+		MatMomentDateModule,
+		MatMenuModule,
+		MatRadioModule,
+		MatTableModule,
+		MatAutocompleteModule,
+		MatTabsModule,
+		TranslateModule,
+		FuseDirectivesModule,
+		ContextMenuModule
+	],
+	providers: [
+		AWBService,
+		AWBDetailService,
+		AWBDetailForCusServiceV1,
+		AWBDetailForCusService,
+		WavePickService,
+		CreateWavePickService,
+		AWBDetailV1Service,
+		manualAWBService,
+		ManualAWBDetailService,
+		InvoiceListService
+	],
+	schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class FuseInboundModule {
-}
+export class FuseInboundModule {}
