@@ -192,7 +192,9 @@
                 {{ item.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="PriceForm.controls.currency.hasError('required')">
+            <mat-error
+              *ngIf="CusPriceForm.controls.currency.hasError('required')"
+            >
               Currency is required
             </mat-error>
           </mat-form-field>
