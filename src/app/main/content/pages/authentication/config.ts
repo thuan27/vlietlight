@@ -40,6 +40,8 @@ export class APIConfig {
 	public CUS_COUNTRY_ZONE_BY_SERVICE = this.API_BASE + '/master-data/v1/cus-country-zone-menu-by-service';
 	public COUNTRY_ZONE_BY_SERVICE = this.API_BASE + '/master-data/v1/country-zone-menu-by-service';
 	public PRICE_LIST = this.API_BASE + '/master-data/v1/price';
+	public CURRENCY = this.API_BASE + '/master-data/v1/awb-currency';
+	public CUS_PRICE_LIST = this.API_BASE + '/master-data/v1/cus-price';
 	public RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/range-price';
 	public RANGE_PRICE_MENU = this.API_BASE + '/master-data/v1/range-price-menu';
 	public CUS_RANGE_PRICE_LIST = this.API_BASE + '/master-data/v1/cus-range-price';

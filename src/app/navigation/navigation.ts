@@ -83,6 +83,12 @@ export const navigation = [
                         'url'  : '/apps/master-data/price'
                     },
                     {
+                        'id'   : 'CusPriceList',
+                        'title': 'Cus Price',
+                        'type' : 'item',
+                        'url'  : '/apps/master-data/cus-price'
+                    },
+                    {
                         'id'   : 'RangePriceList',
                         'title': 'Range Price',
                         'type' : 'item',

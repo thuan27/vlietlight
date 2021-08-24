@@ -5,23 +5,23 @@ import { HttpClient } from '@angular/common/http';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
-export class PriceListService {
+export class CusPriceListService {
 	constructor(private http: HttpClient, private _Func: Functions, private apiConfig: APIConfig) {}
 
 	getList(params) {
-		return this.http.get(this.apiConfig.PRICE_LIST + params);
+		return this.http.get(this.apiConfig.CUS_PRICE_LIST + params);
 	}
 
-	deletePrice(id) {
-		return this.http.delete(this.apiConfig.PRICE_LIST + '/delete/' + id);
+	deleteCusPrice(id) {
+		return this.http.delete(this.apiConfig.CUS_PRICE_LIST + '/delete/' + id);
 	}
 
 	serviceList() {
-		return this.http.get(this.apiConfig.SERVICE_LIST);
+		return this.http.get(this.apiConfig.CUS_SERVICE_LIST);
 	}
 
 	getReport(params: string = '') {
-		return this.http.get(this.apiConfig.PRICE_LIST + params + '&export=1', { responseType: 'blob' });
+		return this.http.get(this.apiConfig.CUS_PRICE_LIST + params + '&export=1', { responseType: 'blob' });
 	}
 
 	getCurrency() {

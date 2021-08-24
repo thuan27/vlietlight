@@ -1,3 +1,4 @@
+import { CreateCusPriceComponent } from './cus-price/create-price-cus/create-cus-price.component';
 import { ShippingPurposeListComponent } from './shipping-purposes/shipping-purposes-list/shipping-purposes-list.component';
 import { CreateCountryComponent } from './country/create-country/create-country.component';
 import { UserListComponent } from './user/user-list/user-list.component';
@@ -30,339 +31,363 @@ import { HarmonisedCodesListComponent } from './harmonised-codes/harmonised-code
 import { CreateHarmonisedCodesComponent } from './harmonised-codes/create-harmonised-codes/create-harmonised-codes.component';
 import { CreateCusRangePriceComponent } from './cus-range-price/create-cus-range-price/create-cus-range-price.component';
 import { CusRangePriceListComponent } from './cus-range-price/cus-range-price-list/cus-range-price-list.component';
+import { CusPriceListComponent } from './cus-price/cus-price-list/cus-price-list.component';
 
 export const listRoutes: Routes = [
-    {
-        path     : 'users',
-        component: UserListComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
-    {
-        path    : 'users/create',
-        component: CreateUserComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path    : 'customers',
-        component: CustomerListComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
-    {
-        path: 'customers/create',
-        component: CreateCustomeromponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path    : 'customers/:id',
-        component: CreateCustomeromponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'detail'}
-    },
-    {
-        path    : 'customers/:id/update',
-        component: CreateCustomeromponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'update'}
-    },
-    {
-        path: 'countries',
-        component: CountryListComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
-    {
-        path: 'countries/create',
-        component: CreateCountryComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path: 'countries/:id',
-        component: CreateCountryComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'detail'}
-    },
-    {
-        path: 'countries/:id/update',
-        component: CreateCountryComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'update'}
-    },
-    {
-        path: 'countries-zone',
-        component: CountryZoneListComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
-    {
-        path: 'countries-zone/create',
-        component: CreateCountryZoneComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path: 'countries-zone/:id',
-        component: CreateCountryZoneComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'detail'}
-    },
-    {
-        path: 'countries-zone/:id/update',
-        component: CreateCountryZoneComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'update'}
-    },
-    {
-        path: 'service',
-        component: ServiceListComponent,
-        canActivate: [AuthGuard, AdminGuard]
-    },
-    {
-        path: 'service/create',
-        component: CreateServiceComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'create'}
-    },
-    {
-        path: 'service/:id',
-        component: CreateServiceComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'detail'}
-    },
-    {
-        path: 'service/:id/update',
-        component: CreateServiceComponent,
-        canActivate: [AuthGuard, AdminGuard],
-        data: { Action: 'update'}
-    },
-    {
-      path: 'price',
-      component: PriceListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'price/create',
-      component: CreatePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'price/:id',
-      component: CreatePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'price/:id/update',
-      component: CreatePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'customers-service',
-      component: CustomerServiceListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'customers-service/create',
-      component: CreateCustomerServiceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'customers-service/:id',
-      component: CreateCustomerServiceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'customers-service/:id/update',
-      component: CreateCustomerServiceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'range-price',
-      component: RangePriceListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'range-price/create',
-      component: CreateRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'range-price/:id',
-      component: CreateRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'range-price/:id/update',
-      component: CreateRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'cus-range-price',
-      component: CusRangePriceListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'cus-range-price/create',
-      component: CreateCusRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'cus-range-price/:id',
-      component: CreateCusRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'cus-range-price/:id/update',
-      component: CreateCusRangePriceComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-    path: 'cut-off-times',
-    component: CutOffTimesListComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'cut-off-times/create',
-      component: CreateCutOffTimesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'cut-off-times/:id',
-      component: CreateCutOffTimesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'cut-off-times/:id/update',
-      component: CreateCutOffTimesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'cus-country-zones',
-      component: CusCountryZoneListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'cus-country-zones/create',
-      component: CreateCusCountryZoneComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'cus-country-zones/:id',
-      component: CreateCusCountryZoneComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'cus-country-zones/:id/update',
-      component: CreateCusCountryZoneComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'document',
-      component: DocumentListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'document/create',
-      component: CreateDocumentComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'document/:id',
-      component: CreateDocumentComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'document/:id/update',
-      component: CreateDocumentComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'shipping-purpose',
-      component: ShippingPurposeListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'shipping-purpose/create',
-      component: CreateShippingPurposeComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'shipping-purpose/:id',
-      component: CreateShippingPurposeComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'shipping-purpose/:id/update',
-      component: CreateShippingPurposeComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'harmonised-categories',
-      component: HarmonisedCategoriesListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'harmonised-categories/create',
-      component: CreateHarmonisedCategoriesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'harmonised-categories/:id',
-      component: CreateHarmonisedCategoriesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'harmonised-categories/:id/update',
-      component: CreateHarmonisedCategoriesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  },
-  {
-      path: 'harmonised-codes',
-      component: HarmonisedCodesListComponent,
-      canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-      path: 'harmonised-codes/create',
-      component: CreateHarmonisedCodesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'create'}
-  },
-  {
-      path: 'harmonised-codes/:id',
-      component: CreateHarmonisedCodesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'detail'}
-  },
-  {
-      path: 'harmonised-codes/:id/update',
-      component: CreateHarmonisedCodesComponent,
-      canActivate: [AuthGuard, AdminGuard],
-      data: { Action: 'update'}
-  }
+	{
+		path: 'users',
+		component: UserListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'users/create',
+		component: CreateUserComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'customers',
+		component: CustomerListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'customers/create',
+		component: CreateCustomeromponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'customers/:id',
+		component: CreateCustomeromponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'customers/:id/update',
+		component: CreateCustomeromponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'countries',
+		component: CountryListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'countries/create',
+		component: CreateCountryComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'countries/:id',
+		component: CreateCountryComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'countries/:id/update',
+		component: CreateCountryComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'countries-zone',
+		component: CountryZoneListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'countries-zone/create',
+		component: CreateCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'countries-zone/:id',
+		component: CreateCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'countries-zone/:id/update',
+		component: CreateCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'service',
+		component: ServiceListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'service/create',
+		component: CreateServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'service/:id',
+		component: CreateServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'service/:id/update',
+		component: CreateServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'price',
+		component: PriceListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'price/create',
+		component: CreatePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'price/:id',
+		component: CreatePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'price/:id/update',
+		component: CreatePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'customers-service',
+		component: CustomerServiceListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'customers-service/create',
+		component: CreateCustomerServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'customers-service/:id',
+		component: CreateCustomerServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'customers-service/:id/update',
+		component: CreateCustomerServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'range-price',
+		component: RangePriceListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'range-price/create',
+		component: CreateRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'range-price/:id',
+		component: CreateRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'range-price/:id/update',
+		component: CreateRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'cus-range-price',
+		component: CusRangePriceListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'cus-range-price/create',
+		component: CreateCusRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'cus-range-price/:id',
+		component: CreateCusRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'cus-range-price/:id/update',
+		component: CreateCusRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'cut-off-times',
+		component: CutOffTimesListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'cut-off-times/create',
+		component: CreateCutOffTimesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'cut-off-times/:id',
+		component: CreateCutOffTimesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'cut-off-times/:id/update',
+		component: CreateCutOffTimesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'cus-country-zones',
+		component: CusCountryZoneListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'cus-country-zones/create',
+		component: CreateCusCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'cus-country-zones/:id',
+		component: CreateCusCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'cus-country-zones/:id/update',
+		component: CreateCusCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'document',
+		component: DocumentListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'document/create',
+		component: CreateDocumentComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'document/:id',
+		component: CreateDocumentComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'document/:id/update',
+		component: CreateDocumentComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'shipping-purpose',
+		component: ShippingPurposeListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'shipping-purpose/create',
+		component: CreateShippingPurposeComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'shipping-purpose/:id',
+		component: CreateShippingPurposeComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'shipping-purpose/:id/update',
+		component: CreateShippingPurposeComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'harmonised-categories',
+		component: HarmonisedCategoriesListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'harmonised-categories/create',
+		component: CreateHarmonisedCategoriesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'harmonised-categories/:id',
+		component: CreateHarmonisedCategoriesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'harmonised-categories/:id/update',
+		component: CreateHarmonisedCategoriesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'harmonised-codes',
+		component: HarmonisedCodesListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'harmonised-codes/create',
+		component: CreateHarmonisedCodesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'harmonised-codes/:id',
+		component: CreateHarmonisedCodesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'harmonised-codes/:id/update',
+		component: CreateHarmonisedCodesComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	},
+	{
+		path: 'cus-price',
+		component: CusPriceListComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'cus-price/create',
+		component: CreateCusPriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'create' }
+	},
+	{
+		path: 'cus-price/:id',
+		component: CreateCusPriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'detail' }
+	},
+	{
+		path: 'cus-price/:id/update',
+		component: CreateCusPriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ],
+		data: { Action: 'update' }
+	}
 ];

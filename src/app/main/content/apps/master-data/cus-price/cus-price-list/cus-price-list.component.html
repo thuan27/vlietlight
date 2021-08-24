@@ -22,9 +22,9 @@
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-        <span class="secondary-text">Price List</span>
+        <span class="secondary-text">Cus Price List</span>
       </div>
-      <div class="h2 mt-16">Price List</div>
+      <div class="h2 mt-16">Cus Price List</div>
     </div>
 
     <div
@@ -74,12 +74,15 @@
       (submit)="getList()"
     >
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <mat-select formControlName="service_id" placeholder="Service">
+        <mat-select formControlName="service_id" placeholder="Cus Service">
           <mat-option [value]="">
             Please select option
           </mat-option>
-          <mat-option *ngFor="let item of service" [value]="item.service_id">
-            {{ item.service_name }}
+          <mat-option
+            *ngFor="let item of service"
+            [value]="item.cus_service_id"
+          >
+            {{ item.cus_service_name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -211,11 +214,11 @@
       </ngx-datatable-column>
 
       <ngx-datatable-column
-        [width]="100"
+        [width]="150"
         [canAutoResize]="true"
         [resizeable]="true"
         name="Service Name"
-        prop="service_name"
+        prop="cus_service_name"
       >
       </ngx-datatable-column>
 

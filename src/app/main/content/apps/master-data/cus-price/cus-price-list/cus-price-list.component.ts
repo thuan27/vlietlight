@@ -1,4 +1,4 @@
-import { PriceListService } from './price-list.service';
+import { CusPriceListService } from './cus-price-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
@@ -10,12 +10,12 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
-	selector: 'price-list',
-	templateUrl: './price-list.component.html',
-	styleUrls: [ './price-list.component.scss' ],
-	providers: [ PriceListService, ToastyService, UserService ]
+	selector: 'cus-price-list',
+	templateUrl: './cus-price-list.component.html',
+	styleUrls: [ './cus-price-list.component.scss' ],
+	providers: [ CusPriceListService, ToastyService, UserService ]
 })
-export class PriceListComponent implements OnInit {
+export class CusPriceListComponent implements OnInit {
 	rows: any;
 	loadingIndicator = true;
 	reorderable = true;
@@ -41,7 +41,7 @@ export class PriceListComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-		private priceListService: PriceListService,
+		private cusPriceListService: CusPriceListService,
 		private formBuilder: FormBuilder,
 		private toastyService: ToastyService,
 		private _user: UserService,
@@ -64,10 +64,10 @@ export class PriceListComponent implements OnInit {
 	private checkPermission() {
 		this._user.GetPermissionUser().subscribe(
 			(data) => {
-				this.hasEditUserPermission = this._user.RequestPermission(data, 'editPrice');
-				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createPrice');
-				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deletePrice');
-				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewPrice');
+				this.hasEditUserPermission = this._user.RequestPermission(data, 'editCusPrice');
+				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCusPrice');
+				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCusPrice');
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCusPrice');
 				/* Check orther permission if View allow */
 				if (!this.hasViewUserPermission) {
 					this.router.navigateByUrl('pages/landing');
@@ -107,38 +107,12 @@ export class PriceListComponent implements OnInit {
 		for (let i = 0; i < arrayItem.length; i++) {
 			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
 		}
-		params =
-			params +
-			'&service_id=' +
-			this.searchForm.controls['service_id'].value +
-			'&item_type_id=' +
-			this.searchForm.controls['item_type_id'].value +
-			'&weight=' +
-			this.searchForm.controls['weight'].value +
-			'&zone=' +
-			this.searchForm.controls['zone'].value +
-			'&is_rate=' +
-			this.searchForm.controls['is_rate'].value +
-			'&is_range=' +
-			this.searchForm.controls['is_range'].value +
-			'&range_id=' +
-			this.searchForm.controls['range_id'].value +
-			'&range_code=' +
-			this.searchForm.controls['range_code'].value +
-			'&min_range=' +
-			this.searchForm.controls['min_range'].value +
-			'&max_range=' +
-			this.searchForm.controls['max_range'].value +
-			'&currency=' +
-			this.searchForm.controls['currency'].value +
-			'&value=' +
-			this.searchForm.controls['value'].value;
-		this.countryList = this.priceListService.getList(params);
+		this.countryList = this.cusPriceListService.getList(params);
 
 		this.countryList.subscribe((dataList: any[]) => {
 			dataList['data'].forEach((data) => {
 				data['id_temp'] = data['id'];
-				data['id'] = `<a href="#/apps/master-data/price/${data['id']}">${data['id']}</a>`;
+				data['id'] = `<a href="#/apps/master-data/cus-price/${data['id']}">${data['id']}</a>`;
 			});
 			this.rows = dataList['data'];
 			this.total = dataList['meta']['pagination']['total'];
@@ -148,7 +122,7 @@ export class PriceListComponent implements OnInit {
 	}
 
 	serviceList() {
-		this.priceListService.serviceList().subscribe((data) => {
+		this.cusPriceListService.serviceList().subscribe((data) => {
 			this.service = data['data'];
 		});
 	}
@@ -159,7 +133,7 @@ export class PriceListComponent implements OnInit {
 	}
 
 	create() {
-		this.router.navigate([ 'apps/master-data/price/create' ]);
+		this.router.navigate([ 'apps/master-data/cus-price/create' ]);
 	}
 
 	update() {
@@ -168,7 +142,7 @@ export class PriceListComponent implements OnInit {
 		} else if (this.selected.length > 1) {
 			this.toastyService.error('Please select one item.');
 		} else {
-			this.router.navigateByUrl(`apps/master-data/price/${this.selected[0]['id_temp']}/update`);
+			this.router.navigateByUrl(`apps/master-data/cus-price/${this.selected[0]['id_temp']}/update`);
 		}
 	}
 
@@ -182,7 +156,7 @@ export class PriceListComponent implements OnInit {
 			this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
 			this.dialogRef.afterClosed().subscribe((result) => {
 				if (result) {
-					this.priceListService.deletePrice(this.selected[0]['id_temp']).subscribe((data) => {
+					this.cusPriceListService.deleteCusPrice(this.selected[0]['id_temp']).subscribe((data) => {
 						this.toastyService.success(data['message']);
 						setTimeout(() => {
 							this.reset();
@@ -203,29 +177,26 @@ export class PriceListComponent implements OnInit {
 	}
 
 	reset() {
-		this.searchForm.controls['service_id'].setValue('');
-		this.searchForm.controls['item_type_id'].setValue('');
-		this.searchForm.controls['zone'].setValue('');
-		this.searchForm.controls['is_rate'].setValue('');
-		this.searchForm.controls['is_range'].setValue('');
-		this.searchForm.controls['range_id'].setValue('');
-		this.searchForm.controls['range_code'].setValue('');
-		this.searchForm.controls['min_range'].setValue('');
-		this.searchForm.controls['max_range'].setValue('');
-		this.searchForm.controls['currency'].setValue('');
-		this.searchForm.controls['value'].setValue('');
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			this.searchForm.controls[arrayItem[i]].setValue('');
+		}
 		this.sortData = '';
 		this.getList();
 	}
 
 	exportCsv() {
-		let fileName = 'Price';
+		let fileName = 'Cus Price';
 		let fileType = '.csv';
 		if (this.searchForm.controls['service_id'].value === undefined) {
 			this.searchForm.controls['service_id'].setValue('');
 		}
 		let params = '?limit=15';
-		let getReport = this.priceListService.getReport(params);
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		let getReport = this.cusPriceListService.getReport(params);
 		getReport.subscribe((data) => {
 			var blob = new Blob([ data ], {
 				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -246,7 +217,7 @@ export class PriceListComponent implements OnInit {
 	}
 
 	getCurrency() {
-		this.priceListService.getCurrency().subscribe((data) => {
+		this.cusPriceListService.getCurrency().subscribe((data) => {
 			this.currency = data['data'];
 		});
 	}

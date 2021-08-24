@@ -32,7 +32,7 @@
   <!-- CONTENT -->
   <div class="p-24">
     <form
-      [formGroup]="PriceForm"
+      [formGroup]="CusPriceForm"
       autocomplete="off"
       class="form"
       (submit)="onSubmit()"
@@ -46,13 +46,13 @@
             <mat-select
               [attr.disabled]="disabledForm"
               formControlName="service_id"
-              placeholder="Service"
+              placeholder="Cus Service"
             >
               <mat-option
                 *ngFor="let item of service"
-                [value]="item.service_id"
+                [value]="item.cus_service_id"
               >
-                {{ item.service_name }}
+                {{ item.cus_service_name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -75,7 +75,9 @@
               placeholder="Weight"
               (keypress)="checkInputNumber($event, true)"
             />
-            <mat-error *ngIf="PriceForm.controls.weight.hasError('required')">
+            <mat-error
+              *ngIf="CusPriceForm.controls.weight.hasError('required')"
+            >
               Weight is required
             </mat-error>
           </mat-form-field>
@@ -83,12 +85,11 @@
             <input
               [readonly]="disabledForm"
               maxlength="2"
-              minlength="2"
               formControlName="zone"
               matInput
               placeholder="Zone"
             />
-            <mat-error *ngIf="PriceForm.controls.zone.hasError('required')">
+            <mat-error *ngIf="CusPriceForm.controls.zone.hasError('required')">
               Zone is required
             </mat-error>
           </mat-form-field>
@@ -148,7 +149,7 @@
               placeholder="Range Code"
             />
             <mat-error
-              *ngIf="PriceForm.controls.range_code.hasError('required')"
+              *ngIf="CusPriceForm.controls.range_code.hasError('required')"
             >
               Range Code is required
             </mat-error>
@@ -162,7 +163,7 @@
               (keypress)="checkInputNumber($event, true)"
             />
             <mat-error
-              *ngIf="PriceForm.controls.min_range.hasError('required')"
+              *ngIf="CusPriceForm.controls.min_range.hasError('required')"
             >
               Min Range is required
             </mat-error>
@@ -176,7 +177,7 @@
               (keypress)="checkInputNumber($event, true)"
             />
             <mat-error
-              *ngIf="PriceForm.controls.max_range.hasError('required')"
+              *ngIf="CusPriceForm.controls.max_range.hasError('required')"
             >
               Max Range is required
             </mat-error>
@@ -203,7 +204,7 @@
               placeholder="Value"
               (keypress)="checkInputNumber($event, true)"
             />
-            <mat-error *ngIf="PriceForm.controls.value.hasError('required')">
+            <mat-error *ngIf="CusPriceForm.controls.value.hasError('required')">
               Value is required
             </mat-error>
           </mat-form-field>

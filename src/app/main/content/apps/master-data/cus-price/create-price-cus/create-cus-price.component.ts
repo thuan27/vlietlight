@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { CreatePriceService } from './create-price.service';
+import { CreateCusPriceService } from './create-cus-price.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
@@ -10,16 +10,16 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 
 @Component({
-	selector: 'create-price',
-	templateUrl: './create-price.component.html',
-	styleUrls: [ './create-price.component.scss' ],
+	selector: 'create-cus-price',
+	templateUrl: './create-cus-price.component.html',
+	styleUrls: [ './create-cus-price.component.scss' ],
 	providers: [ ValidationService, ToastyService, UserService ]
 })
-export class CreatePriceComponent implements OnInit {
+export class CreateCusPriceComponent implements OnInit {
 	items: FormArray;
-	PriceForm: FormGroup;
-	idPrice;
-	priceDetail;
+	CusPriceForm: FormGroup;
+	idCusPrice;
+	cusPriceDetail;
 	private routeSub: Subscription;
 	disabledForm = false;
 	title;
@@ -39,7 +39,7 @@ export class CreatePriceComponent implements OnInit {
 	rangeID = [ { name: 0, value: 0 }, { name: 1, value: 1 } ];
 
 	constructor(
-		private _createPriceService: CreatePriceService,
+		private _createCusPriceService: CreateCusPriceService,
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private _Valid: ValidationService,
@@ -71,23 +71,23 @@ export class CreatePriceComponent implements OnInit {
 		this.routeSub = this.activeRoute.params.subscribe((params) => {
 			if (params['id'] !== undefined) {
 				if (this.action === 'update' && this.hasEditUserPermission) {
-					this.idPrice = params['id'];
+					this.idCusPrice = params['id'];
 					this.detail(params['id']);
 					this.disabledForm = false;
 					this.buttonSubmitType = 'Update';
-					this.title = 'Update Price';
+					this.title = 'Update Cutomer Price';
 					this.titleGroup = 'Update';
 				} else {
-					this.idPrice = params['id'];
+					this.idCusPrice = params['id'];
 					this.detail(params['id']);
 					this.disabledForm = true;
-					this.title = 'Price Details';
+					this.title = 'Customer Price Details';
 					this.titleGroup = 'Detail';
 					this.buttonCancel = 'Back';
 				}
 			} else if (this.hasCreateUserPermission) {
 				this.titleGroup = 'Registration';
-				this.title = 'Create Price';
+				this.title = 'Create Customer Price';
 				this.buttonSubmitType = 'Create';
 				this.disabledForm = false;
 			}
@@ -98,10 +98,10 @@ export class CreatePriceComponent implements OnInit {
 	private checkPermission() {
 		this._user.GetPermissionUser().subscribe(
 			(data) => {
-				this.hasEditUserPermission = this._user.RequestPermission(data, 'editPrice');
-				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createPrice');
-				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deletePrice');
-				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewPrice');
+				this.hasEditUserPermission = this._user.RequestPermission(data, 'editCusPrice');
+				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCusPrice');
+				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCusPrice');
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCusPrice');
 				/* Check orther permission if View allow */
 				if (!this.hasViewUserPermission) {
 					this.router.navigateByUrl('pages/landing');
@@ -116,7 +116,7 @@ export class CreatePriceComponent implements OnInit {
 	}
 
 	private buildForm() {
-		this.PriceForm = this.formBuilder.group({
+		this.CusPriceForm = this.formBuilder.group({
 			service_id: [ 1 ],
 			item_type_id: [ 1 ],
 			weight: [ null, [ Validators.required ] ],
@@ -133,8 +133,8 @@ export class CreatePriceComponent implements OnInit {
 	}
 
 	private detailForm(data) {
-		this.PriceForm = this.formBuilder.group({
-			service_id: [ data['service_id'] ],
+		this.CusPriceForm = this.formBuilder.group({
+			service_id: [ data['cus_service_id'] ],
 			item_type_id: [ data['item_type_id'] ],
 			weight: [ data['weight'], [ Validators.required ] ],
 			zone: [ data['zone'], [ Validators.required ] ],
@@ -150,19 +150,19 @@ export class CreatePriceComponent implements OnInit {
 	}
 
 	serviceList() {
-		this._createPriceService.serviceList().subscribe((data) => {
+		this._createCusPriceService.serviceList().subscribe((data) => {
 			this.service = data['data'];
 		});
 	}
 
 	onSubmit() {
-		if (this.PriceForm.valid) {
+		if (this.CusPriceForm.valid) {
 			if (this.action === 'create') {
-				this._createPriceService.createPrice(this.PriceForm.value).subscribe(
+				this._createCusPriceService.createCusPrice(this.CusPriceForm.value).subscribe(
 					(data) => {
 						this.toastyService.success(data['message']);
 						setTimeout(() => {
-							this.router.navigate([ 'apps/master-data/price' ]);
+							this.router.navigate([ 'apps/master-data/cus-price' ]);
 						}, 700);
 					},
 					(err) => {
@@ -170,11 +170,11 @@ export class CreatePriceComponent implements OnInit {
 					}
 				);
 			} else if (this.action === 'update') {
-				this._createPriceService.updatePrice(this.idPrice, this.PriceForm.value).subscribe(
+				this._createCusPriceService.updateCusPrice(this.idCusPrice, this.CusPriceForm.value).subscribe(
 					(data) => {
 						this.toastyService.success(data['message']);
 						setTimeout(() => {
-							this.router.navigate([ 'apps/master-data/price' ]);
+							this.router.navigate([ 'apps/master-data/cus-price' ]);
 						}, 700);
 					},
 					(err) => {
@@ -186,9 +186,9 @@ export class CreatePriceComponent implements OnInit {
 	}
 
 	detail(id) {
-		this._createPriceService.getPriceDetail(id).subscribe((data) => {
-			this.priceDetail = data['price'];
-			this.detailForm(data['price']);
+		this._createCusPriceService.getCusPriceDetail(id).subscribe((data) => {
+			this.cusPriceDetail = data['cus_price'];
+			this.detailForm(data['cus_price']);
 		});
 	}
 
@@ -201,7 +201,7 @@ export class CreatePriceComponent implements OnInit {
 	}
 
 	getCurrency() {
-		this._createPriceService.getCurrency().subscribe((data) => {
+		this._createCusPriceService.getCurrency().subscribe((data) => {
 			this.currency = data['data'];
 		});
 	}
