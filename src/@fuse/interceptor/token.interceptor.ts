@@ -117,7 +117,14 @@ export class TokenInterceptor implements HttpInterceptor {
 			}
 			request = request.clone(requestOption);
 		}
-		return next.handle(request);
+		return next.handle(request).do(
+			(event: HttpEvent<any>) => {
+				console.log(event);
+			},
+			(err: any) => {
+				console.log(err);
+			}
+		);
 
 		// return next.handle(request).pipe(
 		//   map((event: HttpEvent<any>) => {
