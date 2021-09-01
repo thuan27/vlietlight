@@ -6,26 +6,21 @@ import { APIConfig } from 'app/main/content/pages/authentication/config';
 
 @Injectable()
 export class CusRangePriceListService {
-  constructor(
-    private http: HttpClient,
-    private _Func: Functions,
-    private apiConfig: APIConfig
-  ) {
-  }
+	constructor(private http: HttpClient, private _Func: Functions, private apiConfig: APIConfig) {}
 
-  getList(params) {
-    return this.http.get(this.apiConfig.CUS_RANGE_PRICE_LIST + params);
-  }
+	getList(params) {
+		return this.http.get(this.apiConfig.CUS_RANGE_PRICE_LIST + params);
+	}
 
-  deleteCusRangePrice(id) {
-    return this.http.delete(this.apiConfig.CUS_RANGE_PRICE_LIST + '/delete/' + id);
-  }
+	deleteCusRangePrice(id) {
+		return this.http.delete(this.apiConfig.CUS_RANGE_PRICE_LIST + '/delete/' + id);
+	}
 
-  serviceList() {
-    return this.http.get(this.apiConfig.SERVICE_LIST);
-  }
+	getService(data) {
+		return this.http.get(this.apiConfig.CUS_SERVICE_LIST + data);
+	}
 
-  getReport(params: string = '') {
-    return this.http.get(this.apiConfig.CUS_RANGE_PRICE_LIST + params + '&export=1', { responseType: 'blob' });
-  }
+	getReport(params: string = '') {
+		return this.http.get(this.apiConfig.CUS_RANGE_PRICE_LIST + params + '&export=1', { responseType: 'blob' });
+	}
 }

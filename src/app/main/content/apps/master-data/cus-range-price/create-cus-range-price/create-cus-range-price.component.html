@@ -1,11 +1,24 @@
 <ng2-toasty></ng2-toasty>
 
-<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
-
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24  h-110" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
-    fxLayoutAlign.gt-xs="space-between center">
-    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+  <div
+    class="header mat-accent-bg p-24  h-110"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
@@ -18,34 +31,77 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-
-    <form [formGroup]="CusRangePriceForm" autocomplete="off" class="form" (submit)="onSubmit()">
+    <form
+      [formGroup]="CusRangePriceForm"
+      autocomplete="off"
+      class="form"
+      (submit)="onSubmit()"
+    >
       <div class="background-title mat-cyan-200-bg margin-top-10">
         <h2 class="title">{{ titleGroup }}</h2>
       </div>
       <div class="box-shadow-form margin-top-10">
         <div class="row">
           <mat-form-field class="col-sm-12 col-md-4">
-            <mat-select formControlName="cus_service_id" placeholder="Service">
-              <mat-option *ngFor="let item of service" [value]="item.service_id">
-                {{ item.service_name }}
+            <input
+              [attr.disabled]="disabledForm"
+              placeholder="Service Name"
+              formControlName="cus_service_id"
+              (keyup)="onKeyUpService($event)"
+              type="text"
+              aria-label="Number"
+              matInput
+              [matAutocomplete]="autoServiceName"
+            />
+            <mat-autocomplete
+              [displayWith]="displayService.bind(this)"
+              autoActiveFirstOption
+              #autoServiceName="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let option of serviceName"
+                [value]="option.cus_service_id"
+              >
+                {{ option.cus_service_name }}
               </mat-option>
-            </mat-select>
-            <mat-error *ngIf="CusRangePriceForm.controls.cus_service_id.hasError('required')">
-              Service ID is required
+            </mat-autocomplete>
+            <mat-error
+              *ngIf="
+                CusRangePriceForm.controls.cus_service_id.hasError(
+                  'hasnotService'
+                )
+              "
+            >
+              This Service does not exist
             </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
-            <input [readonly]="disabledForm" formControlName="range_code" matInput placeholder="Range Code">
-            <mat-error *ngIf="CusRangePriceForm.controls.range_code.hasError('required')">
+            <input
+              [readonly]="disabledForm"
+              formControlName="range_code"
+              matInput
+              placeholder="Range Code"
+            />
+            <mat-error
+              *ngIf="CusRangePriceForm.controls.range_code.hasError('required')"
+            >
               Range Code is required
             </mat-error>
           </mat-form-field>
         </div>
       </div>
-      <button class="button-cancel" mat-raised-button (click)="cancel()">{{ buttonCancel }}</button>
-      <button *ngIf="!disabledForm" class="button-submit" mat-raised-button color="accent"
-        type="submit">{{ buttonSubmitType }}</button>
+      <button class="button-cancel" mat-raised-button (click)="cancel()">
+        {{ buttonCancel }}
+      </button>
+      <button
+        *ngIf="!disabledForm"
+        class="button-submit"
+        mat-raised-button
+        color="accent"
+        type="submit"
+      >
+        {{ buttonSubmitType }}
+      </button>
     </form>
   </div>
 </div>

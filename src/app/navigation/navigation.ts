@@ -332,6 +332,20 @@ export const navigation = [
                     'exactMatch': true
                   },
                   {
+                    'id'   : 'range-price',
+                    'title': 'Import Range Price',
+                    'type' : 'item',
+                    'url'  : '/apps/import/range-price',
+                    'exactMatch': true
+                  },
+                  {
+                    'id'   : 'cus-range-price',
+                    'title': 'Import Cus Range Price',
+                    'type' : 'item',
+                    'url'  : '/apps/import/cus-range-price',
+                    'exactMatch': true
+                  },
+                  {
                     'id'   : 'fees-rate',
                     'title': 'Import Fees Rate',
                     'type' : 'item',

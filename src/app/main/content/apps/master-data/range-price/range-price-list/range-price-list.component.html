@@ -1,10 +1,24 @@
 <ng2-toasty></ng2-toasty>
 
-<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24  h-110" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
-    fxLayoutAlign.gt-xs="space-between center">
-    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+  <div
+    class="header mat-accent-bg p-24  h-110"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
       <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="secondary-text s-16">home</mat-icon>
         <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
@@ -13,12 +27,23 @@
       <div class="h2 mt-16">Range Price List</div>
     </div>
 
-    <div class="reference-button mat-white-bg align-right" *ngIf="hasCreateUserPermission || hasEditUserPermission || hasDeleteUserPermission">
+    <div
+      class="reference-button mat-white-bg align-right"
+      *ngIf="
+        hasCreateUserPermission ||
+        hasEditUserPermission ||
+        hasDeleteUserPermission
+      "
+    >
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button *ngIf="hasCreateUserPermission" mat-menu-item (click)="create()">
+        <button
+          *ngIf="hasCreateUserPermission"
+          mat-menu-item
+          (click)="create()"
+        >
           <mat-icon>add_circle_outline</mat-icon>
           <span>Create</span>
         </button>
@@ -26,7 +51,11 @@
           <mat-icon>system_update_alt</mat-icon>
           <span>Update</span>
         </button>
-        <button *ngIf="hasDeleteUserPermission" mat-menu-item (click)="delete()">
+        <button
+          *ngIf="hasDeleteUserPermission"
+          mat-menu-item
+          (click)="delete()"
+        >
           <mat-icon>delete_forever</mat-icon>
           <span>Delete</span>
         </button>
@@ -37,48 +66,108 @@
 
   <!-- CONTENT -->
   <div class="p-24">
-
-    <form id="form-control" class="row" [formGroup]="searchForm" autocomplete="off">
+    <form
+      id="form-control"
+      class="row"
+      [formGroup]="searchForm"
+      autocomplete="off"
+    >
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <mat-select formControlName="service_id" placeholder="Service">
-          <mat-option [value]="">
-            Please select option
+        <input
+          placeholder="Service"
+          formControlName="service_id"
+          (keyup)="onKeyUpService($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoServiceName"
+        />
+        <mat-autocomplete
+          autoActiveFirstOption
+          [displayWith]="displayService.bind(this)"
+          #autoServiceName="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let option of serviceName"
+            [value]="option.service_id"
+          >
+            {{ option.service_name }}
           </mat-option>
-          <mat-option *ngFor="let item of service" [value]="item.service_id">
-            {{ item.service_name }}
-          </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <input formControlName="range_code" matInput placeholder="Range Code">
+        <input formControlName="range_code" matInput placeholder="Range Code" />
       </mat-form-field>
       <span class="format-line-height-button">
-        <button mat-raised-button color="accent" (click)="getList()">Search</button>
+        <button mat-raised-button color="accent" (click)="getList()">
+          Search
+        </button>
         <button mat-raised-button (click)="reset()">Reset</button>
       </span>
     </form>
 
-    <ngx-datatable (page)="pageCallback($event)" class="material" [rows]="rows" [loadingIndicator]="loadingIndicator"
-      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="'auto'" [reorderable]="reorderable"
-      [selectionType]="'checkbox'" [count]="total" [selected]="selected" (tableContextmenu)="onTableContextMenu($event)"
-      [externalPaging]="true" [scrollbarH]="true" [offset]="current_page" [limit]="15" (sort)="onSort($event)" [externalSorting]="true">
-
-      <ngx-datatable-column [width]="48" [canAutoResize]="true" [resizeable]="true" [sortable]="false">
-
-        <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
-          let-onCheckboxChangeFn="onCheckboxChangeFn">
-          <mat-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></mat-checkbox>
+    <ngx-datatable
+      (page)="pageCallback($event)"
+      class="material"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'"
+      [headerHeight]="48"
+      [footerHeight]="56"
+      [rowHeight]="'auto'"
+      [reorderable]="reorderable"
+      [selectionType]="'checkbox'"
+      [count]="total"
+      [selected]="selected"
+      (tableContextmenu)="onTableContextMenu($event)"
+      [externalPaging]="true"
+      [scrollbarH]="true"
+      [offset]="current_page"
+      [limit]="15"
+      (sort)="onSort($event)"
+      [externalSorting]="true"
+    >
+      <ngx-datatable-column
+        [width]="48"
+        [canAutoResize]="true"
+        [resizeable]="true"
+        [sortable]="false"
+      >
+        <ng-template
+          ngx-datatable-cell-template
+          let-value="value"
+          let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn"
+        >
+          <mat-checkbox
+            [checked]="isSelected"
+            (change)="onCheckboxChangeFn($event)"
+          ></mat-checkbox>
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column [width]="80" [canAutoResize]="true" [resizeable]="true" name="ID"
-        prop="id"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="80"
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="ID"
+        prop="id"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [width]="200" [canAutoResize]="true" [resizeable]="true" name="Service Name"
-        prop="service_name"></ngx-datatable-column>
+      <ngx-datatable-column
+        [width]="200"
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Service Name"
+        prop="service_name"
+      ></ngx-datatable-column>
 
-      <ngx-datatable-column [canAutoResize]="true" [resizeable]="true" name="Range Code"
-        prop="range_code"></ngx-datatable-column>
+      <ngx-datatable-column
+        [canAutoResize]="true"
+        [resizeable]="true"
+        name="Range Code"
+        prop="range_code"
+      ></ngx-datatable-column>
     </ngx-datatable>
 
     <div class="export margin-top-10">

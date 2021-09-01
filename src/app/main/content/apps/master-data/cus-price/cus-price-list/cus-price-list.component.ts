@@ -8,6 +8,7 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'cus-price-list',
@@ -32,7 +33,8 @@ export class CusPriceListComponent implements OnInit {
 	hasCreateUserPermission = false;
 	hasDeleteUserPermission = false;
 	private hasViewUserPermission = false;
-	service;
+	serviceName;
+	private subject: Subject<string> = new Subject();
 	itemType = [ { name: 'Doc', value: 1 }, { name: 'Pack', value: 2 } ];
 	rate = [ { name: 'No', value: 0 }, { name: 'Yes', value: 1 } ];
 	range = [ { name: 'No', value: 0 }, { name: 'Yes', value: 1 } ];
@@ -56,8 +58,10 @@ export class CusPriceListComponent implements OnInit {
 	ngOnInit() {
 		this.checkPermission();
 		this.buildForm();
-		this.serviceList();
 		this.getCurrency();
+		this.subject.debounceTime(500).subscribe((searchTextValue) => {
+			this.getService(searchTextValue);
+		});
 	}
 
 	// Check permission for user using this function page
@@ -121,10 +125,22 @@ export class CusPriceListComponent implements OnInit {
 		});
 	}
 
-	serviceList() {
-		this.cusPriceListService.serviceList().subscribe((data) => {
-			this.service = data['data'];
+	getService(value) {
+		let data = '';
+		data = '?cus_service_name=' + value;
+		this.cusPriceListService.getService(data).subscribe((data) => {
+			this.serviceName = data['data'];
 		});
+	}
+
+	onKeyUpService(searchTextValue: any) {
+		this.subject.next(searchTextValue.target.value);
+	}
+
+	displayService(id) {
+		if (this.serviceName) {
+			return this.serviceName.find((service) => service.cus_service_id === id).cus_service_name;
+		}
 	}
 
 	pageCallback(e) {

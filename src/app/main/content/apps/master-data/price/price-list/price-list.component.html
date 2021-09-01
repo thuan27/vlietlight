@@ -74,14 +74,27 @@
       (submit)="getList()"
     >
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
-        <mat-select formControlName="service_id" placeholder="Service">
-          <mat-option [value]="">
-            Please select option
+        <input
+          placeholder="Service"
+          formControlName="service_id"
+          (keyup)="onKeyUpService($event)"
+          type="text"
+          aria-label="Number"
+          matInput
+          [matAutocomplete]="autoServiceName"
+        />
+        <mat-autocomplete
+          [displayWith]="displayService.bind(this)"
+          autoActiveFirstOption
+          #autoServiceName="matAutocomplete"
+        >
+          <mat-option
+            *ngFor="let option of serviceName"
+            [value]="option.service_id"
+          >
+            {{ option.service_name }}
           </mat-option>
-          <mat-option *ngFor="let item of service" [value]="item.service_id">
-            {{ item.service_name }}
-          </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
       <mat-form-field class="col-sm-12 col-md-3 col-lg-2">
         <mat-select formControlName="item_type_id" placeholder="Item Type">

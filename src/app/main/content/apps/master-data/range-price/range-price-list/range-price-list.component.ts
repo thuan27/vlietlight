@@ -8,194 +8,208 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'range-price-list',
-  templateUrl: './range-price-list.component.html',
-  styleUrls: ['./range-price-list.component.scss'],
-  providers: [RangePriceListService, ToastyService, UserService]
+	selector: 'range-price-list',
+	templateUrl: './range-price-list.component.html',
+	styleUrls: [ './range-price-list.component.scss' ],
+	providers: [ RangePriceListService, ToastyService, UserService ]
 })
 export class RangePriceListComponent implements OnInit {
-  rows: any;
-  loadingIndicator = true;
-  reorderable = true;
-  pagination: any;
-  rangePriceList;
-  total;
-  current_page;
-  selected: any[] = [];
-  searchForm: FormGroup;
-  rangePrice;
-  sortData = '';
-  hasEditUserPermission = false;
-  hasCreateUserPermission = false;
-  hasDeleteUserPermission = false;
-  private hasViewUserPermission = false;
-  service;
-  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+	rows: any;
+	loadingIndicator = true;
+	reorderable = true;
+	pagination: any;
+	rangePriceList;
+	total;
+	current_page;
+	selected: any[] = [];
+	searchForm: FormGroup;
+	rangePrice;
+	sortData = '';
+	hasEditUserPermission = false;
+	hasCreateUserPermission = false;
+	hasDeleteUserPermission = false;
+	private hasViewUserPermission = false;
+	serviceName;
+	private subject: Subject<string> = new Subject();
+	dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
-  constructor(
-    private router: Router,
-    private rangePriceListService: RangePriceListService,
-    private formBuilder: FormBuilder,
-    private toastyService: ToastyService,
-    public dialog: MatDialog,
-    private _user: UserService,
-    private _Func: Functions,
-    private toastyConfig: ToastyConfig
-  ) {
-    this.toastyConfig.position = 'top-right';
-    this.total = 0;
-  }
+	constructor(
+		private router: Router,
+		private rangePriceListService: RangePriceListService,
+		private formBuilder: FormBuilder,
+		private toastyService: ToastyService,
+		public dialog: MatDialog,
+		private _user: UserService,
+		private _Func: Functions,
+		private toastyConfig: ToastyConfig
+	) {
+		this.toastyConfig.position = 'top-right';
+		this.total = 0;
+	}
 
-  ngOnInit() {
-    this.checkPermission();
-    this.buildForm();
-    this.serviceList();
-  }
+	ngOnInit() {
+		this.checkPermission();
+		this.buildForm();
+		this.subject.debounceTime(500).subscribe((searchTextValue) => {
+			this.getService(searchTextValue);
+		});
+	}
 
-  // Check permission for user using this function page
-  private checkPermission() {
-    this._user.GetPermissionUser().subscribe(
-      data => {
-        this.hasEditUserPermission = this._user.RequestPermission(data, 'editRangePrice');
-        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createRangePrice');
-        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteRangePrice');
-        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewRangePrice');
-        /* Check orther permission if View allow */
-        if (!this.hasViewUserPermission) {
-          this.router.navigateByUrl('pages/landing');
-        }
-        else {
-          this.getList();
-        }
-      },
-      err => {
-        this.toastyService.error(err.error.errors.message);
-      }
-    );
-  }
+	// Check permission for user using this function page
+	private checkPermission() {
+		this._user.GetPermissionUser().subscribe(
+			(data) => {
+				this.hasEditUserPermission = this._user.RequestPermission(data, 'editRangePrice');
+				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createRangePrice');
+				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteRangePrice');
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewRangePrice');
+				/* Check orther permission if View allow */
+				if (!this.hasViewUserPermission) {
+					this.router.navigateByUrl('pages/landing');
+				} else {
+					this.getList();
+				}
+			},
+			(err) => {
+				this.toastyService.error(err.error.errors.message);
+			}
+		);
+	}
 
-  private buildForm() {
-    this.searchForm = this.formBuilder.group({
-      service_id: '',
-      range_code: ''
-    });
-  }
+	private buildForm() {
+		this.searchForm = this.formBuilder.group({
+			service_id: '',
+			range_code: ''
+		});
+	}
 
-  getList(page = 1, ) {
-    let params = '?page=' + page;
-    if (this.sortData !== '') {
-      params += this.sortData;
-    }
-    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-    for (let i = 0; i < arrayItem.length; i++) {
-      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
-    }
-    this.rangePriceList = this.rangePriceListService.getList(params);
-    this.rangePriceList.subscribe((dataList: any[]) => {
-      dataList['data'].forEach((data) => {
-        data['id_temp'] = data['id'];
-        data['id'] = `<a href="#/apps/master-data/range-price/${data['id']}">${data['id']}</a>`;
-      });
-      this.rows = dataList['data'];
-      this.total = dataList['meta']['pagination']['total'];
-      this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
-      this.loadingIndicator = false;
-    });
-  }
+	getList(page = 1) {
+		let params = '?page=' + page;
+		if (this.sortData !== '') {
+			params += this.sortData;
+		}
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		this.rangePriceList = this.rangePriceListService.getList(params);
+		this.rangePriceList.subscribe((dataList: any[]) => {
+			dataList['data'].forEach((data) => {
+				data['id_temp'] = data['id'];
+				data['id'] = `<a href="#/apps/master-data/range-price/${data['id']}">${data['id']}</a>`;
+			});
+			this.rows = dataList['data'];
+			this.total = dataList['meta']['pagination']['total'];
+			this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
+			this.loadingIndicator = false;
+		});
+	}
 
-  serviceList() {
-    this.rangePriceListService.serviceList().subscribe((data) => {
-      this.service = data['data'];
-    });
-  }
+	getService(value) {
+		let data = '';
+		data = '?service_name=' + value;
+		this.rangePriceListService.getService(data).subscribe((data) => {
+			this.serviceName = data['data'];
+		});
+	}
 
-  pageCallback(e) {
-    this.getList(parseInt(e['offset']) + 1);
-    this.selected = [];
-  }
+	onKeyUpService(searchTextValue: any) {
+		this.subject.next(searchTextValue.target.value);
+	}
 
-  create() {
-    this.router.navigate(['apps/master-data/range-price/create']);
-  }
+	displayService(id) {
+		if (this.serviceName) {
+			return this.serviceName.find((service) => service.service_id === id).service_name;
+		}
+	}
 
-  update() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.router.navigateByUrl(`apps/master-data/range-price/${this.selected[0]['id_temp']}/update`);
-    }
-  }
+	pageCallback(e) {
+		this.getList(parseInt(e['offset']) + 1);
+		this.selected = [];
+	}
 
-  delete() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
-      this.dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.rangePriceListService.deleteRangePrice(this.selected[0]['id_temp']).subscribe((data) => {
-            this.toastyService.success(data['message']);
-            setTimeout(
-              () => {
-                this.reset();
-                this.selected = [];
-              },
-              700
-            );
-          });
-        } else {
-        }
-        this.dialogRef = null;
-      });
-    }
-  }
+	create() {
+		this.router.navigate([ 'apps/master-data/range-price/create' ]);
+	}
 
-  selectedOption(data) {
-    this.searchForm.controls['id_temp'].setValue(data);
-  }
+	update() {
+		if (this.selected.length < 1) {
+			this.toastyService.error('Please select at least one item.');
+		} else if (this.selected.length > 1) {
+			this.toastyService.error('Please select one item.');
+		} else {
+			this.router.navigateByUrl(`apps/master-data/range-price/${this.selected[0]['id_temp']}/update`);
+		}
+	}
 
-  onSort(event) {
-    this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
-    this.getList(this.current_page + 1);
-    this.current_page = this.current_page +1;
-  }
+	delete() {
+		if (this.selected.length < 1) {
+			this.toastyService.error('Please select at least one item.');
+		} else if (this.selected.length > 1) {
+			this.toastyService.error('Please select one item.');
+		} else {
+			this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+			this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+			this.dialogRef.afterClosed().subscribe((result) => {
+				if (result) {
+					this.rangePriceListService.deleteRangePrice(this.selected[0]['id_temp']).subscribe((data) => {
+						this.toastyService.success(data['message']);
+						setTimeout(() => {
+							this.reset();
+							this.selected = [];
+						}, 700);
+					});
+				} else {
+				}
+				this.dialogRef = null;
+			});
+		}
+	}
 
-  reset() {
-    this.searchForm.controls['country_name'].setValue('');
-    this.sortData = '';
-    this.getList();
-  }
+	selectedOption(data) {
+		this.searchForm.controls['id_temp'].setValue(data);
+	}
 
-  exportCsv() {
-    let fileName = 'Range Price';
-    let fileType = '.csv';
-    let params = '?limit=15';
-    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-    for (let i = 0; i < arrayItem.length; i++) {
-      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
-    }
-    let getReport = this.rangePriceListService.getReport(params);
-    getReport.subscribe((data) => {
-      var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs.saveAs(blob, fileName + fileType);
-    })
-  }
+	onSort(event) {
+		this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+		this.getList(this.current_page + 1);
+		this.current_page = this.current_page + 1;
+	}
 
-  onTableContextMenu(event) {
-    var dummy = document.createElement("textarea");
-    document.body.appendChild(dummy);
-    dummy.value = event.event.srcElement.outerText;
-    dummy.select();
-    document.execCommand('copy');
-    event.event.preventDefault();
-    event.event.stopPropagation();
-    this.toastyService.success('Copied Successfully');
-  }
+	reset() {
+		this.searchForm.controls['country_name'].setValue('');
+		this.sortData = '';
+		this.getList();
+	}
+
+	exportCsv() {
+		let fileName = 'Range Price';
+		let fileType = '.csv';
+		let params = '?limit=15';
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		let getReport = this.rangePriceListService.getReport(params);
+		getReport.subscribe((data) => {
+			var blob = new Blob([ data ], {
+				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			});
+			FileSaver.saveAs.saveAs(blob, fileName + fileType);
+		});
+	}
+
+	onTableContextMenu(event) {
+		var dummy = document.createElement('textarea');
+		document.body.appendChild(dummy);
+		dummy.value = event.event.srcElement.outerText;
+		dummy.select();
+		document.execCommand('copy');
+		event.event.preventDefault();
+		event.event.stopPropagation();
+		this.toastyService.success('Copied Successfully');
+	}
 }

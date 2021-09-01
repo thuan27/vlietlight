@@ -19,8 +19,8 @@ export class CreateCusPriceService {
 		return this.http.put(this.apiConfig.CUS_PRICE_LIST + '/update/' + id, param);
 	}
 
-	serviceList() {
-		return this.http.get(this.apiConfig.CUS_SERVICE_LIST);
+	getService(data) {
+		return this.http.get(this.apiConfig.CUS_SERVICE_LIST + data);
 	}
 
 	getCurrency() {

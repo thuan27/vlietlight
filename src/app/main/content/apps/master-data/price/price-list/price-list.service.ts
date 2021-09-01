@@ -16,8 +16,8 @@ export class PriceListService {
 		return this.http.delete(this.apiConfig.PRICE_LIST + '/delete/' + id);
 	}
 
-	serviceList() {
-		return this.http.get(this.apiConfig.SERVICE_LIST);
+	getService(data) {
+		return this.http.get(this.apiConfig.SERVICE_LIST + data);
 	}
 
 	getReport(params: string = '') {

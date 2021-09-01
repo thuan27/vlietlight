@@ -43,18 +43,33 @@
       <div class="box-shadow-form margin-top-10">
         <div class="row">
           <mat-form-field class="col-sm-12 col-md-4">
-            <mat-select
+            <input
               [attr.disabled]="disabledForm"
+              placeholder="Service Name"
               formControlName="service_id"
-              placeholder="Cus Service"
+              (keyup)="onKeyUpService($event)"
+              type="text"
+              aria-label="Number"
+              matInput
+              [matAutocomplete]="autoServiceName"
+            />
+            <mat-autocomplete
+              [displayWith]="displayService.bind(this)"
+              autoActiveFirstOption
+              #autoServiceName="matAutocomplete"
             >
               <mat-option
-                *ngFor="let item of service"
-                [value]="item.cus_service_id"
+                *ngFor="let option of serviceName"
+                [value]="option.cus_service_id"
               >
-                {{ item.cus_service_name }}
+                {{ option.cus_service_name }}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
+            <mat-error
+              *ngIf="CusPriceForm.controls.service_id.hasError('hasnotService')"
+            >
+              This Service does not exist
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <mat-select

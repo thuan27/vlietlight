@@ -1,13 +1,16 @@
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Subscription } from 'rxjs/Subscription';
 import { CreatePriceService } from './create-price.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ValidationService } from '@fuse/core/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { Location } from '@angular/common';
 import { UserService } from '@fuse/directives/users/users.service';
 import { Functions } from '@fuse/core/function';
+import { of } from 'rxjs/observable/of';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
 	selector: 'create-price',
@@ -31,7 +34,8 @@ export class CreatePriceComponent implements OnInit {
 	hasCreateUserPermission = false;
 	hasDeleteUserPermission = false;
 	private hasViewUserPermission = false;
-	service;
+	serviceName;
+	private subject: Subject<string> = new Subject();
 	currency;
 	itemType = [ { name: 'Doc', value: 1 }, { name: 'Pack', value: 2 } ];
 	rate = [ { name: 'No', value: 0 }, { name: 'Yes', value: 1 } ];
@@ -54,14 +58,18 @@ export class CreatePriceComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		let observer;
 		this.title = 'Create Price';
 		this.titleGroup = 'Registration';
 		this.buttonSubmitType = 'Create';
 		this.buttonCancel = 'Cancel';
 		this.checkPermission();
+		this.getService('', true);
 		this.buildForm();
-		this.serviceList();
 		this.getCurrency();
+		this.subject.debounceTime(500).subscribe((searchTextValue) => {
+			this.getService(searchTextValue);
+		});
 	}
 
 	defaultPage() {
@@ -117,7 +125,7 @@ export class CreatePriceComponent implements OnInit {
 
 	private buildForm() {
 		this.PriceForm = this.formBuilder.group({
-			service_id: [ 1 ],
+			service_id: [ null, [ Validators.required, this.validateService ] ],
 			item_type_id: [ 1 ],
 			weight: [ null, [ Validators.required ] ],
 			zone: [ '', [ Validators.required ] ],
@@ -134,7 +142,7 @@ export class CreatePriceComponent implements OnInit {
 
 	private detailForm(data) {
 		this.PriceForm = this.formBuilder.group({
-			service_id: [ data['service_id'] ],
+			service_id: [ data['service_id'], [ Validators.required, this.validateService ] ],
 			item_type_id: [ data['item_type_id'] ],
 			weight: [ data['weight'], [ Validators.required ] ],
 			zone: [ data['zone'], [ Validators.required ] ],
@@ -149,10 +157,37 @@ export class CreatePriceComponent implements OnInit {
 		});
 	}
 
-	serviceList() {
-		this._createPriceService.serviceList().subscribe((data) => {
-			this.service = data['data'];
-		});
+	getService(value, isFrist = false) {
+		let data = '';
+		data = '?service_name=' + value;
+		if (!isFrist) {
+			this._createPriceService.getService(data).subscribe((res) => {
+				this.serviceName = res['data'];
+			});
+		} else {
+			this._createPriceService.getService(data).subscribe((res) => {
+				this.serviceName = res['data'];
+				this.PriceForm.controls['service_id'].setValue(1);
+			});
+		}
+	}
+
+	displayService(id) {
+		if (this.serviceName) {
+			return this.serviceName.find((service) => service.service_id === id).service_name;
+		}
+	}
+
+	onKeyUpService(searchTextValue: any) {
+		this.subject.next(searchTextValue.target.value);
+	}
+
+	validateService(control: FormControl) {
+		if (typeof control.value == 'number' || control.value === '') {
+			return null;
+		} else {
+			return { hasnotService: true };
+		}
 	}
 
 	onSubmit() {

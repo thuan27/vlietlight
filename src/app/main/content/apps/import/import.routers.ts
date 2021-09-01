@@ -11,63 +11,73 @@ import { ImportMyCustomerServiceComponent } from './import-my-customer-service/i
 import { ImportOrderReceivableComponent } from './import-order-receivable/import-order-receivable.component';
 import { ImportOrderFeeComponent } from './import-order-fee/import-order-fee.component';
 import { ImportCheckingDebitNoteComponent } from './import-checking-debit-note/import-checking-debit-note.component';
+import { ImportRangePriceComponent } from './import-range-price/import-range-price.component';
+import { ImportCusRangePriceComponent } from './import-cus-range-price/import-cus-range-price.component';
 
 export const listRoutes: Routes = [
-  {
-    path: 'service',
-    component: ImportServiceComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'country',
-    component: ImportCountryComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'country-zone',
-    component: ImportCountryZoneComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'fees-rate',
-    component: ImportFeesRateComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'price',
-    component: ImportPriceComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'customer-price',
-    component: ImportCustomerPriceComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'customer-country-zone',
-    component: ImportCustomerCountryZoneComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'my-customer-service',
-    component: ImportMyCustomerServiceComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'order-receivable',
-    component: ImportOrderReceivableComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'order-fee',
-    component: ImportOrderFeeComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: 'checking-debit-note',
-    component: ImportCheckingDebitNoteComponent,
-    canActivate: [AuthGuard, AdminGuard]
-  }
+	{
+		path: 'service',
+		component: ImportServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'country',
+		component: ImportCountryComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'country-zone',
+		component: ImportCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'fees-rate',
+		component: ImportFeesRateComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'price',
+		component: ImportPriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'range-price',
+		component: ImportRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'cus-range-price',
+		component: ImportCusRangePriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'customer-price',
+		component: ImportCustomerPriceComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'customer-country-zone',
+		component: ImportCustomerCountryZoneComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'my-customer-service',
+		component: ImportMyCustomerServiceComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'order-receivable',
+		component: ImportOrderReceivableComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'order-fee',
+		component: ImportOrderFeeComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	},
+	{
+		path: 'checking-debit-note',
+		component: ImportCheckingDebitNoteComponent,
+		canActivate: [ AuthGuard, AdminGuard ]
+	}
 ];
-
-
