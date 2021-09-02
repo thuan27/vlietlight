@@ -93,7 +93,7 @@ export class APIConfig {
 	public IMPORT_RANGE_PRICE = this.API_BASE + '/migration/v1/range-price/import';
 	public IMPORT_CUS_RANGE_PRICE = this.API_BASE + '/migration/v1/cus-range-price/import';
 	public IMPORT_CUSTOMER_PRICE = this.API_BASE + '/migration/v1/cus-price/import';
-	public IMPORT_FEES_RATE = this.API_BASE + '/migration/v1/fees-rate/import';
+	public IMPORT_FEES_RATE = this.API_BASE + '/migration/v1/fee-rate/import';
 	public IMPORT_CUSTOMER_COUNTRY_ZONE = this.API_BASE + '/migration/v1/customer-country-zone/import';
 	public IMPORT_MY_CUSTOMER_SERVICE = this.API_BASE + '/migration/v1/cus-service/import';
 

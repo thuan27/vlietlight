@@ -10,118 +10,114 @@ import { UserService } from '@fuse/directives/users/users.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'import-fees-rate',
-  templateUrl: './import-fees-rate.component.html',
-  styleUrls: ['./import-fees-rate.component.scss'],
-  animations   : fuseAnimations,
-  encapsulation: ViewEncapsulation.None,
-  providers: [UserService, ToastyService, FileManagerService],
-
+	selector: 'import-fees-rate',
+	templateUrl: './import-fees-rate.component.html',
+	styleUrls: [ './import-fees-rate.component.scss' ],
+	animations: fuseAnimations,
+	encapsulation: ViewEncapsulation.None,
+	providers: [ UserService, ToastyService, FileManagerService ]
 })
 export class ImportFeesRateComponent implements OnInit {
-  selected: any;
-  pathArr: string[];
-  hasImportFeesRate;
-  itemFile:any;
+	selected: any;
+	pathArr: string[];
+	hasImportFeesRate;
+	itemFile: any;
 
-  constructor(
-    public dialog: MatDialog,
-    private router: Router,
-    private _user: UserService,
-    private _Func: Functions,
-    private apiConfig: APIConfig,
-    private toastyService: ToastyService,
-    private toastyConfig: ToastyConfig
-  ) {
-    this.toastyConfig.position = 'top-right';
-  }
+	constructor(
+		public dialog: MatDialog,
+		private router: Router,
+		private _user: UserService,
+		private _Func: Functions,
+		private apiConfig: APIConfig,
+		private toastyService: ToastyService,
+		private toastyConfig: ToastyConfig
+	) {
+		this.toastyConfig.position = 'top-right';
+	}
 
-  ngOnInit() {
-    this.checkPermission();
-  }
+	ngOnInit() {
+		this.checkPermission();
+	}
 
-  private checkPermission() {
-    this._user.GetPermissionUser().subscribe(
-      data => {
-        this.hasImportFeesRate = this._user.RequestPermission(data, 'importFeesRate');
-        /* Check orther permission if View allow */
-        if (!this.hasImportFeesRate) {
-          this.router.navigateByUrl('pages/landing');
-        }
-      },
-      err => {
-        this.toastyService.error(err.error.errors.message);
-      }
-    );
-  }
+	private checkPermission() {
+		this._user.GetPermissionUser().subscribe(
+			(data) => {
+				this.hasImportFeesRate = this._user.RequestPermission(data, 'importFeeRate');
+				/* Check orther permission if View allow */
+				if (!this.hasImportFeesRate) {
+					this.router.navigateByUrl('pages/landing');
+				}
+			},
+			(err) => {
+				this.toastyService.error(err.error.errors.message);
+			}
+		);
+	}
 
-  changeItemFile(event) {
-    this.itemFile = <Array<File>> event.target.files[0];
-  }
+	changeItemFile(event) {
+		this.itemFile = <Array<File>>event.target.files[0];
+	}
 
-  importFile() {
+	importFile() {
 		const that = this;
-		if(!this.itemFile) {
+		if (!this.itemFile) {
 			return;
 		}
-		let formData:any = new FormData();
+		let formData: any = new FormData();
 		let xhr = new XMLHttpRequest();
 
 		// process file
 		const fileExtension = that.itemFile.name.substr(that.itemFile.name.length - 4);
-		if (fileExtension !== "xlsx" && fileExtension !== ".csv") {
-      that.toastyService.error('Only upload file extend .xlsx !!!')
+		if (fileExtension !== 'xlsx' && fileExtension !== '.csv') {
+			that.toastyService.error('Only upload file extend .xlsx !!!');
 			return;
-    }
-		formData.append("file", that.itemFile, that.itemFile.name);
+		}
+		formData.append('file', that.itemFile, that.itemFile.name);
 
-		xhr.open("POST", `${that.apiConfig.IMPORT_FEES_RATE}`, true);
-		xhr.setRequestHeader("Authorization", 'Bearer ' + that._Func.getToken());
+		xhr.open('POST', `${that.apiConfig.IMPORT_FEES_RATE}`, true);
+		xhr.setRequestHeader('Authorization', 'Bearer ' + that._Func.getToken());
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 2) {
 				if (xhr.status == 200) {
-					xhr.responseType = "blob";
+					xhr.responseType = 'blob';
 				} else {
-					xhr.responseType = "text";
+					xhr.responseType = 'text';
 				}
 			}
 
 			if (xhr.readyState == 4) {
 				if (xhr.status === 200) {
-          that.toastyService.error('Import file has some errors.')
-					var blob = new Blob([this.response], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+					that.toastyService.error('Import file has some errors.');
+					var blob = new Blob([ this.response ], {
+						type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+					});
 					FileSaver.saveAs(blob, 'Fees_Rate_Error.xlsx');
 				} else {
 					let msg = '';
 
-					if(xhr.response) {
+					if (xhr.response) {
 						try {
 							var res = JSON.parse(xhr.response);
-              msg = res.errors && res.errors.message ? res.errors.message : res.data.message;
+							msg = res.errors && res.errors.message ? res.errors.message : res.data.message;
+						} catch (err) {
+							msg = xhr.statusText;
 						}
-						catch(err){
-							msg = xhr.statusText
-						}
-					}
-					else {
+					} else {
 						msg = xhr.statusText;
 					}
 
-					if(!msg) {
+					if (!msg) {
 						msg = "Sorry, there's a problem with the connection.";
 					}
 
 					if (xhr.status === 201) {
-            that.toastyService.success('Successfully!')
-
+						that.toastyService.success('Successfully!');
 					} else {
-            that.toastyService.error(msg)
-
+						that.toastyService.error(msg);
 					}
 				}
 			}
 		};
 		xhr.send(formData);
 	}
-
 }
