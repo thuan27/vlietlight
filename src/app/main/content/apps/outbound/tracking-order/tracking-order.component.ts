@@ -4,7 +4,9 @@ import { TrackingOrderListService } from './tracking-order.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { UserService } from '@fuse/directives/users/users.service';
 export interface Element {
 	time: number;
 	location: string;
@@ -15,7 +17,7 @@ export interface Element {
 	selector: 'tracking-order',
 	templateUrl: './tracking-order.component.html',
 	styleUrls: [ './tracking-order.component.scss' ],
-	providers: [ TrackingOrderListService, ToastyService ]
+	providers: [ TrackingOrderListService, ToastyService, UserService ]
 })
 export class TrackingComponent implements OnInit {
 	searchForm: FormGroup;
@@ -32,18 +34,22 @@ export class TrackingComponent implements OnInit {
 	trackingList;
 	loading: Boolean = false;
 	error = false;
+	private hasViewUserPermission = false;
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private trackingOrderListService: TrackingOrderListService,
 		private toastyService: ToastyService,
 		private activeRoute: ActivatedRoute,
+		private router: Router,
+		private _user: UserService,
 		private toastyConfig: ToastyConfig
 	) {
 		this.toastyConfig.position = 'top-right';
 	}
 
 	ngOnInit() {
+		this.checkPermission();
 		this.buildForm();
 		this.routeSub = this.activeRoute.params.subscribe((params) => {
 			if (params['id'] !== undefined) {
@@ -52,28 +58,50 @@ export class TrackingComponent implements OnInit {
 		});
 	}
 
-	getList(id) {
-		this.loading = true;
-		this.trackingOrderListService.getSingleList(id).subscribe(
-			(response) => {
-				this.error = false;
-				this.loading = false;
-				this.trackingList = response['data'];
-				let listEvent = [];
-				if (response['data']['events'] && response['data']['vietlight_events']) {
-					listEvent = response['data']['events'].concat(response['data']['vietlight_events']);
-				} else {
-					listEvent = response['data']['events']
-						? response['data']['event']
-						: response['data']['vietlight_events'];
+	// Check permission for user using this function page
+	private checkPermission() {
+		this._user.GetPermissionUser().subscribe(
+			(data) => {
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewTracking');
+				/* Check orther permission if View allow */
+				if (!this.hasViewUserPermission) {
+					this.router.navigateByUrl('pages/landing');
 				}
-				this.dataSource = new MatTableDataSource<Element>(listEvent);
 			},
 			(err) => {
-				this.error = true;
-				this.loading = false;
+				this.toastyService.error(err.error.errors.message);
 			}
 		);
+	}
+
+	getList(id) {
+		this.trackingOrderListService
+			.getSingleList(id)
+			.pipe(
+				tap(() => {
+					this.loading = true;
+				})
+			)
+			.subscribe(
+				(response) => {
+					this.error = false;
+					this.loading = false;
+					this.trackingList = response['data'];
+					let listEvent = [];
+					if (response['data']['events'] && response['data']['vietlight_events']) {
+						listEvent = response['data']['events'].concat(response['data']['vietlight_events']);
+					} else {
+						listEvent = response['data']['events']
+							? response['data']['event']
+							: response['data']['vietlight_events'];
+					}
+					this.dataSource = new MatTableDataSource<Element>(listEvent);
+				},
+				(err) => {
+					this.error = true;
+					this.loading = false;
+				}
+			);
 		// this.trackingOrderListService.getList(id).subscribe((response) => {
 		//   if (response['data']['code'] == 200) {
 		//     let data = response['data']['data']

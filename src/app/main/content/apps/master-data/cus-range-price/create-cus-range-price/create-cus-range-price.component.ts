@@ -96,10 +96,10 @@ export class CreateCusRangePriceComponent implements OnInit {
 	private checkPermission() {
 		this._user.GetPermissionUser().subscribe(
 			(data) => {
-				this.hasEditUserPermission = this._user.RequestPermission(data, 'editRangePrice');
-				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createRangePrice');
-				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteRangePrice');
-				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewRangePrice');
+				this.hasEditUserPermission = this._user.RequestPermission(data, 'editCusRangePrice');
+				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCusRangePrice');
+				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCusRangePrice');
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCusRangePrice');
 				/* Check orther permission if View allow */
 				if (!this.hasViewUserPermission) {
 					this.router.navigateByUrl('pages/landing');

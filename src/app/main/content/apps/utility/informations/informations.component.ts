@@ -8,123 +8,150 @@ import { ToastyConfig, ToastyService } from '@fuse/directives/ng2-toasty';
 import { MatDialog } from '@angular/material';
 import { FuseCreateInformationsComponent } from '@fuse/components/create-informations/create-informations.component';
 import * as moment from 'moment';
+import { UserService } from '@fuse/directives/users/users.service';
 
 @Component({
-    selector: 'informations',
-    templateUrl: './informations.component.html',
-    styleUrls: ['./informations.component.scss'],
-    providers: [InformationsService]
+	selector: 'informations',
+	templateUrl: './informations.component.html',
+	styleUrls: [ './informations.component.scss' ],
+	providers: [ InformationsService, UserService ]
 })
 export class InformationsComponent implements OnInit {
-    total;
-    current_page;
-    selected: any[] = [];
-    rows: any;
-    loadingIndicator = true;
-    reorderable = true;
-    pagination: any;
-    searchForm: FormGroup;
-    examples: any;
-    sortData = '';
-    informationsList;
-    dialogRef;
-    createdByList = [
-      { value: 0, name: 'Exchange Surcharge' },
-      { value: 1, name: 'Updated Price List' },
-      { value: 2, name: 'General Information' },
-      { value: 3, name: 'Bill' },
-    ];
-    private listSelectedItem = [];
+	total;
+	current_page;
+	selected: any[] = [];
+	rows: any;
+	loadingIndicator = true;
+	reorderable = true;
+	pagination: any;
+	searchForm: FormGroup;
+	examples: any;
+	sortData = '';
+	informationsList;
+	dialogRef;
+	createdByList = [
+		{ value: 0, name: 'Exchange Surcharge' },
+		{ value: 1, name: 'Updated Price List' },
+		{ value: 2, name: 'General Information' },
+		{ value: 3, name: 'Bill' }
+	];
+	private listSelectedItem = [];
+	private hasViewUserPermission = false;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        public dialog: MatDialog,
-        private informationsService: InformationsService,
-        private toastyService: ToastyService,
-        private toastyConfig: ToastyConfig
-    ) {
-      this.toastyConfig.position = 'top-right';
-      this.total = 0;
-    }
+	constructor(
+		private formBuilder: FormBuilder,
+		public dialog: MatDialog,
+		private informationsService: InformationsService,
+		private toastyService: ToastyService,
+		private _user: UserService,
+		private router: Router,
+		private toastyConfig: ToastyConfig
+	) {
+		this.toastyConfig.position = 'top-right';
+		this.total = 0;
+	}
 
-    ngOnInit() {
-        this.buildForm();
-        this.getList();
-    }
+	ngOnInit() {
+		this.buildForm();
+		this.checkPermission();
+	}
 
-    private buildForm() {
-        this.searchForm = this.formBuilder.group({
-          category: '',
-          subject: '',
-          created_at: '',
-          updated_at: '',
-          created_by: ''
-        });
-    }
+	// Check permission for user using this function page
+	private checkPermission() {
+		this._user.GetPermissionUser().subscribe(
+			(data) => {
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewInformation');
+				/* Check orther permission if View allow */
+				if (!this.hasViewUserPermission) {
+					this.router.navigateByUrl('pages/landing');
+				}
+			},
+			(err) => {
+				this.toastyService.error(err.error.errors.message);
+			}
+		);
+	}
 
-    getList(page = 1) {
-      let params = '?page=' + page;
-      if (this.sortData !== '') {
-        params += this.sortData;
-      }
-      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-      for (let i = 0; i < arrayItem.length; i++) {
-        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'created_at') {
-          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
-        } else
-        if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'updated_at') {
-          params = params + `&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format("YYYY/MM/DD")}`;
-        } else {
-          params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
-        }
-      }
-      this.informationsList = this.informationsService.getList(params);
+	private buildForm() {
+		this.searchForm = this.formBuilder.group({
+			category: '',
+			subject: '',
+			created_at: '',
+			updated_at: '',
+			created_by: ''
+		});
+	}
 
-      this.informationsList.subscribe((dataList: any[]) => {
-        this.rows = dataList['data'];
-        this.total = dataList['meta']['pagination']['total'];
-        this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
-        this.loadingIndicator = false;
-      });
-    }
+	getList(page = 1) {
+		let params = '?page=' + page;
+		if (this.sortData !== '') {
+			params += this.sortData;
+		}
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'created_at') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else if (this.searchForm.controls[arrayItem[i]].value != '' && arrayItem[i] == 'updated_at') {
+				params =
+					params +
+					`&${arrayItem[i]}=${moment(new Date(this.searchForm.controls[arrayItem[i]].value)).format(
+						'YYYY/MM/DD'
+					)}`;
+			} else {
+				params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+			}
+		}
+		this.informationsList = this.informationsService.getList(params);
 
-    pageCallback(e) {
-      this.getList(parseInt(e['offset']) + 1);
-      this.selected = [];
-    }
+		this.informationsList.subscribe((dataList: any[]) => {
+			this.rows = dataList['data'];
+			this.total = dataList['meta']['pagination']['total'];
+			this.current_page = parseInt(dataList['meta']['pagination']['current_page']) - 1;
+			this.loadingIndicator = false;
+		});
+	}
 
-    onSort(event) {
-      this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
-      this.getList(this.current_page + 1);
-      this.current_page = this.current_page +1;
-    }
+	pageCallback(e) {
+		this.getList(parseInt(e['offset']) + 1);
+		this.selected = [];
+	}
 
-    reset() {
-      const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-      for (let i = 0; i < arrayItem.length; i++) {
-        this.searchForm.controls[arrayItem[i]].setValue('');
-      }
-      this.sortData = '';
-      this.getList();
-    }
+	onSort(event) {
+		this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+		this.getList(this.current_page + 1);
+		this.current_page = this.current_page + 1;
+	}
 
-    create() {
-      this.dialogRef = this.dialog.open(FuseCreateInformationsComponent, {
-        panelClass: 'contact-form-dialog',
-        data      : {
-            data: this.selected
-        }
-      });
-    }
+	reset() {
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			this.searchForm.controls[arrayItem[i]].setValue('');
+		}
+		this.sortData = '';
+		this.getList();
+	}
 
-    onTableContextMenu(event) {
-      var dummy = document.createElement("textarea");
-      document.body.appendChild(dummy);
-      dummy.value = event.event.srcElement.outerText;
-      dummy.select();
-      document.execCommand('copy');
-      event.event.preventDefault();
-      event.event.stopPropagation();
-      this.toastyService.success('Copied Successfully');
-    }
+	create() {
+		this.dialogRef = this.dialog.open(FuseCreateInformationsComponent, {
+			panelClass: 'contact-form-dialog',
+			data: {
+				data: this.selected
+			}
+		});
+	}
+
+	onTableContextMenu(event) {
+		var dummy = document.createElement('textarea');
+		document.body.appendChild(dummy);
+		dummy.value = event.event.srcElement.outerText;
+		dummy.select();
+		document.execCommand('copy');
+		event.event.preventDefault();
+		event.event.stopPropagation();
+		this.toastyService.success('Copied Successfully');
+	}
 }

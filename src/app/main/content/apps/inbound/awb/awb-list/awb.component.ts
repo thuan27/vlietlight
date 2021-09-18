@@ -175,28 +175,26 @@ export class AWBComponent implements OnInit {
 				if (data['sales_price'] == 0) {
 					data[
 						'sales_price'
-					] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data[
+					] = `<img width="15" src="./../../../../../../../assets/images/common/dot.png">${data[
 						'sales_price'
 					]}`;
-					data[
-						'freight'
-					] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data[
+					data['freight'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">${data[
 						'freight'
 					]}`;
 				}
 				if (data['is_retain'] == 1) {
+					data['is_retain'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">Yes`;
+				} else {
 					data[
 						'is_retain'
-					] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data[
-						'is_retain'
-					]}`;
+					] = `<img width="15" src="../../../../../../../assets/images/common/dot-green.jpg">No`;
 				}
 				if (data['is_exact'] == 0) {
-					data[
-						'is_exact'
-					] = `<img width="15" lazyLoad="../../../../../../../assets/images/common/dot.png">${data[
-						'is_exact'
-					]}`;
+					data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot.png">
+						No`;
+				} else {
+					data['is_exact'] = `<img width="15" src="../../../../../../../assets/images/common/dot-green.jpg">
+						Yes`;
 				}
 			});
 			this.rows = data['data'];

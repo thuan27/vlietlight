@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { APIConfig } from 'app/main/content/pages/authentication/config';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { UserService } from '@fuse/directives/users/users.service';
+import { Router } from '@angular/router';
 
 export interface Element {
 	time: number;
@@ -20,7 +22,7 @@ export interface Element {
 	selector: 'tracking-order-multi',
 	templateUrl: './tracking-order-multi.component.html',
 	styleUrls: [ './tracking-order-multi.component.scss' ],
-	providers: [ TrackingOrderMultiListService, ToastyService ]
+	providers: [ TrackingOrderMultiListService, ToastyService, UserService ]
 })
 export class TrackingMultiComponent implements OnInit {
 	searchForm: FormGroup;
@@ -40,6 +42,7 @@ export class TrackingMultiComponent implements OnInit {
 	removable: boolean = true;
 	addOnBlur: boolean = true;
 	loading: Boolean = false;
+	private hasViewUserPermission = false;
 
 	// Enter, comma
 	separatorKeysCodes = [ ENTER, COMMA ];
@@ -51,45 +54,73 @@ export class TrackingMultiComponent implements OnInit {
 		private apiConfig: APIConfig,
 		private formBuilder: FormBuilder,
 		private trackingOrderMultiListService: TrackingOrderMultiListService,
+		private router: Router,
+		private _user: UserService,
 		private toastyService: ToastyService,
 		private toastyConfig: ToastyConfig
 	) {
 		this.toastyConfig.position = 'top-right';
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.checkPermission();
+	}
+
+	// Check permission for user using this function page
+	private checkPermission() {
+		this._user.GetPermissionUser().subscribe(
+			(data) => {
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewTracking');
+				/* Check orther permission if View allow */
+				if (!this.hasViewUserPermission) {
+					this.router.navigateByUrl('pages/landing');
+				} else {
+					this.getList();
+				}
+			},
+			(err) => {
+				this.toastyService.error(err.error.errors.message);
+			}
+		);
+	}
 
 	getList() {
-		this.loading = true;
 		this.trackingArrayList = [];
 		this.orderId.forEach((item, i) => {
-			this.trackingOrderMultiListService.getSingleList(item.name).subscribe(
-				(response) => {
-					response['data']['id'] = item.name;
-					response['data']['success'] = true;
-					let listEvent = [];
-					if (response['data']['events'] && response['data']['vietlight_events']) {
-						listEvent = response['data']['events'].concat(response['data']['vietlight_events']);
-					} else {
-						listEvent = response['data']['events']
-							? response['data']['event']
-							: response['data']['vietlight_events'];
-					}
-					response['data']['dataSource'] = new MatTableDataSource<Element>(listEvent);
-					this.trackingArrayList.push(response['data']);
-					this.loading = false;
-				},
-				(err) => {
-					this.loading = false;
-					let error = {
-						id: item.name,
-						success: false,
-						message: `The "${item.name}" doesn't exist!  Please try again`
-					};
+			this.trackingOrderMultiListService
+				.getSingleList(item.name)
+				.pipe(
+					tap(() => {
+						this.loading = true;
+					})
+				)
+				.subscribe(
+					(response) => {
+						response['data']['id'] = item.name;
+						response['data']['success'] = true;
+						let listEvent = [];
+						if (response['data']['events'] && response['data']['vietlight_events']) {
+							listEvent = response['data']['events'].concat(response['data']['vietlight_events']);
+						} else {
+							listEvent = response['data']['events']
+								? response['data']['event']
+								: response['data']['vietlight_events'];
+						}
+						response['data']['dataSource'] = new MatTableDataSource<Element>(listEvent);
+						this.trackingArrayList.push(response['data']);
+						this.loading = false;
+					},
+					(err) => {
+						this.loading = false;
+						let error = {
+							id: item.name,
+							success: false,
+							message: `The "${item.name}" doesn't exist!  Please try again`
+						};
 
-					this.trackingArrayList.push(error);
-				}
-			);
+						this.trackingArrayList.push(error);
+					}
+				);
 		});
 		// this.getObjectsById().subscribe(
 		// 	(item) => {

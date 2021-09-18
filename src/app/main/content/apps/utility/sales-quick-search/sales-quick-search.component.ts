@@ -6,13 +6,14 @@ import { DatePipe } from '@angular/common';
 import { Functions } from '@fuse/core/function';
 import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { ValidationService } from '@fuse/core/validator';
+import { UserService } from '@fuse/directives/users/users.service';
 
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'sales-quick-search',
 	templateUrl: './sales-quick-search.component.html',
 	styleUrls: [ './sales-quick-search.component.scss' ],
-	providers: [ SalesQuickSearchService, ToastyService, ValidationService ]
+	providers: [ SalesQuickSearchService, UserService, ToastyService, ValidationService ]
 })
 export class SalesQuickSearchComponent implements OnInit {
 	rows: any;
@@ -29,12 +30,15 @@ export class SalesQuickSearchComponent implements OnInit {
 	range = [ { name: 'No', value: 0 }, { name: 'Yes', value: 1 } ];
 	itemTypeList = [ { name: 'Doc', value: 1 }, { name: 'Pack', value: 2 } ];
 	serviceCode;
+	private hasViewUserPermission = false;
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private toastyService: ToastyService,
 		private toastyConfig: ToastyConfig,
 		private salesQuickSearchService: SalesQuickSearchService,
+		private _user: UserService,
+		private router: Router,
 		private _Valid: ValidationService
 	) {
 		this.total = 0;
@@ -43,7 +47,25 @@ export class SalesQuickSearchComponent implements OnInit {
 
 	ngOnInit() {
 		this.buildForm();
-		this.getList();
+		this.checkPermission();
+	}
+
+	// Check permission for user using this function page
+	private checkPermission() {
+		this._user.GetPermissionUser().subscribe(
+			(data) => {
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCalculateMoney');
+				/* Check orther permission if View allow */
+				if (!this.hasViewUserPermission) {
+					this.router.navigateByUrl('pages/landing');
+				} else {
+					this.getList();
+				}
+			},
+			(err) => {
+				this.toastyService.error(err.error.errors.message);
+			}
+		);
 	}
 
 	private buildForm() {

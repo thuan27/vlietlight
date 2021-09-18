@@ -54,7 +54,6 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <mat-select
-              [disabled]="disabledForm"
               formControlName="awb_sts"
               placeholder="Status"
             >
@@ -422,7 +421,6 @@
           </mat-form-field>
           <mat-form-field class="col-sm-12 col-md-4">
             <mat-select
-              [disabled]="disabledForm"
               placeholder="Type"
               formControlName="awb_type"
             >
@@ -642,7 +640,6 @@
                 <div class="row m-0">
                   <mat-form-field class="col-sm-12 col-md-4">
                     <mat-select
-                      [disabled]="true"
                       (change)="changeItem($event, i)"
                       placeholder="Type"
                       formControlName="item_id"

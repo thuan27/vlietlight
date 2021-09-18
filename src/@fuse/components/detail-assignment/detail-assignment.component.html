@@ -1,114 +1,141 @@
 <div class="title">Wave Pick Details</div>
 
-<div class="page-layout simple fullwidth custom-dialog">
-    <table class="table-custom">
-        <tbody>
-            <tr>
-                <th class="width-th" scope="row">Wave Pick #</th>
-                <td>
-                    <a href="http://vietlight.vietlight.info/#/apps/inbound/wave-pick/{{listDetail ? listDetail.wv_hdr_id : ''}}" target="_blank">{{ listDetail.wv_hdr_num }}</a>
-                </td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Wave Pick Status</th>
-                <td>{{ listDetail.wv_sts }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">From Sale</th>
-                <td>{{ listDetail.sales_name }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Account Number</th>
-                <td>{{ listDetail.account_number }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">From Company</th>
-                <td>{{ listDetail.customer_name }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Company Address</th>
-                <td>{{ listDetail.customer_address }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Pick Up Address</th>
-                <td>{{ listDetail.pick_up_address }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">From Phone</th>
-                <td>{{ listDetail.customer_phone }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Pick Up Date Time</th>
-                <td>{{ listDetail.pick_up_date }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Number of AWB (s)</th>
-                <td>{{ listDetail.awb_qty }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Assigned Pickup</th>
-                <td>{{ listDetail.picker_name }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Sales Note</th>
-                <td>{{ listDetail.sales_note }}</td>
-            </tr>
-            <tr>
-                <th class="width-th" scope="row">Pick Up Note</th>
-                <td>{{ listDetail.picker_note }}</td>
-            </tr>
-        </tbody>
+<div
+  class="page-layout simple fullwidth custom-dialog"
+  *ngIf="listDetail; else noDetail"
+>
+  <table class="table-custom">
+    <tbody>
+      <tr>
+        <th class="width-th" scope="row">Wave Pick #</th>
+        <td>
+          <a
+            href="http://vietlight.vietlight.info/#/apps/inbound/wave-pick/{{
+              listDetail ? listDetail.wv_hdr_id : ''
+            }}"
+            target="_blank"
+            >{{ listDetail.wv_hdr_num }}</a
+          >
+        </td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Wave Pick Status</th>
+        <td>{{ listDetail.wv_sts }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">From Sale</th>
+        <td>{{ listDetail.sales_name }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Account Number</th>
+        <td>{{ listDetail.account_number }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">From Company</th>
+        <td>{{ listDetail.customer_name }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Company Address</th>
+        <td>{{ listDetail.customer_address }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Pick Up Address</th>
+        <td>{{ listDetail.pick_up_address }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">From Phone</th>
+        <td>{{ listDetail.customer_phone }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Pick Up Date Time</th>
+        <td>{{ listDetail.pick_up_date }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Number of AWB (s)</th>
+        <td>{{ listDetail.awb_qty }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Assigned Pickup</th>
+        <td>{{ listDetail.picker_name }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Sales Note</th>
+        <td>{{ listDetail.sales_note }}</td>
+      </tr>
+      <tr>
+        <th class="width-th" scope="row">Pick Up Note</th>
+        <td>{{ listDetail.picker_note }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="table-style1">
+    <table class="table table-striped table-bordered mat-cyan-50-bg">
+      <thead>
+        <tr>
+          <th>AWB #</th>
+          <th>Status</th>
+          <th>Packages</th>
+          <th>Actual Weight</th>
+          <th>Length</th>
+          <th>Width</th>
+          <th>Height</th>
+          <th>Temp measured</th>
+          <th>Is Retain</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="listDetail?.wv_details">
+        <tr *ngFor="let item of listDetail.wv_details">
+          <td class="border-table">
+            <a
+              href="http://vietlight.vietlight.info/#/apps/inbound/awb1/{{
+                item.awb_id
+              }}"
+              target="_blank"
+              >{{ item.awb_code }}</a
+            >
+          </td>
+          <td class="border-table">
+            {{ item.wv_dtl_sts }}
+          </td>
+          <td class="border-table">
+            {{ item.packages }}
+          </td>
+          <td class="border-table">
+            {{ item.total_act_weight }}
+          </td>
+          <td class="border-table">
+            {{ item.length }}
+          </td>
+          <td class="border-table">
+            {{ item.width }}
+          </td>
+          <td class="border-table">
+            {{ item.height }}
+          </td>
+          <td class="border-table" [ngClass]="{ 'red-bg': item.is_exact == 1 }">
+            {{ item.is_exact }}
+          </td>
+          <td
+            class="border-table"
+            [ngClass]="{ 'red-bg': item.is_retain == 1 }"
+          >
+            {{ item.is_retain }}
+          </td>
+          <td class="border-table">
+            {{ item.pickup_note_for_sales }}
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <div class="table-style1">
-        <table class="table table-striped table-bordered mat-cyan-50-bg">
-            <thead>
-              <tr>
-                <th>AWB #</th>
-                <th>Status</th>
-                <th>Packages</th>
-                <th>Actual Weight</th>
-                <th>Length</th>
-                <th>Width</th>
-                <th>Height</th>
-                <th>Temp measured</th>
-                <th>Is Retain</th>
-                <th>Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of listDetail.wv_details">
-                <td class="border-table">
-                  <a href="http://vietlight.vietlight.info/#/apps/inbound/awb1/{{item.awb_id}}" target="_blank">{{ item.awb_code }}</a>
-                </td>
-                <td class="border-table">
-                  {{ item.wv_dtl_sts }}
-                </td>
-                <td class="border-table">
-                  {{ item.packages }}
-                </td>
-                <td class="border-table">
-                  {{ item.total_act_weight }}
-                </td>
-                <td class="border-table">
-                  {{ item.length }}
-                </td>
-                <td class="border-table">
-                  {{ item.width }}
-                </td>
-                <td class="border-table">
-                  {{ item.height }}
-                </td>
-                <td class="border-table" [ngClass]="{'red-bg':item.is_exact == 1}">
-                  {{ item.is_exact }}
-                </td>
-                <td class="border-table" [ngClass]="{'red-bg':item.is_retain == 1}">
-                  {{ item.is_retain }}
-                </td>
-                <td class="border-table">
-                  {{ item.pickup_note_for_sales }}
-                </td>
-              </tr>
-            </tbody>
-        </table>
-      </div>
+  </div>
 </div>
+<ng-template #noDetail>
+  <mat-progress-bar
+    style="width: 650px"
+    class="loading-bar"
+    color="accent"
+    mode="indeterminate"
+  ></mat-progress-bar>
+  <div style="text-align: center; margin-top: 20px">Loading...</div>
+</ng-template>

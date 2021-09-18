@@ -94,10 +94,10 @@ export class CreateHarmonisedCodesComponent implements OnInit {
   private checkPermission() {
     this._user.GetPermissionUser().subscribe(
         data => {
-            this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountry');
-            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountry');
-            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountry');
-            this.hasViewUserPermission = this._user.RequestPermission(data,'viewCountry');
+            this.hasEditUserPermission = this._user.RequestPermission(data, 'editHarmonisedCode');
+            this.hasCreateUserPermission = this._user.RequestPermission(data, 'createHarmonisedCode');
+            this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteHarmonisedCode');
+            this.hasViewUserPermission = this._user.RequestPermission(data,'viewHarmonisedCode');
             /* Check orther permission if View allow */
             if(!this.hasViewUserPermission) {
                 this.router.navigateByUrl('pages/landing');

@@ -58,10 +58,10 @@ export class CusCountryZoneListComponent implements OnInit {
 	private checkPermission() {
 		this._user.GetPermissionUser().subscribe(
 			(data) => {
-				this.hasEditUserPermission = this._user.RequestPermission(data, 'editCountryZone');
-				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCountryZone');
-				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCountryZone');
-				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCountryZone');
+				this.hasEditUserPermission = this._user.RequestPermission(data, 'editCustomerCountryZone');
+				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createCustomerCountryZone');
+				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteCustomerCountryZone');
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewCustomerCountryZone');
 				/* Check orther permission if View allow */
 				if (!this.hasViewUserPermission) {
 					this.router.navigateByUrl('pages/landing');
