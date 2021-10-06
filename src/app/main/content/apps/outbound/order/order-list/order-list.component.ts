@@ -410,7 +410,17 @@ export class OrderListComponent implements OnInit {
 					}
 				});
 		}
-	}
+  }
+
+  createShipment() {
+    if (this.selected.length < 1) {
+			this.toastyService.error('Please select at least one item.');
+		} else if (this.selected.length > 1) {
+			this.toastyService.error('Please select one item.');
+		} else {
+			this.router.navigateByUrl(`apps/outbound/shipment/create?orderId=${this.selected[0]['order_id']}&awbId=${this.selected[0]['awb_id']}`);
+    }
+  }
 
 	updateTrackingInfo() {
 		if (this.selected.length < 1) {

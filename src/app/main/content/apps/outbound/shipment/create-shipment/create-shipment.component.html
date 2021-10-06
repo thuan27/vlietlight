@@ -1,0 +1,1139 @@
+<ng2-toasty></ng2-toasty>
+<div
+  id="ngx-datatable"
+  class="page-layout simple fullwidth"
+  fusePerfectScrollbar
+>
+  <!-- HEADER -->
+  <div
+    class="header mat-accent-bg p-24 h-160"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayout.gt-xs="column"
+      fxLayoutAlign.gt-xs="center start"
+    >
+      <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-16">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">{{ title }}</span>
+      </div>
+      <div class="h2 mt-16">{{ title }}</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <mat-horizontal-stepper
+    [linear]="true"
+    #stepper
+    (selectionChange)="selectionChange($event)"
+  >
+    <mat-step class="format-step" [stepControl]="ShipmentForm">
+      <form
+        [formGroup]="ShipmentForm"
+        autocomplete="off"
+        class="form form-custom"
+      >
+        <ng-template matStepLabel>Shipper & Receiver</ng-template>
+        <div class="background-title mat-cyan-200-bg">
+          <h2 class="title">Shipper</h2>
+        </div>
+        <div class="box-shadow-form margin-top-10">
+          <div class="row">
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="from_phone"
+                matInput
+                placeholder="From Phone"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.from_phone.hasError('required')"
+              >
+                From Phone is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="from_email"
+                matInput
+                placeholder="From Email"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.from_email.hasError('required')"
+              >
+                From Email is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="from_contact_name"
+                matInput
+                placeholder="From Contact Name"
+              />
+              <mat-error
+                *ngIf="
+                  ShipmentForm.controls.from_contact_name.hasError('required')
+                "
+              >
+                From Contact Name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="from_name"
+                matInput
+                placeholder="From Company Name"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.from_name.hasError('required')"
+              >
+                From Company Name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="background-title mat-cyan-200-bg margin-top-10">
+          <h2 class="title">Receiver</h2>
+        </div>
+        <div class="box-shadow-form margin-top-10">
+          <div class="row">
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="to_name"
+                matInput
+                placeholder="To Name"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.to_name.hasError('required')"
+              >
+                To Name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                placeholder="To Country"
+                [readonly]="true"
+                formControlName="to_country_id"
+                (keyup)="getCountry($event)"
+                type="text"
+                aria-label="Number"
+                matInput
+                [matAutocomplete]="autoCountry"
+              />
+              <mat-autocomplete
+                [displayWith]="displayCountry.bind(this)"
+                autoActiveFirstOption
+                #autoCountry="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let item of country"
+                  [value]="item.country_id"
+                >
+                  {{ item.country_name }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error
+                *ngIf="
+                  ShipmentForm.controls.to_country_id.hasError('hasnotCountry')
+                "
+              >
+                This country does not exist
+              </mat-error>
+              <mat-error
+                *ngIf="ShipmentForm.controls.to_country_id.hasError('required')"
+              >
+                This country Name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="to_contact_name"
+                  matInput
+                  placeholder="To Contact Name"
+                />
+                <mat-error
+                  *ngIf="
+                    ShipmentForm.controls.to_contact_name.hasError('required')
+                  "
+                >
+                  To Contact Name is required
+                </mat-error>
+              </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="to_building_name"
+                matInput
+                placeholder="To Building Name"
+              />
+              <mat-error
+                *ngIf="
+                  ShipmentForm.controls.to_building_name.hasError('required')
+                "
+              >
+                To Building Name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="to_city"
+                matInput
+                placeholder="To City"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.to_city.hasError('required')"
+              >
+                To City is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="to_street_address"
+                matInput
+                placeholder="To Street Address"
+              />
+              <mat-error
+                *ngIf="
+                  ShipmentForm.controls.to_street_address.hasError('required')
+                "
+              >
+                To Street Address is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                formControlName="to_postcode"
+                (keypress)="checkInputNumber($event, true)"
+                matInput
+                placeholder="To PostCode"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.to_postcode.hasError('required')"
+              >
+                To PostCode is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                formControlName="to_suburb"
+                matInput
+                placeholder="To Suburb"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.to_suburb.hasError('required')"
+              >
+                To Suburb is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="to_phone"
+                matInput
+                placeholder="To Phone"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.to_phone.hasError('required')"
+              >
+                To Phone is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                formControlName="to_email"
+                matInput
+                placeholder="To Email"
+              />
+              <mat-error
+                *ngIf="ShipmentForm.controls.to_email.hasError('required')"
+              >
+                To Email is required
+              </mat-error>
+            </mat-form-field>
+            <!-- <mat-form-field class="col-sm-12 col-md-4">
+              <input
+                [readonly]="disabledForm"
+                placeholder="Customer Code"
+                formControlName="cus_address_code"
+                (keyup)="getCusCode($event)"
+                type="text"
+                aria-label="Number"
+                matInput
+                [matAutocomplete]="autoCusCode"
+              />
+              <mat-autocomplete
+                autoActiveFirstOption
+                #autoCusCode="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let option of cusCode; let i = index"
+                  (click)="chooseCusCode(i)"
+                  [value]="option.cus_address_code"
+                >
+                  {{ option.cus_address_code }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <div>
+              <button
+                type="button"
+                *ngIf="!disabledForm"
+                class="button-reciver responsive-button"
+                mat-raised-button
+                [color]="action == 'update' ? 'red-500-bg' : 'teal-500-bg'"
+                (click)="saveCusCode()"
+              >
+                {{ buttonSaveCusCode }}
+              </button>
+              <button
+                class="button-reciver responsive-button"
+                mat-raised-button
+                color="amber-400-bg"
+                (click)="clearReceiver()"
+              >
+                Clear
+              </button>
+            </div> -->
+          </div>
+        </div>
+        <div class="background-title mat-cyan-200-bg margin-top-10">
+          <h2 class="title">Information</h2>
+        </div>
+        <div class="box-shadow-form margin-top-10">
+          <div class="row">
+            <mat-form-field class="col-sm-12 col-md-12">
+              <input
+                [readonly]="disabledForm"
+                formControlName="delivery_instruction"
+                matInput
+                placeholder="Delivery Instruction"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-12">
+              <input
+                [readonly]="disabledForm"
+                formControlName="delivery_reference"
+                matInput
+                placeholder="Delivery Reference"
+              />
+              <mat-error
+                *ngIf="
+                  ShipmentForm.controls.delivery_reference.hasError('required')
+                "
+              >
+                Delivery Reference is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-md-4">
+              <mat-select
+                [attr.disabled]="disabledForm"
+                formControlName="ship_type"
+                placeholder="Ship Type"
+              >
+                <mat-option
+                  *ngFor="let item of constant.ShipType"
+                  [value]="item.value"
+                >
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12 col-md-12">
+              <input
+                [readonly]="disabledForm"
+                formControlName="ord_id"
+                matInput
+                placeholder="Order ID"
+              />
+            </mat-form-field>
+            <div class="col-sm-12 col-md-12">
+              <mat-checkbox formControlName="is_send_tracking_email"
+                >Is Send Tracking Email</mat-checkbox
+              >
+            </div>
+            <div class="col-sm-12 col-md-12 mt-2">
+              <mat-checkbox formControlName="is_signature_required"
+                >Is Signature Required</mat-checkbox
+              >
+            </div>
+            <div class="col-sm-12 col-md-12 mt-2">
+              <mat-checkbox formControlName="is_duties_and_taxes_by_receiver"
+                >Is Duties and Taxed By Receiver</mat-checkbox
+              >
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            class="button-cancel mb-2"
+            mat-raised-button
+            (click)="cancel()"
+          >
+            {{ buttonCancel }}
+          </button>
+          <button
+            class="button-submit"
+            mat-raised-button
+            color="accent"
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+        <!-- <button class="button-cancel" mat-raised-button (click)="cancel()">
+          {{ buttonCancel }}
+        </button>
+        <button class="button-submit" *ngIf="!disabledForm" mat-raised-button color="accent" (click)="onSubmit()">
+          {{ buttonType }}
+        </button> -->
+      </form>
+    </mat-step>
+    <mat-step class="format-step" [stepControl]="PackagesForm">
+      <form
+        [formGroup]="PackagesForm"
+        autocomplete="off"
+        class="form form-custom"
+      >
+        <ng-template matStepLabel>Packages Detail</ng-template>
+        <div class="box-shadow-form">
+          <button
+            class="responsive-button"
+            color="amber-400-bg"
+            mat-raised-button
+            [attr.disabled]="action != 'view'"
+            (click)="addMoreItemPackage($event)"
+          >
+            <mat-icon style="color: white">add_circle</mat-icon>
+          </button>
+          <div formArrayName="ship_detail">
+            <div
+              *ngFor="
+                let item of PackagesForm.get('ship_detail')['controls'];
+                let i = index
+              "
+              [formGroupName]="i"
+              class="row mat-cyan-50-bg custom-form-array"
+            >
+              <mat-form-field class="col-md-4">
+                <mat-select
+                  [attr.disabled]="disabledForm"
+                  (change)="changeItem($event, i)"
+                  formControlName="item_id"
+                  placeholder="Item Type"
+                >
+                  <mat-option
+                    *ngFor="let item of itemType"
+                    [value]="item.value"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.item_id.hasError('required') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.touched
+                  "
+                >
+                  Item is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <mat-select
+                  [attr.disabled]="disabledForm"
+                  formControlName="type"
+                  placeholder="GTS Type"
+                >
+                  <mat-option
+                    *ngFor="let item of constant.GTSTypeOfShipment"
+                    [value]="item.value"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.type.hasError('required') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .type.touched
+                  "
+                >
+                  GTS Type is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="name"
+                  matInput
+                  placeholder="Name"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="weight"
+                  matInput
+                  placeholder="Weight"
+                  (keyup)="validateWeight($event, i)"
+                  (keypress)="checkInputFloat($event, true)"
+                />
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.weight.hasError('required') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .weight.touched
+                  "
+                >
+                  Weight is required
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.weight.hasError('invalid_DOC_weight') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 1 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .weight.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .weight.value != ''
+                  "
+                >
+                  Weight must be greater than 0 and less than 2.5 (kg)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.weight.hasError('invalid_PACK_weight') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 2 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .weight.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .weight.value != ''
+                  "
+                >
+                  Weight must be greater than 0 and less than 2000 (kg)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.weight.hasError('invalid_INVENLOP_weight') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 0 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .weight.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .weight.value != ''
+                  "
+                >
+                  Weight must be greater than 0 (kg)
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="length"
+                  matInput
+                  placeholder="Length"
+                  (blur)="CalculateTheVoulume(i)"
+                  (keyup)="validateWH($event, i)"
+                  (keypress)="checkInputFloat($event, true)"
+                />
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.length.hasError('required') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .length.touched
+                  "
+                >
+                  Length is required
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.length.hasError('invalid_DOC_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 0 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .length.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .length.value != ''
+                  "
+                >
+                  Length must be greater than 0 and less than 1000 (cm)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.length.hasError('invalid_PACK_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 1 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .length.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .length.value != ''
+                  "
+                >
+                  Length must be greater than 0 and less than 10000 (cm)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.length.hasError('invalid_INVENLOP_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 2 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .length.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .length.value != ''
+                  "
+                >
+                  Length must be greater than 0 (cm)
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="width"
+                  matInput
+                  placeholder="Width"
+                  (keypress)="checkInputFloat($event, true)"
+                  (blur)="CalculateTheVoulume(i)"
+                  (keyup)="validateWH($event, i)"
+                />
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.width.hasError('required') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .width.touched
+                  "
+                >
+                  Width is required
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.width.hasError('invalid_DOC_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 0 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .width.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .width.value != ''
+                  "
+                >
+                  Width must be greater than 0 and less than 1000 (cm)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.width.hasError('invalid_PACK_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 1 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .width.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .width.value != ''
+                  "
+                >
+                  Width must be greater than 0 and less than 10000 (cm)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.width.hasError('invalid_INVENLOP_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 2 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .width.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .width.value != ''
+                  "
+                >
+                  Width must be greater than 0 (cm)
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="height"
+                  matInput
+                  placeholder="Height"
+                  (keypress)="checkInputFloat($event, true)"
+                  (blur)="CalculateTheVoulume(i)"
+                  (keyup)="validateWH($event, i)"
+                />
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.height.hasError('required') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .height.touched
+                  "
+                >
+                  Height is required
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.height.hasError('invalid_DOC_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 0 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .height.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .height.value != ''
+                  "
+                >
+                  Height must be greater than 0 and less than 1000 (cm)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.height.hasError('invalid_PACK_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 1 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .height.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .height.value != ''
+                  "
+                >
+                  Height must be greater than 0 and less than 10000 (cm)
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    PackagesForm.controls.ship_detail['controls'][
+                      i
+                    ].controls.height.hasError('invalid_INVENLOP_LWH') &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .item_id.value == 2 &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .height.value != null &&
+                    PackagesForm.controls.ship_detail['controls'][i].controls
+                      .height.value != ''
+                  "
+                >
+                  Height must be greater than 0 (cm)
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <input
+                  formControlName="volume"
+                  matInput
+                  readonly
+                  placeholder="Volume"
+                />
+              </mat-form-field>
+              <div class="col-md-12">
+                <button
+                  class="responsive-button d-block m-auto"
+                  mat-raised-button
+                  (click)="deleteMoreItemPackages(i)"
+                  [attr.disabled]="action != 'view'"
+                >
+                  <mat-icon class="button-in-table">delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            class="button-cancel mb-2"
+            mat-raised-button
+            matStepperPrevious
+          >
+            Back
+          </button>
+          <button
+            class="button-submit"
+            mat-raised-button
+            color="accent"
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+        <!-- <div class="row m-0">
+              <mat-form-field class="col-sm-6">
+                <label>Total Weight</label>
+                <input readonly formControlName="weight" matInput (keypress)="checkInputNumber($event, true)" />
+              </mat-form-field>
+              <mat-form-field class="col-sm-6">
+                <label>Total Volume</label>
+                <input readonly formControlName="volume" matInput (keypress)="checkInputNumber($event, true)" />
+              </mat-form-field>
+            </div> -->
+      </form>
+    </mat-step>
+    <mat-step class="format-step" [stepControl]="InvoiceInfoForm">
+      <form
+        [formGroup]="InvoiceInfoForm"
+        autocomplete="off"
+        class="form form-custom"
+      >
+        <ng-template matStepLabel>Invoice Info</ng-template>
+        <div class="box-shadow-form">
+          <mat-form-field class="col-sm-12 mt-2">
+            <mat-select
+              [attr.disabled]="disabledForm"
+              formControlName="sp_code"
+              placeholder="Shipping Purpose"
+            >
+              <mat-option
+                *ngFor="let item of listShippingPurpose"
+                [value]="item.sp_code"
+              >
+                {{ item.sp_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="disabledForm"
+              formControlName="inv_description"
+              matInput
+              placeholder="Invoice Description"
+            />
+            <mat-error
+              *ngIf="
+                InvoiceInfoForm.controls.inv_description.hasError('required')
+              "
+            >
+              Invoice Description is required
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <button
+              class="button-cancel mb-2"
+              mat-raised-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              class="button-submit"
+              mat-raised-button
+              color="accent"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step class="format-step" [stepControl]="InvoiceDetailForm">
+      <form
+        [formGroup]="InvoiceDetailForm"
+        autocomplete="off"
+        class="form form-custom"
+      >
+        <ng-template matStepLabel>Invoice Details</ng-template>
+        <div class="box-shadow-form">
+          <button
+            class="responsive-button"
+            color="amber-400-bg"
+            mat-raised-button
+            [attr.disabled]="action != 'view'"
+            (click)="addMoreItemInvoiceDetail($event)"
+          >
+            <mat-icon style="color: white">add_circle</mat-icon>
+          </button>
+          <div formArrayName="invoice_details">
+            <div
+              *ngFor="
+                let item of InvoiceDetailForm.get('invoice_details')[
+                  'controls'
+                ];
+                let i = index
+              "
+              [formGroupName]="i"
+              class="row mat-cyan-50-bg custom-form-array"
+            >
+              <mat-form-field class="col-sm-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="full_description"
+                  matInput
+                  placeholder="Full Description: {{ i + 1 }}"
+                />
+                <mat-error
+                  *ngIf="
+                    InvoiceDetailForm.controls.invoice_details['controls'][
+                      i
+                    ].controls.full_description.hasError('required')
+                  "
+                >
+                  Full Description is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="vi_description"
+                  matInput
+                  placeholder="Vietnamese Description"
+                />
+                <mat-error
+                  *ngIf="
+                    InvoiceDetailForm.controls.invoice_details['controls'][
+                      i
+                    ].controls.vi_description.hasError('required')
+                  "
+                >
+                  Vietnamese Description is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="quantity"
+                  matInput
+                  (change)="calculateValue($event)"
+                  (keypress)="checkInputNumber($event, true)"
+                  placeholder="Quantity"
+                />
+                <mat-error
+                  *ngIf="
+                    InvoiceDetailForm.controls.invoice_details['controls'][
+                      i
+                    ].controls.quantity.hasError('required')
+                  "
+                >
+                  Quantity is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-4">
+                <mat-select
+                  [attr.disabled]="disabledForm"
+                  formControlName="uom_code"
+                  placeholder="Uom Code"
+                >
+                  <mat-option
+                    *ngFor="let item of listUom"
+                    [value]="item.uom_code"
+                  >
+                    {{ item.uom_name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="col-sm-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="unit_value"
+                  (change)="calculateValue($event)"
+                  matInput
+                  (keypress)="checkInputFloat($event, true)"
+                  placeholder="Unit Value"
+                />
+                <mat-error
+                  *ngIf="
+                    InvoiceDetailForm.controls.invoice_details['controls'][
+                      i
+                    ].controls.unit_value.hasError('required')
+                  "
+                >
+                  Unit Value is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-4">
+                <mat-select
+                  [attr.disabled]="disabledForm"
+                  formControlName="currency"
+                  placeholder="Currency"
+                >
+                  <mat-option *ngFor="let item of currency" [value]="item.key">
+                    {{ item.value }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="col-md-4">
+                <input
+                  placeholder="Country"
+                  formControlName="made_in_country_id"
+                  (keyup)="getInvoiceCountry($event, i)"
+                  type="text"
+                  aria-label="Number"
+                  matInput
+                  [readonly]="disabledForm"
+                  [matAutocomplete]="autoInvoiceCountry"
+                />
+                <mat-autocomplete
+                  [displayWith]="displayInvoiceCountry.bind(this)"
+                  autoActiveFirstOption
+                  #autoInvoiceCountry="matAutocomplete"
+                >
+                  <mat-option
+                    *ngFor="let item of invoiceCountry"
+                    [value]="item.country_id"
+                  >
+                    {{ item.country_name }}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error
+                  *ngIf="
+                    InvoiceDetailForm.controls.invoice_details['controls'][
+                      i
+                    ].controls.made_in_country_id.hasError('hasnotCountry')
+                  "
+                >
+                  This country does not exist
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    InvoiceDetailForm.controls.invoice_details['controls'][
+                      i
+                    ].controls.made_in_country_id.hasError('required')
+                  "
+                >
+                  This country Name is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-4">
+                <mat-select
+                  [attr.disabled]="disabledForm"
+                  formControlName="hs_code"
+                  placeholder="Hs Code"
+                >
+                  <mat-option
+                    *ngFor="let item of listHarmonisedCode"
+                    [value]="item.hs_code"
+                  >
+                    {{ item.hs_name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="col-sm-4">
+                <input
+                  [readonly]="disabledForm"
+                  formControlName="material"
+                  matInput
+                  placeholder="Material"
+                />
+                <mat-error
+                  *ngIf="
+                    InvoiceDetailForm.controls.invoice_details['controls'][
+                      i
+                    ].controls.material.hasError('required')
+                  "
+                >
+                  Material is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-sm-12">
+                <input
+                  matInput
+                  (keypress)="checkInputFloat($event, true)"
+                  formControlName="unit_kg"
+                  placeholder="Unit Kg"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-sm-12">
+                <input
+                  matInput
+                  formControlName="item_SKU"
+                  placeholder="Item SKU"
+                />
+              </mat-form-field>
+              <div class="col-sm-12 col-md-12">
+                <mat-checkbox formControlName="is_dangerous_goods"
+                  >Is Dangerous Goods?</mat-checkbox
+                >
+              </div>
+              <mat-form-field class="col-sm-12">
+                <input
+                  [readonly]="true"
+                  matInput
+                  formControlName="total_value"
+                  placeholder="Total Value"
+                />
+              </mat-form-field>
+              <button
+                class="responsive-button d-block m-auto"
+                mat-raised-button
+                (click)="deleteMoreItemInvoiceDetails(i)"
+                [attr.disabled]="action != 'view'"
+              >
+                <mat-icon class="button-in-table">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div>
+            <button
+              class="button-cancel mb-2"
+              mat-raised-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              class="button-submit"
+              mat-raised-button
+              color="accent"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step class="format-step">
+      <ng-template matStepLabel>Final Preview</ng-template>
+      <final-review></final-review>
+      <div>
+        <button class="button-cancel mb-2" mat-raised-button matStepperPrevious>
+          Back
+        </button>
+        <button
+          class="button-submit"
+          mat-raised-button
+          color="accent"
+          (click)="submitForm()"
+        >
+          {{ buttonType }}
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

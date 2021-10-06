@@ -58,6 +58,10 @@
             <mat-icon>system_update_alt</mat-icon>
             <span>Update Agent Data</span>
           </button>
+          <button mat-menu-item (click)="createShipment()">
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>Create Shipment</span>
+          </button>
         </mat-menu>
       </div>
     </div>
@@ -176,7 +180,7 @@
             matTooltip="See the AWB"
             matTooltipPosition="below"
             matTooltipHideDelay="200"
-            href="#/apps/inbound/awb1/{{ row.order_id }}"
+            href="#/apps/inbound/awb1/{{ row.awb_id }}"
           >
             {{ row.awb_num }}</a
           >

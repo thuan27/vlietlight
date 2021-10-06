@@ -190,6 +190,13 @@ export const navigation = [
                       'url'  : '/apps/outbound/order',
                       'exactMatch': true
                   },
+                  {
+                    'id'   : 'shipment',
+                    'title': 'Shipment',
+                    'type' : 'item',
+                    'url'  : '/apps/outbound/shipment',
+                    'exactMatch': true
+                },
               ]
             },
             {

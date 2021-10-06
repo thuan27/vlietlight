@@ -1,0 +1,112 @@
+.border-table {
+	border-right: 1px solid #b3e5fc;
+	border-bottom: 1px solid #b3e5fc;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.border-table:last-child {
+	border-right: 0px;
+}
+
+.background-title {
+	align-items: center;
+	font-weight: 600;
+	padding: 10;
+	border-radius: 4px;
+	.title {
+		color: white;
+		padding: 10px;
+		margin: 0;
+	}
+}
+
+.button-submit {
+	margin-top: 30px;
+	float: right;
+}
+
+.table-custom {
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.button-cancel {
+	margin-top: 30px;
+	float: left;
+}
+
+.button-reciver {
+	height: 35px;
+	margin-top: 11px;
+	margin-left: 20px;
+}
+
+.custom-code {
+	border-top: 1px solid #66bb6b;
+	border-bottom: 1px solid #66bb6b;
+}
+
+@media only screen and (max-width: 600px) {
+	.button-reciver {
+		margin-left: 5px;
+	}
+	.responsive-button {
+		min-width: 20px !important;
+	}
+}
+
+.uploadfilecontainer {
+	background-image: url("../../../../../../../assets/images/common/drag-drop.png");
+	background-repeat: no-repeat;
+	background-size: 100px;
+	background-position: center;
+	height: 200px;
+	width: 80%;
+	margin: 20px auto;
+	border: 2px dashed #1c8adb;
+	border-radius: 10px;
+}
+
+.uploadfilecontainer:hover {
+	cursor: pointer;
+	background-color: #9ecbec !important;
+	opacity: 0.8;
+}
+
+.files-list {
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin: 10px auto;
+	background: #ffffff;
+	border: 1px dashed;
+	border-radius: 12px;
+	padding: 5px;
+	color: #1c8adb;
+}
+
+.files-list .delete-file {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.files-list .delete-file img {
+	width: 30px;
+}
+
+.form-custom {
+	box-shadow: none;
+	.checkbox-invoice-info {
+		padding-left: 15px !important;
+	}
+}
+.custom-form-array {
+	margin: 10px 0;
+	padding: 20px 15px;
+}
+::ng-deep .mat-step-header[aria-labelledby="disabled_Resi"] {
+	pointer-events: none !important;
+	cursor: not-allowed;
+}

@@ -119,7 +119,7 @@ export class TokenInterceptor implements HttpInterceptor {
 		}
 		return next.handle(request).do(
 			(event: HttpEvent<any>) => {
-				console.log(event);
+				// console.log(event);
 			},
 			(err: any) => {
 				console.log(err);

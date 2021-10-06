@@ -1,0 +1,427 @@
+<div class="box-shadow-form">
+  <div class="h2">Review information below and click to change</div>
+
+  <!-- Shipper and Receiver -->
+  <mat-expansion-panel
+    [expanded]="step === 0"
+    (opened)="setStep(0)"
+    hideToggle="true"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="icon-title mr-2">check_circle</mat-icon> Step 1
+      </mat-panel-title>
+      <mat-panel-description>
+        Shipper & Receiver
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="row width-full" *ngIf="dataShipment">
+      <div class="col-sm-6 row width-full">
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.from_name"
+            matInput
+            placeholder="From Name"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.from_phone"
+            matInput
+            placeholder="From Phone"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.from_email"
+            matInput
+            placeholder="From Email"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.from_contact_name"
+            matInput
+            placeholder="From Contact Name"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6 row width-full">
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_name"
+            matInput
+            placeholder="To Name"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_phone"
+            matInput
+            placeholder="To Phone"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_email"
+            matInput
+            placeholder="To Email"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_contact_name"
+            matInput
+            placeholder="To Contact Name"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-sm-12 row width-full">
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_street_address"
+            matInput
+            placeholder="To Street Address"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_building_name"
+            matInput
+            placeholder="To Building Name"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_city"
+            matInput
+            placeholder="To City"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_country_name"
+            matInput
+            placeholder="To Country"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_postcode"
+            matInput
+            placeholder="To Post Code"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.to_suburb"
+            matInput
+            placeholder="To Suburb"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-sm-12">
+          <input
+            [readonly]="true"
+            [value]="dataShipment.country_code"
+            matInput
+            placeholder="Country Code"
+          />
+        </mat-form-field>
+      </div>
+      <mat-form-field class="col-sm-12">
+        <input
+          [readonly]="true"
+          [value]="dataShipment.delivery_instruction"
+          matInput
+          placeholder="Delivery Instruction"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12">
+        <input
+          [readonly]="true"
+          [value]="dataShipment.delivery_reference"
+          matInput
+          placeholder="Delivery Reference"
+        />
+      </mat-form-field>
+      <div class="col-sm-12">
+        <mat-checkbox [checked]="dataShipment.is_send_tracking_email"
+          >Is Send Tracking Email</mat-checkbox
+        >
+      </div>
+      <div class="col-sm-12 mt-2">
+        <mat-checkbox [checked]="dataShipment.is_signature_required"
+          >Is Signature Required</mat-checkbox
+        >
+      </div>
+      <div class="col-sm-12 mt-2">
+        <mat-checkbox [checked]="dataShipment.is_duties_and_taxes_by_receiver"
+          >Is Duties and Taxes By Receiver</mat-checkbox
+        >
+      </div>
+      <mat-form-field class="col-sm-12">
+        <input
+          [readonly]="true"
+          [value]="dataShipment.ord_id"
+          matInput
+          placeholder="Order ID"
+        />
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+
+  <!-- Package Detail -->
+  <mat-expansion-panel
+    [expanded]="step === 1"
+    (opened)="setStep(1)"
+    hideToggle="true"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="icon-title mr-2">check_circle</mat-icon> Step 2
+      </mat-panel-title>
+      <mat-panel-description>
+        Packages Detail
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="dataPackages">
+      <div
+        *ngFor="let item of dataPackages.ship_detail"
+        class="box-shadow-form mb-3"
+      >
+        <div class="row width-full">
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.item_name"
+              matInput
+              placeholder="Item Type"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.type"
+              matInput
+              placeholder="GTS Type"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.name"
+              matInput
+              placeholder="Name"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.weight"
+              matInput
+              placeholder="Weight"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.length"
+              matInput
+              placeholder="Length"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.width"
+              matInput
+              placeholder="Width"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.height"
+              matInput
+              placeholder="Height"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.volume"
+              matInput
+              placeholder="Volume"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  <!-- Invoice Info -->
+  <mat-expansion-panel
+    [expanded]="step === 2"
+    (opened)="setStep(2)"
+    hideToggle="true"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="icon-title mr-2">check_circle</mat-icon> Step 3
+      </mat-panel-title>
+      <mat-panel-description>
+        Invoice Info
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="row width-full" *ngIf="dataInvoiceInfo">
+      <mat-form-field class="col-sm-12">
+        <input
+          [readonly]="true"
+          [value]="dataInvoiceInfo.sp_name"
+          matInput
+          placeholder="Shipping Purpose"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-12">
+        <input
+          [readonly]="true"
+          [value]="dataInvoiceInfo.inv_description"
+          matInput
+          placeholder="Invoice Description"
+        />
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+
+  <!-- Invoice Details -->
+  <mat-expansion-panel
+    [expanded]="step === 3"
+    (opened)="setStep(3)"
+    hideToggle="true"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="icon-title mr-2">check_circle</mat-icon> Step 4
+      </mat-panel-title>
+      <mat-panel-description>
+        Invoice Details
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="dataInvoiceDetail">
+      <div
+        *ngFor="let item of dataInvoiceDetail.invoice_details; let i = index"
+        class="box-shadow-form mb-3"
+      >
+        <div class="row width-full">
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.full_description"
+              matInput
+              placeholder="Full Description {{ i + 1 }}"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.vi_description"
+              matInput
+              placeholder="Vietnamese Description"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.quantity"
+              matInput
+              placeholder="Quantity"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.uom_name"
+              matInput
+              placeholder="Uom Code"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.unit_value"
+              matInput
+              placeholder="Unit Value"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.currency"
+              matInput
+              placeholder="Currency"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.made_in_country_name"
+              matInput
+              placeholder="Country"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.hs_name"
+              matInput
+              placeholder="Hs Code"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.material"
+              matInput
+              placeholder="Material"
+            />
+          </mat-form-field>
+          <div class="col-sm-12">
+            <mat-checkbox [checked]="item.is_dangerous_goods"
+              >Is Dangerous Goods?</mat-checkbox
+            >
+          </div>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.unit_kg"
+              matInput
+              placeholder="Unit Kg"
+            />
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <input
+              [readonly]="true"
+              [value]="item.item_SKU"
+              matInput
+              placeholder="Item SKU"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</div>
