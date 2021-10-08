@@ -8,22 +8,26 @@ export class CreateShipmentService {
 	constructor(private http: HttpClient, private _Func: Functions, private apiConfig: APIConfig) {}
 
 	createAWB(param) {
-    return this.http.post(`${this.apiConfig.SHIPMENT}`, param, { headers: this._Func.AuthHeaderPost() });
+		return this.http.post(`${this.apiConfig.SHIPMENT}`, param, { headers: this._Func.AuthHeaderPost() });
 	}
 
 	updateShipment(param, id) {
-    return this.http.put(`${this.apiConfig.SHIPMENT}/${id}/update`, param, {
-      headers: this._Func.AuthHeaderPost()
-    });
-  }
+		return this.http.put(`${this.apiConfig.SHIPMENT}/${id}/update`, param, {
+			headers: this._Func.AuthHeaderPost()
+		});
+	}
 
-  // getDetail(params) {
-  //   return this.http.get(this.apiConfig.ORDER_LIST + '/' + params);
-  // }
+	// getDetail(params) {
+	//   return this.http.get(this.apiConfig.ORDER_LIST + '/' + params);
+	// }
 
-  getAWB(id) {
-    return this.http.get(`${this.apiConfig.CREATE_AWB}/${id}`);
-  }
+	getAWB(id) {
+		return this.http.get(`${this.apiConfig.CREATE_AWB}/${id}`);
+	}
+
+	getOrder(id) {
+		return this.http.get(`${this.apiConfig.ORDER_LIST}/${id}`);
+	}
 
 	getCountry(data) {
 		return this.http.get(this.apiConfig.GET_COUNTRY + '?limit=300' + data);

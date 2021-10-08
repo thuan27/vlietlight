@@ -22,9 +22,9 @@ export class APIConfig {
 	public LIST_AWB = this.API_BASE + '/awbs/v1/search';
 	public SHIPMENT = this.API_BASE + '/orders/v1/shipment';
 	public GET_STATUS_SHIPMENT = this.API_BASE + '/orders/v1/shipment-statuses';
-	public GET_CUS_CODE = this.API_BASE + '/orders/v1/cus-address/suggest-cus-address';
-	public UPDATE_CUSTOMER_CODE = this.API_BASE + '/orders/v1/cus-address/update-cus-address';
-	public CREATE_CUSTOMER_CODE = this.API_BASE + '/orders/v1/cus-address/create-cus-address';
+	public GET_CUS_CODE = this.API_BASE + '/orders/v1/cus-address/suggest-receiver-address';
+	public UPDATE_CUSTOMER_CODE = this.API_BASE + '/orders/v1/cus-address/update-receiver-address';
+	public CREATE_CUSTOMER_CODE = this.API_BASE + '/orders/v1/cus-address/create-receiver-address';
 	public GET_UOM = this.API_BASE + '/master-data/v1/uom';
 	public OPTION_AWB = this.API_BASE + '/awbs/v1/awb';
 	public AWB_FILE = this.API_BASE + '/upload/v1/file';

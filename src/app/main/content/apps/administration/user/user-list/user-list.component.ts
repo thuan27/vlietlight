@@ -10,192 +10,187 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
-  providers: [UserService, UserAdminListService, ToastyService]
+	selector: 'user-list',
+	templateUrl: './user-list.component.html',
+	styleUrls: [ './user-list.component.scss' ],
+	providers: [ UserService, UserAdminListService, ToastyService ]
 })
 export class UserAdminListComponent implements OnInit {
-  rows: any;
-  loadingIndicator = true;
-  reorderable = true;
-  pagination: any;
-  userList;
-  total;
-  current_page;
-  selected: any[] = [];
-  searchForm: FormGroup;
-  status = [
-    { value: 'AC', name: 'Active' },
-    { value: 'IA', name: 'Inactive' }
-  ];
-  serviceName;
-  sortData = '';
-  hasEditUserPermission = false;
-  hasCreateUserPermission = false;
-  hasDeleteUserPermission = false;
-  private hasViewUserPermission = false;
-  dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+	rows: any;
+	loadingIndicator = true;
+	reorderable = true;
+	pagination: any;
+	userList;
+	total;
+	current_page;
+	selected: any[] = [];
+	searchForm: FormGroup;
+	status = [ { value: 'AC', name: 'Active' }, { value: 'IA', name: 'Inactive' } ];
+	serviceName;
+	sortData = '';
+	hasEditUserPermission = false;
+	hasCreateUserPermission = false;
+	hasDeleteUserPermission = false;
+	private hasViewUserPermission = false;
+	dialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
-  constructor(
-    private router: Router,
-    private userAdminListService: UserAdminListService,
-    private toastyService: ToastyService,
-    private formBuilder: FormBuilder,
-    private _user: UserService,
-    private _Func: Functions,
-    public dialog: MatDialog,
-    private toastyConfig: ToastyConfig
-  ) {
-    this.toastyConfig.position = 'top-right';
-    this.total = 0;
-  }
+	constructor(
+		private router: Router,
+		private userAdminListService: UserAdminListService,
+		private toastyService: ToastyService,
+		private formBuilder: FormBuilder,
+		private _user: UserService,
+		private _Func: Functions,
+		public dialog: MatDialog,
+		private toastyConfig: ToastyConfig
+	) {
+		this.toastyConfig.position = 'top-right';
+		this.total = 0;
+	}
 
-  ngOnInit() {
-    this.buildForm();
-    this.checkPermission();
-  }
+	ngOnInit() {
+		this.buildForm();
+		this.checkPermission();
+	}
 
-  private buildForm() {
-    this.searchForm = this.formBuilder.group({
-      username: '',
-      first_name: '',
-      last_name: '',
-      email: '',
-      status: '',
-    });
-  }
+	private buildForm() {
+		this.searchForm = this.formBuilder.group({
+			username: '',
+			first_name: '',
+			last_name: '',
+			email: '',
+			status: ''
+		});
+	}
 
-  // Check permission for user using this function page
-  private checkPermission() {
-    this._user.GetPermissionUser().subscribe(
-      data => {
-        this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
-        this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
-        this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
-        this.hasViewUserPermission = this._user.RequestPermission(data, 'viewService');
-        /* Check orther permission if View allow */
-        if (!this.hasViewUserPermission) {
-          this.router.navigateByUrl('pages/landing');
-        }
-        else {
-          this.getList();
-        }
-      },
-      err => {
-        this.toastyService.error(err.error.errors.message);
-      }
-    );
-  }
+	// Check permission for user using this function page
+	private checkPermission() {
+		this._user.GetPermissionUser().subscribe(
+			(data) => {
+				this.hasEditUserPermission = this._user.RequestPermission(data, 'editService');
+				this.hasCreateUserPermission = this._user.RequestPermission(data, 'createService');
+				this.hasDeleteUserPermission = this._user.RequestPermission(data, 'deleteService');
+				this.hasViewUserPermission = this._user.RequestPermission(data, 'viewService');
+				/* Check orther permission if View allow */
+				if (!this.hasViewUserPermission) {
+					this.router.navigateByUrl('pages/landing');
+				} else {
+					this.getList();
+				}
+			},
+			(err) => {
+				this.toastyService.error(err.error.errors.message);
+			}
+		);
+	}
 
-  reset() {
-    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-    for (let i = 0; i < arrayItem.length; i++) {
-      this.searchForm.controls[arrayItem[i]].setValue('');
-    }
-    this.sortData = '';
-    this.getList();
-  }
+	reset() {
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			this.searchForm.controls[arrayItem[i]].setValue('');
+		}
+		this.sortData = '';
+		this.getList();
+	}
 
-  getList(page = 1) {
-    let params = '?page=' + page;
-    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-    for (let i = 0; i < arrayItem.length; i++) {
-      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
-    }
-    if (this.sortData !== '') {
-      params += this.sortData;
-    }
-    this.userList = this.userAdminListService.getList(params);
+	getList(page = 1) {
+		let params = '?page=' + page;
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		if (this.sortData !== '') {
+			params += this.sortData;
+		}
+		this.userList = this.userAdminListService.getList(params);
 
-    this.userList.subscribe((dataList: any[]) => {
-      dataList['data'].forEach((data) => {
-        data['status_temp'] = data['status'];
-        data['status'] = data['status'] == 'AC' ? 'Active' : 'Inactive';
-        data['username_temp'] = data['username'];
-        data['username'] = `<a href="#/apps/administration/users/${data['user_id']}">${data['username_temp']}</a>`;
-      });
-      this.rows = dataList['data'];
-      this.total = dataList['meta']['totalCount'];
-      this.current_page = parseInt(dataList['meta']['currentPage']) - 1;
-      this.loadingIndicator = false;
-    });
-  }
+		this.userList.subscribe((dataList: any[]) => {
+			dataList['data'].forEach((data) => {
+				data['status_temp'] = data['status'];
+				data['status'] = data['status'] == 'AC' ? 'Active' : 'Inactive';
+				data['username_temp'] = data['username'];
+				data['username'] = `<a href="#/apps/administration/users/${data['user_id']}">${data[
+					'username_temp'
+				]}</a>`;
+			});
+			this.rows = dataList['data'];
+			this.total = dataList['meta']['totalCount'];
+			this.current_page = parseInt(dataList['meta']['currentPage']) - 1;
+			this.loadingIndicator = false;
+		});
+	}
 
-  onSelect(event) {
-    console.log('this.selected', this.selected);
-  }
+	onSelect(event) {}
 
-  pageCallback(e) {
-    this.getList(parseInt(e['offset']) + 1);
-    this.selected = [];
-  }
+	pageCallback(e) {
+		this.getList(parseInt(e['offset']) + 1);
+		this.selected = [];
+	}
 
-  create() {
-    this.router.navigate(['apps/administration/users/create']);
-  }
+	create() {
+		this.router.navigate([ 'apps/administration/users/create' ]);
+	}
 
-  update() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.router.navigateByUrl(`apps/administration/users/${this.selected[0]['user_id']}/update`);
-    }
-  }
+	update() {
+		if (this.selected.length < 1) {
+			this.toastyService.error('Please select at least one item.');
+		} else if (this.selected.length > 1) {
+			this.toastyService.error('Please select one item.');
+		} else {
+			this.router.navigateByUrl(`apps/administration/users/${this.selected[0]['user_id']}/update`);
+		}
+	}
 
-  delete() {
-    if (this.selected.length < 1) {
-      this.toastyService.error('Please select at least one item.');
-    } else if (this.selected.length > 1) {
-      this.toastyService.error('Please select one item.');
-    } else {
-      this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
-      this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
-      this.dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          let data = {
-            user_ids: this.selected[0].user_id
-          };
-          this.userAdminListService.delete(data).subscribe((data) => {
-            this.toastyService.success('Deleted Successfully');
-            setTimeout(
-              () => {
-                this.reset();
-                this.selected = [];
-              },
-              700
-            );
-          });
-        } else {
-        }
-        this.dialogRef = null;
-      });
-    }
-  }
+	delete() {
+		if (this.selected.length < 1) {
+			this.toastyService.error('Please select at least one item.');
+		} else if (this.selected.length > 1) {
+			this.toastyService.error('Please select one item.');
+		} else {
+			this.dialogRef = this.dialog.open(FuseConfirmDialogComponent);
+			this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+			this.dialogRef.afterClosed().subscribe((result) => {
+				if (result) {
+					let data = {
+						user_ids: this.selected[0].user_id
+					};
+					this.userAdminListService.delete(data).subscribe((data) => {
+						this.toastyService.success('Deleted Successfully');
+						setTimeout(() => {
+							this.reset();
+							this.selected = [];
+						}, 700);
+					});
+				} else {
+				}
+				this.dialogRef = null;
+			});
+		}
+	}
 
-  onSort(event) {
-    this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
-    this.getList(this.current_page + 1);
-    this.current_page = this.current_page +1;
-  }
+	onSort(event) {
+		this.sortData = `&sort[${event.sorts[0].prop}]=${event.sorts[0].dir}`;
+		this.getList(this.current_page + 1);
+		this.current_page = this.current_page + 1;
+	}
 
-  exportCsv() {
-    let fileName = 'User Admin';
-    let fileType = '.csv';
-    let params = '?page=' + this.current_page;
-    const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
-    for (let i = 0; i < arrayItem.length; i++) {
-      params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
-    }
-    if (this.sortData !== '') {
-      params += this.sortData;
-    }
-    let getReport = this.userAdminListService.getReport(params);
-    getReport.subscribe((data) => {
-      var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs.saveAs(blob, fileName + fileType);
-    })
-  }
+	exportCsv() {
+		let fileName = 'User Admin';
+		let fileType = '.csv';
+		let params = '?page=' + this.current_page;
+		const arrayItem = Object.getOwnPropertyNames(this.searchForm.controls);
+		for (let i = 0; i < arrayItem.length; i++) {
+			params = params + `&${arrayItem[i]}=${this.searchForm.controls[arrayItem[i]].value}`;
+		}
+		if (this.sortData !== '') {
+			params += this.sortData;
+		}
+		let getReport = this.userAdminListService.getReport(params);
+		getReport.subscribe((data) => {
+			var blob = new Blob([ data ], {
+				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			});
+			FileSaver.saveAs.saveAs(blob, fileName + fileType);
+		});
+	}
 }

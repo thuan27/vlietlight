@@ -11,7 +11,7 @@ import { ToastyService, ToastyConfig } from '@fuse/directives/ng2-toasty';
 import { Functions } from '@fuse/core/function';
 import { ShipmentShareService } from '@fuse/services/share-shipment.service';
 import * as constant from '@fuse/core/constant/constant';
-import { map } from 'rxjs/operators';
+import { debounce } from 'rxjs/operators';
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -172,13 +172,18 @@ export class CreateShipmentComponent implements OnInit {
 			// // volume: 0.132,
 			// user_id: 1,
 			// pick_up_time: '10:30:00',
-			cus_address_code: [ 'temp' ]
+			cus_address_code: [ '' ]
 			// ship_detail: this.formBuilder.array([this.buildChildGroup()])
 		});
 		this.buildPackagesForm();
 		this.buildInvoiceDetailForm();
 		this.buildInvoiceInfoForm();
-		this.ShipmentForm.controls['ord_id'].setValue(this.activeRoute.snapshot.queryParams['orderId']);
+		if (this.activeRoute.snapshot.queryParams['orderId']) {
+			this.ShipmentForm.controls['ord_id'].setValue(this.activeRoute.snapshot.queryParams['orderId']);
+			this._CreateShipmentService.getOrder(this.activeRoute.snapshot.queryParams['orderId']).subscribe((data) => {
+				this.idCustomer = data['data'].customer_id;
+			});
+		}
 		if (this.activeRoute.snapshot.queryParams['awbId']) {
 			this._CreateShipmentService
 				.getAWB(this.activeRoute.snapshot.queryParams['awbId'])
@@ -395,7 +400,7 @@ export class CreateShipmentComponent implements OnInit {
 					}, 700);
 				},
 				(err) => {
-					this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+					this.toastyService.error(err.error.errors.message);
 				}
 			);
 		} else {
@@ -407,7 +412,7 @@ export class CreateShipmentComponent implements OnInit {
 					}, 700);
 				},
 				(err) => {
-					this.toastyService.error(this._Func.parseErrorMessageFromServer(err));
+					this.toastyService.error(err.error.errors.message);
 				}
 			);
 		}
@@ -698,23 +703,30 @@ export class CreateShipmentComponent implements OnInit {
 
 	saveCusCode() {
 		let dataCusCode = {
-			contact: this.ShipmentForm.controls['to_contact_name'].value,
-			company_name: this.ShipmentForm.controls['to_name'].value,
-			address: this.ShipmentForm.controls['to_street_address'].value,
-			post_code: this.ShipmentForm.controls['to_postcode'].value,
-			phone: this.ShipmentForm.controls['to_phone'].value,
-			email: this.ShipmentForm.controls['to_email'].value,
+			to_phone: this.ShipmentForm.controls['to_phone'].value,
 			cus_address_code: this.ShipmentForm.controls['cus_address_code'].value,
-			country_id: this.ShipmentForm.controls['to_country_id'].value
+			to_building_name: this.ShipmentForm.controls['to_building_name'].value,
+			to_address: this.ShipmentForm.controls['to_street_address'].value,
+			to_suburb: this.ShipmentForm.controls['to_suburb'].value,
+			to_city: this.ShipmentForm.controls['to_city'].value,
+			to_name: this.ShipmentForm.controls['to_name'].value,
+			to_post_code: this.ShipmentForm.controls['to_postcode'].value,
+			to_country_id: this.ShipmentForm.controls['to_country_id'].value,
+			to_contact: this.ShipmentForm.controls['to_contact_name'].value,
+			to_email: this.ShipmentForm.controls['to_email'].value
 		};
 		let validate =
-			this.ShipmentForm.controls['to_contact_name'].valid &&
-			this.ShipmentForm.controls['to_name'].valid &&
-			this.ShipmentForm.controls['to_street_address'].valid &&
-			this.ShipmentForm.controls['to_postcode'].valid &&
 			this.ShipmentForm.controls['to_phone'].valid &&
 			this.ShipmentForm.controls['cus_address_code'].valid &&
-			this.ShipmentForm.controls['to_country_id'].valid;
+			this.ShipmentForm.controls['to_building_name'].valid &&
+			this.ShipmentForm.controls['to_street_address'].valid &&
+			this.ShipmentForm.controls['to_suburb'].valid &&
+			this.ShipmentForm.controls['to_city'].valid &&
+			this.ShipmentForm.controls['to_name'].valid &&
+			this.ShipmentForm.controls['to_postcode'].valid &&
+			this.ShipmentForm.controls['to_country_id'].valid &&
+			this.ShipmentForm.controls['to_contact_name'].valid &&
+			this.ShipmentForm.controls['to_email'].valid;
 		if (validate) {
 			if (this.action === 'update') {
 				this._CreateShipmentService.updateCusCode(this.idCustomer, dataCusCode).subscribe(
@@ -844,7 +856,6 @@ export class CreateShipmentComponent implements OnInit {
 	}
 
 	selectionChange(event) {
-		console.log('------');
 		let data = {};
 		let dataPackages = {};
 		let dataInvoiceInfo = {};

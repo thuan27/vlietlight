@@ -351,7 +351,6 @@ export class OrderListComponent implements OnInit {
 	}
 
 	onSelect(event) {
-		console.log('this.selected', this.selected);
 	}
 
 	pageCallback(e) {

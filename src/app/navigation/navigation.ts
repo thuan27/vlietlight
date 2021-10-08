@@ -195,7 +195,9 @@ export const navigation = [
                     'title': 'Shipment',
                     'type' : 'item',
                     'url'  : '/apps/outbound/shipment',
-                    'exactMatch': true
+                    'exactMatch': true,
+                    'hasIcon': true,
+                    'image': './../../assets/images/logos/favicon-omni2.ico'
                 },
               ]
             },
